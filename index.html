@@ -853,7 +853,7 @@
   .bat-detail-sequence li strong { display:flex; gap:8px; align-items:flex-start; }
   .bat-detail-sequence li strong span:first-child { flex:none; color:var(--md-sys-color-primary); }
   .bat-detail-sequence li strong span:last-child { flex:1; min-width:0; color:var(--md-sys-color-on-surface); overflow-wrap:anywhere; }
-  .bat-detail-step-detail { display:block; min-width:0; margin:5px 0 0 24px; color:var(--md-sys-color-on-surface-variant); font-size:11px; white-space:pre-line; overflow-wrap:anywhere; }
+  .bat-detail-step-detail { display:block; min-width:0; margin:5px 0 0 24px; color:var(--md-sys-color-on-surface-variant); font-size:11px; line-height:1.5; text-align:justify; text-align-last:left; white-space:pre-line; overflow-wrap:anywhere; }
   .bat-detail-progress { height:5px; overflow:hidden; border-radius:999px; background:var(--md-sys-color-surface-container-high); }
   .bat-detail-progress-fill { width:0; height:100%; border-radius:inherit; background:var(--md-sys-color-primary); transition:width .2s ease; }
   .bat-detail-controls { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:8px; }
@@ -1740,7 +1740,7 @@
         onclick="document.getElementById('mtf-customer-notifications').showModal()">
         Customer notifications <span class="mtf-notification-count" aria-hidden="true">1</span>
       </button>
-      <div id="mtf-selection-summary" class="mtf-selection-summary hidden" aria-live="polite">
+      <div id="mtf-selection-summary" class="mtf-selection-summary hidden no-print" aria-live="polite">
         <button id="mtf-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Cambiar falla" aria-controls="mtf-row-2" aria-expanded="false">
           <span id="mtf-selection-text" class="catalog-selection-text"></span>
           <span class="catalog-selection-action">Cambiar falla ▾</span>
@@ -2416,7 +2416,7 @@
         const selected = layout.classList.contains("v-board")
           ? layout.querySelector("#mtf-board .bd-item.selected")
           : layout.querySelector("#mtf-fault-list .mtf-item-card.selected");
-        selected?.focus({ preventScroll: true });
+        (selected || $("mtf-search"))?.focus({ preventScroll: true });
       });
     }
     function renderMtfList() {
@@ -2450,8 +2450,9 @@
           f.activeVariant = 0;
           renderMtfList();
           renderMtfDetail();
-          setMtfCatalogCollapsed(!$('mtf-layout').classList.contains("mtf-split"), f);
-          $("mtf-detail-title").focus({ preventScroll: true });
+          const keepTechnicalListVisible = $("mtf-layout").classList.contains("mtf-split");
+          if (keepTechnicalListVisible) $("mtf-detail-title").focus({ preventScroll: true });
+          else setMtfCatalogCollapsed(true, f, true);
           scrollMtfDetailIntoView();
         });
         card.addEventListener("keydown", event => {
@@ -3406,7 +3407,9 @@
         block: "start"
       })));
     };
-    const focusSelectedBatCard = () => document.querySelector("#bat-board .bd-item.selected")?.focus({ preventScroll: true });
+    const focusSelectedBatCard = () => requestAnimationFrame(() => {
+      (document.querySelector("#bat-board .bd-item.selected") || $("bat-board-search"))?.focus({ preventScroll: true });
+    });
     $("bat-selection-toggle").addEventListener("click", () => {
       FFDG.ui.setBatCatalogCollapsed(false);
       focusSelectedBatCard();
@@ -4553,12 +4556,27 @@ main{padding-top:4px!important}
     padding: 18px;
     overflow: auto;
   }
-
   .flowchart-modal-content svg {
     display: block;
     width: 100%;
     height: auto;
     max-height: none;
+  }
+  .flowchart-modal-content img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 76dvh;
+    height: auto;
+    margin-inline: auto;
+    object-fit: contain;
+  }
+  #bat-disposition-flow .flowchart-zoom-target,
+  #mtf-flowchart-diagram .flowchart-zoom-target { cursor: zoom-in; }
+  #bat-disposition-flow .flowchart-zoom-target:focus-visible,
+  #mtf-flowchart-diagram .flowchart-zoom-target:focus-visible {
+    outline: 3px solid var(--md-sys-color-primary);
+    outline-offset: 3px;
   }
 
   .flowchart-modal-content:empty::before {
@@ -4967,19 +4985,73 @@ main{padding-top:4px!important}
     const closeButton = document.getElementById("mtf-flowchart-close");
     const content = document.getElementById("mtf-flowchart-modal-content");
     if (!dialog || !openButtons.length || !closeButton || !content) return;
-    openButtons.forEach(openButton => openButton.addEventListener("click", () => {
-      const isBat = openButton.id === "bat-flowchart-open";
-      const sourceDiagram = document.querySelector(isBat ? "#bat-disposition-flow svg" : "#mtf-flowchart-diagram svg");
+    let lastTrigger = null;
+    function openDiagram(isBat, trigger) {
+      const host = document.getElementById(isBat ? "bat-disposition-flow" : "mtf-flowchart-diagram");
+      const sourceDiagram = host?.querySelector("svg, img");
       if (!sourceDiagram) return;
-      content.replaceChildren(sourceDiagram.cloneNode(true));
+      const expandedDiagram = sourceDiagram.cloneNode(true);
+      expandedDiagram.classList.remove("flowchart-zoom-target");
+      expandedDiagram.removeAttribute("tabindex");
+      expandedDiagram.removeAttribute("aria-haspopup");
+      expandedDiagram.removeAttribute("aria-controls");
+      const originalRole = sourceDiagram.dataset.flowchartOriginalRole;
+      const originalLabel = sourceDiagram.dataset.flowchartOriginalLabel;
+      if (originalRole) expandedDiagram.setAttribute("role", originalRole);
+      else if (expandedDiagram.tagName.toLowerCase() === "svg") expandedDiagram.setAttribute("role", "img");
+      else expandedDiagram.removeAttribute("role");
+      if (originalLabel) expandedDiagram.setAttribute("aria-label", originalLabel);
+      else if (expandedDiagram.tagName.toLowerCase() === "svg") expandedDiagram.setAttribute("aria-label", "Diagrama de flujo ampliado");
+      else expandedDiagram.removeAttribute("aria-label");
+      delete expandedDiagram.dataset.flowchartZoomEnabled;
+      delete expandedDiagram.dataset.flowchartOriginalRole;
+      delete expandedDiagram.dataset.flowchartOriginalLabel;
+      content.replaceChildren(expandedDiagram);
       const faultTitle = document.getElementById(isBat ? "bat-detail-title" : "mtf-detail-title")?.textContent.trim();
       document.getElementById("mtf-flowchart-modal-title").textContent = faultTitle ? `Diagrama · ${faultTitle}` : "Diagrama de flujo";
+      lastTrigger = trigger;
       dialog.showModal();
-      closeButton.focus();
+      closeButton.focus({ preventScroll: true });
+    }
+    function prepareDiagramTarget(host, isBat) {
+      const target = host.querySelector("svg, img");
+      if (!target || target.dataset.flowchartZoomEnabled === "true") return;
+      target.dataset.flowchartZoomEnabled = "true";
+      target.dataset.flowchartOriginalRole = target.getAttribute("role") || "";
+      target.dataset.flowchartOriginalLabel = target.getAttribute("aria-label") || "";
+      const failureTitle = document.getElementById(isBat ? "bat-detail-title" : "mtf-detail-title")?.textContent.trim();
+      target.setAttribute("role", "button");
+      target.setAttribute("tabindex", "0");
+      target.setAttribute("aria-haspopup", "dialog");
+      target.setAttribute("aria-controls", dialog.id);
+      target.setAttribute("aria-label", `Ampliar diagrama${failureTitle ? ` de ${failureTitle}` : ""}`);
+      target.classList.add("flowchart-zoom-target");
+      target.addEventListener("click", () => openDiagram(isBat, target));
+      target.addEventListener("keydown", event => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        openDiagram(isBat, target);
+      });
+    }
+    const diagramSurfaces = [
+      { host: document.getElementById("bat-disposition-flow"), isBat: true },
+      { host: document.getElementById("mtf-flowchart-diagram"), isBat: false }
+    ];
+    diagramSurfaces.forEach(({ host, isBat }) => {
+      if (!host) return;
+      new MutationObserver(() => prepareDiagramTarget(host, isBat)).observe(host, { childList: true, subtree: true });
+      prepareDiagramTarget(host, isBat);
+    });
+    openButtons.forEach(openButton => openButton.addEventListener("click", () => {
+      openDiagram(openButton.id === "bat-flowchart-open", openButton);
     }));
     closeButton.addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", event => {
       if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("close", () => {
+      if (lastTrigger?.isConnected) lastTrigger.focus({ preventScroll: true });
+      lastTrigger = null;
     });
   })();</script>
 <style id="ffdg-compact-density">
