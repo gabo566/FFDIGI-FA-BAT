@@ -1473,7 +1473,7 @@
             <header class="bento-block-heading">
               <div class="bento-block-heading-copy"><h2 class="bento-block-title">Disposition Flow</h2><p class="bento-block-subtitle">Criterio de calidad, retest y ruta de decisión</p></div>
             </header>
-            <div class="mtf-quality-heading"><span style="font-size:11px;font-weight:800;text-transform:uppercase;color:var(--md-sys-color-primary);letter-spacing:.06em">Secuencia FA · pasos del PDF</span><span class="mtf-tag" style="background:#e1f5fe;color:#0288d1;font-weight:800;font-size:10px">FLOWCHART</span></div>
+            <div class="mtf-quality-heading"><span style="font-size:11px;font-weight:800;text-transform:uppercase;color:var(--md-sys-color-primary);letter-spacing:.06em">Criterio de Calidad &amp; Retest</span><span class="mtf-tag" style="background:#e1f5fe;color:#0288d1;font-weight:800;font-size:10px">FLOWCHART</span></div>
             <div id="bat-disposition-flow" aria-live="polite"></div>
             <div class="bat-detail-controls no-print">
               <button id="bat-detail-prev" class="m3-btn m3-btn-tonal" type="button">← Anterior</button>
@@ -2349,10 +2349,38 @@
       nextButton.disabled = !steps.length || activeIndex >= steps.length - 1;
       nextButton.textContent = !steps.length ? "Sin pasos" : activeIndex >= steps.length - 1 ? "Fin de la secuencia" : "Paso siguiente →";
       $("bat-detail-prev").disabled = !steps.length || activeIndex === 0;
-      renderStepSequenceSvg(
-        $("bat-disposition-flow"), steps, activeIndex,
-        "Secuencia BAT derivada de los pasos FA del PDF; sin decisiones añadidas."
-      );
+      renderBatFlowchart(steps, activeIndex);
+    }
+    function renderBatFlowchart(steps) {
+      const box = $("bat-disposition-flow");
+      if (!steps.length) {
+        box.innerHTML = `<div class="mtf-no-procedure">No se generó diagrama porque el catálogo no contiene pasos para esta falla.</div>`;
+        return;
+      }
+      const actions = steps.slice(1);
+      const lastY = actions.length ? 135 + (actions.length - 1) * 56 : 102;
+      const height = Math.max(310, lastY + 100);
+      const escapeSvg = value => escapeHtml(String(value || ""));
+      const truncate = (value, limit) => value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
+      const pill = (x, y, width, label, extra = "") => `<g class="fc-g ${extra}"><rect class="fc-n" x="${x}" y="${y}" width="${width}" height="32" rx="16"/><text x="${x + width / 2}" y="${y + 20}" font-size="10.5" text-anchor="middle">${escapeSvg(label)}</text></g>`;
+      let svg = `<svg viewBox="0 0 760 ${height}" width="100%" role="img" aria-label="Diagrama BAT generado desde ${steps.length} pasos" style="display:block">
+        <defs><marker id="bat-fc-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fc-ar" d="M0 1.5L8 5 0 8.5z"/></marker><marker id="bat-fc-arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fc-arr" d="M0 1.5L8 5 0 8.5z"/></marker></defs>
+        ${pill(285, 14, 190, `${steps[0].sourceNumber}. ${truncate(steps[0].title, 23)}`, "on")}
+        <path class="fc-l" d="M380 46V70" marker-end="url(#bat-fc-arrow)"/>
+        <g class="fc-g fc-dm"><polygon class="fc-n" points="380,72 440,100 380,128 320,100"/><text x="380" y="104" font-size="11" text-anchor="middle">Re-Test</text></g>
+        <path class="fc-l" d="M440 100H590V142" marker-end="url(#bat-fc-arrow)"/><text class="fc-p" x="500" y="92">Pass</text>
+        <g class="fc-g fc-dm"><polygon class="fc-n" points="590,144 650,174 590,204 530,174"/><text x="590" y="171" font-size="9.5" text-anchor="middle">Validar</text><text x="590" y="183" font-size="8.5" text-anchor="middle">criterio BAT</text></g>
+        <path class="fc-l" d="M650 174H700V30H480" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="655" y="166">Fail</text>
+        <path class="fc-l" d="M590 204V236" marker-end="url(#bat-fc-arrow)"/><text class="fc-p" x="600" y="226">Pass</text>
+        <g class="fc-ok">${pill(510, 240, 160, "Continuar pruebas")}</g>
+        ${actions.length ? `<path class="fc-l" d="M380 128V150H290" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="338" y="143">Fail</text><path class="fc-l" d="M40 ${lastY + 19}V100H315" marker-end="url(#bat-fc-arrow)"/>` : `<path class="fc-l fc-lr" d="M380 128V157" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="390" y="145">Fail</text><g class="fc-er">${pill(300, 160, 160, "Escalar a FA Nivel 2")}</g>`}`;
+      actions.forEach((step, index) => {
+        const y = 135 + index * 56;
+        svg += `<g class="fc-g"><rect class="fc-n" x="70" y="${y}" width="220" height="38" rx="10"/><text x="180" y="${y + 16}" font-size="9.5" text-anchor="middle">${escapeSvg(truncate(`${step.sourceNumber}. ${step.title}`, 31))}</text><text x="180" y="${y + 29}" font-size="8" text-anchor="middle">Acción y retest</text></g><path class="fc-l" d="M70 ${y + 19}H40"/>`;
+        if (index < actions.length - 1) svg += `<path class="fc-l" d="M180 ${y + 38}V${y + 52}" stroke-dasharray="3 3" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="192" y="${y + 49}" style="font-size:7.5px">Fail</text>`;
+        else svg += `<path class="fc-l fc-lr" d="M180 ${y + 38}V${y + 47}" stroke-dasharray="3 3" marker-end="url(#bat-fc-arrow-red)"/><g class="fc-er">${pill(100, y + 50, 160, "Escalar a FA Nivel 2")}</g>`;
+      });
+      box.innerHTML = svg + "</svg>";
     }
     function advanceBatDetail() {
       const failure = FFDG.state.batDetailFailure;
