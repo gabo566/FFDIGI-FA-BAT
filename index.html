@@ -2351,35 +2351,72 @@
       $("bat-detail-prev").disabled = !steps.length || activeIndex === 0;
       renderBatFlowchart(steps, activeIndex);
     }
-    function renderBatFlowchart(steps) {
+    function renderBatFlowchart(steps, activeIndex = 0) {
       const box = $("bat-disposition-flow");
       if (!steps.length) {
         box.innerHTML = `<div class="mtf-no-procedure">No se generó diagrama porque el catálogo no contiene pasos para esta falla.</div>`;
         return;
       }
-      const actions = steps.slice(1);
-      const lastY = actions.length ? 135 + (actions.length - 1) * 56 : 102;
-      const height = Math.max(310, lastY + 100);
+      const terminalEscalation = steps.find(step => step.isEscalation);
+      const actionSteps = terminalEscalation ? steps.slice(0, steps.indexOf(terminalEscalation)) : steps;
+      const hasActions = actionSteps.length > 0;
+      const displayedSteps = steps;
       const escapeSvg = value => escapeHtml(String(value || ""));
       const truncate = (value, limit) => value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
-      const pill = (x, y, width, label, extra = "") => `<g class="fc-g ${extra}"><rect class="fc-n" x="${x}" y="${y}" width="${width}" height="32" rx="16"/><text x="${x + width / 2}" y="${y + 20}" font-size="10.5" text-anchor="middle">${escapeSvg(label)}</text></g>`;
-      let svg = `<svg viewBox="0 0 760 ${height}" width="100%" role="img" aria-label="Diagrama BAT generado desde ${steps.length} pasos" style="display:block">
-        <defs><marker id="bat-fc-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fc-ar" d="M0 1.5L8 5 0 8.5z"/></marker><marker id="bat-fc-arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fc-arr" d="M0 1.5L8 5 0 8.5z"/></marker></defs>
-        ${pill(285, 14, 190, `${steps[0].sourceNumber}. ${truncate(steps[0].title, 23)}`, "on")}
-        <path class="fc-l" d="M380 46V70" marker-end="url(#bat-fc-arrow)"/>
-        <g class="fc-g fc-dm"><polygon class="fc-n" points="380,72 440,100 380,128 320,100"/><text x="380" y="104" font-size="11" text-anchor="middle">Re-Test</text></g>
-        <path class="fc-l" d="M440 100H590V142" marker-end="url(#bat-fc-arrow)"/><text class="fc-p" x="500" y="92">Pass</text>
-        <g class="fc-g fc-dm"><polygon class="fc-n" points="590,144 650,174 590,204 530,174"/><text x="590" y="171" font-size="9.5" text-anchor="middle">Validar</text><text x="590" y="183" font-size="8.5" text-anchor="middle">criterio BAT</text></g>
-        <path class="fc-l" d="M650 174H700V30H480" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="655" y="166">Fail</text>
-        <path class="fc-l" d="M590 204V236" marker-end="url(#bat-fc-arrow)"/><text class="fc-p" x="600" y="226">Pass</text>
-        <g class="fc-ok">${pill(510, 240, 160, "Continuar pruebas")}</g>
-        ${actions.length ? `<path class="fc-l" d="M380 128V150H290" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="338" y="143">Fail</text><path class="fc-l" d="M40 ${lastY + 19}V100H315" marker-end="url(#bat-fc-arrow)"/>` : `<path class="fc-l fc-lr" d="M380 128V157" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="390" y="145">Fail</text><g class="fc-er">${pill(300, 160, 160, "Escalar a FA Nivel 2")}</g>`}`;
-      actions.forEach((step, index) => {
-        const y = 135 + index * 56;
-        svg += `<g class="fc-g"><rect class="fc-n" x="70" y="${y}" width="220" height="38" rx="10"/><text x="180" y="${y + 16}" font-size="9.5" text-anchor="middle">${escapeSvg(truncate(`${step.sourceNumber}. ${step.title}`, 31))}</text><text x="180" y="${y + 29}" font-size="8" text-anchor="middle">Acción y retest</text></g><path class="fc-l" d="M70 ${y + 19}H40"/>`;
-        if (index < actions.length - 1) svg += `<path class="fc-l" d="M180 ${y + 38}V${y + 52}" stroke-dasharray="3 3" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="192" y="${y + 49}" style="font-size:7.5px">Fail</text>`;
-        else svg += `<path class="fc-l fc-lr" d="M180 ${y + 38}V${y + 47}" stroke-dasharray="3 3" marker-end="url(#bat-fc-arrow-red)"/><g class="fc-er">${pill(100, y + 50, 160, "Escalar a FA Nivel 2")}</g>`;
+      const rowCenter = index => 220 + index * 58;
+      const firstCenter = !hasActions && terminalEscalation ? rowCenter(0) + 112 : rowCenter(0);
+      const lastCenter = hasActions ? rowCenter(actionSteps.length - 1) : firstCenter;
+      const validationY = hasActions ? rowCenter(Math.floor((actionSteps.length - 1) / 2)) : firstCenter;
+      const failBusBottom = lastCenter + 48;
+      const escalationY = failBusBottom + 54;
+      const terminalCenter = terminalEscalation ? (hasActions ? lastCenter + 112 : firstCenter) : null;
+      const height = Math.max(escalationY + 48, terminalCenter === null ? 0 : terminalCenter + 48);
+      const pill = (x, y, width, label, className) =>
+        `<g class="fc-g ${className}"><rect class="fc-n" x="${x}" y="${y}" width="${width}" height="36" rx="18"/><text x="${x + width / 2}" y="${y + 22}" font-size="10.5" text-anchor="middle">${escapeSvg(label)}</text></g>`;
+      const junction = (x, y, color = "var(--md-sys-color-primary)") => `<circle cx="${x}" cy="${y}" r="5" fill="${color}" stroke="var(--md-sys-color-surface)" stroke-width="2"/>`;
+      let svg = `<svg viewBox="0 0 1000 ${height}" width="100%" role="img" aria-label="Diagrama BAT con todos los pasos conectados a un BAT station validation compartido; Pass continúa MTF y Fail avanza al siguiente paso o escala al final" style="display:block">
+        <defs><marker id="bat-fc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-ar" d="M0 1.2L9 5 0 8.8z"/></marker><marker id="bat-fc-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-arr" d="M0 1.2L9 5 0 8.8z"/></marker></defs>
+        ${pill(310, 18, 210, "Run the BAT station script", "on")}
+        <path class="fc-l" d="M415 54V82" marker-end="url(#bat-fc-arrow)"/>
+        <g class="fc-g fc-dm"><polygon class="fc-n" points="415,84 500,118 415,152 330,118"/><text x="415" y="114" font-size="10.5" text-anchor="middle">Passes after an</text><text x="415" y="128" font-size="10.5" text-anchor="middle">AC cycle</text></g>
+        <path class="fc-l" d="M500 118H740"/><text class="fc-p" x="568" y="108">Pass</text>
+        ${pill(780, 100, 200, "Proceed with MTF testing", "fc-ok")}
+        <path class="fc-l" d="M330 118H120V${firstCenter}H172" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="282" y="108">Fail</text>
+        ${hasActions ? `<path class="fc-l" d="M740 ${validationY}V118H772" marker-end="url(#bat-fc-arrow)"/>` : ""}`;
+      displayedSteps.forEach((step, index) => {
+        const center = step.isEscalation ? terminalCenter : rowCenter(index);
+        const label = truncate(`Paso ${index + 1} de ${steps.length}: ${step.title || "Paso de diagnóstico"}`, 48);
+        svg += step.isEscalation
+          ? `${pill(180, center - 18, 280, step.title, "fc-er")}`
+          : `<g class="fc-g"><rect class="fc-n" x="180" y="${center - 19}" width="280" height="38" rx="10"/><text x="320" y="${center + 4}" font-size="9.5" text-anchor="middle">${escapeSvg(label)}</text></g>
+            <path class="fc-l" d="M460 ${center}H520"/>
+            ${junction(520, center)}`;
       });
+      if (actionSteps.length > 1) svg += `<path class="fc-l" d="M520 ${firstCenter}V${lastCenter}"/>`;
+      if (hasActions) svg += `<path class="fc-l" d="M520 ${validationY}H552" marker-end="url(#bat-fc-arrow)"/>
+        <g class="fc-g fc-dm"><polygon class="fc-n" points="630,${validationY - 35} 700,${validationY} 630,${validationY + 35} 560,${validationY}"/><text x="630" y="${validationY - 3}" font-size="9.5" text-anchor="middle">BAT station</text><text x="630" y="${validationY + 11}" font-size="9.5" text-anchor="middle">validation</text></g>
+        <text class="fc-p" x="706" y="${validationY - 8}">Pass</text>
+        <path class="fc-l" d="M700 ${validationY}H740"/>
+        ${junction(740, 118)}${junction(740, validationY)}`;
+      if (hasActions && actionSteps.length > 1) {
+        svg += `<path class="fc-l fc-lr" d="M630 ${validationY + 35}V${failBusBottom}H120"/><text class="fc-f" x="640" y="${validationY + 52}">Fail</text>${junction(120, failBusBottom, "var(--md-sys-color-error)")}
+          <path class="fc-l fc-lr" d="M120 ${failBusBottom}V${rowCenter(1)}"/>`;
+        for (let index = 1; index < actionSteps.length; index++) {
+          const center = rowCenter(index);
+          svg += `${junction(120, center, "var(--md-sys-color-error)")}<path class="fc-l fc-lr" d="M120 ${center}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${center - 7}">Paso ${index} fail → paso ${index + 1}</text>`;
+        }
+        if (terminalEscalation) {
+          svg += `<path class="fc-l fc-lr" d="M120 ${failBusBottom}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${terminalCenter - 25}">Paso ${actionSteps.length} fail → escalar</text>`;
+        } else {
+          svg += `<path class="fc-l fc-lr" d="M120 ${failBusBottom}V${escalationY}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${escalationY - 8}">Paso ${steps.length} fail → escalar</text>${pill(180, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
+        }
+      } else if (hasActions && terminalEscalation) {
+        svg += `<path class="fc-l fc-lr" d="M630 ${validationY + 35}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="640" y="${validationY + 52}">Fail</text>`;
+      } else if (hasActions) {
+        svg += `<path class="fc-l fc-lr" d="M630 ${validationY + 35}V${escalationY}" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="640" y="${validationY + 52}">Fail</text>${pill(540, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
+      } else if (!terminalEscalation) {
+        svg += `${pill(180, escalationY, 220, "Move to Secondary Level FA", "fc-er")}`;
+      }
       box.innerHTML = svg + "</svg>";
     }
     function advanceBatDetail() {
