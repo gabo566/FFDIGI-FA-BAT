@@ -1,6 +1,6 @@
 # Historial de cambios — FFDIGI FA BAT / MTF
 
-Registro consolidado de los cambios, ajustes y requisitos trabajados en esta conversación. Separa lo implementado y validado de lo que quedó como solicitud o pendiente de publicación.
+Bitácora acumulativa del proyecto. Consultarla antes de modificar BAT/MTF y actualizarla después de cada cambio solicitado, separando lo implementado, la validación real y lo pendiente. No asumir que un cambio local fue publicado.
 
 ## 1. Propósito y alcance
 
@@ -84,4 +84,1840 @@ Registro consolidado de los cambios, ajustes y requisitos trabajados en esta con
 - Publicar la última versión en GitHub y verificar el resultado remoto.
 - La sincronización automática desde un nuevo Excel FFDG fue solicitada como comportamiento deseado; este historial no confirma una conexión automática permanente a un archivo externo. La actualización depende de cargar/importar el workbook soportado por la página.
 - Los nombres, números de empleado, P/N, firmas y recomendaciones deben revisarse contra la lista/procedimiento vigente antes de usar el reporte como documento controlado.
+
+## 10. Reglas para continuar este proyecto
+
+- Leer esta bitácora antes de modificar el proyecto; reutilizar las decisiones confirmadas y no revertir cambios sin petición explícita.
+- Mantener separados los alcances BAT y MTF. Si se pide un cambio MTF, no reemplazar ni alterar los diagramas BAT.
+- Para flowcharts, preferir la imagen fuente asociada a la falla y página del PDF. No inventar nodos, decisiones, ramales ni etiquetas; preservar los PNG originales y el modal de ampliación.
+- Revisar la identidad completa de cada falla (estación, código, descripción y página), no asociar solo por código cuando existan duplicados.
+- Conservar las dos copias HTML (`pagina ffdg/index.html` y `ffdg_bat.html`) sincronizadas en el comportamiento y resolver rutas de recursos desde ambas ubicaciones.
+- Verificar sintaxis, existencia de recursos, `git diff --check` y, cuando sea posible, probar visualmente móvil, tableta y escritorio. Si el navegador o una prueba está bloqueada, registrar el límite sin declarar esa validación como aprobada.
+- Antes de cualquier publicación, revisar rama, remoto, cambios locales y tracking; no publicar ni atribuir autoría sin petición explícita.
+- En cada actualización registrar fecha, solicitud, solución, archivos, validaciones y estado de publicación. No repetir un historial completo ni guardar datos que no sean necesarios para dar continuidad técnica.
+
+## 11. 2026-10-10 — Flowcharts MTF como imágenes originales del PDF
+
+### Solicitud
+
+Reemplazar la representación vectorial reconstruida de los flowcharts MTF por las figuras originales del PDF, con sus pasos, decisiones y ramales tal como aparecen en la fuente.
+
+### Cambios aplicados
+
+- La tarjeta MTF ahora prioriza `flowchartImage` antes que el renderer vectorial en ambas copias HTML; las asociaciones con imagen no pasan por el diagrama reconstruido.
+- Se resolvieron las rutas de los PNG del catálogo existente usando `FFDG_MTF_PDF_REFERENCE_ASSET_URL`, para que funcionen desde `index.html` y desde `ffdg_bat.html`.
+- El módulo MTF asocia la imagen fuente al grafo por la identidad/página correspondiente y la muestra dentro de SVG para conservar el flujo de ampliación existente.
+- La falla heredada `AST-01` corresponde a la p. 62 del procedimiento y su flowchart está en la p. 63. Se extrajo la figura original de la p. 63 como `assets/mtf-flowcharts/mtf-flow-109.png` y se vinculó a esa falla.
+- Referencias verificadas: `PDF-MTF-CASE-0001` y `FLA-19` → p. 18 / `mtf-flow-001.png`; `AST-06` → p. 57 / `mtf-flow-025.png`; `FLB-02` → p. 154 / `mtf-flow-083.png`; `PDF-MTF-CASE-0199` → p. 155 / `mtf-flow-084.png`. Los casos de pp. 154 y 155 permanecen diferenciados.
+- Alcance MTF; no se alteraron los flowcharts BAT, las acciones/steps del procedimiento ni APIs.
+
+### Archivos afectados
+
+- `pagina ffdg/index.html` — prioridad de la imagen fuente y normalización de rutas del catálogo.
+- `ffdg_bat.html` — mismo orden de render y rutas de recursos para la copia local.
+- `pagina ffdg/mtf-pdf-flowcharts.js` — metadatos de imagen fuente, asociación AST-01 y render de PNG original.
+- `pagina ffdg/assets/mtf-flowcharts/mtf-flow-109.png` — recorte del diagrama de la p. 63 de `ffdg.pdf`.
+
+### Validación y límites
+
+- Sintaxis comprobada en los scripts inline de ambas páginas y en `mtf-pdf-flowcharts.js`; `git diff --check` y revisión de espacios finales sin errores.
+- Se comprobaron 216 asociaciones de flowcharts: todas cuentan con PNG existente y el renderer genera imagen fuente, no polígonos reconstruidos. También se revisaron los ejemplos de pp. 18, 57, 63, 154 y 155.
+- El recorte nuevo de AST-01 se inspeccionó visualmente contra la p. 63 del PDF.
+- La recarga de la página local `file://` fue bloqueada por la política del navegador. Por eso no se declara prueba visual en vivo como completada.
+- Estado Git al registrar: rama `develop`, `ahead 3`; cambios locales pendientes. Sin commit ni push en esta iteración. La raíz Git operativa es `pagina ffdg`.
+
+## 12. Cronología ampliada del proyecto y registro completo
+
+### Alcance de este registro
+
+Esta cronología reúne los hitos, decisiones, solicitudes recurrentes, correcciones y reversiones identificables en el historial de conversación y en el registro Git local disponible. Las peticiones de navegador se agrupan por intención cuando fueron iteraciones del mismo ajuste. El registro Git abajo es el historial local de la rama examinada; por sí solo no prueba que cada commit siga publicado en GitHub. Los reportes históricos de publicación se conservan como reportes de la conversación, no como verificación remota actual.
+
+### 2026-10-01 — Inicio, alcance BAT/MTF y material de referencia
+
+- Se inició la guía FFDIGI a partir de una interfaz HTML existente, workbook FFDG, capturas y materiales GB200/GB300.
+- Se aclaró el sentido de BAT (Basic Assurance Test en el contexto del proyecto) y que su evaluación inicial debía centrarse en ensamble, encendido, alimentación y comunicación; las investigaciones detalladas por errores/tarjeta pertenecen al flujo MTF/FA.
+- Se estructuraron las áreas BAT y MTF, con selección de falla, pasos/validaciones, disposición y registro para reportar calidad.
+- Se trabajó el caso No Boot NDBG_107 y sus validaciones; se diferenciaron los procedimientos documentados y las recomendaciones operativas.
+- Hubo iteraciones de arquitectura para separar scripts/estilos y luego volver a una página unificada/autocontenida cuando el usuario lo solicitó. Esta preferencia de consolidación debe contrastarse con el estado real más reciente antes de una nueva refactorización.
+- Se incorporó el concepto de reporte PDF oficial de Calidad y se detectó que el reporte MTF necesitaba tratamiento propio.
+
+### 2026-10-02 — Consolidación del HTML
+
+- Se solicitó reunir la experiencia en un solo archivo/página HTML. Se volvió a unificar la implementación en vez de dejar al usuario con una estructura dividida que no pidió.
+- Se mantuvo la interacción de BAT/MTF y se prepararon controles visuales para continuar el trabajo de diagramas e información técnica.
+
+### 2026-10-03 — Reportes, disposición de paneles y publicación inicial
+
+- Se ajustaron los tres paneles de detalle y su jerarquía: Failure Record, Troubleshooting Sequence y Disposition Flow.
+- Se trabajaron títulos, acentos, diagrama de topología y distribución visual del panel MTF.
+- Se preparó el sitio para GitHub Pages y se mejoró el PDF de Calidad BAT; el historial Git registra los commits `9c0ca2f`, `d268e7c`, `3621d41`, `d7e4c0a`, `fdfabfc` y `e7517dc`.
+- Se revisó la interacción de ampliación de diagramas y el comportamiento del reporte desde la página.
+- Las solicitudes de publicar/configurar GitHub se trataron por separado del trabajo local. Un commit en la rama no equivale a comprobar publicación actual.
+
+### 2026-10-04 — Tablero BAT, familias y reporte RCA
+
+- Se desarrolló el tablero de fallas BAT por grupos/familias y el enlace desde selección de tarjeta hasta código/detalle.
+- Se incorporaron flujos de diagnóstico No Boot y estructura de reporte/RCA; se probaron colores por familia y legibilidad.
+- Se registró el identificador de nodo y el flujo de decisión en reportes mediante commits de distintos autores. La autoría de Git y la autenticación/push remoto son conceptos distintos.
+- Se ajustó el PDF oficial para hacer legibles los datos de análisis, las firmas y la disposición.
+
+### 2026-10-05 — Calidad, firmas y mantenimiento GB200
+
+- Se refinaron los campos de causa raíz, acción siguiente, evidencias y firmas del reporte de Calidad; se separó el contenido técnico de diagnóstico que no debía aparecer en ese informe.
+- Se registraron opciones de retest/AC y reparación, datos de identificación de analista/calidad y fechas; el reporte de prueba se revisó en dos páginas con evidencia fotográfica condicional.
+- Se consultó material de mantenimiento GB200 para mejorar la secuencia No Boot. El procedimiento oficial de la estación sigue siendo la fuente de autoridad.
+
+### 2026-10-06 — Marca, controles MTF y navegación
+
+- Se ajustaron marca/cabecera: NVIDIA RACKS, título FFDG y marca Ingrasys, con alineación y jerarquía.
+- Se refinaron títulos de fallas, pestañas BAT/MTF y controles del catálogo, búsqueda, filtros y tema; varias iteraciones corrigieron centrado/orden entre vistas.
+- Se incorporó una notificación al cliente y se trabajó la barra de búsqueda MTF.
+- Se registró el P/N de BAT con varias opciones, serial manual (sin autogeneración) y selección/registro de analista, incluyendo alternativa Otro. Los datos personales/configurables deben verificarse antes del uso operativo.
+- Se solicitó un archivo de contexto de cambios y se creó el historial del proyecto; este archivo es ese registro acumulativo.
+
+### 2026-10-07 — Tableros, catálogo MTF y experiencia de diagnóstico
+
+- Se iteraron la cuadrícula BAT/MTF, los filtros por estación, el orden de familias y la cantidad de tarjetas visibles; se revirtieron propuestas de distribución que no ajustaron como se esperaba.
+- Se importaron procedimientos BAT desde el PDF y se revisó cómo mantener los detalles y botones visibles sin desplazamientos innecesarios.
+- Se aproximó la vista de detalle BAT al patrón MTF y se ajustó la relación entre registro, pasos y diagrama.
+- Se revisaron scroll, botones Anterior/Siguiente/Ampliar y selección de falla; el requisito estable es que los controles sigan accesibles y que la selección lleve al detalle esperado.
+- Se inició la mejora responsive para escritorio, tableta y móvil.
+
+### 2026-10-08 — Responsive, lógica BAT y manual MTF
+
+- Se corrigieron desbordamientos horizontales de página, cabecera, toolbar y controles en anchos de tableta; se mantuvo como referencia de responsive 390, 768 y 1440 px.
+- Se hicieron iteraciones del flowchart BAT para representar acciones ordenadas, resultados, retest y ramales. Hubo varias correcciones de conexiones y de decisiones; los commits locales conservan esas iteraciones y reversiones.
+- Se probaron brevemente vistas de centro de control y referencias interactivas de rack GB200; ambas propuestas se revirtieron después. No deben considerarse características actuales por el solo hecho de aparecer en Git.
+- Se agregó/ubicó la notificación al cliente junto a las acciones BAT correspondientes.
+- Se reconstruyó el catálogo MTF desde `ffdg.pdf`, se incorporaron procedimientos faltantes y se relacionaron flowcharts fuente con fallas. El PDF citado por el usuario tiene 231 páginas; `ffdf.pdf` no se tomó como manual MTF completo.
+- Se separó el problema de imágenes de referencia por falla: deben asociarse por error/procedimiento, aparecer en la sección correspondiente y conservar indicaciones/página, no vivir en una galería global.
+
+### 2026-10-09 — Diseño MTF, restauración y protección de BAT
+
+- Se refinaron el ancho de las tres tarjetas, el catálogo MTF, el comportamiento al abrir una falla, la visibilidad de pasos y la posición de los controles del diagrama.
+- Se corrigieron botones que quedaban debajo del pliegue y diagramas demasiado desplazados; la disposición debe dejar visible la secuencia y controles sin romper el tamaño de las tarjetas.
+- Se revisó ocultar el catálogo de fallas y la inclusión de OBA; la evidencia del snapshot actual indica que OBA se filtra del catálogo en el código presente. Ese comportamiento debe confirmarse antes de cambiarlo.
+- A petición del usuario se restauró la versión de referencia `032cbcebe37be47b53dc56fdc9799aadbd904df2`, preservando el trabajo local mediante resguardo/reaplicación según el registro de la conversación.
+- Se pidió recuperar mejoras estéticas anteriores sin reemplazar ni borrar los flowcharts BAT existentes. Se restauraron los diagramas BAT mediante los commits `c7f4e80` y `371a42b` del historial local; el requisito explícito es no sustituirlos con imágenes reconstruidas desde otro PDF.
+- Se reiteró que el usuario quería publicar al repo de Gabo y usar autor Gabo en solicitudes anteriores. Eso solo se aplicó en los casos que la conversación reportó como completados; no se debe inferir que el estado remoto actual esté sincronizado.
+
+### 2026-10-10 — Imágenes por falla, galerías y flowcharts MTF
+
+- Se pidió recuperar diagramas e imágenes que permanecían en BAT; alcance y asociaciones se fueron precisando para conservar los flowcharts BAT actuales.
+- Se incorporaron referencias de MTF por falla a partir del PDF, con texto de indicación y páginas. El usuario enfatizó que faltaban imágenes; el estándar es auditar todas las figuras pertinentes, no solo una selección, y evitar cruces entre errores.
+- Se atendió que las galerías alargaban las tarjetas: se definió control plegable con contador para galerías PDF BAT/MTF, manteniendo el acordeón de topología GB300 independiente. Las galerías empiezan plegadas, y la ampliación individual continúa en modal.
+- Se aclaró que una imagen de referencia de topología no reemplaza las demás imágenes asociadas a la falla. Cualquier figura documental pertinente debe aparecer en la sección de referencia correcta.
+- Se pidió rediseñar flowcharts MTF en forma ancha con acciones/rombos/ramales de validación según el PDF. Durante la implementación se detectó que algunas reconstrucciones añadían Pass/Fail o rombos que no estaban en la fuente. El usuario corrigió el requisito: reemplazar las reconstrucciones por las imágenes originales de los flowcharts del PDF. Esta instrucción posterior es la vigente.
+- En ambas páginas MTF se priorizó la imagen original cuando existe; se documentaron ejemplos de asociación y un recorte nuevo para AST-01. BAT queda fuera de ese cambio.
+- Se documentó la limitación de que el navegador bloqueó recargar la ruta local `file://`; por tanto no se aseguró prueba visual en vivo en esa iteración.
+
+### Requisitos transversales que se mantienen
+
+- Respetar la separación funcional BAT/MTF y distinguir guía inicial de diagnóstico avanzado.
+- Usar material PDF con trazabilidad: página, falla, descripción, figura e indicación; no inventar lógica ni asociación.
+- Preservar datos/cambios locales de usuario al restaurar o sincronizar Git. Revisar estado y rama antes de cualquier operación remota.
+- No declarar push, publicación, importación Excel o prueba visual si no se ejecutó y verificó.
+- Mantener responsive y accesibles los controles de selección, galerías y modales; comprobar móvil/tableta/escritorio al realizar cambios que los afecten.
+- Mantener equivalentes las dos copias activas del HTML cuando se solicita que el cambio aplique en ambas; verificar diferencias/rutas de recursos.
+
+### Estado Git observado para esta ampliación
+
+- La raíz Git inspeccionada es `pagina ffdg`; rama `develop`, tracking `origin/develop`, estado reportado `ahead 3` al iniciar esta ampliación.
+- HEAD local observado: `371a42b`; referencia local `origin/develop`: `4d47d1a`; referencia local `secundaria/main`: `371a42b`.
+- El árbol tenía cambios locales en `index.html`, módulos MTF y recursos PNG; no se modificaron esos archivos para escribir esta bitácora.
+- No se hizo commit ni push para esta actualización del historial. Las referencias locales no confirman el estado actual del servidor remoto.
+
+### Registro íntegro de commits de la rama local examinada
+
+Se incluyen hash corto, fecha, autor y asunto según `git log HEAD`. Es evidencia del historial local, no una lista de publicaciones verificadas.
+
+- 9c0ca2f | 2026-10-03 | Julia Dhamar Regules Mendez | chore(pages): prepare safe FFDG site
+- d268e7c | 2026-10-03 | Julia Dhamar Regules Mendez | fix(pdf): improve BAT quality report
+- 3621d41 | 2026-10-03 | Julia Dhamar Regules Mendez | style(mtf): emphasize panel headings
+- d7e4c0a | 2026-10-03 | Julia Dhamar Regules Mendez | feat(mtf): add topology diagram and layout
+- fdfabfc | 2026-10-03 | Julia Dhamar Regules Mendez | style(mtf): differentiate diagnostic panels
+- e7517dc | 2026-10-03 | Julia Dhamar Regules Mendez | style(mtf): highlight diagnostic headings
+- 2a6cb75 | 2026-10-04 | Julia Dhamar Regules Mendez | feat(bat): add fault board and no boot flow
+- 2b95397 | 2026-10-04 | Julia Dhamar Regules Mendez | feat(bat): structure quality report and RCA
+- 042d171 | 2026-10-04 | Julia Dhamar Regules Mendez | style(bat): color fault family board
+- 3928bac | 2026-10-04 | gabo566 | feat(bat): add node identifiers
+- 7c64bd1 | 2026-10-04 | gabo566 | feat(report): add diagnostic decision flow
+- 1fa294c | 2026-10-05 | gabo566 | fix(report): polish Ingrasys quality PDF
+- 9aae43c | 2026-10-06 | Jair Iván Martínez Palacios | feat: add RACKS beside NVIDIA logo
+- 2adfe9d | 2026-10-06 | Jair Iván Martínez Palacios | style: center failure titles
+- 4eaebfb | 2026-10-06 | Jair Iván Martínez Palacios | style: center BAT and MTF fault headings
+- 76c64e8 | 2026-10-06 | Jair Iván Martínez Palacios | feat: add Ingrasys logo to header
+- 33d8614 | 2026-10-06 | Jair Iván Martínez Palacios | style: center and rename BAT and MTF menu tiles
+- 7012c9a | 2026-10-06 | Jair Iván Martínez Palacios | style: balance MTF detail panels and center controls
+- bce64dc | 2026-10-06 | Jair Iván Martínez Palacios | style: center MTF design controls in catalog header
+- cff7bf4 | 2026-10-06 | Jair Iván Martínez Palacios | fix: keep MTF design controls centered in all views
+- 0997d4c | 2026-10-06 | Jair Iván Martínez Palacios | style: set MTF catalog toolbar to black
+- e9e8b4c | 2026-10-06 | Jair Iván Martínez Palacios | style: color MTF station filters NVIDIA green
+- 47ab0ab | 2026-10-06 | Jair Iván Martínez Palacios | feat: add NVIDIA customer notification
+- 4cf1ef5 | 2026-10-06 | Jair Iván Martínez Palacios | style: darken customer notifications button
+- d8da8fd | 2026-10-06 | Jair Iván Martínez Palacios | style: center and narrow MTF search panel
+- eedb9be | 2026-10-06 | Jair Iván Martínez Palacios | style: shorten and center MTF search field
+- 43603d7 | 2026-10-06 | Jair Iván Martínez Palacios | fix: keep MTF filters ordered in every view
+- cda16b4 | 2026-10-06 | Jair Iván Martínez Palacios | style: reduce and center Ingrasys header block
+- 45fcfc4 | 2026-10-06 | Jair Iván Martínez Palacios | feat: move theme control above Excel upload
+- bede8ca | 2026-10-06 | Jair Iván Martínez Palacios | refactor: streamline MTF search toolbar
+- c201f08 | 2026-10-06 | Jair Iván Martínez Palacios | style: order BAT failure families by case count
+- 2a4f443 | 2026-10-06 | Jair Iván Martínez Palacios | fix: keep BAT failure families on one row
+- 165b40a | 2026-10-06 | Jair Iván Martínez Palacios | style: show three BAT failures per family
+- 929ae27 | 2026-10-06 | Jair Iván Martínez Palacios | style: cap visible MTF failures and sort groups
+- f77ff5c | 2026-10-07 | Jair Iván Martínez Palacios | style: match MTF board layout to BAT
+- 89fb4eb | 2026-10-07 | Jair Iván Martínez Palacios | style: align MTF ALL card below FLC
+- 4924c8a | 2026-10-07 | Jair Iván Martínez Palacios | fix: join MTF FLC ALL and diagnostic panels
+- 52cd46f | 2026-10-07 | Jair Iván Martínez Palacios | fix: merge MTF ALL failure into RIN
+- 7d4e18a | 2026-10-07 | Jair Iván Martínez Palacios | style: compact BAT and MTF boards headers
+- 09851af | 2026-10-07 | Jair Iván Martínez Palacios | style: tighten RACKS wordmark typography
+- 255a754 | 2026-10-07 | Jair Iván Martínez Palacios | style: align brand marks to header edges
+- 5f69f68 | 2026-10-07 | Jair Iván Martínez Palacios | style: show three failure groups across BAT and MTF
+- 6a69f58 | 2026-10-07 | Jair Iván Martínez Palacios | Revert "style: show three failure groups across BAT and MTF"
+- 8f9d84a | 2026-10-07 | Jair Iván Martínez Palacios | style: fit three complete failures in each station board
+- 60e495a | 2026-10-07 | Jair Iván Martínez Palacios | style: enlarge NVIDIA wordmark beside RACKS
+- 2ceecc5 | 2026-10-07 | Jair Iván Martínez Palacios | style: slightly reduce RACKS wordmark
+- b8f347d | 2026-10-07 | Jair Iván Martínez Palacios | Style left half of BAT search strip black
+- 779483d | 2026-10-07 | Jair Iván Martínez Palacios | Make BAT search strip split visually clear
+- 26b1321 | 2026-10-07 | Jair Iván Martínez Palacios | Revert "Make BAT search strip split visually clear"
+- 5295f67 | 2026-10-07 | Jair Iván Martínez Palacios | Revert "Style left half of BAT search strip black"
+- a007b3b | 2026-10-07 | Jair Iván Martínez Palacios | Center BAT search and add theme toggle
+- 61a5efe | 2026-10-07 | Jair Iván Martínez Palacios | Import BAT failure procedures from PDF
+- b637536 | 2026-10-07 | Jair Iván Martínez Palacios | Show BAT failure details without scrolling
+- a0d21b1 | 2026-10-07 | Jair Iván Martínez Palacios | Add MTF-style BAT failure detail flow
+- 8da1023 | 2026-10-07 | Jair Iván Martínez Palacios | Improve BAT and MTF diagnostic navigation
+- 8d39b4b | 2026-10-07 | Jair Iván Martínez Palacios | Fix MTF failure selection scroll
+- a5a80d0 | 2026-10-07 | Jair Iván Martínez Palacios | Compact BAT failure detail panels
+- b01bbb1 | 2026-10-07 | Jair Iván Martínez Palacios | Match BAT detail sizing to MTF
+- 2813932 | 2026-10-07 | Jair Iván Martínez Palacios | Keep BAT detail navigation buttons visible
+- 5328cff | 2026-10-07 | Jair Iván Martínez Palacios | Align BAT failure view with MTF detail
+- 85deab1 | 2026-10-07 | Jair Iván Martínez Palacios | Match BAT failure detail view to MTF layout
+- 9c51fa2 | 2026-10-07 | Jair Iván Martínez Palacios | Give BAT flowchart more panel space
+- 1703da8 | 2026-10-07 | Jair Iván Martínez Palacios | Move BAT diagram controls to one row
+- ee8c98c | 2026-10-07 | Jair Iván Martínez Palacios | Align MTF diagram controls and remove chart scrolling
+- e3d3c46 | 2026-10-08 | Jair Iván Martínez Palacios | Prevent horizontal overflow in diagnostic controls
+- c69ed3b | 2026-10-08 | Jair Iván Martínez Palacios | Remove page-level horizontal overflow
+- 1bf1d66 | 2026-10-08 | Jair Iván Martínez Palacios | Fit BAT toolbar within viewport at tablet widths
+- 3657db9 | 2026-10-08 | Jair Iván Martínez Palacios | Keep Ingrasys logo clear of viewport edge
+- 4802be6 | 2026-10-08 | Jair Iván Martínez Palacios | Compact top navigation and brand header
+- 0bd88c4 | 2026-10-07 | gabo566 | style: improve responsive BAT/MTF boards
+- 081a862 | 2026-10-07 | gabo566 | style: expand MTF catalog views
+- e13594e | 2026-10-08 | Jair Iván Martínez Palacios | Prevent horizontal page scrolling
+- 7a928a5 | 2026-10-08 | Jair Iván Martínez Palacios | Match BAT and MTF diagnostic panel sizing
+- 264c0c0 | 2026-10-08 | Jair Iván Martínez Palacios | Align MTF detail inset with BAT panels
+- 02038b3 | 2026-10-08 | Jair Iván Martínez Palacios | Correct BAT retest flowchart decisions
+- b6c8a80 | 2026-10-08 | Jair Iván Martínez Palacios | Align BAT flowchart with station pass fail logic
+- 8310485 | 2026-10-08 | Jair Iván Martínez Palacios | Simplify BAT flowchart retest loop
+- 5e005a2 | 2026-10-08 | Jair Iván Martínez Palacios | Route BAT troubleshooting outcomes through ordered steps
+- 60500e7 | 2026-10-08 | Jair Iván Martínez Palacios | Add BAT validation decision after every corrective step
+- 1769576 | 2026-10-08 | Jair Iván Martínez Palacios | Use one BAT station validation decision
+- e81c4e4 | 2026-10-08 | Jair Iván Martínez Palacios | Reuse one BAT station validation decision
+- a906eef | 2026-10-08 | Jair Iván Martínez Palacios | Show all BAT steps with clear flow junctions
+- 2542037 | 2026-10-08 | Jair Iván Martínez Palacios | Fix BAT flowchart connections
+- 89aafc4 | 2026-10-08 | Jair Iván Martínez Palacios | Align BAT and MTF failure boards
+- e2e753e | 2026-10-08 | Jair Iván Martínez Palacios | Show two MTF failures per category
+- df3363f | 2026-10-08 | Jair Iván Martínez Palacios | Fit two MTF failures per category
+- 744f423 | 2026-10-08 | Jair Iván Martínez Palacios | Add FFDG control center and local case log
+- 21a37a8 | 2026-10-08 | Jair Iván Martínez Palacios | Add interactive GB200 rack and server references
+- e3d68fc | 2026-10-08 | Jair Iván Martínez Palacios | Revert "Add interactive GB200 rack and server references"
+- f572482 | 2026-10-08 | Jair Iván Martínez Palacios | Revert "Add FFDG control center and local case log"
+- e34d89a | 2026-10-08 | Jair Iván Martínez Palacios | Add customer notification button to BAT
+- 6c7c53f | 2026-10-08 | Jair Iván Martínez Palacios | Move BAT customer notification beside PDF update
+- b495301 | 2026-10-08 | Jair Iván Martínez Palacios | Raise BAT controls and fault categories
+- d98a64b | 2026-10-08 | Jair Iván Martínez Palacios | Deduplicate BAT terminal escalation
+- 76f5ffc | 2026-10-08 | Jair Iván Martínez Palacios | Space BAT flowchart arrows from blocks
+- c385154 | 2026-10-08 | Jair Iván Martínez Palacios | Lower BAT escalation terminal in flowchart
+- 29b9885 | 2026-10-08 | Jair Iván Martínez Palacios | Add missing MTF procedures from FFDG PDF
+- 09003cc | 2026-10-08 | Jair Iván Martínez Palacios | Rebuild MTF catalog from FFDG PDF
+- 7f584ad | 2026-10-08 | Jair Iván Martínez Palacios | Use source PDF flowcharts for new MTF failures
+- a41aad2 | 2026-10-08 | Jair Iván Martínez Palacios | Show original PDF flowcharts throughout MTF catalog
+- e43a7df | 2026-10-09 | Jair Iván Martínez Palacios | Show PDF reference images on matched MTF failures
+- 032cbce | 2026-10-09 | Jair Iván Martínez Palacios | Unify duplicate MTF FA escalation node
+- 0dc5fa7 | 2026-10-09 | Gabo | fix(mtf): fit three cards and compact nav
+- 0e18304 | 2026-10-09 | Gabo | fix(mtf): improve catalog layout
+- 76c4a95 | 2026-10-09 | Gabo | fix(mtf): expand detail and toggle
+- 1dba3bb | 2026-10-09 | Gabo | fix(mtf): align technical panels
+- 8d4fbc7 | 2026-10-09 | Gabo | fix(mtf): keep flowchart controls visible
+- 9443c72 | 2026-10-09 | Gabo | fix(mtf): align flowchart and controls
+- f5489df | 2026-10-09 | Gabo | fix(mtf): expand selected technical detail
+- 4d47d1a | 2026-10-09 | Gabo | Revert "fix(mtf): expand selected technical detail"
+- bf23bd3 | 2026-10-09 | Gabo | feat(ui): improve catalog and diagram access
+- c7f4e80 | 2026-10-09 | Gabo | fix(bat): restore branching flowchart
+- 371a42b | 2026-10-09 | Gabo | fix(bat): restore 032 flowcharts
++
+## 13. 2026-10-10 — Memoria técnica y reglas obligatorias FFDIGI
+
+### Fecha
+2026-10-10.
+
+### Solicitud
+Analizar el proyecto sin cambios funcionales; crear `CONTEXTO_FFDIGI.md` y `AGENTS.md` en la raíz del repositorio; mantener este archivo como cronología y actualizarlo solo para registrar el sistema de documentación. Alcance confirmado: únicamente `C:\Users\Jair Iván\Documents\FFDIGI FA BAT\pagina ffdg`.
+
+### Objetivo
+Que una sesión nueva pueda entender arquitectura, datos, fuentes de verdad, flujos, dependencias, riesgos y decisiones vigentes antes de modificar código.
+
+### Estado anterior
+Existía una bitácora acumulativa, pero no memoria técnica ni reglas locales obligatorias. El árbol ya tenía cambios de código/recursos locales sin commit; esos cambios se preservaron y no se tocaron.
+
+### Análisis
+- Se confirmó que esta carpeta es la raíz Git, en rama `develop`, con `ahead 3`.
+- Se revisaron archivos, módulos, estilos, importadores, catálogos, persistencia, diagramas, modales, formularios y generación de impresión.
+- Se comparó la bitácora con el código actual y se separaron hechos versionados, archivos ignorados y recursos sin seguimiento.
+- Conteos observados: 113 registros MTF base + 175 adiciones = 288 antes del filtro; OBA se excluye y quedan 287. La semilla BAT contiene 25 casos. Los conteos describen el código observado, no una cifra permanente.
+- Se comprobó que manuales/workbook fuente no forman parte del árbol; hay referencias derivadas y herramientas de importación local.
+- Se identificaron discrepancias: módulos/PNG MTF locales sin seguimiento, fallback MTF que puede inventar Re-Test/Pass/Fail, copia `ffdg_bat.html` ignorada y sin dependencias disponibles.
+- Se constató que el historial anterior afirmaba equivalencia de copias; el código actual demuestra que la copia ignorada no es la fuente versionada.
+
+### Causa
+La bitácora sola no daba suficiente contexto operativo ni prevenía modificaciones a ciegas; además, algunos estados históricos ya no describían exactamente el árbol actual.
+
+### Solución
+- Se creó `CONTEXTO_FFDIGI.md` como memoria técnica actual, con arquitectura, flujo BAT/MTF, fuentes de verdad, mapa de dependencias, funciones críticas, decisiones, comportamientos a conservar, problemas, deuda y pendientes.
+- Se creó `AGENTS.md` con lectura previa obligatoria, reglas de análisis, protección BAT/MTF, validación y actualización documental.
+- Se mantiene esta bitácora separada como cronología; no se cambió su registro previo para aparentar validaciones nuevas.
+
+### Archivos modificados
+- `AGENTS.md` — reglas obligatorias para tareas FFDIGI.
+- `CONTEXTO_FFDIGI.md` — memoria técnica basada en el árbol observado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada de documentación.
+
+### Funciones o secciones afectadas
+Solo documentación: reglas, arquitectura, dependencias, flujos de datos/UI, riesgos y decisiones. Ninguna función, selector, estilo ni dato de aplicación se modificó.
+
+### Impacto
+Las futuras sesiones deben leer los tres documentos antes de cualquier cambio; el contexto distingue `index.html` versionado de archivos locales ignorados/no rastreados. Los límites encontrados quedan visibles para prevenir despliegues incompletos o asociaciones/flowcharts inferidos.
+
+### Validaciones realizadas
+- Se volvió a comprobar rama/estado Git y que los módulos/recursos pendientes ya existían antes de escribir estos documentos.
+- Se verificaron conteos de catálogos, archivos de imágenes, referencias de módulos y rutas locales señaladas en el contexto.
+- Se comprobó el inventario del proyecto y los manuales/workbooks fuente no están incluidos en este árbol.
+- Después de escribir: revisar conteo de archivos, encabezados, rutas citadas, `git diff --check` y estado Git.
+- No se ejecutaron pruebas funcionales ni se modificó/levantó la aplicación; por tanto no se declara validación visual end-to-end.
+
+### Resultado
+Contexto y reglas creados dentro de esta raíz Git. Sin cambios funcionales, commit ni push.
+
+### Pendientes
+Completar validaciones visuales antes de futuras modificaciones de UI y resolver el seguimiento Git de recursos MTF antes de confiar en un checkout limpio.
+
+### Riesgos
+En el corte de la auditoría inicial, el estado local contenía recursos sin seguimiento y el renderer genérico MTF requería revisión. La entrada 14 registra la corrección de ese renderer; la distribución aún debe incluir los módulos y PNG locales correspondientes.
+
+## 14. 2026-10-10 — Mostrar únicamente flowcharts MTF fuente
+
+### Fecha
+2026-10-10.
+
+### Solicitud
+Corregir los diagramas de fallas MTF para que correspondan a los flowcharts de `C:\Users\Jair Iván\Downloads\ffdg.pdf`; leer contexto e historial antes de actuar y registrar la intervención completa.
+
+### Objetivo
+Que las fallas MTF muestren el diagrama original aplicable del PDF y eliminar rutas inventadas; conservar BAT y el resto de su lógica.
+
+### Estado anterior
+`renderFlowchart` mostraba imágenes cuando estaban asociadas, pero si faltaban podía recurrir a un modelo vectorial o generar un SVG genérico con decisiones Re-Test y ramas Pass/Fail. Había adiciones MTF sin figura registrada, incluidas descripciones distintas que reutilizan códigos.
+
+### Análisis
+- Se leyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md` antes de editar; se confirmó que el alcance Git es únicamente esta carpeta `pagina ffdg`, rama `develop`, con tres commits locales adelantados y otros cambios locales preexistentes que se conservaron.
+- Se revisaron `index.html`, `mtf-pdf-additions.js`, `mtf-pdf-flowcharts.js`, `mtf-pdf-reference-map.js`, recursos PNG y los registros sin imagen. Se verificó el PDF de 231 páginas con extracción de texto.
+- Se contrastaron ejemplos: p. 57 (decisión Yes/No seguida por resultado Pass/Fail), pp. 154–155 (fallas distintas y diagramas distintos) y pp. 74–76 (inspección de conectores/sensores y validación). Las imágenes p. 76 (`mtf-flow-038.png`) y p. 154 (`mtf-flow-083.png`) son los recortes originales disponibles.
+- Se identificó `PDF-MTF-CASE-0166` como un registro FTS de lectura AIN0 cuyo código y descripción corresponden al procedimiento de fuga de sensor de la p. 74 y al flowchart de la p. 76. Se excluyeron asociaciones solo por coincidencia de código, incluida la variante de SSD y otros procedimientos AIN0 sin ese mismo flowchart.
+- Se revisaron los otros registros adición sin imagen y las cuatro entradas base sin imagen directa; no se asoció una figura cuando la página de su procedimiento no incluye un flowchart aplicable. AST-01 ya tenía una asociación específica a la p. 63 en el módulo de flowcharts.
+- Inventario observado: 175 adiciones MTF; 20 sin imagen directa antes de esta corrección; 99 PNG flowchart presentes. Todas las rutas de imagen declaradas por mapa/adiciones se comprobaron contra archivos existentes.
+
+### Causa
+El renderer conservaba una plantilla histórica que infería rutas genéricas aun cuando no había una imagen PDF verificada. Además, una variante FTS de lectura AIN0 (case 0166) no heredaba la figura correcta de p. 76, aunque había otro registro de la misma fuente y código/descripción compatible.
+
+### Solución
+- Se eliminó el renderer MTF que fabricaba rombos Re-Test, Pass/Fail y rutas de sustitución. Sin imagen original directa o en una asociación verificada, se muestra un aviso de ausencia; no se dibuja un diagrama inferido. La imagen fuente se evalúa antes de comprobar si el catálogo trae pasos, para no ocultar una figura existente.
+- Se añadió una asociación puntual para `PDF-MTF-CASE-0166`, reutilizando la imagen p. 76 solo si estación, código y texto AIN0 cumplen las condiciones del caso fuente p. 76.
+- No se cambiaron imágenes BAT, `renderBatFlowchart`, procedimientos, catálogo general, API ni selección de pasos.
+- Se actualizó el contexto para reflejar la política de imágenes fuente y el caso verificado.
+
+### Archivos modificados
+- `index.html` — `renderFlowchart`; retirada de SVG genérico y secuencia representada como diagrama.
+- `mtf-pdf-flowcharts.js` — asociación condicionada para `PDF-MTF-CASE-0166` a p. 76.
+- `CONTEXTO_FFDIGI.md` — fuente de verdad, renderer, problema corregido y pendiente de validación visual.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada cronológica.
+
+### Funciones o secciones afectadas
+- `renderFlowchart` muestra primero el `flowchartImage` original directo o la imagen que porta la asociación MTF, aunque falten pasos; para ausencia usa aviso textual accesible.
+- `associatePage` registra p. 76 para case 0166 con validaciones de estación, código, página de origen y descripción AIN0.
+- Solo cambia el panel de flowchart MTF; la navegación de diagnóstico continúa estática y no permite elegir ramas.
+
+### Impacto
+Fallas MTF con imagen fuente verificada mantienen el flujo y etiquetas exactamente como están en el PDF. Casos sin diagrama fuente dejan de presentar ramas potencialmente falsas. Se conservan los fallbacks de datos/pasos y todo BAT.
+
+### Validaciones realizadas
+- PDF: se verificaron páginas 57, 74–76, 110–111, 147, 154–155 y las páginas de casos sin imagen asociada que reutilizaban códigos. Se confirmó que p. 147 (FLB “failed device”) no tiene flowchart y no se confundió con CX8_PORT de p. 110–111.
+- Recursos: se comprobaron 99 PNG existentes y que las rutas declaradas por mapas/adiciones apuntan a archivos presentes.
+- Sintaxis: `node --check` para los módulos MTF; compilación sintáctica de los 8 scripts inline de `index.html`; `git diff --check` sin errores.
+- Prueba estática del registro/render: se comprobó la asociación e imagen de p. 57 (AST-06), p. 63 (AST-01), p. 76 (case 0166), p. 154 (FLB-02) y p. 155 (case 0199); case 0167 no hereda la imagen. El render MTF no contiene ya `Re-Test`, flechas sintéticas ni `renderStepSequenceSvg` y muestra el aviso para ausencia de fuente.
+- Se inspeccionaron visualmente los PNG fuente p. 57, 76, 154 y 155. La visita end-to-end a la página local no se pudo realizar: la política del navegador bloquea URLs `file:`. Quedan pendientes modal, restauración/importación Excel y responsive; no se declaran validados.
+
+### Resultado
+Los diagramas MTF no deben volver a inferirse desde los pasos. Los casos con imagen muestran la fuente; los casos sin fuente quedan identificados como tales. No se modificó ni sustituyó ningún flowchart BAT.
+
+### Pendientes
+- Probar visualmente las fallas de p. 57, p. 76, p. 154, p. 155 y ausencia de fuente; verificar catálogo restaurado/importado y modal.
+- Resolver el seguimiento Git de módulos y recursos locales conforme a una decisión separada; no se hizo commit ni push.
+
+### Riesgos
+La fuente `ffdg.pdf` está fuera del repositorio y no puede acompañar un clon limpio. Módulos/PNG locales aún sin seguimiento deben incluirse en cualquier distribución; de otro modo el mapa y las imágenes no se cargarán.
+
+## 15. 2026-10-10 — Pasos MTF revisados y prioridad de flowcharts fuente
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Completar correctamente los pasos de las fallas MTF según `ffdg.pdf` y usar el flowchart fuente correspondiente en vez de diagramas genéricos inferidos.
+
+### Objetivo
+
+Conservar el orden y las condiciones documentadas, asociar cada imagen por identidad de falla/página, y evitar que la navegación MTF reemplace un diagrama PDF con ramas sintéticas.
+
+### Estado anterior
+
+- Existían 55 overlays verificados sobre 113 registros base. FLA-07 y FLB-08 tenían sus pasos e imagen fuente disponibles.
+- El primer render MTF priorizaba imágenes fuente, pero un observer M3 tardío (`drawFlow`) redibujaba sobre el mismo panel una plantilla con Re-Test, Pass/Fail, resultados y escalación genéricos al cambiar el paso. Por eso la imagen no se veía como fuente pese a estar asociada.
+- Quedaban 58 de 113 registros base sin overlay PDF verificado. No se podían declarar completos sus pasos solo por similitud de código o descripción.
+
+### Análisis y causa
+
+- Se inspeccionaron `renderFlowchart`, `renderMtfPdfDecisionFlowchart`, el observer `watch("mtf-step", drawFlow)`, el mapa de asociaciones y los módulos de overlays. El observer tardío escribía directamente en `#mtf-flowchart-diagram` sin revisar `flowchartImage` y volvía a introducir la plantilla genérica histórica.
+- La selección de FLB-08 muestra 9 pasos; su página fuente tiene un flowchart vertical con decisión sobre si el error sigue al SSD. FLA-07 presenta 5 pasos y un flowchart con retornos Pass/Fail directos, sin rombo Re-Test.
+- No se usó código de error aislado para extender las asociaciones; los códigos pueden repetirse entre estaciones/casos.
+
+### Solución
+
+- Se renombró el callback antiguo como `drawFlowLegacy` y se dejó fuera de los observers. Se añadió advertencia para no reactivarlo accidentalmente.
+- El `drawFlow` activo ahora respeta la imagen original asociada a la falla; como alternativa solo delega en un grafo vinculado al PDF; si no hay fuente verificable, presenta un mensaje en vez de inferir decisiones.
+- Se conservaron los overlays ya asociados: FLA-07 (pp. 23–24; 5 pasos e imagen del flowchart) y FLB-08 (pp. 149–151; 9 pasos e imagen del flowchart p. 151). No se modificó BAT, API, datos de selección ni rutas de decisión interactivas.
+- Se actualizó `CONTEXTO_FFDIGI.md` con la causa del observer tardío, la nueva prioridad y el estado pendiente de los 58 registros restantes.
+
+### Archivos modificados
+
+- `index.html` — el callback MTF activo ya no reconstruye diagramas genéricos; respeta imágenes y modelos PDF asociados.
+- `CONTEXTO_FFDIGI.md` — arquitectura, regla de render y evidencia visual actualizadas.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+- `mtf-pdf-procedure-overrides.js` — conserva los 55 overlays anteriores, incluida la asociación explícita FLA-07; en esta iteración no se amplió el número de overrides.
+
+### Funciones o secciones afectadas
+
+- `drawFlow` — prioridad `flowchartImage`, después grafo MTF asociado y aviso de ausencia.
+- `drawFlowLegacy` — función histórica no llamada; contiene la antigua plantilla genérica y queda expresamente marcada como no reactivable.
+- `renderFlowchart` y observer del diálogo — el modal sigue clonando la superficie de diagrama generada por el render fuente.
+- Catálogo base MTF: 113 fallas; 55 identidades con overlay inequívoco en esta auditoría, otras 58 pendientes de transcripción/confirmación completa.
+
+### Impacto
+
+Al cambiar de paso, el observer deja de tapar el flowchart fuente. Los casos sin imagen o asociación verificada ya no presentan la plantilla de decisiones genéricas. La secuencia textual de pasos y el resto de los módulos permanecen separados.
+
+### Validaciones realizadas
+
+- Navegador local: FLB-08 muestra 9 pasos y la imagen original vertical de su flowchart, incluyendo la decisión “failure moves with SSD”; FLA-07 muestra 5 pasos y el flowchart original con sus conexiones directas.
+- Navegador local: se abrió el modal de ampliación de FLA-07 y se verificó el título y la imagen fuente dentro del diálogo.
+- Sintaxis: `node --check` para módulos MTF afectados; los 7 scripts inline no modulares de `index.html` compilaron mediante `vm.Script`.
+- Auditoría de overlays: 55 asociaciones hacen coincidencia única contra los 113 registros base; 0 imágenes declaradas faltantes.
+- `git diff --check` sin errores.
+- No se probó el catálogo importado/restaurado, móvil/tableta ni los 58 casos restantes en esta iteración. No se declara completa la revisión de procedimientos de todas las fallas.
+
+### Resultado
+
+Corregida la causa por la que la imagen de PDF era reemplazada por el diagrama genérico para FLB-08 y FLA-07. Los diagramas verificados permanecen estáticos y fieles al PDF; no se presentan decisiones inventadas en la superficie activa.
+
+### Pendientes
+
+- Auditar, transcribir y asociar las 58 fallas base que no tienen overlay verificado. Debe hacerse por estación, código, descripción y página; no por coincidencia de código aislada.
+- Revisar las variantes y los casos que no tienen figura en PDF para distinguir “sin flowchart fuente” de un faltante de extracción.
+- Validar importación/restauración del catálogo y probar tamaños móvil/tableta/escritorio.
+- Resolver el seguimiento Git de módulos/recursos no rastreados en una solicitud separada; no se hizo commit ni push.
+
+### Riesgos
+
+- `drawFlowLegacy` permanece definido pero no se invoca; un cambio posterior en su observer podría reintroducir decisiones genéricas si ignora esta regla.
+- El avance cubre 55 de 113 registros base de manera inequívoca; los pasos de los demás no están certificados y podrían permanecer incompletos o diferir del PDF.
+- La fuente PDF está fuera de la raíz Git y los recursos nuevos están sin seguimiento al corte; un clon limpio podría no incluirlos.
+
+## 16. Mosaicos MTF filtrados, centrado y apertura del detalle
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Al buscar una falla, mostrar las fallas similares agrupadas por estación y centradas en el tablero. Al elegir una, ocultar los mosaicos y presentar su ficha completa, con transición visual. BAT queda fuera del cambio.
+
+### Objetivo
+
+Pasar de resultados MTF agrupados por estación a una sola ficha seleccionada, sin dejar el tablero visible detrás o junto al detalle.
+
+### Estado anterior
+
+- La búsqueda agrupaba coincidencias (por ejemplo FLB/FLC/FCT), pero las columnas del tablero quedaban pegadas a la izquierda.
+- El click del tablero se reenviaba a una tarjeta de lista oculta. La selección podía marcarse, pero la apertura y el colapso del catálogo no quedaban garantizados en ese recorrido.
+- La vista de selección y el panel de detalle compartían el layout y el estado `mtf-detail-open`.
+
+### Análisis y causa
+
+- Se revisaron el render de `#mtf-fault-list`, el tablero construido por M3, el listener de búsqueda, `setMtfCatalogCollapsed` y las reglas responsive/transición existentes.
+- El tablero usaba `c.click()` sobre un nodo oculto como puente. Se sustituyó por una función compartida que recibe el registro seleccionado.
+- El tablero usaba grid con cinco columnas. Las búsquedas parciales ocupaban columnas iniciales sin centrar los grupos restantes.
+
+### Solución
+
+- Se centralizó selección MTF en `selectMtfFault(failure)`: actualiza la falla/paso, abre el detalle y colapsa el catálogo en mosaico/tablero; conserva lista técnica cuando esa vista está elegida.
+- Tarjeta normal y tablero llaman a la misma función; cada tarjeta conserva una referencia al registro.
+- El tablero filtrado usa flex-wrap, centrado y ancho máximo por estación, con ajuste para pantallas estrechas.
+- Al buscar o pulsar «Cambiar falla», se cierra el detalle y regresan los resultados filtrados. BAT permanece intacto.
+
+### Archivos modificados
+
+- `index.html` — selección MTF compartida, enlace del tablero al registro y estilos de centrado/responsive.
+- `CONTEXTO_FFDIGI.md` — ciclo búsqueda → mosaicos → ficha y mapa de responsabilidades.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+
+### Funciones o secciones afectadas
+
+- `selectMtfFault` — coordina estado, visibilidad, render y enfoque del detalle.
+- `renderMtfList` — asocia cada tarjeta al registro.
+- `buildBoard` — agrupa por estación, reconstruye botones y activa la clase de centrado.
+- Listener `mtf-search` y `mtf-selection-toggle` — regresan a los resultados filtrados.
+- CSS `mtf-selection-results-layout` — distribución flexible centrada y ancho máximo por estación.
+
+### Impacto
+
+Solo selección y presentación del catálogo MTF de `index.html`. No cambia datos, procedimientos, imágenes, API, flowcharts ni BAT.
+
+### Validaciones realizadas
+
+- Navegador local HTTP: una búsqueda de descripción compartida mostró tres coincidencias FLB/FLC/FCT centradas.
+- Al seleccionar FLB-08, el tablero desapareció y la ficha mostró Failure Record, nueve pasos, referencia de imagen y flowchart; el botón «Cambiar falla» quedó disponible.
+- Las transiciones respetan la regla CSS existente `prefers-reduced-motion: no-preference`.
+- `git diff --check` y compilación sintáctica de scripts inline ejecutados después de editar. Revisión visual en escritorio; no se hizo matriz de dispositivos físicos móvil/tableta.
+
+### Resultado
+
+Las coincidencias se muestran centradas; seleccionar un caso abre su detalle sin mosaicos. «Cambiar falla» restaura el catálogo MTF filtrado. BAT intacto.
+
+### Pendientes
+
+- Probar «Cambiar falla», volver a buscar con el detalle abierto y seleccionar desde Mosaico/Lista técnica.
+- Revisar viewports móvil/tableta. No hubo cambios Git ni publicación.
+
+### Riesgos
+
+- `buildBoard` depende del observer existente sobre cambios de hijos del catálogo para reconstruirse después de filtrar.
+- `index.html` conserva estilos inline tardíos superpuestos; no se hizo refactor fuera de alcance.
+
+## 17. 2026-10-10 — Vista completa del detalle MTF y modal de topología
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Al seleccionar una falla MTF desde los mosaicos, mostrar las tres tarjetas del detalle desde el inicio sin desplazar la página; abrir GB300 System Topology directamente en modal; separar visualmente los pasos de la etiqueta de validación.
+
+### Objetivo
+
+Evitar que la ficha aparezca fuera de vista o requiera scroll vertical de página en escritorio, prevenir que la topología expanda la tarjeta y mejorar la lectura del encabezado de validación.
+
+### Estado anterior
+
+- `scrollMtfDetailIntoView()` desplazaba la ficha seleccionada hacia su inicio; con el encabezado de aplicación fuera del viewport, el usuario veía solo la parte inferior de la página.
+- La topología se encontraba dentro de un acordeón con una vista previa; el botón de ampliación estaba dentro de esa tarjeta y no lanzaba el modal al primer acceso.
+- El stepper de pasos y la etiqueta de validación estaban visualmente muy juntos.
+
+### Análisis y causa
+
+- Se revisaron los documentos obligatorios, el estado Git y los consumidores de selección MTF, eventos de búsqueda/regreso, estilos responsive y listener/modal de topología.
+- El HTML ya contiene un `<dialog>` de topología con imagen dimensionada; el desbordamiento ocurría porque el resumen permitía expandir una vista previa dentro de la tarjeta.
+- La ficha MTF ya tenía layout de pantalla completa parcial, pero no se activaba al seleccionar desde mosaico/tablero y el scroll automático apuntaba al detalle en vez del inicio.
+
+### Solución
+
+- La selección desde mosaico/tablero activa una clase visual exclusiva de detalle MTF en escritorio, sube la página al inicio y limita el área de las tres tarjetas al viewport; el contenido largo puede desplazarse dentro de su propia tarjeta.
+- Buscar otra falla o volver al catálogo limpia dicha clase. La vista de lista técnica conserva su comportamiento previo; hasta 1080 px se mantiene el diseño apilado responsive.
+- Se reemplazó el acordeón/vista previa de topología por un botón de lanzamiento visible que abre el `<dialog>` existente; la imagen no se expande dentro de la tarjeta.
+- Se aumentó el espacio entre stepper y validación y entre sus etiquetas; textos y pasos no cambian.
+- No se tocaron BAT, datos, flowcharts ni APIs.
+
+### Archivos modificados
+
+- `index.html` — selección/scroll MTF, launcher de topología y estilos de viewport, modal y espaciado.
+- `CONTEXTO_FFDIGI.md` — comportamiento vigente del detalle y la topología.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+
+### Funciones o secciones afectadas
+
+- `selectMtfFault` y `scrollMtfDetailIntoView` — apertura y posicionamiento de la ficha.
+- Eventos `mtf-search` y `mtf-selection-toggle` — limpieza del modo de detalle al regresar.
+- `#mtf-topology-open` — activa el listener existente del diálogo.
+- CSS de `#mtf-layout.mtf-detail-viewport`, stepper y launcher topológico.
+
+### Impacto
+
+Solo presentación/navegación de detalle MTF en `index.html`. Los paneles del detalle permanecen visibles simultáneamente en escritorio, con scroll local si una sección supera su altura disponible. En móvil/tableta no se fuerza una composición de tres columnas ni se bloquea el scroll natural.
+
+### Validaciones realizadas
+
+- Inspección estática de los selectores, markup modal y listeners existentes; el id del botón se conserva para reutilizar el diálogo.
+- `node --check` pasó para los cuatro módulos MTF locales; los siete scripts clásicos inline de `index.html` compilaron con `vm.Script`.
+- `git diff --check` terminó sin errores.
+- Pendiente ejecutar prueba visual de selección, cierre modal y responsive: el navegador integrado bloquea la URL local `file://` y no se inició un servidor alterno.
+
+### Resultado
+
+La selección de mosaico/tablero está configurada para abrir el detalle desde arriba en el viewport; GB300 System Topology ya no se despliega en línea y su acceso abre el modal existente. Validación sintáctica y de diff correcta; no se declara validación visual end-to-end.
+
+### Pendientes
+
+- Confirmar visualmente en escritorio que las tres tarjetas caben, y que el contenido extenso se desplaza dentro de su panel.
+- Comprobar el modal, teclado y tamaños móvil/tableta/escritorio en un entorno permitido.
+
+### Riesgos
+
+- La altura disponible depende del encabezado real del navegador y de la resolución; CSS reserva 260 px y las tarjetas tienen scroll propio en escritorio.
+- Compatibilidad del anclaje del viewport depende de `:has()`/`100dvh`, selectores que ya se utilizan en el HTML, pero requiere comprobación visual en navegadores objetivo.
+
+## 18. 2026-10-10 — Flowchart MTF fuente a 400 ppp con lupa modal
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Exportar las imágenes de flowchart a 400 ppp cuando exista resolución suficiente y habilitar lupa para ver el diagrama con detalle dentro del modal MTF.
+
+### Objetivo
+
+Mejorar legibilidad del flowchart de FLB-08 en el modal sin reemplazar ni degradar la imagen original.
+
+### Estado anterior
+
+- El registro que usa el flowchart MTF de la p. 151 mostraba `mtf-flow-081.png` (1036×1307 px, metadatos de 96 ppp) tanto en tarjeta como en el modal; el modal ajustaba el diagrama al ancho disponible sin opción de zoom.
+- El diálogo y el click del diagrama ya existían; BAT comparte el diálogo, por lo que el control nuevo debía limitarse a casos MTF con alternativa de alta resolución.
+
+### Análisis y causa
+
+- Se leyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md`; se revisaron los renderers MTF, observer de pasos, asociaciones de `mtf-flow-081.png` y listeners del modal.
+- Se verificó que el flowchart pertenece a la p. 151 del PDF. El PNG existente no tenía densidad suficiente para afirmar 400 ppp; cambiar solo sus metadatos no aportaría detalle.
+- Se renderizó la p. 151 desde el PDF a 400 ppp y se inspeccionó el recorte para conservar todos los nodos, etiquetas y ramales.
+
+### Solución
+
+- Se creó una alternativa separada de 2835×3580 px, con metadatos de 399.9992 ppp (redondeo de Poppler) y se conservó sin cambios el PNG original.
+- `mtf-pdf-reference-map.js` registra la alternativa de alta resolución por nombre del recurso base; el modal cambia a dicha imagen al abrir para los diagramas asociados.
+- El diálogo MTF habilita «Lupa · 400 ppp» solo si el registro dispone de esa imagen; alterna entre ajuste y 200% con desplazamiento interno. BAT no muestra ni recibe el nuevo control.
+- No se alteraron las asociaciones, procedimientos, diagramas BAT ni decisiones del flowchart.
+
+### Archivos modificados
+
+- `index.html` — botón accesible del modal, activación de imagen de alta resolución y zoom 200%.
+- `mtf-pdf-reference-map.js` — asociación del recurso alternativo 400 ppp.
+- `assets/mtf-flowcharts/mtf-flow-081-400dpi.png` — derivado rasterizado de la p. 151.
+- `CONTEXTO_FFDIGI.md` — regla vigente para alternativas de alta resolución.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+
+### Funciones o secciones afectadas
+
+- `renderFlowchart` y `drawFlow` — registran la alternativa hi-res en la superficie SVG sin cambiar el preview original.
+- `openDiagram` — usa el recurso de 400 ppp en el modal y expone la lupa solo para esa fuente.
+- Listener `mtf-flowchart-zoom` — alterna tamaño 100%/200% y restablece el scroll.
+
+### Impacto
+
+Mejora el modal MTF para los flowcharts que tengan alternativa hi-res registrada. Actualmente se registra el recurso de la p. 151, compartido por las fallas que apuntan a `mtf-flow-081.png`. Los demás conservan su resolución anterior y no anuncian una lupa de 400 ppp. BAT conserva su diálogo y diagrama.
+
+### Validaciones realizadas
+
+- PDF original: render p. 151 con Poppler a 400 ppp; comprobado tamaño 3400×4400 px y metadato 399.9992 ppp.
+- Recurso final: recorte visual inspeccionado, 2835×3580 px, metadato 399.9992 ppp, tamaño aproximado 300 KB; nodos/ramales visibles y PNG anterior preservado.
+- Pendiente la prueba interactiva del modal/lupa en navegador: el navegador integrado bloquea `file://`; no se inició un servidor alterno.
+- `node --check` pasó para los cinco módulos MTF; los siete scripts clásicos inline compilaron con `vm.Script`; `git diff --check` terminó limpio.
+
+### Resultado
+
+La imagen original sigue sirviendo de preview. Los flowcharts asociados a la fuente de la p. 151 pueden abrir en el modal con una alternativa de 400 ppp y control de lupa. No se declara prueba visual end-to-end del diálogo.
+
+### Pendientes
+
+- Comprobar el modal y lupa en navegador, incluida navegación por teclado y tamaños móvil/escritorio.
+- Exportar otras páginas solo cuando exista una correspondencia inequívoca y se necesite mayor detalle; no se cambiaron recursos adicionales.
+
+### Riesgos
+
+- Los PNG de otros flowcharts siguen sin conversión a 400 ppp; la lupa se oculta si no tienen alternativa registrada.
+- El zoom al 200% requiere desplazamiento dentro del modal para recorrer imágenes altas.
+
+## 19. 2026-10-10 — Exportar todas las imágenes fuente de flowchart MTF a 400 ppp
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Extender la exportación a 400 ppp y la lupa a todas las imágenes de diagramas MTF.
+
+### Objetivo
+
+Que cada flowchart de imagen existente y asociado por el catálogo abra con detalle en el mismo modal, sin alterar diagramas ni asociaciones.
+
+### Estado anterior
+
+- Había una alternativa 400 ppp solo para `mtf-flow-081.png`, fuente de la p. 151; los demás PNG fuente conservaban su resolución previa y no ofrecían lupa.
+- El modal ya alternaba a 200% cuando encontraba una alternativa hi-res.
+
+### Análisis y causa
+
+- Se leyeron las reglas, contexto e historial completos; se revisaron los mapas de imágenes, source pages, MTF additions y overrides.
+- El catálogo y sus additions contienen 98 nombres únicos de imagen flowchart con página fuente asociada; además, el módulo vectorial registra AST-01 en la p. 63 con `mtf-flow-109.png`. Algunas imágenes se comparten entre fallas y no deben duplicarse ni reasignarse.
+- Cada imagen PNG original se usó como plantilla de coincidencia contra el render de su página PDF a 150 ppp para ubicar el recorte. No se tomó ningún número de página por inferencia.
+
+### Solución
+
+- Se generaron 99 PNG alternativos: 98 imágenes únicas del catálogo/additions y el recurso legacy AST-01 de la p. 63; todos renderizados desde sus páginas fuente a 400 ppp. Los PNG originales se conservan.
+- La coincidencia plantilla-página tuvo puntuación mínima 0.747 para las 98 imágenes catalogadas y 0.781 para AST-01; no hubo páginas ni recortes sin correspondencia. Hojas de contacto y el recorte AST-01 fueron revisados visualmente.
+- `mtf-pdf-reference-map.js` registra el mapa hi-res de recursos del catálogo y AST-01; los renderers MTF adjuntan el alternativo al SVG y el modal muestra lupa solo para fuentes registradas.
+- Las fallas que comparten PNG conservan el mismo hi-res; diagramas BAT, datos, pasos y asociaciones no cambiaron.
+
+### Archivos modificados
+
+- `assets/mtf-flowcharts/*-400dpi.png` — 99 exportaciones MTF desde las páginas fuente correspondientes.
+- `mtf-pdf-reference-map.js` y `mtf-pdf-flowcharts.js` — registro de AST-01, mapa hi-res y atributos para lupa en el renderer de graphs.
+- `CONTEXTO_FFDIGI.md` — alcance hi-res vigente, 99 fuentes registradas.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+
+### Funciones o secciones afectadas
+
+- Registro `FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES` — asocia recursos 400 ppp a cada nombre de archivo fuente catalogado y a AST-01.
+- `renderFlowchart` / `drawFlow`, `renderMtfPdfVectorFlowchart` y `openDiagram` — agregan la alternativa hi-res para imágenes fuente MTF, incluida AST-01.
+
+### Impacto
+
+Los 99 diagramas MTF asociados a PNG fuente pueden abrirse con alternativa 400 ppp y lupa 200%. Archivos base de menor resolución siguen siendo preview en la tarjeta. Casos sin imagen fuente inequívoca continúan sin diagrama.
+
+### Validaciones realizadas
+
+- PDF: 98 páginas fuente únicas del catálogo/additions más p. 63 de AST-01; 98 páginas se renderizaron a 150 ppp y p. 63 a 200 ppp para ubicar recortes. Las 99 páginas se renderizaron a 400 ppp para los assets finales.
+- Búsqueda de imagen contra página: 99/99 coincidencias aceptadas; mínimo 0.747 en catálogo, 0.781 en AST-01; sin fallos.
+- Inspección visual: cinco hojas de contacto más el recorte AST-01 revisados para comprobar que los flowcharts no quedaran vacíos ni truncados.
+- `node --check` pasó para los cinco módulos MTF; los siete scripts clásicos inline compilaron con `vm.Script`.
+- Se verificaron 99/99 assets presentes, metadatos 399.9992 ppp y dimensiones superiores a 2500 px de ancho; total adicional aproximado 16.5 MB.
+- `git diff --check` terminó limpio.
+- No se declara interacción visual end-to-end: la política del navegador bloquea `file://`.
+
+### Resultado
+
+Generadas las 99 alternativas source-backed de 400 ppp y ampliado el mapa de lupa a todo el conjunto, incluida AST-01. No se sobrescribió ningún PNG fuente.
+
+### Pendientes
+
+- Comprobar el diálogo/lupa en un navegador permitido.
+
+### Riesgos
+
+- Las exportaciones hi-res ocupan aproximadamente 16.5 MB adicionales; conservarlas junto con las imágenes fuente para que la lupa funcione.
+
+## 20. 2026-10-10 — Restaurar scroll vertical en detalle MTF
+
+### Solicitud
+
+Corregir el scroll bloqueado al seleccionar una falla MTF desde el tablero y permitir recorrer la ficha completa.
+
+### Análisis y causa
+
+- El modo de detalle de escritorio activaba `overflow: hidden` en `html` y `body`.
+- También fijaba la altura de la fila de detalle al viewport y daba scroll interno a las tarjetas; los flowcharts altos podían quedar fuera del área visible mientras el scroll principal estaba desactivado.
+
+### Solución
+
+- Se reactivó el scroll vertical de página durante el detalle.
+- La fila y las tres tarjetas ahora crecen con el contenido; se mantiene la distribución horizontal de tres paneles en escritorio y el desplazamiento inicial al abrir la falla.
+- BAT, datos, procedimientos, diagramas e imágenes no se modificaron.
+
+### Archivos modificados
+
+- `index.html` — CSS `#mtf-selection-results-layout` para overflow, altura natural y paneles MTF.
+- `CONTEXTO_FFDIGI.md` — comportamiento actual de scroll en detalle.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Validación y resultado
+
+- Se revisaron los selectores que activan el modo de detalle y los estilos previos de fila, cuadrícula y tarjetas.
+- `git diff --check` terminó limpio; los siete scripts clásicos inline y los cuatro módulos MTF pasaron comprobación de sintaxis.
+- La prueba visual sigue limitada por el navegador, que bloquea la URL local `file://`; no se declara validación interactiva completada.
+
+### Pendientes y riesgos
+
+- Confirmar visualmente en el navegador que la página desplaza el detalle completo y que las imágenes grandes conservan su ampliación modal.
+- El alto natural de una falla con muchos pasos/diagramas puede requerir más scroll de página; ahora es accesible en lugar de quedar recortado.
+
+## 21. 2026-10-10 — Lista técnica a ancho completo y ficha MTF ajustada al viewport
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+En Lista técnica, mostrar las fallas como lista amplia a todo el ancho; al elegir una, ocultar la lista y presentar la ficha MTF completa con sus tres paneles y botones de navegación/diagrama visibles. Aplicar la selección de ficha también desde Mosaico y Tablero.
+
+### Objetivo
+
+Quitar la vista estrecha de maestro/detalle y reducir el scroll de página necesario para ver el encabezado de las secciones, el flowchart y sus controles en escritorio.
+
+### Estado anterior
+
+- Lista técnica usaba una cuadrícula de dos columnas; las fallas ocupaban solo el panel izquierdo y la ficha permanecía al lado al seleccionar.
+- Esa ruta no activaba `mtf-detail-viewport`, por lo que no recibía el ajuste de ficha aplicado a Mosaico/Tablero.
+- Las reglas heredadas de `.mtf-split` limitaban la altura de lista y ficha y podían bloquear el scroll de página en escritorio.
+
+### Análisis y causa
+
+- Se leyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md`, `HISTORIAL_CAMBIOS_FFDIGI.md` y las instrucciones operativas indicadas por el usuario antes de modificar.
+- Se siguieron las clases `mtf-split`, `mtf-detail-open`, `mtf-selection-collapsed` y `mtf-detail-viewport` desde el toggle de vistas, `selectMtfFault`, el botón Cambiar falla y las reglas responsive.
+- La excepción `keepTechnicalListVisible` preservaba el catálogo solo para Lista técnica y evitaba activar el modo de detalle; las reglas antiguas de `.mtf-split` seguían controlando la altura y el overflow.
+
+### Solución
+
+- La Lista técnica sin detalle usa una sola columna; las filas de falla ocupan el ancho disponible y la lista crece con sus resultados.
+- Seleccionar una falla en cualquiera de las vistas activa el mismo colapso del catálogo y la misma ficha; Cambiar falla conserva la vista seleccionada y restaura la lista.
+- En escritorio, los tres paneles se ajustan al espacio vertical: títulos y controles permanecen visibles, el flowchart se escala dentro de su panel y el contenido de pasos largos conserva scroll interno.
+- Se mantiene habilitado el scroll general como respaldo en ventanas bajas; hasta 1080 px sigue vigente el diseño apilado.
+- BAT, datos, pasos del PDF, imágenes, API y diagramas no se modificaron.
+
+### Archivos modificados
+
+- `index.html` — `selectMtfFault` y CSS `mtf-selection-results-layout` para lista, colapso y ajuste de ficha.
+- `CONTEXTO_FFDIGI.md` — comportamiento actual de selección y layouts MTF.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+
+### Funciones o secciones afectadas
+
+- `selectMtfFault` — activa el estado de detalle y colapsa la lista para todas las vistas.
+- `setMtfCatalogCollapsed` y `mtf-selection-toggle` — mantienen el retorno al catálogo y el foco.
+- CSS `mtf-selection-results-layout` — ancho completo de la lista y distribución/alto de los tres paneles de detalle.
+
+### Impacto
+
+Solo navegación y presentación del catálogo MTF en `index.html`; no cambia los datos ni los procedimientos. BAT permanece intacto. En pantallas pequeñas, la ficha se apila y puede requerir scroll de página.
+
+### Validaciones realizadas
+
+- Revisión estática de clases, selectores, listeners y ruta de foco/cambio de vista; confirmado que el diálogo del flowchart mantiene sus IDs y handlers.
+- Los siete scripts clásicos inline y seis archivos JavaScript locales pasaron comprobación de sintaxis; `git diff --check` terminó limpio.
+- La hoja CSS afectada tiene llaves balanceadas y los selectores esperados. No había un parser CSS instalado en el entorno.
+- La herramienta del navegador rechazó la ruta `file://` por política; no se intentó eludir esa restricción. No se declara validación visual interactiva.
+
+### Resultado
+
+Implementación local aplicada; no se hizo commit ni push. La lista queda definida a ancho completo, selección común oculta el catálogo y el detalle de escritorio reserva su alto para encabezados, diagrama y controles con scroll interno localizado.
+
+### Pendientes y riesgos
+
+- Revisar visualmente Lista técnica, Mosaico y Tablero con fallas cortas/largas en escritorio, tableta y móvil desde un navegador que permita la página.
+- La proporción de flowcharts puede hacerlos pequeños en el panel de escritorio; la lupa/modal de 400 ppp sigue disponible para lectura detallada.
+- Si el viewport es más bajo que el mínimo del detalle, se permite scroll de página en vez de bloquearlo.
+
+## 22. 2026-10-10 — Zoom progresivo, flowchart contenido y botón verde
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Corregir el zoom del modal para que sea progresivo y no desplace el diagrama lateralmente; reducir/contener flowcharts largos para conservar botones y elementos del detalle MTF; cambiar «Cambiar falla» de negro a verde como los encabezados del registro.
+
+### Objetivo
+
+Mantener la imagen fuente de alta resolución legible mediante un zoom centrado y conservar los controles de la ficha a la vista aunque una falla tenga un flowchart vertical grande.
+
+### Estado anterior
+
+- La lupa cambiaba el ancho del SVG a `200%`, expandía la caja modal y podía dejar el diagrama visible solo en el lado derecho con scroll horizontal.
+- El modal no reservaba explícitamente una altura al contenido; el SVG conservaba estilos inline del preview.
+- Algunos previews heredaban un alto máximo grande y podían ocupar el espacio vertical de los botones.
+- «Cambiar falla» usaba fondo negro aunque los bloques de detalle llevan verde primario.
+
+### Análisis y causa
+
+- Se revisaron `openDiagram`, el listener del botón de lupa, los SVG fuente con viewBox y sus imágenes 400 ppp, estilos del modal y reglas de detalle responsive.
+- La causa lateral era la regla CSS que duplicaba el ancho del SVG sin recentrar su viewBox; además, la tarjeta no imponía un límite efectivo de alto al SVG fuente.
+- Las variables `--md-sys-color-primary` y `--md-sys-color-on-primary` son los colores de fondo/texto usados por los encabezados y adaptan el contraste al tema.
+
+### Solución
+
+- El modal reserva un viewport fijo responsive, ajusta el SVG/imagen a ese espacio y lo centra; la caja mantiene overflow horizontal oculto.
+- La rueda sobre el diagrama ajusta el zoom de manera progresiva; el botón avanza por incrementos y reinicia al máximo. El tamaño de la zona vertical acompaña la escala para recorrer un diagrama ampliado, sin desplazamiento lateral. Sigue usando la alternativa MTF 400 ppp registrada.
+- El preview MTF queda limitado al espacio disponible en escritorio y a un máximo responsive en móvil/tableta; el flowchart no invade la fila de botones.
+- «Cambiar falla» usa el token verde primario y su color de texto accesible en ambos temas.
+- No se cambió la imagen fuente, asociación, flowchart BAT, pasos ni catálogo.
+
+### Archivos modificados
+
+- `index.html` — modal y escala del flowchart, CSS del panel de disposición y estilos del botón MTF.
+- `CONTEXTO_FFDIGI.md` — comportamiento vigente de zoom y tamaño de previews.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+
+### Funciones o secciones afectadas
+
+- `openDiagram` — crea un stage modal centrado y usa el raster de alta resolución cuando existe.
+- `fitDiagramToModal` / `setZoomScale` — ajustan tamaño base y niveles de zoom.
+- Listener de rueda y botón de lupa — zoom progresivo entre 100% y 300%.
+- CSS `.flowchart-modal-content`, `.flowchart-modal-stage` y `#mtf-flowchart-diagram` — contención, centrado y reserva para controles.
+- CSS `#mtf-selection-toggle` — fondo y texto verde dinámicos por tema.
+
+### Impacto
+
+Solo presentación del flowchart y selector de falla MTF; el modal compartido sigue habilitado para diagramas existentes. No se cambian datos, API, procedimientos ni los diagramas BAT.
+
+### Validaciones realizadas
+
+- Los siete scripts clásicos inline y seis archivos JavaScript locales pasaron comprobación de sintaxis.
+- La hoja CSS de layout afectada tiene llaves balanceadas; `git diff --check` terminó limpio.
+- Se verificó visualmente el PNG local `mtf-flow-083.png` asociado a FLB-02: la imagen fuente completa está íntegra y centrada; la captura del navegador muestra que el problema aparece al ampliar el SVG al 200%.
+- No se ejecutó una prueba interactiva del modal: el navegador bloquea la ruta `file://` y no se usó otra vía.
+
+### Resultado
+
+La lupa queda preparada para zoom progresivo centrado usando los recursos hi-res existentes; el layout limita el preview para dejar accesibles los botones. El botón Cambiar falla usa el verde primario. No se declara la interacción visual comprobada en navegador.
+
+### Pendientes y riesgos
+
+- Confirmar modal, zoom con rueda y botón, FLB-02 y una falla con flowchart ancho en escritorio/tableta/móvil cuando la página pueda probarse en navegador permitido.
+- Un zoom alto en diagramas apaisados puede recortar sus bordes horizontalmente por diseño para evitar el paneo lateral; el zoom puede bajarse con la rueda.
+
+## 23. 2026-10-10 — Contención final de flowcharts MTF y registro de nueva falla BAT pendiente
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Reducir/contener los diagramas MTF que se salen del detalle para que el flujo completo y los botones Anterior, Paso siguiente y Ampliar diagrama queden visibles; asegurar que seleccionar desde Lista técnica abra la ficha. Añadir en BAT una falla de LEDs apagados del panel IO central con pasos definidos por el usuario.
+
+### Objetivo
+
+Corregir la cascada de estilos del detalle MTF sin modificar diagramas fuente; no incorporar al catálogo BAT un identificador o texto ambiguo como si estuviera confirmado.
+
+### Estado anterior
+
+- La selección MTF usa `selectMtfFault` desde las tarjetas, Lista técnica y el tablero; colapsa el catálogo y muestra `#mtf-detail`.
+- Reglas posteriores del modo Lista técnica podían restablecer altura natural en el panel de detalle, y el layout flexible del tercer panel no reservaba de forma inequívoca el espacio de navegación frente a SVG altos.
+- El catálogo BAT modela fallas con código y etiqueta; la solicitud nueva no especifica un código NDBG. La voz/transcripción dice “ASIC cycle”, aunque los datos vigentes usan “AC Cycle/AC cycle”.
+
+### Análisis
+
+- Se releen `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md` antes de intervenir; se comprueban estado Git, markup de los tres paneles, selección común MTF, renderizador de imágenes fuente y reglas CSS finales.
+- Se confirma que el bloque de selección comparte la función `selectMtfFault`; Lista técnica no tiene una ruta de render distinta. El síntoma de ficha incompleta coincide con la colisión de alturas y el crecimiento intrínseco del flowchart.
+- No se presume el código de la nueva falla ni se sustituye “ASIC cycle” por “AC cycle”. Los pasos técnicos de tarjeta/cables indicados por el usuario quedan pendientes de integrar con el código y la denominación de ciclo confirmados.
+
+### Causa
+
+La cascada MTF contenía reglas incompatibles entre el tamaño automático de la fila de detalle y las reglas del modo viewport; además el tercer panel no fijaba su distribución como encabezado/contenido/controles en todas las vistas de escritorio. Un SVG alto podía consumir el espacio disponible y empujar los botones.
+
+### Solución
+
+- Se añade al final de la cascada una regla exclusiva del detalle MTF de escritorio: limita la altura del panel según viewport, mantiene el scroll vertical general como respaldo, fuerza tres columnas y reserva filas para encabezado, diagrama y controles.
+- El contenido Disposition usa filas con mínimo cero; el SVG de la imagen fuente se ajusta al rectángulo disponible y se centra sin alterar nodos, imagen, página, pasos o asociación.
+- El preview del MTF usa `xMidYMid meet` para centrar la imagen fuente vertical dentro del viewport.
+- Se conserva el comportamiento apilado existente hasta 1080 px.
+- No se modifica BAT: queda pendiente añadir la falla hasta recibir el código NDBG y aclarar “ASIC cycle” vs “AC cycle”.
+
+### Archivos modificados
+
+- `index.html` — regla CSS final del detalle MTF y `preserveAspectRatio` en `renderFlowchart`.
+- `CONTEXTO_FFDIGI.md` — altura/contención actual del detalle MTF y pendiente BAT confirmado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderFlowchart` — centra la imagen source-backed en su caja; no cambia el recurso ni su asociación.
+- CSS final `mtf-detail-open` — fija el panel de disposición y reserva la navegación; limita SVG y scroll interno de pasos.
+- `selectMtfFault`/Lista técnica — inspeccionados y conservados; todas las tarjetas pasan por el mismo selector existente.
+
+### Impacto
+
+Presentación del detalle MTF en escritorio, independientemente de si se llega desde Lista técnica, Mosaico o Tablero. En móvil/tableta permanece el apilado y scroll natural. No se modifica ningún dato, diagrama BAT, paso de diagnóstico, modal o API. La nueva falla BAT todavía no aparece en el catálogo.
+
+### Validaciones realizadas
+
+- Revisión de markup: `#mtf-flowchart-diagram` y la fila `.mtf-detail-controls-right` son hijos separados de `#mtf-disposition-content`; el grid reserva la fila de controles.
+- Confirmado en código que cada tarjeta técnica escucha click/teclado y llama `selectMtfFault`, igual que el resto de vistas.
+- `node --check` pasó en los cinco módulos JavaScript locales; los siete scripts clásicos inline compilaron con `vm.Script`; los cuatro bloques CSS quedaron balanceados; `git diff --check` terminó limpio.
+- No se realizó prueba visual: la sesión actual usa una URL local `file://`, bloqueada por la política del navegador; no se abrió por otra vía.
+
+### Resultado
+
+El cambio MTF está implementado localmente; selección técnica sigue conectada al detalle común y el CSS ahora contiene las imágenes altas para reservar la navegación. Validación estática aprobada; no se afirma validación visual ni se agregó la falla BAT incompleta.
+
+### Pendientes
+
+- Ejecutar verificaciones estáticas y corregir cualquier error detectado.
+- Probar Lista técnica/Mosaico/Tablero y diagramas altos/ancho en escritorio, tableta y móvil desde un navegador permitido.
+- Obtener el código NDBG de la falla nueva y confirmar el literal del primer paso (“ASIC cycle” o “AC cycle”); entonces implementar la entrada BAT y sus tres pasos sin inventar datos.
+
+### Riesgos
+
+- En escritorio bajo, el mínimo de 420 px puede hacer que la página necesite scroll vertical; se mantiene habilitado para evitar cortar la ficha.
+- Si el código real BAT no se confirma, no es seguro asociar la nueva entrada en búsquedas y formulario.
+
+## 24. 2026-10-10 — Sincronizar el clic de Lista técnica con el detalle MTF
+
+### Fecha
+
+2026-10-10.
+
+### Solicitud
+
+Corregir que al seleccionar una falla en Lista técnica el catálogo permanece visible y no aparece la ficha completa, a diferencia de Mosaico y Tablero.
+
+### Objetivo
+
+Usar una sola transición para cerrar el catálogo y abrir el detalle en todas las vistas MTF.
+
+### Estado anterior
+
+- `selectMtfFault` modificaba directamente `mtf-detail-open` y delegaba el colapso del catálogo a `setMtfCatalogCollapsed`.
+- Los eventos de búsqueda y «Cambiar falla» también manipulaban esas clases por separado.
+- La captura confirma que la lista seguía visible tras seleccionar una fila de Lista técnica.
+
+### Análisis
+
+- Se releen `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md`, además de verificar rama/estado local.
+- Se siguió el evento click/teclado de `.mtf-item-card` hasta `selectMtfFault`, el toggle «Cambiar falla», la búsqueda y los estilos de visibilidad. Las tres vistas ya usan `selectMtfFault`; no se requiere una ruta nueva de selección.
+- La visibilidad dependía de sincronizar por separado `mtf-selection-collapsed`, `mtf-detail-open` y la visibilidad CSS de las dos filas.
+
+### Causa
+
+El estado de navegación estaba repartido entre la selección y los handlers de regreso/búsqueda. El detalle y el catálogo no se exponían como una única transición explícita.
+
+### Solución
+
+- `setMtfCatalogCollapsed` ahora coordina las clases de selección/detalle y aplica/remueve `.hidden` directamente en la fila del catálogo y en la fila de detalle.
+- La selección, el botón «Cambiar falla» y el cambio de búsqueda llaman esta función común para alternar catálogo ↔ ficha.
+- Mosaico, Lista técnica y Tablero conservan el mismo `selectMtfFault`; no cambian datos, pasos, diagramas, BAT ni API.
+
+### Archivos modificados
+
+- `index.html` — `setMtfCatalogCollapsed`, `selectMtfFault` y eventos de búsqueda/regreso MTF.
+- `CONTEXTO_FFDIGI.md` — estado de navegación descrito como transición común explícita.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `setMtfCatalogCollapsed` — punto único de apertura/cierre de catálogo y detalle.
+- `selectMtfFault` — sigue siendo la selección única para fallas MTF.
+- Listeners `mtf-search` y `mtf-selection-toggle` — devuelven catálogo mediante el punto común.
+
+### Impacto
+
+Solo navegación MTF. Al elegir una fila debe ocultarse la lista y aparecer Failure Record, Troubleshooting Sequence y Disposition Flow; al cambiar falla o editar la búsqueda, vuelve el catálogo. BAT intacto.
+
+### Validaciones realizadas
+
+- Inspección estática de los listeners para confirmar que filas de Lista técnica y botones de Tablero/Mosaico siguen llamando el selector común.
+- `node --check` pasó en los cinco módulos locales; los siete scripts clásicos inline compilaron con `vm.Script`; los cuatro bloques CSS quedaron balanceados; `git diff --check` terminó limpio.
+- No se ejecutó una prueba visual/interactiva; no se abrió la URL local `file://` por otra vía.
+
+### Resultado
+
+La transición MTF quedó centralizada y ahora oculta/muestra explícitamente ambas filas; los chequeos estáticos pasaron. Falta la validación visual permitida.
+
+### Pendientes
+
+- Probar selección desde Lista técnica, Mosaico y Tablero, y regreso con «Cambiar falla»/búsqueda.
+
+### Riesgos
+
+- El retorno de vista depende de los handlers comunes; cualquier código nuevo que manipule clases de visibilidad debe seguir usando `setMtfCatalogCollapsed`.
+
+## 25. 2026-10-11 — Añadir falla BAT de LEDs de IO board central
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Agregar en BAT una falla llamada “No encendido de los LEDs en panel de la IO board central”, con el código proporcionado por el usuario y tres pasos: ASIC cycle; validar tarjetas del panel; validar cable de IO board central hacia FIO y conexiones J21/J22.
+
+### Objetivo
+
+Incluir la falla en No Boot y conservar sus tres pasos propios, incluso si el navegador ya tiene un catálogo BAT guardado.
+
+### Estado anterior
+
+- El código adjunto `NDBG_092` ya estaba en la familia FRU bajo “FRONT IO FRU EEPROM”.
+- La sección No Boot contenía NDBG_107 y usaba una guía común de siete pasos para cualquier falla de esa familia, ignorando `failure.steps` individuales.
+- El inicio reemplazaba el catálogo base por el guardado; una falla añadida solo al catálogo base podía desaparecer cuando existía `ffdg-bat-catalog-v1`.
+
+### Análisis
+
+- Se leyeron los documentos obligatorios y se verificó el estado de Git antes de cambiar.
+- Se revisó la imagen del usuario: fila `NDBG_092 | DEBUG | FRONT IO FRU EEPROM`. Se confirmó que NDBG_092 ya existía como caso FRU, y que la identidad BAT se distingue por código+etiqueta.
+- Se siguieron `failureCatalog`, `makeBatUid`, restauración y escritura de `ffdg-bat-catalog-v1`, `getBatDetailSteps`, `renderBatSelection` e importación PDF `mergeProcedures`.
+- Se preserva el caso FRU original y se agrega un segundo caso con mismo código, etiqueta distinta y UID propio. El texto “ASIC cycle” se conserva literalmente como lo indicó el usuario; no se cambió a “AC cycle”.
+
+### Causa
+
+El catálogo guardado sustituía el arreglo base, y el selector de pasos priorizaba siempre el procedimiento general cuando `family === NOBOOT`; ambas reglas impedían que una nueva entrada No Boot con procedimiento particular fuera visible y mostrara sus tres pasos.
+
+### Solución
+
+- Se añade NDBG_092 con etiqueta “No encendido de los LEDs en panel de la IO board central”, familia No Boot y tres pasos explícitos en el orden pedido.
+- La marca `customProcedure` permite que solo esta entrada use sus pasos propios; NDBG_107 y los demás casos No Boot conservan el flujo común.
+- La marca `managedAddition` permite reinyectar por UID la falla si falta en el catálogo BAT guardado y persistirla sin reemplazar el resto del catálogo ni sus metadatos de archivo.
+- El caso FRU NDBG_092 “FRONT IO FRU EEPROM” se mantiene sin cambios. No se modifican flowcharts BAT, MTF ni API.
+
+### Archivos modificados
+
+- `index.html` — catálogo BAT, `getBatDetailSteps` y restauración/persistencia del catálogo BAT local.
+- `CONTEXTO_FFDIGI.md` — fuente del nuevo registro, pasos personalizados y restauración sobre catálogo guardado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `FFDG.data.failureCatalog` — añade la falla No Boot NDBG_092 con UID generado por código+etiqueta.
+- `getBatDetailSteps` — respeta `failure.steps` solo cuando `customProcedure` está marcado; flujo general No Boot queda igual.
+- Inicializador BAT — restaura adiciones administradas faltantes sin descartar el catálogo guardado y actualiza la persistencia local.
+- `renderBatSelection` y renderer del tablero — consumen el registro/pasos ya integrados; no se modificó su lógica.
+
+### Impacto
+
+BAT añade una tarjeta en No Boot y una ficha con tres pasos. FRU conserva su entrada NDBG_092 original. La nueva entrada también se repone después de recarga cuando el almacenamiento local ya tenía un catálogo anterior. Ningún cambio MTF ni API.
+
+### Validaciones realizadas
+
+- `node --check` pasó en los cinco módulos JavaScript locales; los siete scripts clásicos inline compilaron con `vm.Script`.
+- Los cuatro bloques CSS quedaron balanceados; `git diff --check` terminó limpio.
+- Comprobación estática confirmó código, etiqueta, secuencia textual, marcador de pasos propios y mecanismo de re-inyección.
+- Prueba aislada de `getBatDetailSteps`: la nueva entrada devuelve sus 3 pasos y NDBG_107 conserva la guía general de 7 pasos.
+- No se realizó selección visual/interactiva ni una prueba real de `localStorage`; el navegador local `file://` no se abrió por otra vía.
+
+### Resultado
+
+La falla quedó implementada en el catálogo fuente con pasos propios y lógica para incorporarla a catálogos guardados. Validación estática aprobada; la prueba visual/recarga real queda pendiente.
+
+### Pendientes
+
+- Probar que aparece bajo No Boot, conserva sus tres pasos al seleccionarla y que el caso FRU existente mantiene su ficha.
+- Probar restauración con catálogo guardado anterior, persistencia y selección desde el tablero BAT.
+
+### Riesgos
+
+- `NDBG_092` queda compartido por dos entradas deliberadamente distintas; búsquedas por código mostrarán ambas. Si el usuario pretendía reemplazar el caso FRU existente en vez de agregar una variante, se requeriría una decisión posterior.
+- La prueba real de persistencia y flujo visual aún no se ejecutó.
+
+## 26. 2026-10-11 — Traducir al inglés el nombre de la falla BAT de LEDs
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+El usuario aclaró que el nombre de la falla “No encendido de los LEDs en panel de la IO board central” debe estar en inglés.
+
+### Objetivo
+
+Mostrar el nombre de la falla en inglés, manteniendo código, familia y procedimiento sin cambios.
+
+### Estado anterior
+
+La falla BAT NDBG_092 estaba en No Boot, con etiqueta en español y tres pasos personalizados.
+
+### Análisis
+
+Se releyeron las reglas y el contexto FFDIGI, se revisó el estado de Git y se localizó la única etiqueta del registro administrado; el contexto confirma el UID compuesto por código y etiqueta, y el historial confirma los pasos que deben conservarse.
+
+### Causa
+
+La solicitud inicial especificó el nombre en español; la aclaración posterior indicó que el nombre debe ser inglés.
+
+### Solución
+
+Se cambió la etiqueta a `Central IO board panel LEDs do not turn on`. Al restaurar el catálogo, se elimina únicamente el registro No Boot NDBG_092 con la etiqueta española anterior y se persiste la entrada canónica en inglés, evitando mostrar ambas tarjetas. No se alteraron el registro FRU homónimo por código ni los tres pasos BAT.
+
+### Archivos modificados
+
+- `index.html` — etiqueta de la falla NDBG_092 de No Boot.
+- `CONTEXTO_FFDIGI.md` — nombre actual de la falla.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `FFDG.data.failureCatalog` — cambia únicamente el texto `label`; la identidad administrada sigue derivándose de código y etiqueta.
+- Inicializador BAT — migra el nombre anterior exacto de la entrada No Boot guardada, reinserta el nombre canónico y persiste el catálogo.
+
+### Impacto
+
+La tarjeta y los lugares que presentan la etiqueta de la falla mostrarán el nombre en inglés también con catálogo previamente guardado. Código, familia, pasos y flujo general BAT permanecen iguales; la persistencia se actualiza solo cuando se detecta la etiqueta anterior.
+
+### Validaciones realizadas
+
+- Revisión estática confirmó la etiqueta inglesa en el registro, el retiro selectivo de la etiqueta anterior guardada y su repersistencia mediante la ruta existente de adiciones administradas.
+- `git diff --check` ejecutado después del cambio.
+- No se realizó prueba visual en navegador ni se alteró el catálogo `localStorage` del usuario.
+
+### Resultado
+
+Nombre de la falla actualizado a inglés; procedimiento y demás datos preservados.
+
+### Pendientes
+
+- Confirmar visualmente el nombre al seleccionar NDBG_092 en la sección No Boot cuando se pruebe la página en navegador.
+
+### Riesgos
+
+- La migración solo elimina la combinación exacta NDBG_092 + No Boot + etiqueta española anterior; cualquier registro diferente se conserva.
+
+## 28. 2026-10-11 — Ocultar detalle BAT al volver al catálogo
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Al pulsar «Cambiar falla» en BAT, ocultar la tabla/ficha de descripción y mostrar únicamente el menú de fallas. El detalle debe regresar al seleccionar una falla.
+
+### Objetivo
+
+Hacer que el botón de retorno vuelva realmente al catálogo, sin dejar visible el registro anterior.
+
+### Estado anterior
+
+Los handlers de «Cambiar falla» y «Volver a fallas» solo expandían el catálogo mediante `setBatCatalogCollapsed(false)`. No limpiaban `FFDG.state.batDetailFailure` ni ocultaban el área de detalle, por lo que tablero y ficha quedaban visibles juntos.
+
+### Análisis
+
+Se releyeron las reglas/contexto/historial obligatorios y se inspeccionaron `renderBatSelection`, `setBatCatalogCollapsed`, el evento de selección del tablero BAT y ambos botones de retorno. `renderBatSelection(null)` ya restablece estado, modo, formulario y visibilidad de detalle; el listener de cada tarjeta vuelve a llamarla con la falla seleccionada.
+
+### Causa
+
+El retorno llamaba únicamente la función visual de expandir catálogo, en lugar de limpiar también la selección y el panel asociado.
+
+### Solución
+
+- Los botones «Cambiar falla» y «Volver a fallas» ahora llaman `renderBatSelection(null)` antes de enfocar y desplazar al catálogo.
+- Se conserva la tarjeta seleccionada como foco visual; al pulsar cualquier tarjeta, el evento existente vuelve a mostrar su ficha.
+- No se cambió el flujo MTF ni el esquema/datos BAT.
+
+### Archivos modificados
+
+- `index.html` — handlers de los dos botones para volver al catálogo BAT.
+- `CONTEXTO_FFDIGI.md` — comportamiento actual de navegación BAT.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderBatSelection(null)` — reutilizada como limpieza central del detalle y estado seleccionado.
+- Eventos `bat-selection-toggle` y `bat-back-to-faults` — regresan al tablero tras limpiar la ficha.
+- Evento `change` del selector BAT y click de tarjetas — sin cambios; siguen abriendo la ficha de la falla seleccionada.
+
+### Impacto
+
+En BAT, el retorno deja visible solo el catálogo y oculta la descripción, secuencia, diagrama y paneles de diagnóstico asociados. El siguiente click de falla vuelve a presentar el detalle.
+
+### Validaciones realizadas
+
+- Los scripts clásicos inline de `index.html` se compilaron con `vm.Script`.
+- Comprobación estática verificó que ambos handlers limpian con `renderBatSelection(null)` y que el selector de fallas sigue llamando `renderBatSelection(selectedFailure || null)`.
+- `git diff --check` terminó limpio.
+- No se hizo prueba interactiva/visual en navegador.
+
+### Resultado
+
+Al volver al catálogo BAT, la ficha se oculta; la selección siguiente la muestra de nuevo.
+
+### Pendientes
+
+- Verificar visualmente «Cambiar falla», «Volver a fallas» y selección de tarjeta en el navegador local.
+
+### Riesgos
+
+- `renderBatSelection(null)` limpia el fallo activo y reinicia el índice del detalle, comportamiento esperado al abandonar esa ficha; las respuestas/historial general del diagnóstico se conservan según los estados separados existentes.
+
+## 29. 2026-10-11 — Ocultar evidencia y secuencia de potencia en el catálogo BAT
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Ocultar los bloques «Evidencia Fotográfica» y «Secuencia de Potencia» señalados mientras se vuelve al menú de fallas BAT.
+
+### Objetivo
+
+Dejar despejada la vista de catálogo cuando no hay una falla seleccionada y conservar la información contextual donde sí corresponde.
+
+### Estado anterior
+
+Al volver al tablero, `renderBatSelection(null)` ocultaba la ficha pero la barra lateral `<aside>` seguía visible con evidencia y secuencia de potencia. Para fallas No Boot, esa barra también aparece junto al detalle.
+
+### Análisis
+
+Se releyeron las reglas y el contexto FFDIGI, y se revisaron el historial BAT reciente, el HTML de ambos bloques, los cambios de clase de `renderBatSelection` y las reglas CSS de `bat-details-mode`/`bat-no-boot-mode`. La barra contiene solo esos dos bloques; el CSS ya la reserva para el detalle No Boot.
+
+### Causa
+
+La visibilidad del `<aside>` no dependía del estado sin selección, por lo que continuaba renderizado después de ocultar la ficha.
+
+### Solución
+
+- Se oculta el `<aside>` cuando `#bat-layout` no tiene `bat-details-mode`, estado usado por el catálogo sin ficha.
+- Se conserva la regla existente que muestra la barra en detalles No Boot y la oculta para las demás familias.
+- No se eliminan ni se modifican el adjunto fotográfico, sus datos, el reporte PDF ni el contenido de la secuencia.
+
+### Archivos modificados
+
+- `index.html` — regla CSS para la barra lateral BAT en estado catálogo.
+- `CONTEXTO_FFDIGI.md` — visibilidad de los bloques según el estado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- CSS `#bat-layout:not(.bat-details-mode) > aside` — oculta la barra sin falla activa.
+- `renderBatSelection` — sin cambios; su clase `bat-details-mode` determina el estado.
+- Entrada de evidencia y `printBatReport` — sin cambios; archivos y generación del reporte permanecen disponibles durante el detalle.
+
+### Impacto
+
+El catálogo BAT queda sin esos dos bloques laterales. En el detalle No Boot se conserva la barra; para otras familias continúa oculta según la regla previa.
+
+### Validaciones realizadas
+
+- Revisión estática confirmó que la nueva regla depende de ausencia de `bat-details-mode`, y que la regla previa específica para las otras fallas permanece.
+- `git diff --check` terminó limpio.
+- No se ejecutó prueba visual responsive ni de adjuntos/reporte en navegador.
+
+### Resultado
+
+Los bloques solicitados quedan ocultos al volver al catálogo BAT, sin borrar su funcionalidad.
+
+### Pendientes
+
+- Comprobar visualmente catálogo, ficha No Boot, ficha de otra familia y vista móvil.
+
+### Riesgos
+
+- La barra seguirá mostrándose en detalles No Boot, ya que contiene controles de evidencia/reportes y contexto de alimentación asociados a ese modo. Si se buscaba ocultarla permanentemente también durante el diagnóstico, requeriría una instrucción distinta.
+
+## 30. 2026-10-11 — Reorganizar reporte BAT No Boot para revisión gerencial
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Mejorar la posición de los bloques del PDF No Boot para presentarlo a Gerencia, organizar el reporte y agregar imágenes si es posible.
+
+### Objetivo
+
+Hacer más clara la lectura ejecutiva del caso sin alterar el contenido fuente ni los reportes de otras fallas.
+
+### Estado anterior
+
+`printBatReport` componía un solo formato BAT con metadatos, resumen, salto de página, RCA/acciones, evidencia adjunta y firmas. No imprimía la bitácora completa de pasos ni el diagrama BAT. El logo Ingrasys y las fotos adjuntadas ya estaban disponibles.
+
+### Análisis
+
+Se releyeron las instrucciones FFDIGI y el contexto, y se revisaron el historial de reportes, `printBatReport`, `openPrintDialog`, los campos de impresión, la forma real de `FFDG.state.history`, el renderer del flowchart y el ciclo de vida de evidencias. La fuente de PDF es HTML/CSS de impresión en `index.html`; `window.print()` crea el PDF en el navegador. Se preservan el reporte general y el flujo MTF.
+
+### Causa
+
+La salida común no separaba el informe No Boot con jerarquía ejecutiva ni incluía la trazabilidad de validaciones y su diagrama, aunque esos datos/recursos ya existen en memoria y en la interfaz.
+
+### Solución
+
+- Se activa un formato ejecutivo condicional únicamente cuando `failure.family === "NOBOOT"`: título/resumen gerencial, datos de identificación, bitácora, RCA y plan de acción, ruta visual, evidencia fotográfica y firmas.
+- La bitácora presenta paso, validación, resultado, observación/acción y hora, usando los registros reales de `FFDG.state.history`.
+- El diagrama es una copia del SVG BAT ya generado; las imágenes fotográficas son exclusivamente archivos adjuntados por el usuario. Se mantiene el logo local existente. No se generan ni infieren imágenes o información de falla.
+- Se aislaron la construcción de la bitácora y la clonación del diagrama en helpers dentro del motor de impresión.
+- Los reportes BAT de otras familias y el reporte MTF conservan su flujo anterior.
+
+### Archivos modificados
+
+- `index.html` — markup, estilos `@media print`, helpers de impresión BAT y presentación condicional No Boot.
+- `CONTEXTO_FFDIGI.md` — describe el formato ejecutivo y sus fuentes de datos/imagen.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `printBatReport` — elige el formato por familia, ordena campos y prepara bloques de No Boot.
+- `renderBatPrintDiagnostics` — arma tabla semántica desde la bitácora existente.
+- `renderBatPrintFlowchart` — clona el SVG del detalle BAT y añade una leyenda.
+- `#bat-print-report` y estilos de impresión — jerarquía de página, tabla y límites del diagrama.
+- `printMtfReport` / navegación MTF — sin cambios.
+
+### Impacto
+
+Los reportes No Boot muestran una portada ejecutiva y una continuación técnica con validaciones, RCA/acciones, flowchart, fotografías disponibles y firmas. Puede ocupar más de dos páginas si hay muchas validaciones o fotos. No cambia el estado de diagnóstico, el formulario ni `localStorage`.
+
+### Validaciones realizadas
+
+- Los siete scripts clásicos inline de `index.html` compilaron mediante `vm.Script`.
+- Verificación estática confirmó que el formato ejecutivo se limita a No Boot, que la bitácora y flowchart son condicionales y que fotos/logo reutilizan fuentes existentes.
+- `git diff --check` terminó limpio.
+- No se guardó un PDF de muestra ni se inspeccionó visualmente una impresión; la política del navegador rechazó la URL `file://`, y no se intentó una ruta alternativa. La verificación visual permanece pendiente.
+
+### Resultado
+
+Implementación del informe ejecutivo No Boot realizada; validación estática aprobada, revisión visual del PDF pendiente.
+
+### Pendientes
+
+- Generar desde el navegador un caso No Boot con pocas y varias validaciones, con/sin fotos, y revisar saltos de página, legibilidad del diagrama y firmas.
+- Confirmar que el formato general de otras familias sigue igual en una impresión real.
+
+### Riesgos
+
+- El flowchart se copia como SVG del estado visible en el detalle; si los estilos/tokens cambian, revisar legibilidad en impresión clara y modo oscuro.
+- La paginación final depende del motor/ajustes del navegador y del número de fotos; revisar escala, márgenes y fondos al guardar como PDF.
+
+## 27. 2026-10-11 — Añadir falla BAT No Boot NDBG_122 FW ISSUE
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Agregar debajo de NDBG_092 una falla No Boot con código NDBG_122 (fila aportada: DEBUG / FW ISSUE) y tres pasos: validar firmware de componentes principales BMC/HMC; actualizar firmware de componentes; validar firmware actualizado mediante BAT Script.
+
+### Objetivo
+
+Incorporar la falla FW ISSUE al tablero No Boot y mostrar los tres pasos como procedimiento personalizado, sin alterar el flujo general de otras fallas.
+
+### Estado anterior
+
+El catálogo contenía NDBG_107 y la adición NDBG_092 en No Boot. No existía NDBG_122; las fallas sin procedimiento propio consumían la guía común de No Boot.
+
+### Análisis
+
+Se leyeron AGENTS.md, CONTEXTO_FFDIGI.md e HISTORIAL_CAMBIOS_FFDIGI.md antes del cambio y se revisó el estado Git. Se buscó NDBG_122 en los archivos del proyecto: no existía. Se inspeccionaron la estructura `failureCatalog`, el renderer `getBatDetailSteps`, la identidad BAT por código+etiqueta y la restauración de adiciones administradas desde `localStorage`.
+
+### Causa
+
+La nueva falla y su procedimiento aún no estaban representados en el catálogo fuente BAT.
+
+### Solución
+
+- Se añadió `NDBG_122 · FW ISSUE` a la familia No Boot, inmediatamente después de NDBG_092. `insertAfterCode` mantiene esa posición al reponerla en catálogos guardados.
+- Se marcaron `managedAddition` y `customProcedure` para reponerla en catálogos locales previos y usar únicamente sus tres pasos definidos, sin sustituir la secuencia general No Boot.
+- Se registraron los pasos solicitados. Se corrigió únicamente el typo “Scrip” a “Script”; se conserva el texto “Update firmware” indicado por el usuario.
+- No se asignó una imagen o flowchart no proporcionado ni se modificó MTF.
+
+### Archivos modificados
+
+- `index.html` — entrada BAT NDBG_122 con metadatos y procedimiento.
+- `CONTEXTO_FFDIGI.md` — fuente de catálogo y comportamiento de pasos personalizados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `FFDG.data.failureCatalog` — incorpora la falla No Boot NDBG_122.
+- `getBatDetailSteps` — consume los tres pasos debido al marcador `customProcedure`; no se modifica su lógica.
+- Inicializador BAT — detecta la adición administrada ausente, la inserta tras el código ancla y la persiste por la ruta existente.
+- Tablero BAT — consume la nueva entrada desde el catálogo compartido; no se modificó el renderer.
+
+### Impacto
+
+No Boot muestra un caso adicional debajo de NDBG_092. Al seleccionarlo, la ficha toma sus tres pasos; el diagrama BAT existente se genera a partir de esos pasos. El resto de familias y el flujo común de No Boot permanecen sin cambio.
+
+### Validaciones realizadas
+
+- Búsqueda estática confirmó que NDBG_122 no existía previamente y que la entrada nueva conserva código, etiqueta FW ISSUE, familia y orden solicitado.
+- La verificación de estructura confirmó exactamente tres pasos en el orden proporcionado, con `managedAddition` y `customProcedure`.
+- Los scripts clásicos inline de `index.html` compilaron mediante `vm.Script`; `git diff --check` terminó limpio.
+- No se probó visualmente el tablero ni la persistencia real de `localStorage` en navegador.
+
+### Resultado
+
+La falla NDBG_122 FW ISSUE quedó agregada debajo de NDBG_092 al catálogo fuente No Boot, con procedimiento propio de tres pasos; la restauración local conserva ese orden.
+
+### Pendientes
+
+- Confirmar visualmente que aparece debajo de NDBG_092, abrir la ficha y avanzar sus tres pasos.
+- Confirmar restauración/persistencia y posición justo después de NDBG_092 al cargar un catálogo BAT previo.
+
+### Riesgos
+
+- La fila fuente clasifica el registro como DEBUG, pero la solicitud indica expresamente agregarlo a No Boot; se conserva esa categoría de interfaz solicitada y el texto de origen `FW ISSUE` como etiqueta.
+- “Update firmware” no especifica paquete, versión ni procedimiento de actualización; no se inventó esa información.
+
+## 31. 2026-10-11 — Sintetizar y ordenar el reporte BAT No Boot
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Reorganizar el PDF de No Boot para Calidad: quitar la bitácora y, si es posible, la ruta de diagnóstico; dejar un reporte limpio, claro, con evidencia y firmas separadas, en una sola hoja.
+
+### Objetivo
+
+Priorizar la identificación del nodo y una síntesis suficiente para que Calidad entienda qué se encontró, qué intervención se hizo, cómo quedó el retest y qué acción sigue, sin revisar una bitácora paso por paso.
+
+### Estado anterior
+
+La variante ejecutiva de No Boot agregaba una continuación con salto forzado de página, tabla completa de validaciones y clon del flowchart BAT. Metadatos, evidencia y firmas estaban repartidos entre bloques, lo que extendía el documento y dificultaba su lectura ejecutiva.
+
+### Análisis
+
+Se leyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md`; se revisó el estado Git y los consumidores de `printBatReport`, el HTML de impresión, el historial de diagnóstico, los datos RCA, los adjuntos de evidencia y los reportes BAT no-No-Boot/MTF. El reporte se genera con `window.print()` y no con una biblioteca PDF; el historial sigue siendo entrada/condición del diagnóstico, aunque ya no se imprime en esta variante.
+
+### Causa
+
+El diseño anterior forzaba una página adicional y repetía información de diagnóstico en tabla y diagrama, priorizando trazabilidad interna sobre el resumen de intervención solicitado por Gerencia/Calidad.
+
+### Solución
+
+- Se quitó del HTML de impresión No Boot la tabla de bitácora y la sección de ruta/flowchart; se eliminaron sus dos helpers de render, conservando el diagrama y el historial visibles en la interfaz.
+- Se retiró del reporte No Boot la continuación con salto de página y el folio local de sesión, conservándolos sin cambios para reportes de otras familias.
+- El resumen ejecutivo muestra resultado, clasificación, retest y siguiente acción; el bloque de trabajo concentra causa raíz, evidencia de causa e intervención realizada.
+- Las fotos adjuntadas siguen en el reporte en una galería compacta de hasta cuatro columnas; se ordenó antes de las dos áreas de firma, cada una en su propio recuadro y columna.
+- Se ajustó tipografía, espacios, metadatos, bloques y miniaturas únicamente bajo la clase ejecutiva No Boot para favorecer una hoja A4. No se cambió el contenido técnico, el flujo de diagnóstico ni los datos guardados.
+
+### Archivos modificados
+
+- `index.html` — plantilla HTML de impresión, estilos de impresión ejecutiva y `printBatReport`.
+- `CONTEXTO_FFDIGI.md` — descripción vigente de contenido y alcance del reporte No Boot.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `printBatReport` — prepara el reporte ejecutivo compacto solo para No Boot; conserva los controles y lógica base.
+- `#bat-print-report` — orden de resumen, intervención, evidencia y firmas.
+- `@media print` — densidad y tamaño de bloques No Boot; reglas de otras familias no se alteraron.
+- Eliminados `renderBatPrintDiagnostics` y `renderBatPrintFlowchart`, ya que únicamente servían las secciones retiradas del PDF.
+- `printMtfReport`, UI de diagnóstico BAT, MTF y generación de flowchart en pantalla — sin cambios intencionales.
+
+### Impacto
+
+El reporte No Boot ahora omite bitácora y ruta visual, conservando evidencia fotográfica adjunta y firmas separadas. La bitácora continúa usándose para registrar el diagnóstico y habilitar el reporte, pero no aparece impresa. Otras familias BAT y MTF mantienen su comportamiento anterior.
+
+### Validaciones realizadas
+
+- Los siete scripts clásicos inline de `index.html` compilaron con `vm.Script`.
+- Cuatro bloques CSS quedaron balanceados.
+- Verificación estática confirmó que el markup de bitácora/ruta y sus helpers ya no están; intervención, siguiente acción, galería y firmas separadas siguen presentes.
+- `git diff --check` terminó limpio.
+- No se creó ni se revisó visualmente un PDF. La vista local `file://` está bloqueada por el navegador y no se probó mediante otro mecanismo; la paginación real de impresión queda pendiente de inspección.
+
+### Resultado
+
+Plantilla ejecutiva No Boot reorganizada y simplificada; validación estática aprobada. La salida de una sola hoja está optimizada para contenido habitual, pero no se declara confirmada sin revisar el PDF renderizado.
+
+### Pendientes
+
+- Abrir la ficha No Boot en la aplicación, adjuntar el número habitual de fotos, imprimir a A4 y confirmar visualmente que contenido, evidencia y ambas firmas caben en una sola página.
+- Comparar una impresión de otra falla BAT para verificar visualmente que mantiene su formato previo.
+
+### Riesgos
+
+- La cantidad de fotos y la longitud de textos capturados pueden superar el espacio de una página; el navegador y las opciones de escala/márgenes influyen en la paginación. No se recortan ni descartan evidencias automáticamente.
+- La validación de clasificación, causa raíz, siguiente acción y al menos un paso de diagnóstico se conserva aunque la bitácora no se imprima.
+
+## 32. 2026-10-11 — Añadir fallas FAN SPEED 4–8
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Agregar en la sección BAT Fans las fallas NDBG_117 a NDBG_121, mostradas en la imagen como DEBUG / FAN SPEED 4, 5, 6, 7 y 8.
+
+### Objetivo
+
+Completar el tablero de ventiladores, que solo contenía FAN SPEED 1–3, sin alterar otras familias.
+
+### Estado anterior
+
+La familia Fans contenía NDBG_104 FAN SPEED 1, NDBG_105 FAN SPEED 2 y NDBG_106 FAN SPEED 3. Los códigos NDBG_117–121 no estaban en los archivos del proyecto.
+
+### Análisis
+
+Se leyeron las reglas, contexto e historial FFDIGI y se inspeccionó `git status`. Se revisaron `FFDG.data.failureCatalog`, la familia FAN, el generador de UID por código+etiqueta, el flujo de restauración BAT desde `localStorage`, `getBatDetailSteps` y los consumidores del tablero/lista de fallas. La captura aportada es la fuente de identidad disponible: código, clasificación DEBUG y etiquetas FAN SPEED 4–8.
+
+### Causa
+
+El catálogo fuente incluía únicamente las tres primeras velocidades; por eso el tablero no podía mostrar los registros 4–8.
+
+### Solución
+
+- Se agregaron NDBG_117 FAN SPEED 4, NDBG_118 FAN SPEED 5, NDBG_119 FAN SPEED 6, NDBG_120 FAN SPEED 7 y NDBG_121 FAN SPEED 8 a la familia `FAN`, con la etiqueta de categoría existente `Ventiladores / Enfriamiento`.
+- Cada alta se marcó `managedAddition` para que el inicializador la reponga en un catálogo local anterior guardado, usando la identidad BAT existente y sin reemplazar el resto del catálogo.
+- No se agregaron pasos de troubleshooting: la imagen solo aporta identidad/categoría, no un procedimiento. La ficha existente indica que no hay pasos asociados al registro.
+- No se cambió el seed PDF, el flujo No Boot, MTF ni el renderer del tablero.
+
+### Archivos modificados
+
+- `index.html` — cinco entradas BAT de familia FAN en `FFDG.data.failureCatalog`.
+- `CONTEXTO_FFDIGI.md` — fuente de datos Fans y condición de pasos no disponibles.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `FFDG.data.failureCatalog` — incorpora NDBG_117–121 como registros FAN administrados.
+- Inicializador BAT — detecta y reincorpora adiciones `managedAddition` ausentes del catálogo local.
+- `renderBatSelection` / `getBatDetailSteps` — consumen la entrada compartida; sin cambios de lógica. Al no haber procedimiento fuente, muestran el estado existente de “No hay pasos asociados”.
+
+### Impacto
+
+El tablero Fans pasa de 3 a 8 fallas en un catálogo nuevo y también recupera las cinco nuevas en catálogos locales previos. Los conteos y filtros que derivan de `failureCatalog` se actualizan automáticamente. Ninguna otra familia cambia.
+
+### Validaciones realizadas
+
+- Búsqueda estática comprobó que los cinco códigos no existían previamente y que quedaron asignados a `FAN`, con códigos/etiquetas exactamente como en la captura.
+- Se comprobó que cada alta declara `managedAddition` y que el inicializador actual ya reinyecta esas adiciones por UID sobre catálogos guardados.
+- Los scripts clásicos inline se compilaron mediante `vm.Script`; los bloques CSS permanecieron balanceados; `git diff --check` terminó limpio.
+- No se validó el tablero ni la persistencia real en navegador; la página `file://` no se prueba mediante otra ruta.
+
+### Resultado
+
+Catálogo fuente actualizado con cinco fallas FAN; los procedimientos no se inventaron. Verificación estática aprobada.
+
+### Pendientes
+
+- Confirmar visualmente que Fans muestre ocho tarjetas y que las cinco adiciones permanezcan tras recargar con un catálogo guardado previo.
+- Si se requieren procedimientos de reparación, hace falta la fuente con sus pasos.
+
+### Riesgos
+
+- Un catálogo importado desde PDF puede no tener instrucciones para estas cinco fallas; la ficha quedará sin pasos asociados hasta que se proporcione el procedimiento.
+- La fila muestra “DEBUG” como clasificación de la fuente; se agrega a Fans porque así lo pidió el usuario y las etiquetas describen explícitamente velocidades de ventilador.
+
+## 33. 2026-10-11 — Añadir troubleshooting por velocidad a fallas Fans
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Agregar cuatro fases a las fallas Fan: validar ruteo, ejecutar el script BMC Sensors, validar resultados y hacer reseat, y retest; identificar en cada fase el número de ventilador correspondiente a FAN SPEED.
+
+### Objetivo
+
+Que FAN SPEED 1–8 muestre una secuencia de cuatro pasos específica para su número y conserve el procedimiento después de restaurar el catálogo BAT guardado.
+
+### Estado anterior
+
+NDBG_104–106 y NDBG_117–121 estaban en la familia Fans, pero no tenían pasos propios; al seleccionarlas, la ficha indicaba que no había pasos asociados. El inicializador solo agregaba adiciones administradas faltantes y no actualizaba propiedades de una falla que ya existiera en `localStorage`.
+
+### Análisis
+
+Se releyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md`; se inspeccionó rama/estado Git y se siguió la ruta de `failureCatalog`, `managedBatAdditions`, `makeBatUid`, restauración y persistencia, `getBatDetailSteps`, navegación BAT y `renderBatFlowchart`. Se confirmó que `customProcedure` hace que las fallas no-No-Boot utilicen `failure.steps`, mientras el diagrama BAT existente se genera desde esa secuencia.
+
+### Causa
+
+Los ocho registros no tenían procedimientos y el merge de catálogo persistido omitía toda actualización cuando encontraba un UID ya existente.
+
+### Solución
+
+- Se unificaron las ocho velocidades en el modelo de catálogo FAN con un constructor de pasos parametrizado por número de ventilador.
+- Cada procedimiento tiene exactamente cuatro pasos: `Validación de ruteo del ventilador N`; `Run the BMC Sensors script for Fan Speed N`; `Validar resultados y hacer reseat del ventilador N`; `Retest del ventilador N`. Se normalizó el typo “scrip” a “script” sin cambiar la acción solicitada.
+- Se marcaron las ocho entradas como `managedAddition` y `customProcedure`.
+- Al restaurar un registro existente, el inicializador sincroniza los pasos administrados cuando faltan o difieren; los demás campos/casos no se reemplazan. Si falta una entrada, continúa la reinyección previa.
+- No se alteraron MTF ni el procedimiento No Boot. El flowchart BAT existente toma los nuevos pasos desde el renderer actual, sin una plantilla nueva.
+
+### Archivos modificados
+
+- `index.html` — constructor de pasos FAN, ocho registros y sincronización de procedimientos administrados existentes.
+- `CONTEXTO_FFDIGI.md` — pasos FAN y alcance de la restauración actualizados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `buildFanTroubleshootingSteps` — crea las cuatro fases con número específico.
+- `FFDG.data.failureCatalog` — asocia el procedimiento a FAN SPEED 1–8.
+- Inicializador BAT / `managedBatAdditions.forEach` — actualiza `customProcedure` y `steps` en registros guardados con la misma identidad, o inserta los faltantes.
+- `getBatDetailSteps` y `renderBatFlowchart` — consumen el procedimiento vía su lógica existente.
+
+### Impacto
+
+Las ocho fallas muestran la secuencia adecuada para su fan; cambiar de FAN SPEED 1 a 8 cambia el número mencionado en los pasos. Catálogos locales existentes reciben estos procedimientos y se guardan mediante la persistencia BAT actual. La generación de diagramas BAT cambia indirectamente porque recibe cuatro pasos en estas fallas.
+
+### Validaciones realizadas
+
+- Los siete scripts clásicos inline compilaron con `vm.Script`; los cuatro bloques CSS quedaron balanceados.
+- Evaluación aislada del catálogo confirmó ocho fallas FAN con cuatro pasos por falla, etiqueta y número correctos, y banderas `customProcedure`/`managedAddition`.
+- La lógica de merge se ejecutó contra ocho registros simulados guardados sin pasos; los ocho quedaron actualizados con su procedimiento correspondiente.
+- `git diff --check` terminó limpio.
+- No se ejecutó selección visual ni `localStorage` real en el navegador; esa comprobación queda pendiente.
+
+### Resultado
+
+Secuencia de cuatro pasos implementada para FAN SPEED 1–8, con adaptación por número y sincronización sobre catálogo guardado.
+
+### Pendientes
+
+- Confirmar visualmente que cada tarjeta muestra los cuatro pasos y que su flowchart cambia al número correspondiente.
+- Probar en navegador la actualización de una copia real guardada antes de esta modificación.
+
+### Riesgos
+
+- La secuencia sigue el texto proporcionado por el usuario; no se especificaron comandos, validaciones detalladas del script ni criterios de aprobación/rechazo. Esos detalles no se inventaron.
+- La persistencia en navegador puede no ejecutarse si el almacenamiento está bloqueado o falla; el inicializador ya captura ese error y continúa con los datos de sesión.
+
+## 34. 2026-10-11 — Agregar selector PDF MTF sin importar contenido
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Agregar a MTF un botón para elegir un PDF FFDG de actualización futura, sin modificar ahora el catálogo ni el contenido del sistema.
+
+### Objetivo
+
+Dejar visible un botón que abra el selector de archivos PDF y conservar intacto el importador Excel existente y los datos actuales.
+
+### Estado anterior
+
+MTF mostraba el botón `Actualizar Excel FFDG`, conectado a `loadExcelFile`. No había un botón MTF para seleccionar PDF.
+
+### Análisis
+
+Se releyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md`; se inspeccionaron el estado Git, la barra de acciones MTF, el selector Excel, su listener y el importador. BAT ya tiene su propio selector/parser PDF y permanece fuera de alcance. La solicitud limita esta intervención a preparar el control visual, no implementar extracción ni mapeo PDF.
+
+### Causa
+
+No había un control MTF para elegir un PDF futuro. El parser Excel existente no debe recibir un PDF ni usarse para inferir su estructura.
+
+### Solución
+
+- Se agregó `Actualizar PDF FFDG` como botón accesible con nombre visible y foco de teclado; al presionarlo abre un input oculto que acepta archivos PDF.
+- La selección queda sin procesar: no se lee, transmite, importa ni persiste el archivo, y no se modifica el catálogo.
+- Se conservó sin cambios el botón, input, listener y parser Excel actual.
+- Se amplió el breakpoint responsive de la barra de acciones MTF a 1500 px para acomodar el nuevo control sin solaparlo con la búsqueda.
+
+### Archivos modificados
+
+- `index.html` — botón/input PDF MTF, apertura del selector y quiebre responsive de la barra.
+- `CONTEXTO_FFDIGI.md` — distingue el selector PDF futuro del importador Excel MTF operativo.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- Toolbar MTF — nuevo botón `mtf-pdf-select-button` y input `mtf-pdf-file-input`.
+- Inicialización de eventos — el click del botón activa el selector; no se agregó evento `change` ni parser.
+- Estilos responsive de `.mtf-row-1` — la distribución con varias acciones se activa hasta 1500 px.
+
+### Impacto
+
+Solo cambia la barra MTF y su selector de archivos. BAT, Excel MTF, procedimientos, flowcharts, catálogo, filtros y almacenamiento permanecen sin cambios. Elegir un archivo PDF no produce una actualización.
+
+### Validaciones realizadas
+
+- Siete scripts inline clásicos compilaron con `vm.Script`.
+- Comprobación estática: un botón y un input PDF, `accept="application/pdf,.pdf"`, listener de click al selector, sin manejador de `change` para importar, IDs únicos y listener Excel existente.
+- `git diff --check` terminó limpio.
+- La página local `file://` fue bloqueada por la política del navegador; no se validaron visualmente escritorio/tableta/móvil ni se abrió el diálogo nativo. No se intentó una vía alternativa.
+
+### Resultado
+
+Control de selección PDF agregado; no implementa todavía la lectura o importación de documentos.
+
+### Pendientes
+
+- Definir e implementar el parser/mapeo PDF en una solicitud futura, usando una muestra representativa y una vista previa antes de aplicar datos.
+- La prueba visual del botón y el selector en escritorio, tableta y móvil queda pendiente porque el navegador bloqueó la URL local.
+
+### Riesgos
+
+- El texto `Actualizar PDF FFDG` puede sugerir que el catálogo ya se actualiza; el tooltip aclara que por ahora solo abre el selector.
+- El PDF seleccionado no se adjunta a ningún servidor ni se conserva para sesiones futuras; solo queda seleccionado temporalmente en el control hasta que se cierre o reinicie la página.
+
+## 35. 2026-10-11 — Secuencia visual MTF para fallas sin flowchart fuente
+
+### Fecha
+
+2026-10-11.
+
+### Solicitud
+
+Cuando una falla MTF no tenga diagrama fuente en el PDF, generar un diagrama a partir de sus pasos sin cambiar los flowcharts existentes. Reducir las pestañas superiores a `Paso 1…N` y mostrar la descripción en la validación activa para que el texto no se encime.
+
+### Objetivo
+
+Dar una representación visual de la secuencia técnica disponible en los casos que hoy muestran “No hay un diagrama fuente verificado”, y permitir abrir directamente cada paso sin repetir sus títulos en la fila superior.
+
+### Estado anterior
+
+El caso AST-07 del ejemplo tenía nueve pasos y no tenía imagen/grafo fuente asociado; el panel mostraba únicamente el aviso de ausencia. Las pestañas MTF mostraban el título completo de cada paso, repetido respecto a la validación activa y difícil de leer cuando había muchas.
+
+### Análisis
+
+Se releyeron las reglas y el contexto FFDIGI; se consultaron las entradas históricas sobre preservación de flowcharts fuente, prioridad del observer y navegación MTF. Se inspeccionaron `renderFlowchart`, `renderMtfDetail`, `getActiveSteps`, el observer `drawFlow`, las asociaciones existentes y los datos base/additions/overrides. La auditoría estática identificó 287 registros únicos: 235 con imagen fuente verificada y 52 sin imagen asociada pero con pasos; AST-07 tiene nueve pasos y no figura con flowchart verificado. Ningún registro del conjunto actual quedó sin imagen y sin pasos.
+
+### Causa
+
+La política implementada anteriormente prefería dejar vacío el panel si faltaba una figura PDF, aunque existiera una secuencia de pasos. El stepper mostraba título completo en cada elemento, causando repetición y saturación visual.
+
+### Solución
+
+- Se agregó `mtf-procedure-sequence-flowchart.js`, que dibuja una caja por cada título de paso y una flecha entre consecutivos. El aviso informa que es una secuencia visual derivada, no una transcripción fuente. No dibuja rombos, Pass/Fail, resultados, retest ni terminales no expresados.
+- `renderFlowchart` y el observer tardío `drawFlow` conservan primero la imagen/grafo fuente existente; solo cuando no hay fuente verificada usan el renderer nuevo y los pasos de la variante activa. Si tampoco hay pasos, se conserva el aviso de procedimiento faltante.
+- Las pestañas superiores ahora son botones accesibles con los rótulos cortos `Paso 1`, `Paso 2`, etc. Cada botón permite seleccionar ese paso; el título y detalle permanecen en la validación de abajo.
+- Los diagramas fuente, asociaciones, imágenes y código BAT no se modificaron.
+
+### Archivos modificados
+
+- `index.html` — carga del módulo, prioridad/fallback del renderer, stepper MTF accesible y estilos de pasos.
+- `mtf-procedure-sequence-flowchart.js` — nuevo renderer SVG lineal para casos sin figura fuente.
+- `CONTEXTO_FFDIGI.md` — arquitectura, fuente de verdad y límites actualizados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderFlowchart` / `index.html` — conserva fuentes y delega al fallback únicamente ante ausencia de imagen/grafo válido.
+- `renderMtfDetail` / `index.html` — genera pestañas `Paso N`, con selección directa y nombre accesible descriptivo.
+- `drawFlow` / observer de `mtf-step` — mantiene sincronizado el fallback sin reemplazar la fuente.
+- `renderMtfProcedureStepFlowchart` / módulo nuevo — produce las cajas, flechas, rótulos accesibles y destaca el paso activo.
+
+### Impacto
+
+Solo presentación y navegación de pasos MTF. Los 52 casos actuales sin flowchart fuente y con pasos presentan su secuencia; los 235 con fuente conservan el diagrama existente. No cambia el orden, contenido, variantes, selección de fallas, importadores, datos, API ni BAT.
+
+### Validaciones realizadas
+
+- `node --check` pasó para el nuevo renderer y los módulos MTF relevantes; los siete scripts inline clásicos de `index.html` compilaron con `vm.Script`.
+- Prueba aislada de AST-07: 9 pasos → 9 cajas y 8 flechas, sin decisión, rama Pass/Fail o retorno añadido.
+- Prueba estática de todos los registros actuales sin figura fuente: se generaron 52 diagramas; cada uno tuvo tantas cajas como pasos y exactamente una flecha entre pasos contiguos; cero etiquetas/figuras de decisión añadidas y cero fallas del renderer.
+- La revisión del árbol confirmó 235 registros con asociaciones de imagen fuente; el cambio no editó recursos ni el módulo que conserva esas asociaciones.
+- `git diff --check` terminó limpio.
+- La visita visual se detuvo porque el navegador bloqueó el URL local `file://`; no se probaron dimensiones reales ni clicks en pantalla y no se usó otra vía de navegador.
+
+### Resultado
+
+Los casos sin flowchart fuente muestran una secuencia SVG transparente basada en sus pasos. Los flowcharts PDF existentes mantienen prioridad e integridad; las pestañas de validación quedan compactas y seleccionables.
+
+### Pendientes
+
+- Confirmar visualmente en navegador AST-07, una falla con imagen PDF y vistas de móvil, tableta y escritorio cuando la página pueda abrirse mediante un contexto permitido.
+- El fallback representa orden lineal; no certifica ramas o decisiones que no estén en los pasos disponibles.
+
+### Riesgos
+
+- Un procedimiento puede tener condiciones internas en su descripción; el diagrama secundario muestra títulos y secuencia, no interpreta esas condiciones ni sustituye la consulta del texto completo.
+- Si una falla tiene pasos incompletos, el renderer no puede reconstruir los pasos ausentes; debe corregirse desde una fuente autorizada, no por inferencia.
 

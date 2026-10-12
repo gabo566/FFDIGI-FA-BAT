@@ -639,21 +639,37 @@
   }
 
   .m3-step-pill {
-    padding: 3px 8px;
+    min-width: 64px;
+    min-height: 34px;
+    padding: 4px 10px;
     border-radius: var(--md-shape-corner-full);
     background-color: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-on-surface-variant);
     font-size: 10.5px;
     font-weight: 600;
+    font-family: inherit;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    border: 0;
+    cursor: pointer;
     transition: all 0.15s;
   }
+
+  .m3-step-pill:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
 
   .m3-step-pill.active {
     background-color: var(--md-sys-color-primary);
     color: var(--md-sys-color-on-primary);
     font-weight: 700;
+  }
+
+  .mtf-generated-flow-note {
+    margin: 0 0 5px;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 10px;
+    line-height: 1.35;
+    text-align: center;
   }
 
   .m3-step-kicker {
@@ -845,8 +861,33 @@
     image-rendering: auto;
   }
   .topology-preview figcaption { margin-top: 8px; color: var(--md-sys-color-on-surface-variant); font-size: 11px; line-height: 1.4; }
+  .topology-reference-launch {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-shape-corner-m);
+    background: transparent;
+    color: var(--md-sys-color-on-surface);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .topology-reference-launch:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+  .topology-reference-launch-title { display: flex; min-width: 0; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; font-weight: 800; }
+  .topology-reference-launch-action { flex: none; color: var(--md-sys-color-primary); font-size: 11px; font-weight: 800; }
+  .topology-reference-launch:hover { background: var(--md-sys-color-surface-container-high); }
+  #mtf-path { margin-bottom: 14px; }
+  #mtf-step { gap: 8px !important; }
+  #mtf-step .m3-step-kicker + .m3-step-kicker { margin-top: 6px; }
   .bat-failure-detail { grid-column: 1 / -1; }
   #bat-layout.bat-details-mode > section { grid-column:1 / -1; }
+  #bat-layout:not(.bat-details-mode) > aside { display:none; }
   #bat-layout.bat-details-mode:not(.bat-no-boot-mode) > aside { display:none; }
   .bat-detail-sequence { display:grid; gap:9px; margin:8px 0 0; padding:0; list-style:none; }
   .bat-detail-sequence li { box-sizing:border-box; width:100%; min-width:0; padding:9px 10px; border:1px solid var(--md-sys-color-outline-variant); border-radius:10px; font-size:12px; line-height:1.4; overflow-wrap:anywhere; }
@@ -864,10 +905,34 @@
   .reference-images-grid figure { margin:0; min-width:0; padding:7px; border:1px solid var(--md-sys-color-outline-variant); border-radius:10px; background:var(--md-sys-color-surface-container-low); }
   .reference-images-grid img { display:block; width:100%; height:140px; object-fit:contain; border-radius:7px; background:#fff; }
   .reference-images-grid figcaption { margin-top:6px; font-size:10px; line-height:1.35; color:var(--md-sys-color-on-surface-variant); }
-  .mtf-pdf-reference-images { min-width:0; margin-top:8px; padding:10px; border:1px solid var(--md-sys-color-outline-variant); border-radius:12px; background:var(--md-sys-color-surface-container-low); }
-  .mtf-pdf-reference-images h3 { margin:0 0 8px; font-size:12px; font-weight:800; color:var(--md-sys-color-primary); }
-  .mtf-pdf-reference-images .reference-images-grid { padding:0; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); }
-  .mtf-pdf-reference-images .reference-images-grid img { height:auto; max-height:320px; min-height:100px; object-fit:contain; }
+  .mtf-pdf-reference-images { min-width:0; margin-top:8px; padding:0; border:0; background:transparent; }
+  .pdf-reference-launch { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; min-width:0; min-height:42px; padding:8px 10px; border:1px solid var(--md-sys-color-outline-variant); border-radius:12px; background:var(--md-sys-color-surface-container-low); color:var(--md-sys-color-primary); font:inherit; font-size:12px; font-weight:800; text-align:left; cursor:pointer; }
+  .pdf-reference-launch::after { content:"+"; flex:none; margin-left:auto; color:var(--md-sys-color-primary); font-size:18px; font-weight:900; line-height:1; }
+  .pdf-reference-launch:hover { border-color:var(--md-sys-color-primary); }
+  .pdf-reference-launch:focus-visible { outline:3px solid var(--md-sys-color-primary); outline-offset:2px; }
+  .pdf-reference-gallery-dialog { box-sizing:border-box; width:min(1120px,calc(100vw - 24px)); max-width:none; max-height:94dvh; margin:auto; padding:0; overflow:hidden; border:1px solid var(--md-sys-color-outline-variant); border-radius:18px; background:var(--md-sys-color-surface); color:var(--md-sys-color-on-surface); }
+  .pdf-reference-gallery-dialog::backdrop { background:rgba(0,0,0,.72); }
+  .pdf-reference-gallery-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; padding:14px 16px; border-bottom:1px solid var(--md-sys-color-outline-variant); }
+  .pdf-reference-gallery-head h2 { margin:0; color:var(--md-sys-color-primary); font-size:18px; line-height:1.25; }
+  .pdf-reference-gallery-head p { margin:5px 0 0; color:var(--md-sys-color-on-surface-variant); font-size:12px; line-height:1.4; }
+  .pdf-reference-gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)); align-content:start; gap:12px; max-height:calc(94dvh - 82px); padding:14px; overflow:auto; overscroll-behavior:contain; }
+  .pdf-reference-gallery-item { min-width:0; margin:0; padding:9px; border:1px solid var(--md-sys-color-outline-variant); border-radius:12px; background:var(--md-sys-color-surface-container-low); }
+  .pdf-reference-gallery-item img { display:block; width:100%; height:auto; max-height:340px; object-fit:contain; border-radius:7px; background:#fff; }
+  .pdf-reference-gallery-item figcaption { margin-top:7px; color:var(--md-sys-color-on-surface-variant); font-size:12px; font-weight:700; line-height:1.4; overflow-wrap:anywhere; }
+  .pdf-reference-gallery-item .reference-image-guidance { font-size:12px; }
+  @media (max-width:600px) {
+    .pdf-reference-gallery-dialog { width:calc(100vw - 16px); max-height:92dvh; border-radius:14px; }
+    .pdf-reference-gallery-head { gap:8px; padding:12px; }
+    .pdf-reference-gallery-head h2 { font-size:16px; }
+    .pdf-reference-gallery-grid { grid-template-columns:minmax(0,1fr); max-height:calc(92dvh - 74px); gap:10px; padding:10px; }
+    .pdf-reference-gallery-item img { max-height:48dvh; }
+  }
+  .reference-image-guidance { margin:6px 0 0; color:var(--md-sys-color-on-surface); font-size:11px; line-height:1.45; overflow-wrap:anywhere; }
+  .reference-image-open { display:block; width:100%; padding:0; border:0; border-radius:7px; background:transparent; cursor:zoom-in; }
+  .reference-image-open:focus-visible { outline:3px solid var(--md-sys-color-primary); outline-offset:3px; }
+  .mtf-reference-modal { box-sizing:border-box; width:min(1100px,calc(100vw - 24px)); max-height:94dvh; padding:0; border:1px solid var(--md-sys-color-outline-variant); border-radius:18px; background:var(--md-sys-color-surface); color:var(--md-sys-color-on-surface); }
+  .mtf-reference-modal::backdrop { background:rgba(0,0,0,.72); }
+  .mtf-pdf-flowchart-svg { overflow:visible; }
   #mtf-disposition-content { min-width:0; display:flex; flex-direction:column; gap:6px; }
   #mtf-disposition-content #mtf-flowchart-diagram { flex:none; }
   .topology-open-btn {
@@ -1244,6 +1309,10 @@
     }
 
     #bat-print-report .print-head { align-items: center; gap: 16px; border-bottom: 3px solid #b3261e; margin-bottom: 15px; }
+    #bat-print-report.bat-executive-report .print-head { border-color: #76b900; }
+    #bat-print-report.bat-executive-report .print-brand-kicker { color: #387000; }
+    #bat-print-report.bat-executive-report .print-doc-stamp { border-color: #c8d9b9; background: #f5f9f0; }
+    #bat-print-report.bat-executive-report .print-doc-stamp strong { color: #315f08; }
     #bat-print-report .print-head > .print-legacy-brand { display: none !important; }
     .print-brand-primary { display: flex; align-items: center; gap: 15px; min-width: 0; }
     .ingrasys-print-logo { display: block; width: 150px; height: auto; max-height: 48px; object-fit: contain; }
@@ -1282,6 +1351,36 @@
     .bat-verdict-stat { display: grid; align-content: center; gap: 4px; min-width: 0; padding: 7px 9px; border-left: 1px solid #e2d8d7; }
     .bat-verdict-stat strong { color: #717982; font-size: 7pt; letter-spacing: .035em; text-transform: uppercase; }
     .bat-verdict-stat span { color: #24282d; font-size: 8.5pt; font-weight: 700; overflow-wrap: anywhere; }
+    #bat-print-report.bat-executive-report { font-size: 8pt; line-height: 1.2; }
+    #bat-print-report.bat-executive-report .print-head { gap: 10px; margin-bottom: 7px; padding-bottom: 7px; }
+    #bat-print-report.bat-executive-report .print-brand-primary { gap: 9px; }
+    #bat-print-report.bat-executive-report .ingrasys-print-logo { width: 104px; max-height: 34px; }
+    #bat-print-report.bat-executive-report .print-brand-title { font-size: 15pt; }
+    #bat-print-report.bat-executive-report .print-doc-stamp { min-width: 118px; gap: 2px; padding: 5px 7px; }
+    #bat-print-report.bat-executive-report .print-doc-stamp span { font-size: 7pt; }
+    #bat-print-report.bat-executive-report #bat-print-continuation { display: none !important; }
+    #bat-print-report.bat-executive-report .bat-print-grid { gap: 5px; margin-bottom: 6px; }
+    #bat-print-report.bat-executive-report .bat-meta-card { padding: 5px 7px; border-top-width: 2px; border-radius: 6px; font-size: 7.5pt; }
+    #bat-print-report.bat-executive-report .bat-meta-card strong { margin-bottom: 2px; font-size: 6.2pt; }
+    #bat-print-report.bat-executive-report .bat-print-section { margin-top: 7px; padding: 3px 0 4px 7px; border-left-color: #76b900; font-size: 9pt; }
+    #bat-print-report.bat-executive-report .bat-report-verdict { grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 4px; margin-bottom: 6px; padding: 6px; border-left-color: #76b900; }
+    #bat-print-report.bat-executive-report .bat-verdict-lead { gap: 2px; padding: 1px 5px; }
+    #bat-print-report.bat-executive-report .bat-verdict-title { font-size: 9.5pt; }
+    #bat-print-report.bat-executive-report .bat-verdict-stat { gap: 2px; padding: 4px 6px; }
+    #bat-print-report.bat-executive-report .bat-verdict-stat span { font-size: 7.5pt; }
+    #bat-print-report.bat-executive-report .print-final-card { padding: 0; border: 0; border-radius: 0; }
+    #bat-print-report.bat-executive-report .print-final-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+    #bat-print-report.bat-executive-report .print-final-grid > div { padding: 5px 7px; border-top-width: 2px; border-radius: 6px; font-size: 7.6pt; }
+    #bat-print-report.bat-executive-report .print-final-grid .wide { grid-column: 1 / -1; }
+    #bat-print-report.bat-executive-report .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; margin-top: 5px !important; }
+    #bat-print-report.bat-executive-report .gallery-grid img { height: 35px; }
+    #bat-print-report.bat-executive-report .gallery-grid figcaption { padding: 2px 4px; font-size: 6pt; }
+    #bat-print-report.bat-executive-report .print-signatures { gap: 9px; margin-top: 7px; }
+    #bat-print-report.bat-executive-report .print-signature { padding: 6px 8px; border-radius: 7px; font-size: 7.3pt; }
+    #bat-print-report.bat-executive-report .print-signature-name { margin-top: 2px; }
+    #bat-print-report.bat-executive-report .print-signature-meta { font-size: 6.7pt; }
+    #bat-print-report.bat-executive-report .print-signature-rule { margin: 13px 0 4px; }
+    #bat-print-report.bat-executive-report .print-footer { margin-top: 7px; padding-top: 4px; font-size: 6.5pt; }
 
     .print-section {
       font-weight: bold;
@@ -1716,6 +1815,17 @@
         <span>Actualizar Excel FFDG</span>
         <input id="excel-file-input" type="file" accept=".xlsx, .xls" style="display:none;">
       </label>
+      <button id="mtf-pdf-select-button" class="m3-btn m3-btn-filled mtf-pdf-select-button" type="button"
+        aria-label="Actualizar PDF FFDG"
+        title="Abre el selector de PDF. El archivo no se importa ni modifica el catálogo todavía."
+        style="white-space:nowrap; padding:0 14px; font-size:12px; flex-shrink:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"></path>
+        </svg>
+        <span>Actualizar PDF FFDG</span>
+      </button>
+      <input id="mtf-pdf-file-input" type="file" accept="application/pdf,.pdf" hidden
+        aria-label="Archivo PDF FFDG para una futura actualización">
       </div>
     </div>
     <!-- Notificación flotante de actualización -->
@@ -1815,17 +1925,10 @@
             <div id="mtf-path" class="m3-stepper-pills"></div>
             <div id="mtf-step" style="display:flex; flex-direction:column; gap:4px;"></div>
             <section id="mtf-reference-images" class="mtf-pdf-reference-images hidden" aria-label="Reference Images del FFDG PDF"></section>
-            <details class="topology-reference">
-              <summary>
-                <span>GB300 System Topology</span>
-                <span class="topology-reference-badge">Reference Images</span>
-              </summary>
-              <figure class="topology-preview">
-                <img src="./gb300-board-topology.png" alt="Esquema de las dos placas del sistema GB300 con GPU, CPU, UPHY, ventiladores, PDB y módulos PCIe, NVMe y BlueField-3." width="1466" height="1350" loading="lazy" decoding="async">
-                <figcaption>Referencia de ubicación de componentes y conectividad del sistema. Imagen optimizada a 2×, sin modificar etiquetas.</figcaption>
-                <button id="mtf-topology-open" class="topology-open-btn" type="button" aria-haspopup="dialog" aria-controls="mtf-topology-modal">Ampliar esquema</button>
-              </figure>
-            </details>
+            <button id="mtf-topology-open" class="topology-reference-launch" type="button" aria-haspopup="dialog" aria-controls="mtf-topology-modal">
+              <span class="topology-reference-launch-title">GB300 System Topology <span class="topology-reference-badge">Reference Images</span></span>
+              <span class="topology-reference-launch-action">Abrir esquema ↗</span>
+            </button>
           </div>
           <!-- Bloque 3.3: Disposición Final y Diagrama de Flujo de Retest -->
           <div class="bento-block-3">
@@ -1884,12 +1987,12 @@
         <img class="ingrasys-print-logo" src="./ingrasys-logo.png" alt="Ingrasys">
         <div class="print-brand-copy">
           <span class="print-brand-kicker">FFDG · Estación BAT</span>
-          <h1 class="print-brand-title">Reporte de Calidad</h1>
-          <span class="print-brand-subtitle">Diagnóstico de hardware · GB200 / GB300</span>
+          <h1 id="bat-print-title" class="print-brand-title">Reporte de Calidad</h1>
+          <span id="bat-print-subtitle" class="print-brand-subtitle">Diagnóstico de hardware · GB200 / GB300</span>
         </div>
       </div>
       <div class="print-doc-stamp">
-        <strong>Control de Calidad</strong>
+        <strong id="bat-print-stamp">Control de Calidad</strong>
         <span>Reporte de diagnóstico BAT</span>
         <span id="print-date"></span>
       </div>
@@ -1948,10 +2051,10 @@
       </div>
     </div>
     <div id="bat-print-meta" class="print-grid bat-print-grid"></div>
-    <div class="print-section bat-print-section">Resumen para Calidad</div>
+    <div id="bat-print-summary-title" class="print-section bat-print-section">Resumen para Calidad</div>
     <div id="bat-print-verdict"></div>
     <div id="bat-print-continuation" class="bat-report-continuation"></div>
-    <div class="print-section bat-print-section">Causa raíz y acciones reportadas</div>
+    <div id="bat-print-actions-title" class="print-section bat-print-section">Causa raíz y acciones reportadas</div>
     <div id="bat-print-final" style="margin-top:8px;"></div>
     <div id="bat-print-evidence-section" class="print-section bat-print-section">Evidencia de soporte</div>
     <div id="print-evidence-list" class="gallery-grid" style="margin-top:10px;"></div>
@@ -1979,7 +2082,10 @@
       <span class="flowchart-modal-kicker">RUTA VISUAL DE DIAGNÓSTICO</span>
       <h2 id="mtf-flowchart-modal-title">Diagrama de flujo</h2>
     </div>
-    <button id="mtf-flowchart-close" class="flowchart-modal-close" type="button" aria-label="Cerrar diagrama">×</button>
+    <div class="flowchart-modal-tools">
+      <button id="mtf-flowchart-zoom" class="flowchart-modal-zoom" type="button" aria-pressed="false" title="Usa la rueda sobre el diagrama para acercar o alejar progresivamente; también puedes pulsar para avanzar el zoom." hidden>Lupa · 400 ppp</button>
+      <button id="mtf-flowchart-close" class="flowchart-modal-close" type="button" aria-label="Cerrar diagrama">×</button>
+    </div>
   </div>
   <div id="mtf-flowchart-modal-content" class="flowchart-modal-content"></div>
 </dialog>
@@ -1998,10 +2104,24 @@
   </figure>
 </dialog>
 <script src="./mtf-pdf-additions.js"></script>
+<script src="./mtf-pdf-reference-map.js"></script>
+<script src="./pdf-reference-gallery.js"></script>
+<script src="./mtf-pdf-flowcharts.js"></script>
+<script src="./mtf-procedure-sequence-flowchart.js"></script>
+<script src="./mtf-pdf-procedure-overrides.js"></script>
 <script>window.FFDG = window.FFDG || {};
   // 1. DATA REPOSITORY
   window.FFDG.data = (() => {
     "use strict";
+    const buildFanTroubleshootingSteps = fanNumber => {
+      const fail = "No se pudo completar este paso. Registra la observación y escala según el criterio FA del FFDG.";
+      return [
+        { q: `Paso 1 · Validación de ruteo del ventilador ${fanNumber}.`, detail: "", fail },
+        { q: `Paso 2 · Run the BMC Sensors script for Fan Speed ${fanNumber}.`, detail: "", fail },
+        { q: `Paso 3 · Validar resultados y hacer reseat del ventilador ${fanNumber}.`, detail: "", fail },
+        { q: `Paso 4 · Retest del ventilador ${fanNumber}.`, detail: "", fail }
+      ];
+    };
     const failureCatalog = [
       ...[
         ["NDBG_080", "HMC FRU EEPROM"], ["NDBG_081", "PDB FRU EEPROM"], ["NDBG_082", "PRIMARY BIANCA FRU EEPROM"], ["NDBG_083", "SECONDARY BIANCA FRU EEPROM"],
@@ -2017,16 +2137,84 @@
         ["NDBG_100", "LEAKAGE SENSOR 0 COLDPLATE"], ["NDBG_101", "LEAKAGE SENSOR 0 MANIFOLD"], ["NDBG_102", "LEAKAGE SENSOR 1 COLDPLATE"], ["NDBG_103", "LEAKAGE SENSOR 1 MANIFOLD"]
       ].map(([code, label]) => ({ code, label, family: "LEAK", familyLabel: "Sensores de Fuga Líquida" })),
       ...[
-        ["NDBG_104", "FAN SPEED 1"], ["NDBG_105", "FAN SPEED 2"], ["NDBG_106", "FAN SPEED 3"]
-      ].map(([code, label]) => ({ code, label, family: "FAN", familyLabel: "Ventiladores / Enfriamiento" })),
-      { code: "NDBG_107", label: "No boot", family: "NOBOOT", familyLabel: "No Boot / Secuencia Eléctrica" }
+        ["NDBG_104", "FAN SPEED 1", 1], ["NDBG_105", "FAN SPEED 2", 2], ["NDBG_106", "FAN SPEED 3", 3],
+        ["NDBG_117", "FAN SPEED 4", 4], ["NDBG_118", "FAN SPEED 5", 5], ["NDBG_119", "FAN SPEED 6", 6],
+        ["NDBG_120", "FAN SPEED 7", 7], ["NDBG_121", "FAN SPEED 8", 8]
+      ].map(([code, label, fanNumber]) => ({
+        code,
+        label,
+        family: "FAN",
+        familyLabel: "Ventiladores / Enfriamiento",
+        managedAddition: true,
+        customProcedure: true,
+        steps: buildFanTroubleshootingSteps(fanNumber)
+      })),
+      { code: "NDBG_107", label: "No boot", family: "NOBOOT", familyLabel: "No Boot / Secuencia Eléctrica" },
+      {
+        code: "NDBG_092",
+        label: "Central IO board panel LEDs do not turn on",
+        family: "NOBOOT",
+        familyLabel: "No Boot / Secuencia Eléctrica",
+        managedAddition: true,
+        customProcedure: true,
+        steps: [
+          { q: "Paso 1 · ASIC cycle", detail: "", fail: "No se pudo completar este paso. Registra la observación y escala según el criterio FA del FFDG." },
+          { q: "Paso 2 · Validar las tarjetas del panel de la IO board central.", detail: "", fail: "No se pudo completar este paso. Registra la observación y escala según el criterio FA del FFDG." },
+          { q: "Paso 3 · Validar el correcto ensamble del cable de la IO board del panel central a la FIO board y las conexiones de los cables J21 y J22.", detail: "", fail: "No se pudo completar este paso. Registra la observación y escala según el criterio FA del FFDG." }
+        ]
+      },
+      {
+        code: "NDBG_122",
+        label: "FW ISSUE",
+        family: "NOBOOT",
+        familyLabel: "No Boot / Secuencia Eléctrica",
+        managedAddition: true,
+        customProcedure: true,
+        insertAfterCode: "NDBG_092",
+        steps: [
+          { q: "Paso 1 · Validar el firmware de los componentes del hardware principal BMC/HMC.", detail: "", fail: "No se pudo completar este paso. Registra la observación y escala según el criterio FA del FFDG." },
+          { q: "Paso 2 · Update firmware de los componentes.", detail: "", fail: "No se pudo completar este paso. Registra la observación y escala según el criterio FA del FFDG." },
+          { q: "Paso 3 · Validar mediante BAT Script el firmware actualizado.", detail: "", fail: "No se pudo completar este paso. Registra la observación y escala según el criterio FA del FFDG." }
+        ]
+      }
     ];
     // Catálogo inicial MTF con procedimientos PDF incluidos también en importaciones/restauraciones.
     const mtfRaw = [{ "id": "FLA-01", "station": "FLA", "code": "020023006_000571", "name": "Verify fw failed. , FW_CPLD_0 - NOT FOUND, FW_CPLD_0 - NOT FOUND, FW_CPLD_0 - NOT FOUND, FW_CPLD_1 - NOT FOUND, FW_CPLD_1 - NOT FOUND, FW_CPLD_1 - NOT FOUND", "components": "MCIO, IPEX cables", "flowchart": "Flowchart 1", "steps": [{ "title": "AC cycle", "detail": "Run \"run_cable_check\" script\nScript fails for a 'JTAG', 'HMC I2C', or 'BMC I2C' issue" }, { "title": "Re-seat/replace cables", "detail": "Use the cable debug guide to identify the relevant cables\nRe-seat/replace cables\nRetest" }, { "title": "Replace IPEX board", "detail": "Use the cable debug guide to identify the revelant IPEX board\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FLA-02", "station": "FLA", "code": "020023006_001", "name": "EROT certificate provisioning failed for devices: HGX_FW_ERoT_BMC_0(1:0x52),", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest upto 2 times", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "FLA-03", "station": "FLA", "code": "020023006_007", "name": "Key/RBP revocation verification failed for devices: HGX_FW_CPU_0-APkey(2:0x28)[NotRevoked], HGX_FW_CPU_1-APkey(1:0x28)[NotRevoked],", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest upto 2 times", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "FLA-04", "station": "FLA", "code": "020023006_001", "name": "ERROR: POST failed to complete; timeout", "components": "Hardware / Subsystem", "flowchart": "Flowchart 14", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-seat Clink cable", "detail": "Re-seat Clink cable to ensure it is fully seated. See \"Cable debug guide\" sheet for Clink cable location\nRetest" }, { "title": "Re-seat B2B cable", "detail": "Re-seat B2B cable to ensure it is fully seated. See \"Cable debug guide\" sheet for B2B cable location\nRetest" }, { "title": "Re-seat/Replace PDB sideband cable", "detail": "Re-seat PDB sideband cable to ensure it is fully seated. If damage found such as bent pins, replace the damaged component.\nRetest" }, { "title": "Replace BMC hardware", "detail": "There are times that this post complete timeout issue could be due to bad BMC hardware if no console output. Replace BMC hardware\nRetest" }, { "title": "Replace Bianca Board(s)", "detail": "If this post complete timeout issue is due to cross_socket_check failure, it is usually due to fuse mismatch between two Bianca boards. Check the PBR build number of two Bianca boards, replace one board so that both them have same PBR build number\nRetest" }, { "title": "Variante alterna de la guía", "detail": "1. VERIFICAR ENCENDIDO DE LA BF3 — SI NO ENCIENDE REASENTAR CABLE RYZER Y CABLE DE PODER\n2. VALIDAR SALIDA DE CORRIENTE EN LA PDB — VALIDAR CABLE DE PDB J6 HACIA BF3\n2A. VERIFICAR SALIDA DE VOLETAJE EN EL CONECTOR J6 — VALIDAR SALIDA DE VOLTAJE EN LAS 3 PUNTAS POSITIVAS DEL CABLE J6\n2B. VALIDAR SALIDA DE VOLTAJE EN EL CONECTOR J6 DE LA PDB — SI NO HAY VOLTAJE EN UNA TERMINAL REEMPLAZAR LA PDB" }] }, { "id": "FLA-05", "station": "FLA", "code": "020023006_300", "name": "Loop counter AC_CYCLE_COUNT_FLASH_AND_ACTIVATE_FW exceeded the limit of 2", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Check the version of Backplane E1.s", "detail": "2.1 Using the TAS.txt log, determine which CPLD_? contains the incorrect firmware\n2.2 If you have the programmer, update the Backplane E1.S and IPEX to the latest version. If not, proceed to the next step.\n2.3 Replace the E1.S backplane with faulty firmware" }, { "title": "Check the BMC version", "detail": "3.1 Run the script \"preescreen\" in BAT\n3.2 If the update test fails and indicates that you have version 25.01, replace the BMC" }] }, { "id": "FLA-06", "station": "FLA", "code": "020023006_564", "name": "Mismatches found in log comparison:  get_hmc_erot_spdm_certificate_count[47G>>>Output>>> 5, get_cpu_erot_spdm_certificate_count[47G>>>Output>>> 5, get_cpu_erot_spdm_certificate_count[47G>>>Output>>> 5\n\nMismatches found in log comparison: get_fpga_fw_version_regtable[47G>>>Output>>> 0x01 0x06 0x00", "components": "HMC", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "Retest" }, { "title": "Reseat and inspect BMC and HMC", "detail": "Reseat BMC and HMC boards, along with their respective J21 and J22 cables\nRetest" }, { "title": "Replace HMC board", "detail": "Retest" }, { "title": "Replace BMC board", "detail": "Retest" }] }, { "id": "FLA-07", "station": "FLA", "code": "020023006_000571", "name": "ERROR: EID 20 23 missing", "components": "FPGA", "flowchart": "Flowchart 2", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Update Bianca_1 FPGA", "detail": "Update firmware on Bianca_1 FPGA using I2C recovery method from the BMC\nRetest" }, { "title": "Re-seat/replace B2B cable", "detail": "Re-seat/replace B2B cable (DC-SCI cable) between Bianca_0 and Bianca_1\nRetest" }, { "title": "Replace Bianca_1", "detail": "Replace the Bianca_1 board\nRetest" }] }, { "id": "FLA-08", "station": "FLA", "code": "020023006_508", "name": "System failed to power on.", "components": "BOOT", "flowchart": "Flowchart 16", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-flash SBIOS", "detail": "Post complete issue can be caused by a corrupted SBIOS image preventing the system from booting" }, { "title": "Re-seat Clink cable", "detail": "Re-seat Clink cable to ensure it is fully seated. See \"Cable debug guide\" sheet for Clink cable location\nRetest" }, { "title": "Re-seat B2B cable", "detail": "Re-seat B2B cable to ensure it is fully seated. See \"Cable debug guide\" sheet for B2B cable location\nRetest" }, { "title": "Replace BMC hardware", "detail": "There are times that this post complete timeout issue could be due to bad BMC hardware if no console output. Replace BMC hardware\nRetest" }, { "title": "Replace Bianca Board(s)", "detail": "If this post complete timeout issue is due to cross_socket_check failure, it is usually due to fuse mismatch between two Bianca boards. Check the PBR build number of two Bianca boards, replace one board so that both them have same PBR build number\nRetest" }] }, { "id": "FLA-10", "station": "FLA", "code": "020023006_561", "name": "ERROR: POST failed to complete; timeout", "components": "Hardware / Subsystem", "flowchart": "Flowchart 14", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de Hardware / Subsystem", "detail": "Revisar conectores, cables y daño físico asociados a: Hardware / Subsystem\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLA-11", "station": "FLA", "code": "020023014_000590", "name": "Max retries of 6, reached. Error during HOST_STATE using clean_slate tool.", "components": "PDB sideband cable", "flowchart": "Flowchart 3", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-flash FPGA firmware", "detail": "Re-flash the FPGA firmware on the primary and secondary Bianca boards\nRetest" }, { "title": "3a. Check for 12V short", "detail": "Check for 12V_main short to ground" }, { "title": "3b. Identifty and replace relevant components", "detail": "Retest" }, { "title": "Inspect/re-seat/replace PDB sideband cable", "detail": "Inspect/re-seat/replace PDB sideband cable (PDB J15 - Bianca_0 JSB2)\nRetest" }, { "title": "5a. Use Golden PDB to confirm run power can be turned on", "detail": "Retest" }, { "title": "5b. Replace PDB", "detail": "Retest" }, { "title": "Replace Bianca board", "detail": "Retest" }] }, { "id": "FLA-12", "station": "FLA", "code": "020023014_na", "name": "RESET_BMC_DEFAULTS(BMC_READY(timeout))", "components": "HMC", "flowchart": "Flowchart 15", "steps": [{ "title": "Re-seat HMC", "detail": "Re-test" }, { "title": "Replace HMC", "detail": "Re-test" }] }, { "id": "FLA-13", "station": "FLA", "code": "020039006_000613", "name": "FRU field Board Serial mismatch", "components": "CX7 FRU", "flowchart": "Guía General FA", "steps": [{ "title": "Re-program Cx7 FRUID", "detail": "" }] }, { "id": "FLA-14", "station": "FLA", "code": "020023036_ 6d69786378", "name": "900-9X86E-00SX-SPA is from DK, 900-9X86E-00CX-SP0 is from PK", "components": "CX8", "flowchart": "CX8", "steps": [{ "title": "Replace CX8 with the correct part number 900-9X86E-00CX-SP0", "detail": "" }] }, { "id": "FLA-15", "station": "FLA", "code": "020023006_000564", "name": "Verify fw failed. , FW_CPLD_0...", "components": "MCIO, IPEX cables", "flowchart": "Flowchart 1", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de MCIO, IPEX cables", "detail": "Revisar conectores, cables y daño físico asociados a: MCIO, IPEX cables\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLA-16", "station": "FLA", "code": "42d090c6936c2e2c", "name": "Check 'BlueField-3 DPU SuperNIC (Right) - Board PN' is valid. ( Item invalid. Check SFC. ) [TC] ENV - Assign Crabber Variable From Assembly Data (GB NVL) (BlueField-3 DPU SuperNIC (Right) - Board PN)", "components": "Material kitting", "flowchart": "Guía General FA", "steps": [{ "title": "Check the SFC system to ensure that the BF3 is properly married at chassis level and at bay level", "detail": "(The error usually occurs at bay level)" }, { "title": "Check the status of the IT system using the NVIDIA Reporter.", "detail": "And use the “DATA BASE COMPONENT” section." }, { "title": "Based on the errors identified, please fill out the form found in the “Registros_FA_2026” file, or the form below, replacing any information that needs to be updated.", "detail": "" }, { "title": "Send an email to IT Team and QE Team and open a ticket so that the necessary changes can be made", "detail": "" }, { "title": "Test the unit starting at FLA", "detail": "Example of what a node should look like when set up correctly" }] }, { "id": "FLA-17", "station": "FLA", "code": "020023006_001", "name": "Background copy still in progress for devices: HGX_FW_CPU_0(2:0x28), HGX_FW_CPU_1(1:0x28),", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest upto 2 times", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "FLA-18", "station": "FLA", "code": "020023006_001", "name": "EC_FW build type verification failed for devices: HGX_FW_CPU_0(2:0x28)[CmdFailed],", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest upto 2 times", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "FLA-19", "station": "FLA", "code": "020023006_571", "name": "Verify fw failed. , HGX_FW_BMC_0 - NOT FOUND, HGX_FW_BMC_0 - NOT FOUND, HGX_FW_BMC_0 - NOT FOUND, HGX_FW_ERoT_BMC_0 - NOT FOUND, HGX_FW_ERoT_BMC_0 - NOT FOUND, HGX_FW_ERoT_BMC_0 - NOT FOUND", "components": "BMC/interposer", "flowchart": "Guía General FA", "steps": [{ "title": "Check interposer state", "detail": "1.1 Use the following command to display all HGXs, and check all the ones it detects.\n<IP> = BMC IP ( arp -n | grep MAC)\n $curl -k -u admin:[CREDENCIAL_REDACTADA] -H \"Content-Type: application/json\" -X GET https://<IP>/redfish/v1/UpdateService/FirmwareInventory\n1.2 Use a Golden Inteposer, and run the test again. If all HGXs are now detected, replace the Interposer." }, { "title": "RE-SEAT J21 AND J22 CABLE", "detail": "" }, { "title": "RE-SEAT BMC", "detail": "" }, { "title": "RE-SEAT HMC", "detail": "" }] }, { "id": "FLA-20", "station": "FLA", "code": "020023006_005", "name": "Boot log is stuck at Wait for CLINK complete", "components": "B2B CABLE", "flowchart": "Guía General FA", "steps": [{ "title": "Unplug the B2B cable J58/J79 to inspect the connector on the biancas and the cable, and if any are damaged, replace it.", "detail": "" }, { "title": "Replace the B2B cable J58/J79", "detail": "" }, { "title": "Unplug the J107 cable to inspect the connector on the biancas and the cable, and if any are damaged, replace it.", "detail": "" }, { "title": "Replace the J107 cable", "detail": "" }] }, { "id": "FLA-21", "station": "FLA", "code": "89e8226d16ea2023", "name": "Look for \"Compute Tray BMC\" IP. ( Failed to find IP. Check the cable & LED. Might need to AC cycle. ) [TC] ENV - Generate IP Address File From MAC Address File (GB NVL) (Compute Tray BMC)", "components": "BMC/interposer", "flowchart": "Guía General FA", "steps": [{ "title": "Change Slot in MTF", "detail": "" }, { "title": "BMC/BMC Interposer Reseat", "detail": "" }, { "title": "Interpooser replacement", "detail": "" }, { "title": "BMC replacement", "detail": "" }] }, { "id": "PRET-01", "station": "PRET", "code": "e6e12e0a934277c3", "name": "Wrong OS version in M.2 [TC] Test - Check Compute Tray OS Version", "components": "M.2", "flowchart": "Guía General FA", "steps": [{ "title": "Update OS version on M.2 to the expect version per error description message", "detail": "" }] }, { "id": "PRET-02", "station": "PRET", "code": "4668c6cc19c5fdb8", "name": "Ping 'OSFP Board (Right)' FRU EEPROM. ( Ping Failed. Check I2C cable connection. ) [TC] FRU - Write FRU To PCBa by ipmitool raw script (OSFP) (OSFP Board (Right))", "components": "OSFP", "flowchart": "Guía General FA", "steps": [{ "title": "Reseat cable J1 (Sideband Cable) OSFP", "detail": "" }, { "title": "Replace cable J1 (Sideband Cable) OSFP", "detail": "" }] }, { "id": "PRET-03", "station": "PRET", "code": "d965483c51256f30", "name": "Show 'Compute Tray' OS. ( Show failed. ) [TC] System - Check Compute Tray OS Version (GB NVL)", "components": "M2/SSD", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de M2/SSD", "detail": "Revisar conectores, cables y daño físico asociados a: M2/SSD\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "PRET-04", "station": "PRET", "code": "7550e43b44f71638", "name": "Check '1Gb NIC' PCIe device name. ( PCIe device name incorrect. Check the device. ) [TC] PCI - Check PCIe Device Name (1Gb NIC)", "components": "1G NIC", "flowchart": "Guía General FA", "steps": [{ "title": "Access the host and run the following command to view the network interfaces:", "detail": "$ ifconfig\n(Check whether the \"enP5p9s0\" device appears.)" }, { "title": "Reseat cable J117 NIC", "detail": "" }, { "title": "Reseat BMC and HMC and their respective J21 and J22 cables", "detail": "" }, { "title": "Replace Interposer board", "detail": "" }, { "title": "Replace NIC board", "detail": "" }, { "title": "Replace BMC board", "detail": "" }, { "title": "Replace HMC board", "detail": "" }] }, { "id": "PRET-05", "station": "PRET", "code": "a5fc0084fe3d581c", "name": "Show '1Gb NIC' FRU EEPROM. ( Show Failed. Check I2C cable connection. ) [TC] FRU - Write FRU To PCBa by ipmitool raw script (GB NVL) (1Gb NIC)", "components": "1G NIC", "flowchart": "Guía General FA", "steps": [{ "title": "Access the host and run the following command to view the network interfaces:", "detail": "$ ifconfig\n(Check whether the \"enP5p9s0\" device appears.)" }, { "title": "Reseat cable J117 NIC and inspect NIC board", "detail": "" }, { "title": "Replace cable J117", "detail": "" }, { "title": "Replace NIC board", "detail": "" }] }, { "id": "PRET-06", "station": "PRET", "code": "f472cd1d4ec26ef6", "name": "Write '1Gb NIC' FRU EEPROM. ( Write Failed. Check I2C cable connection. ) [TC] FRU - Write FRU To PCBa by ipmitool raw script (GB NVL) (1Gb NIC)", "components": "1G NIC", "flowchart": "Guía General FA", "steps": [{ "title": "Access the host and run the following command to view the network interfaces:", "detail": "$ ifconfig\n(Check whether the \"enP5p9s0\" device appears.)" }, { "title": "Reseat cable J117 NIC and inspect NIC board", "detail": "" }, { "title": "Replace cable J117", "detail": "" }, { "title": "Replace NIC board", "detail": "" }] }, { "id": "PRET-07", "station": "PRET", "code": "1d96bbe0afaf363b", "name": "Check '1Gb NIC' ethernet link. ( No link detected. Check the ethernet cable connection. ) [TC] Ethernet - Check Device Link Status (ethtool) (1Gb NIC)", "components": "1G NIC", "flowchart": "Guía General FA", "steps": [{ "title": "Access the host and run the following command to view the network interfaces:", "detail": "$ ifconfig\n(Check whether the \"enP5p9s0\" device appears.)" }, { "title": "Reseat cable J117 NIC and inspect NIC board", "detail": "" }, { "title": "Replace cable J117", "detail": "" }, { "title": "Replace NIC board", "detail": "" }] }, { "id": "PRET-08", "station": "PRET", "code": "b150391cf6ce26f7", "name": "Compute Tray Host' host is not boot properly. ( Check the device. ) [TC] System - Device Login To Host Using SOL (GB NVL)", "components": "1G NIC", "flowchart": "Guía General FA", "steps": [{ "title": "Carry out a physical inspection of the M.2 card; if no damage is found on the M.2 card and on the bracket, proceed with the reseating.", "detail": "" }, { "title": "Reflash M.2 board", "detail": "" }, { "title": "Replace M.2 board", "detail": "" }] }, { "id": "FLB-01", "station": "FLB", "code": "058012036_70636965010", "name": "Please check the failed device:\"BF3\"  '0016:03:00.0' -Found \"  \", expected \" 32GT/s x16\";", "components": "BF3 Cables", "flowchart": "Flowchart 16", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Re-seat QSFP loopback cable", "detail": "Check the log file Onediag_IB_CABLES/IbStressCables/output.txt\nFor failures indicating BF3 devices mlx5_2, mlx5_3 are indicating \"State: Down\" - this refers to the left hand side Bluefield (Primary)\nFor failures indicating BF3 devices mlx5_6, mlx5_7 are indicating the \"State: Down\" - this refers to the right hand side Bluefield (Secondary)\nRe-seat QSFP loopback cable to ensure it is fully seated\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FLB-02", "station": "FLB", "code": "058018006_4", "name": "Command sudo ./os_update.sh fails.", "components": "SSDs/ MCIO, IPEX cables", "flowchart": "Flowchart 4", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-seat SSD", "detail": "Use the cable debug guide to identify the relevant SSD\nRe-seat SSD\nRetest" }, { "title": "3a. Swap SSD location", "detail": "Swap failing SSD location with a passing SSD location on the same E1.s board and retest. If it passes in the new location move to step 4" }, { "title": "3b. Replace SSD", "detail": "If the SSD fails in the new location replace the SSD\nRetest" }, { "title": "Re-seat/replace the MCIO cables", "detail": "Re-seat/replace the MCIO cable associated with the failing SSD\nRetest" }, { "title": "Replace E1.S board", "detail": "Replace E1.S board associated with the failing SSD\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FLB-03", "station": "FLB", "code": "058034036_13892839", "name": "MST ADDED x BUT DIAG EXPECT x, PORT MISSING CONNECTION mlx5_x.  PLEASE CHECK ERROR LIST FOR LINK SPEED mt4129_pcicon", "components": "CX7/CX8 Ultrapass / sideband cables", "flowchart": "OSFP", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de CX7/CX8 Ultrapass / sideband cables", "detail": "Revisar conectores, cables y daño físico asociados a: CX7/CX8 Ultrapass / sideband cables\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLB-04", "station": "FLB", "code": "058034036_13892839", "name": "MST ADDED x BUT DIAG EXPECT x, check external mlx5_x.  PLEASE CHECK mlx5_x-Bad/unsupported EEPROM", "components": "CX7/CX8 sideband cables", "flowchart": "OSFP/CX8", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de CX7/CX8 sideband cables", "detail": "Revisar conectores, cables y daño físico asociados a: CX7/CX8 sideband cables\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLB-05", "station": "FLB", "code": "058034036_13892849", "name": "MST ADDED EXPECTED x CBL.  PLEASE CHECK ERROR LIST FOR LINK SPEED mt4129_pciconf", "components": "CX7/CX8 Ultrapass / sideband cables", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de CX7/CX8 Ultrapass / sideband cables", "detail": "Revisar conectores, cables y daño físico asociados a: CX7/CX8 Ultrapass / sideband cables\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLB-06", "station": "FLB", "code": "03bda29a8cdd761a", "name": "Look for \"Compute Tray BlueField3 Left BMC IP Address\" IP....", "components": "BF3 power cable", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "Run BAT script" }, { "title": "Check power cable and network cable connections", "detail": "--Check BF3 network cable in front of the tray\n--Remove tray top cover, check power cable connection to Riser card and check power cable connection to BF3. Make sure these two power cables are connected. See picture on the right" }, { "title": "Re-seat PCIe Riser Cable", "detail": "Reseat PCIe Riser cable. Make sure no loose connection" }, { "title": "Check BF3 MAC Address", "detail": "Make sure the physical MAC address matches SFC MAC address. If not, replace BF3" }, { "title": "Replace BF3", "detail": "If failure persists, replace BF3" }] }, { "id": "FLB-07", "station": "FLB", "code": "53920a9f67be8a37", "name": "Look for \"Compute Tray BlueField3 Right BMC IP Address\" IP. ( Failed to find IP. Check the cable & LED. Might need to AC cycle. ) [TC] ENV - Generate IP Address File From MAC Address File (GB NVL)...", "components": "BF3", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de BF3", "detail": "Revisar conectores, cables y daño físico asociados a: BF3\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLB-08", "station": "FLB", "code": "058012036_7a13", "name": "PLEASE CHECK DEVICE 0016:07:00.0: Incorrect Speed/Width", "components": "SSDs/ MCIO, IPEX cables", "flowchart": "Flowchart 4", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-seat SSD", "detail": "Use the cable debug guide to identify the relevant SSD\nRe-seat SSD\nRetest" }, { "title": "3a. Swap SSD location", "detail": "Swap failing SSD location with a passing SSD location on the same E1.s board and retest. If it passes in the new location move to step 4" }, { "title": "3b. Replace SSD", "detail": "If the SSD fails in the new location replace the SSD\nRetest" }, { "title": "Re-seat/replace the MCIO cables", "detail": "Re-seat/replace the MCIO cable associated with the failing SSD\nRetest" }, { "title": "Re-seat/replace the IPEX cables", "detail": "Re-seat/replace the IPEX cables associated with the failing SSD\nRetest" }, { "title": "Replace IPEX/E1.s board", "detail": "Replace E1.s/IPEX boards associated with the failing SSD\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FLB-09", "station": "FLB", "code": "058074006_000574", "name": "ERROR: BIOS booted to UEFI shell", "components": "M.2 SSD", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Reseat M.2 SSD", "detail": "Reseat M.2 SSD\nRetest" }] }, { "id": "FLB-10", "station": "FLB", "code": "058034036_ 6378377232", "name": "Please check: CX8-P1(L)  CX8-P2(L)", "components": "CX8", "flowchart": "Guía General FA", "steps": [{ "title": "Open the datafile and fix the MAC addreses for CX8.", "detail": "--For this error \"Please check CX8-P1(L)  CX8-P2(L)\", check the MAC addresses of these two lines below in the datafile. They may be swapped or incorrect. Ask IT fix MAC addresses and retest. These are two the CX8 ports on the Left/Primary Bianca\nCX8_LEFT_1:\nCX8_LEFT_2:\n--For this error \"Please check CX8-P1(L)  CX8-P2(L)  CX8-P1(R)  CX8-P2(R)\", check the MAC addresses of all 4 CX8 lines datafile. They may be swapped or incorrect. Ask IT Fix MAC addresses and retest.\nCX8_LEFT_1:\nCX8_LEFT_2:\nCX8_RIGHT_1:\nCX8_RIGHT_2:\n--For this error \"Please check CX8-P1(R)  CX8-P2(R)\", check the MAC addresses of these two lines below in the datafile. They may be swapped or incorrect. Ask IT fix MAC addresses and retest. These are two the CX8 ports on the Right/Secondary Bianca\nCX8_RIGHT_1:\nCX8_RIGHT_2:" }] }, { "id": "FLB-11", "station": "FLB", "code": "058034036_ 6378377232", "name": "Please check: CX8-P1(L)  CX8-P2(L)  CX8-P1(R)  CX8-P2(R)", "components": "CX8", "flowchart": "Guía General FA", "steps": [{ "title": "Access the host and run the following commands:", "detail": "$sudo mst start\n$sudo mst status -v\n(This allows you to view the RDMA devices and their component locations.)\n$sudo /opt/mellanox/iproute2/sbin/rdma dev show mlx5_?\n(Replace the “?” with the RDMA device number obtained from the previous command.)" }, { "title": "View the MAC addresses", "detail": "(In the example, the MAC addresses are highlighted with a red circle.)" }, { "title": "Validate failing mac address", "detail": "" }, { "title": "Depending on your case, determine whether a CX8 swap is required or if a correction of MAC SFC is needed.", "detail": "" }] }, { "id": "FLB-12", "station": "FLB", "code": "058034036_ 6378377232", "name": "Please check: CX8-P1(R)  CX8-P2(R)", "components": "CX8", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de CX8", "detail": "Revisar conectores, cables y daño físico asociados a: CX8\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLB-11", "station": "FLB", "code": "023001036_ 6378377232", "name": "Please check: CX7-P1(L) CX7-P2(L) CX7-P1(R) CX7-P2(R)", "components": "CX8", "flowchart": "Guía General FA", "steps": [{ "title": "Access the host and run the following commands:", "detail": "$sudo mst start\n$sudo mst status -v\n(This allows you to view the RDMA devices and their component locations.)\n$sudo /opt/mellanox/iproute2/sbin/rdma dev show mlx5_?\n(Replace the “?” with the RDMA device number obtained from the previous command.)" }, { "title": "View the MAC addresses", "detail": "(In the example, the MAC addresses are highlighted with a red circle.)" }, { "title": "Validate failing mac address", "detail": "" }, { "title": "Depending on your case, determine whether a CX8 swap is required or if a correction of MAC SFC is needed.", "detail": "" }] }, { "id": "FLB-13", "station": "FLB", "code": "058012036_70636965010", "name": "Please check the failed device: XXX", "components": "CX8 / BF3, MCIO", "flowchart": "Platform / PCIe", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de CX8 / BF3, MCIO", "detail": "Revisar conectores, cables y daño físico asociados a: CX8 / BF3, MCIO\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLB-14", "station": "FLB", "code": "058018014_4", "name": "Command tar XXX.tgz fails.", "components": "Retest", "flowchart": "Guía General FA", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "FLB-15", "station": "FLB", "code": "058012036_7a13", "name": "PLEASE CHECK DEVICE X MISSING;", "components": "Devices", "flowchart": "Guía General FA", "steps": [{ "title": "Identify which device is not being detected, using Figure 1", "detail": "" }, { "title": "Reseat and check physical damage the device, and retest", "detail": "2.2 Perform a visual inspection to check for physical damage, If you can't find anything, reseat the device\n2.3" }, { "title": "Replace the device failure", "detail": "" }] }, { "id": "FLB-16", "station": "FLB", "code": "058012036_7a13", "name": "PLEASE CHECK DEVICE 00XX:07:00.0: Incorrect Width- Received: 1- Expected: 4;", "components": "SSDs", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de SSDs", "detail": "Revisar conectores, cables y daño físico asociados a: SSDs\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FLC-01", "station": "FLC", "code": "073011036_4", "name": "No device found matching the expected drive count of 8", "components": "SSDs", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-seat SSD", "detail": "Use the cable debug guide to identify the relevant SSD\nRe-seat SSD\nRetest" }, { "title": "3a. Swap SSD location", "detail": "Swap failing SSD location with a passing SSD location on the same E1.s board and retest. If it passes in the new location move to step 4" }, { "title": "3b. Replace SSD", "detail": "If the SSD fails in the new location replace the SSD\nRetest" }, { "title": "Re-seat/replace the MCIO cables", "detail": "Re-seat/replace the MCIO cable associated with the failing SSD\nRetest" }, { "title": "Re-seat/replace the IPEX cables", "detail": "Re-seat/replace the IPEX cables associated with the failing SSD\nRetest" }, { "title": "Replace IPEX/E1.s board", "detail": "Replace E1.s/IPEX boards associated with the failing SSD\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FLC-02", "station": "FLC", "code": "073027037_4", "name": "Command sudo /tmp/ssd_flash.sh 8 /tmp fails.", "components": "SSDs/ MCIO, IPEX cables", "flowchart": "Flowchart 4", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-seat SSD", "detail": "Use the cable debug guide to identify the relevant SSD\nRe-seat SSD\nRetest" }, { "title": "3a. Swap SSD location", "detail": "Swap failing SSD location with a passing SSD location on the same E1.s board and retest. If it passes in the new location move to step 4" }, { "title": "3b. Replace SSD", "detail": "If the SSD fails in the new location replace the SSD\nRetest" }, { "title": "Re-seat and inspect/replace the MCIO cables", "detail": "Conduct an inspection to check for damage or contamination\nRe-seat/replace the MCIO cable associated with the failing SSD\nRetest" }, { "title": "Re-seat and inspect/replace the IPEX cables (B&W CABLE)", "detail": "Conduct an inspection to check for damage or contamination\nRe-seat/replace the IPEX cables associated with the failing SSD\nRetest" }, { "title": "Re-seat and inspect/Replace IPEX/E1.s board", "detail": "Conduct an inspection to check for damage or contamination\nReplace E1.s/IPEX boards associated with the failing SSD\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FTS-01", "station": "FTS", "code": "054001036_135719", "name": "CX8_PORT Failed.", "components": "CX8 Ultrapass cables", "flowchart": "Flowchart 5", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Re-seat OSFP loopback cable", "detail": "Re-seat OSFP loopback cable to ensure it is fully seated\nRetest" }, { "title": "Re-seat Ultrapass connector", "detail": "For failures indicating Cx7 locations mlx5_0, mlx5_1 - this refers to the left hand side CX7 IO board (Bianca primary), and OSFP board (primary)\nFor failures indicating Cx7 locations mlx5_4, mlx5_5 - this refers to the right hand side CX7 IO board (Bianca secondary), and OSFP board (secondary)\nRe-seat Ultrapass SMT connector and ensure stiffner bracket is tightened to the correct torque spec\nRetest" }, { "title": "Replace OSFP module and Ultrapass cable assembly", "detail": "Replace OSFP module and Ultrapass cable assembly\nRetest" }] }, { "id": "FTS-02", "station": "FTS", "code": "054018006_015-000-1-020000523281", "name": "Temperature above specified limit", "components": "Hardware / Subsystem", "flowchart": "Flowchart 7", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Remove, reapply TIM, bake using liquid heating method", "detail": "Re-apply TIM according to the TIM locations shown in the assembly guide. Bake using the liquid heating method\nRetest" }] }, { "id": "FTS-03", "station": "FTS", "code": "020000610139", "name": "Acceptable temperature limits exceeded or the thermal sensor is broken or miscalibrated", "components": "Cold plate", "flowchart": "Flowchart 7", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Remove cold plate, inpsect, clean and reapply TIM per SOP", "detail": "Re-apply TIM according to SOP on the TIM locations shown in the assembly guide. Check failing mods.log for failing bdf to match the Bianca that likely needs replacement of TIM material. Note: Both Biancas may need TIM replacement." }, { "title": "Perform TIM baking using liquid heating method SOP", "detail": "" }, { "title": "Retest", "detail": "restart Tests in MTF at begining of Diags [FLA]" }] }, { "id": "FTS-04", "station": "FTS", "code": "054001006_000-000-0-000000000083", "name": "Tegra CPU telemetry TJMax is Over Threshold 99000", "components": "Cold plate", "flowchart": "Flowchart 7", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Remove, reapply TIM, bake using liquid heating method", "detail": "Re-apply TIM according to the TIM locations shown in the assembly guide. Bake using the liquid heating method\nRetest" }] }, { "id": "FTS-05", "station": "FTS", "code": "054001006_017-000-0-000000000001", "name": "OpenSM timed out after 60 seconds for mlx5_xxx", "components": "Cx7/CX8 Ultrapass cables", "flowchart": "Flowchart 5", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Re-seat OSFP loopback cable", "detail": "Re-seat OSFP loopback cable to ensure it is fully seated\nRetest" }, { "title": "Re-seat Ultrapass connector", "detail": "For failures indicating Cx7 locations mlx5_0, mlx5_1 - this refers to the left hand side CX7 IO board (Bianca primary), and OSFP board (primary)\nFor failures indicating Cx7 locations mlx5_4, mlx5_5 - this refers to the right hand side CX7 IO board (Bianca secondary), and OSFP board (secondary)\nRe-seat Ultrapass SMT connector and ensure stiffner bracket is tightened to the correct torque spec\nRetest" }, { "title": "Replace OSFP module and Ultrapass cable assembly", "detail": "Replace OSFP module and Ultrapass cable assembly\nRetest" }] }, { "id": "FTS-06", "station": "FTS", "code": "054001006_017-000-0-000000000009", "name": "Device 'mlx5_0' is not in valid HW state (Negotiation failure)", "components": "Cx7/CX8 Ultrapass cables", "flowchart": "Flowchart 5", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de Cx7/CX8 Ultrapass cables", "detail": "Revisar conectores, cables y daño físico asociados a: Cx7/CX8 Ultrapass cables\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FTS-07", "station": "FTS", "code": "054001006_017-000-0-000000000009", "name": "Device 'mlx5_4' is not in valid HW state (Bad/unsupported EEPROM)", "components": "Cx7 sideband cables", "flowchart": "Flowchart 6", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Reseat the Cx7 IO board end of OSFP sideband cable", "detail": "For failures indicating devices mlx5_0, mlx5_1 - this refers to the OSFP sideband cable on the primary side\nFor failures indicating devices mlx5_4, mlx5_5 - this refers to the OSFP sideband cable on the secondary side\nInspect and reseat the Cx7 IO board end of the OSFP sideband cable\nRetest" }, { "title": "Reseat the OSFP board end of the sideband cable", "detail": "Remove the Bluefield3 and inspect and reseat the OSFP board end of the sideband cable\nRetest" }, { "title": "Replace OSFP sideband cable", "detail": "Retest" }, { "title": "Replace OSFP module", "detail": "Retest" }] }, { "id": "FTS-08", "station": "FTS", "code": "054001037_na", "name": "mlx5_2,mlx5_3 State is not active", "components": "BF3 loopback cable", "flowchart": "Flowchart 8", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Re-seat OSFP loopback cable", "detail": "For failures indicating BF3 devices mlx5_2, mlx5_3 - this refers to the left hand side Bluefield (Primary)\nFor failures indicating BF3 devices mlx5_6, mlx5_7 - this refers to the right hand side Bluefield (Secondary)\nRe-seat OSFP loopback cable to ensure it is fully seated\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FTS-09", "station": "FTS", "code": "054018006_015-000-1-020000043016", "name": "user aborted the script", "components": "Nvlink", "flowchart": "Flowchart 11", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest in same MTF slot" }, { "title": "Inspect for damage", "detail": "Remove compute tray from MTF and check for visible damage on the compute tray and backplane\nRetest" }, { "title": "3a. Change MTF location", "detail": "Move to different location in the MTF and retest. If it passes replace the loopback cable causing the failure in the original MTF location" }, { "title": "3b. Replace Bianca board causing the failure", "detail": "If re-test failed two times, identify which Bianca board(primary or secondary) the failure came from and replace it. Place the failed Bianca board to bonepile to replace Nvlink connector(s) corresponding to the failed link.\nRetest" }] }, { "id": "FTS-10", "station": "FTS", "code": "054018006_015-000-1-000000000140", "name": "Found X, exceeded threshold 1e-06, X connector X, Column X, pins C/D, G/H", "components": "Marginal Bianca", "flowchart": "Guía General FA", "steps": [{ "title": "1a. Using camera, visually inspect tray NVLink RAF connectors for damage and/or contamination.", "detail": "" }, { "title": "1b. If no issues found on NVLink RAF connectors, move tray to different MTF slot and retest.", "detail": "If issues found on NVLink RAF connectors, then replace Bianca." }, { "title": "2a. Using camera, visually inspect NVLink loopback CBC in MTF slot for damage and/or contamination.", "detail": "" }, { "title": "2b. If issue found on slot CBCs, then remove MTF slot from usage until CBC can be replaced. Otherwise, continue using MTF slot.", "detail": "" }, { "title": "If retest fail in different slot or damage was found, then replace suspect Bianca(s)", "detail": "" }] }, { "id": "FTS-11", "station": "FTS", "code": "054018006_430", "name": "Cannot find Onediag Final Result. Check log for details.", "components": "Retest", "flowchart": "Guía General FA", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "FTS-12", "station": "FTS", "code": "054018006_015-000-0-000000000006", "name": "TEGRA_Thermal Zone Skt0 TJMax [mC] ERROR - TEGRA_Thermal Zone Skt0 TJMax [mC] exceeds failure spec. \nLimit_Fail: xxxxxx Value: xxxxxxx", "components": "Coldplate/Bianca", "flowchart": "Guía General FA", "steps": [{ "title": "Using the TAS.txt log, verify which GPU is exceeding the temperature limits", "detail": "" }, { "title": "Replace the thermal pads on the faulty side And make sure it goes through the TIM BAKE station correctly", "detail": "" }] }, { "id": "FTS-13", "station": "FTS", "code": "054018006_015-000-0-000000000006", "name": "GPUX_00xx:06:00.0 ERROR - MLE_GPU_AVG_00xx:06:00.0 exceeds failure spec. Limit_Fail: xx.00 Value: xx.xx", "components": "Coldplate/Bianca", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de Coldplate/Bianca", "detail": "Revisar conectores, cables y daño físico asociados a: Coldplate/Bianca\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FTS-14", "station": "FTS", "code": "054018006_015-000-0-000000000006", "name": "mlx5_X ERROR - mlx5_X exceeds failure spec. Limit_Fail: XXX Value: XXX", "components": "Coldplate/Bianca", "flowchart": "Guía General FA", "steps": [{ "title": "Read the mlx5 number in the error code description to determine if this issue is on Primary/Left Bianca or Secondary/Right Bianca. See mlx mapping table above. Pay close attention to mlx5 numbers.", "detail": "To validate the temperature sensor reading from the MLX5_X. You can use the following code, replacing the “x” with your device's RDMA.\n$sudo mget_temp -d mlx5_x" }, { "title": "Replace the thermal pads on the faulty side And make sure it goes through the TIM BAKE station correctly", "detail": "" }] }, { "id": "FTS-15", "station": "FTS", "code": "054018006_015-000-1-0-000-00-523-281", "name": "GPUX_00XX:06:00.0 Temperature above specified limit", "components": "Coldplate/Bianca", "flowchart": "Guía General FA", "steps": [{ "title": "AC Cycle", "detail": "AC Cycle and retest in another MTF" }, { "title": "Using the TAS.txt log, verify which GPU is exceeding the temperature limits", "detail": "" }, { "title": "Replace the thermal pads on the faulty side And make sure it goes through the TIM BAKE station correctly", "detail": "" }] }, { "id": "FTS-16", "station": "FTS", "code": "054018006_015-000-1-0-000-00-281-139", "name": "GPUX_00XX:06:00.0 Acceptable temperature limits exceeded or the thermal sensor is broken or miscalibrated", "components": "ipex", "flowchart": "Guía General FA", "steps": [{ "title": "AC Cycle", "detail": "AC Cycle Run BAT script and retest in another MTF" }, { "title": "Inspect the coldplate", "detail": "Check the coldplate, see if it has any damage on the sensor pads. Or you can check to see if the sensor pad is making contact with the cold plate. If so, you'll need to peel the sensor off.\nNote: The coldplate measurements range from around 1M ohms 10% +/-" }, { "title": "Inspect the both leak sensor cables", "detail": "Check the continuity of the leak sensor wires J125 and J18" }, { "title": "Redo the thermal pads", "detail": "Replace the thermal pads on Bianca side that correspond to its PCIe address" }, { "title": "Replace Coldplate", "detail": "" }, { "title": "Replace Bianca", "detail": "" }] }, { "id": "IOT-01", "station": "IOT", "code": "033027006_000-000-2-000000000152", "name": "DPU network diag failed with exit code 5", "components": "BF3 loopback cable", "flowchart": "Flowchart 8", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Re-seat OSFP loopback cable", "detail": "Check the log file Onediag_IB_CABLES/IbStressCables/output.txt\nFor failures indicating BF3 devices mlx5_2, mlx5_3 are indicating \"State: Down\" - this refers to the left hand side Bluefield (Primary)\nFor failures indicating BF3 devices mlx5_6, mlx5_7 are indicating the \"State: Down\" - this refers to the right hand side Bluefield (Secondary)\nRe-seat OSFP loopback cable to ensure it is fully seated\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "IOT-02", "station": "IOT", "code": "033027006_017-008-0-000000000003", "name": "Bandwidth below threshold", "components": "CX7/CX8", "flowchart": "Flowchart 13", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-seat OSFP loopback cable", "detail": "Re-seat OSFP loopback cable to ensure it is fully seated\nRetest" }, { "title": "3a. Inspect AC capacitors for damages", "detail": "For failures indicating Cx7 locations mlx5_0, mlx5_1 - this refers to the left hand side CX7 IO board (Bianca primary)\nFor failures indicating Cx7 locations mlx5_4, mlx5_5 - this refers to the right hand side CX7 IO board (Bianca secondary)\nCheck to see if there are any damaged AC capacitors around the CX7 mirror mezz connector on" }, { "title": "Re-seat Ultrapass connector", "detail": "Re-seat Ultrapass connector on the failed Bianca board\nRetest" }, { "title": "Replace OSFP module and Ultrapass cable assembly", "detail": "Replace OSFP module and Ultrapass cable assembly\nRetest" }, { "title": "Replace CX7 module", "detail": "Replace CX7 module on the failed Bianca board\nRetest" }] }, { "id": "IOT-03", "station": "IOT", "code": "033027006_017-000-0-000000000007", "name": "server at mlx5_0 (0000:03:00.0) failed with exit code 1", "components": "CX8 Ultrapass cables", "flowchart": "Flowchart 5", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Reseat the Cx7 IO board end of OSFP sideband cable", "detail": "For failures indicating devices mlx5_0, mlx5_1 - this refers to the OSFP sideband cable on the primary side\nFor failures indicating devices mlx5_4, mlx5_5 - this refers to the OSFP sideband cable on the secondary side\nInspect and reseat the Cx7 IO board end of the OSFP sideband cable\nRetest" }, { "title": "Reseat the OSFP board end of the sideband cable", "detail": "Remove the Bluefield3 and inspect and reseat the OSFP board end of the sideband cable\nRetest" }, { "title": "Replace OSFP sideband cable", "detail": "Retest" }, { "title": "Replace OSFP module", "detail": "Retest" }] }, { "id": "IOT-04", "station": "IOT", "code": "033027006_017-008-0-000000000003", "name": "IB connection mlx5_X (00XX:03:00.0) [S] <-> mlx5_1 (0002:03:00.0) [C] Actual bandwidth below expected threshold. Running ib_read_bw on IB link mlx5_X (S) <-> mlx5_X (C). Expected BW X Gbps. Actual BW X Gbps", "components": "CX7/CX8", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de CX7/CX8", "detail": "Revisar conectores, cables y daño físico asociados a: CX7/CX8\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "NVL-01", "station": "NVL", "code": "098011006_009-001-1-000000000140", "name": "Interval BER: FecLane1RawErrors over*", "components": "Nvlink", "flowchart": "Flowchart 11", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest in same MTF slot" }, { "title": "Inspect for damage", "detail": "Remove compute tray from MTF and check for visible damage on the compute tray and backplane\nRetest" }, { "title": "3a. Change MTF location", "detail": "Move to different location in the MTF and retest. If it passes replace the loopback cable causing the failure in the original MTF location" }, { "title": "3b. Replace Bianca board causing the failure", "detail": "If re-test failed two times, identify which Bianca board(primary or secondary) the failure came from and replace it. Place the failed Bianca board to bonepile to replace Nvlink connector(s) corresponding to the failed link.\nRetest" }] }, { "id": "NVL-02", "station": "NVL", "code": "098011006_009-001-1-020000254140", "name": "NvLink bus error", "components": "Nvlink", "flowchart": "Guía General FA", "steps": [{ "title": "Move tray to different MTF slot and retest (on known good slot)", "detail": "" }, { "title": "If still fail then visually inspect suspect NVLink connector for damage", "detail": "" }, { "title": "If no obvious issue found with NVLink connector then replace suspect Bianca", "detail": "" }] }, { "id": "NVL-03", "station": "NVL", "code": "098011006_4", "name": "Command sudo ./onediagmfg.r8.252 --force_product=titania_gb --run_spec=spec_titania_gb_nvlinkloopback.json --log=/home/nvidia/oberon/Onediag_NVLINK --run_on_error fails.", "components": "Nvlink", "flowchart": "Guía General FA", "steps": [{ "title": "Retest after copying over Onediag package to DUT", "detail": "This failure is due to onediagmfg executable was not found. Make sure Onediag package is copied over to the DUT and  test is run from the directory that contains the onediagmfg executable" }] }, { "id": "FCT-01", "station": "FCT", "code": "028163006_na", "name": "SSH Operation XXXXX sftp failed", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Check Host RJ45 cable is secured", "detail": "" }, { "title": "Retest up to 3 times and if fail move to 2nd level FA", "detail": "" }] }, { "id": "FCT-02", "station": "FCT", "code": "028001006_000-000-0-000000000009", "name": "Core Error Msg  : /dev/tpm0 does not exist", "components": "Hardware / Subsystem", "flowchart": "Flowchart 9", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Re-seat/replace TPM", "detail": "Re-seat/replace TPM\nRetest" }] }, { "id": "FCT-03", "station": "FCT", "code": "028001006_000-000-0-000000000083", "name": "Tegra CPU telemetry TJMax is Over Threshold 90000", "components": "Hardware / Subsystem", "flowchart": "Flowchart 7", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Remove, reapply TIM, bake using liquid heating method", "detail": "Re-apply TIM according to the TIM locations shown in the assembly guide. Bake using the liquid heating method\nRetest" }] }, { "id": "FCT-04", "station": "FCT", "code": "058018036_na", "name": "Number of drives incorrect. Found 0 drives, expected 4", "components": "SSDs", "flowchart": "Flowchart 4", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de SSDs", "detail": "Revisar conectores, cables y daño físico asociados a: SSDs\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FCT-05", "station": "FCT", "code": "028001006_019-000-0-000000000037", "name": "Failed to set FAN_xxx speeds", "components": "Fan cables", "flowchart": "Flowchart 10", "steps": [{ "title": "AC cycle", "detail": "AC cycle and retest" }, { "title": "Inspect and reseat/replace fan cable connectivity", "detail": "Check fan connectivity martches the table opposite for the 1U and 2U configuration. Inspect for bent/damaged pins, re-seat/replace fan cables\nRetest" }] }, { "id": "FCT-06", "station": "FCT", "code": "028001006_019-000-0-000000000012", "name": "Failed to set FAN_xxx speeds", "components": "Fan cables", "flowchart": "Flowchart 10", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de Fan cables", "detail": "Revisar conectores, cables y daño físico asociados a: Fan cables\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FCT-07", "station": "FCT", "code": "028001006_029-054-0-000000000011", "name": "00xx:09:00.0 - Invalid Link Width: expected ['x4'] found x2", "components": "SSDs/ MCIO, IPEX cables", "flowchart": "Flowchart 4", "steps": [{ "title": "AC cycle", "detail": "Run run_cable_check script" }, { "title": "Re-seat SSD", "detail": "Use the cable debug guide to identify the relevant SSD\nRe-seat SSD\nRetest" }, { "title": "3a. Swap SSD location", "detail": "Swap failing SSD location with a passing SSD location on the same E1.s board and retest. If it passes in the new location move to step 4" }, { "title": "3b. Replace SSD", "detail": "If the SSD fails in the new location replace the SSD\nRetest" }, { "title": "Re-seat/replace the MCIO cables", "detail": "Re-seat/replace the MCIO cable associated with the failing SSD\nRetest" }, { "title": "Re-seat/replace the IPEX cables", "detail": "Re-seat/replace the IPEX cables associated with the failing SSD\nRetest" }, { "title": "Replace IPEX/E1.s board", "detail": "Replace E1.s/IPEX boards associated with the failing SSD\nRetest" }, { "title": "Replace Bluefield3", "detail": "Retest" }] }, { "id": "FCT-08", "station": "FCT", "code": "054018006_048-000-0-000000000107", "name": "SSD_0012_07_00_0_Locator': not found. expected '=/nvmedn1/", "components": "SSD", "flowchart": "Guía General FA", "steps": [{ "title": "AC Cycle", "detail": "" }, { "title": "Replace M.2", "detail": "" }] }, { "id": "FCT-09", "station": "FCT", "code": "028163006_051-000-0-000000000050", "name": "Out of range in BMC returned data on Getting Primary Bianca AIN0 ADC reading. Retrieved value = ['0x90', '0x00']. Normalized value = 0.0. Expected range = [0.5, 0.55], I2C I2C_Failure - Getting_Primary_Bianca_AIN0_ADC_reading Check failed", "components": "Leak sensor", "flowchart": "Flowchart 12", "steps": [{ "title": "AC Cycle", "detail": "Retest FTS/FCT" }, { "title": "Reseat the BMC and HMC, along with their J21 and J22 cables", "detail": "" }, { "title": "Replace BMC", "detail": "" }, { "title": "AC Cycle", "detail": "Retest FTS/FCT" }, { "title": "Inspect the coldplate based on the error code displayed.", "detail": "Look for physical damage on leak sensors, and also make sure the sensor is not touching the cold plate.\n-->" }] }, { "id": "FCT-10", "station": "FCT", "code": "028001006_016-000-0-000000000003", "name": "0006:07:00.0 failed: Failed NVME drive = 0006:07:00.0, percentage decrease = 92%", "components": "SSDs", "flowchart": "Flowchart 4", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de SSDs", "detail": "Revisar conectores, cables y daño físico asociados a: SSDs\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "FCT-11", "station": "FCT", "code": "028001006_048-000-0-000000000086", "name": "OS_Version': found '56532a6' expected '7a06e3c'", "components": "M.2 SSD", "flowchart": "Guía General FA", "steps": [{ "title": "Update OS version on M.2 to the expect version per error description message", "detail": "" }] }, { "id": "FCT-12", "station": "FCT", "code": "028144006_na", "name": "na", "components": "Leak sensor", "flowchart": "Flowchart 12", "steps": [{ "title": "Re-Seat Tray and Re-test", "detail": "" }, { "title": "If it still fails, change MTF slot and re-test", "detail": "" }] }, { "id": "FCT-13", "station": "FCT", "code": "028001036_135870", "name": "EXPECTED 4 CBC, ONLY DETECTED 3", "components": "Nvlink loopback cable", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de Nvlink loopback cable", "detail": "Revisar conectores, cables y daño físico asociados a: Nvlink loopback cable\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "AST-01", "station": "AST", "code": "023002036_13892839", "name": "MST ADDED X BUT DIAG EXPECT Y, PORT MISSING CONNECTION ...", "components": "OSFP Ultrapass/sideband cables", "flowchart": "Guía General FA", "steps": [{ "title": "1a. If Error Description does not include \"Bad/unsupported EEPROM\", then check OSFP Loopout Cables are fully inserted (Green LED is ON when cable has good attachment)", "detail": "" }, { "title": "1b. If Error Description does include \"Bad/unsupported EEPROM\", then check internal OSFP sideband cable for bent pin or poor attachment or damaged cable.", "detail": "" }, { "title": "Retest AST in same MTF slot 1 time", "detail": "" }, { "title": "Move to repair area", "detail": "" }, { "title": "Remove and inspect OSFP Ultrapass cables connected to the CX8 module(s). Check for damaged pins on cable side and for debris on the landing pads side. If no issue found, then reattach using proper tools.", "detail": "" }, { "title": "Execute BAT script. If fail, move to 2nd level FA", "detail": "" }, { "title": "Retest AST on MTF 1 time. If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-02", "station": "AST", "code": "023001036_ 637837xxx", "name": "Please check: CX7-P1(x) CX7-P2(x)", "components": "Material label issue", "flowchart": "Guía General FA", "steps": [{ "title": "Confirm the Chassis serial number and identify which CX8 module has issue (one or both)", "detail": "" }, { "title": "Log in system BMC and read out the actual CX8 MAC addresses stored in FRU EEPROM (e.g. ipmitool fru print)", "detail": "" }, { "title": "Compare MAC addresses stored in SFC datafile to actual MAC addresses read from FRU EEPROM.", "detail": "" }, { "title": "Make appropriate correction in SFC to match the actual MAC addresses read from FRU EEPROM.", "detail": "" }, { "title": "Retest AST on MTF 1 time. If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-03", "station": "AST", "code": "023002036_13892849", "name": "MST ADDED EXPECTED 10 CBL. PLEASE CHECK ERROR LIST FOR LINK SPEED ...", "components": "OSFP Ultrapass cables", "flowchart": "Guía General FA", "steps": [{ "title": "Move to repair area", "detail": "" }, { "title": "Remove and inspect OSFP Ultrapass cables connected to the CX8 module(s). Check for damaged pins on cable side and for debris on the landing pads side. If no issue found, then reattach using proper tools.", "detail": "" }, { "title": "Execute BAT", "detail": "" }, { "title": "Retest AST on MTF 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-04", "station": "AST", "code": "023001006_000-000-1-000000000140", "name": "Nvlink Status on Tray x GPUy Nvlink x STATUS: INVALID. FOM Values = [x, x]. Rack Slot 1, INVALID BDF 00xx:0x:00.0 passed to GetLinkPhysLoc()", "components": "Nvlink mating, marginal Bianca", "flowchart": "Guía General FA", "steps": [{ "title": "1a. Using camera, visually inspect tray NVLink RAF connectors for damage and/or contamination.", "detail": "" }, { "title": "1b. If no issues found on NVLink RAF connectors, move tray to different MTF slot and retest.", "detail": "If issues found on NVLink RAF connectors, then replace Bianca." }, { "title": "2a. Using camera, visually inspect NVLink loopback CBC in MTF slot for damage and/or contamination.", "detail": "" }, { "title": "2b. If issue found on slot CBCs, then remove MTF slot from usage until CBC can be replaced. Otherwise, continue using MTF slot.", "detail": "" }, { "title": "If retest fail in different slot or damage was found, then replace suspect Bianca(s)", "detail": "" }] }, { "id": "AST-05", "station": "AST", "code": "02XXXXXXX_048-000-0-000000000106", "name": "FRU_xxx_Board_Part_Number': not found. expected yyy", "components": "I2C cables", "flowchart": "Guía General FA", "steps": [{ "title": "AC CYCLE", "detail": "Retest" }, { "title": "Identify the reported boards with issue from the error description.", "detail": "" }, { "title": "Inspect the suspect board cable assemblies", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-06", "station": "AST", "code": "023001006_051-000-0-000000000050", "name": "Out of range in BMC returned data on Getting X Bianca AINx ADC reading. Retrieved value = xx. Normalized value = xx. Expected range = [0.5, 0.55], I2C I2C_Failure - Getting_X_Bianca_AINx_ADC_reading Check failed", "components": "Leak sensor damage", "flowchart": "Guía General FA", "steps": [{ "title": "Identify the suspect Bianca from the Error Description", "detail": "" }, { "title": "Visually inspect leak sensors for damage and check for short circuits using DMM", "detail": "" }, { "title": "If damage/short found on one or more leak sensors then replace the leak sensor (e.g. coldplate)", "detail": "" }, { "title": "If no damage found on any leak sensors then replace Bianca", "detail": "" }, { "title": "Retest 1 time starting at FLA", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-07", "station": "AST", "code": "023001006_048-000-0-000000000110", "name": "GPU Width_Mismatch 00xx:06:00.0 00xx_06_00_0 found: 'x8' expected: 'x16'", "components": "Check for damage", "flowchart": "Guía General FA", "steps": [{ "title": "Identify the suspect Bianca from the Error Description (refer to the mapping shown in sheet \"PCIe topology\")", "detail": "" }, { "title": "Visually inspect Bianca for damage on the row of AC coupling capacitors between J115 and mt screw MEC47 and J52-54 (see pic 2a-2b).", "detail": "" }, { "title": "If damage found then replace Bianca", "detail": "" }, { "title": "If no damage found, then remove coldplate and CX8 module on suspect Bianca", "detail": "" }, { "title": "Inspect the rows of AC coupling capacitors near J115 (see pic 3a-3b). If damage found then replace Bianca.", "detail": "" }, { "title": "If no obvious damage found then inspect CX8 and Bianca Mirror Mez connectors for damage and anomalies.", "detail": "" }, { "title": "Reseat CX8 and reassemble tray, go to BAT", "detail": "" }, { "title": "Retest 1 time, if no part was changed then start at AST, otherwise start at FLA", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-08", "station": "AST", "code": "023002036_ 135870", "name": "EXPECTED 4 CBC, ONLY DETECTED 3", "components": "Retest in different slot", "flowchart": "Guía General FA", "steps": [{ "title": "Move tray to different MTF slot and retest (on known good slot)", "detail": "" }, { "title": "If still fail then visually inspect suspect NVLink connector for damage", "detail": "" }, { "title": "If no obvious issue found with NVLink connector then replace suspect Bianca", "detail": "" }] }, { "id": "AST-09", "station": "AST", "code": "023001006_048-000-0-000000000086", "name": "GPUNum': found '3' expected '4'", "components": "CX8 reseat", "flowchart": "Guía General FA", "steps": [{ "title": "Move tray to repair station", "detail": "" }, { "title": "Identify the suspect Bianca from the log review (refer to the mapping shown in sheet \"PCIe topology\")", "detail": "" }, { "title": "Remove coldplate and CX8 module.", "detail": "" }, { "title": "Inspect Mirror Mez connectors on CX8 and Bianca for damage or anomalies", "detail": "" }, { "title": "If damage found on connector(s) then replace CX8 and/or Bianca", "detail": "" }, { "title": "If no obvious damage found on connectors then inspect entire CX8 and entire Bianca for damage and anomalies.", "detail": "" }, { "title": "Reassemble tray and resume flow. At BAT repair station, use lspci to check if all GPU are reported", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-10", "station": "AST", "code": "023001006_048-000-0-000000000086", "name": "HGX_FW_ERoT_FPGA_version': not found. expected '01.04.0031.0000_n04'", "components": "Material issue", "flowchart": "Guía General FA", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "AST-11", "station": "AST", "code": "023001006_019-000-0-000000000089", "name": "Sensors with critical status (overtemp) can cause BMC to run fans at full speed. Please check critical sensors: Chassi0FAN#FRONT | 0 RPM | cr, Chassis0FANXREAR | 0 RPM | cr", "components": "FANS/PDB", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle and retest", "detail": "" }, { "title": "Inspect and reseat/replace fan cable connectivity Check fan connectivity martches the table opposite for the 1U and 2U configuration.", "detail": "Inspect for bent/damaged pins, re-seat/replace fan cables\nRetest" }] }, { "id": "AST-12", "station": "AST", "code": "023001006_048-000-0-000000000110", "name": "GPU_0009_06_00_0_PCISpeed GPU Speed_Mismatch 0009:06:00.0 0009_06_00_0 found: '2.5GT/s' expected: '64GT/s'", "components": "CX8/Bianca", "flowchart": "Guía General FA", "steps": [{ "title": "AC CYCLE", "detail": "" }, { "title": "Remove CX8 module and inspect connector pins for damages, dust, debris", "detail": "Inspect on both the Bianca board and CX8 module" }, { "title": "If no issues found, replace CX8 module", "detail": "Retest" }, { "title": "Run this command from DUT OS to check GPU link speed ather system boots to OS", "detail": "$sudo lspci -vv -s 0009:06:00.0 | grep LnkSta" }, { "title": "Replace bianca", "detail": "" }] }, { "id": "AST-13", "station": "AST", "code": "023001006_048-000-0-000000000107", "name": "SSD_0012_07_00_0_FW_Version 'SSD_0012_07_00_0_FW_Version': found 'F3MU010' expected '=/LEDJ0U22|LDDJ3U2Q|F3MU011/'", "components": "SSD/M2", "flowchart": "Guía General FA", "steps": [{ "title": "AC Cycle", "detail": "" }, { "title": "Identify the expected firmware version, for example:", "detail": "=/LEDJ0U22|LDDJ3U2Q|F3MU011/" }, { "title": "Determine which SSD does not match the expected versions. In this example, the faulty SSD had firmware version 'F3MU010'", "detail": "(The firmware version is shown on the vendor label, as illustrated in the image.)" }, { "title": "Replace the SSD with the incorrect firmware version.", "detail": "EXAMPLE IMAGE" }] }, { "id": "AST-14", "station": "AST", "code": "023001006_019-000-0-000000000012", "name": "Failed to set Fan 1 speed, Failed to set Fan 2 speed, Failed to set Fan 3 speed, Failed to set Fan 4 speed, Failed to set Fan 5 speed, Failed to set Fan 6 speed, Failed to set Fan 7 speed, Failed to set Fan 8 speed, Failed to set Fan 1 speed, Failed to set Fan 2 speed, Failed to set Fan 3 speed, Failed to set Fan 4 speed, Failed to set Fan 5 speed, Failed to set Fan 6 speed, Failed to set Fan 7 speed, Failed to set Fan 8 speed", "components": "Retest/PDB", "flowchart": "Guía General FA", "steps": [{ "title": "AC CYCLE", "detail": "Retest in the same MTF" }, { "title": "Check the J15 sideband PDB cable. Make sure it's making good contact.", "detail": "Retest" }, { "title": "Replace PDB board", "detail": "Retest" }] }, { "id": "RIN-01", "station": "RIN", "code": "055004006_077-076-0-000000000002", "name": "GPU MODS exceeded the timeout and will be terminated", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-02", "station": "RIN", "code": "055004006_077-075-0-000000000002", "name": "Tegra MODS exceeded the timeout and will be terminated", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-03", "station": "RIN", "code": "055004006_077-000-1-000000000001", "name": "MODS exited with status: SIGBUS - Bus error (bad memory access)", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-04", "station": "RIN", "code": "055004006_000-000-1-020000000021", "name": "script failed to execute", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-05", "station": "RIN", "code": "055004006_015-000-1-020000043097", "name": "Failed MODS 43 CpuStress test. The 1 run 198.164 secs. Error:  unexpected device interrupts", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-06", "station": "RIN", "code": "055004006_077-075-3-000000000014", "name": "bandwidth out of range", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-07", "station": "RIN", "code": "055016006_559", "name": "ERROR: could not ping device XXX.XX.X.XXX", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-08", "station": "RIN", "code": "055010037_1", "name": "na", "components": "Retest", "flowchart": "Flowchart 17", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-09", "station": "RIN", "code": "N/A", "name": "N/A", "components": "N/A", "flowchart": "N/A", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de N/A", "detail": "Revisar conectores, cables y daño físico asociados a: N/A\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "RIN-10", "station": "RIN", "code": "N/A", "name": "N/A", "components": "N/A", "flowchart": "N/A", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de N/A", "detail": "Revisar conectores, cables y daño físico asociados a: N/A\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "RIN-11", "station": "RIN", "code": "055004006_430", "name": "Cannot find Onediag Final Result. Check log for details.", "components": "Retest", "flowchart": "Guía General FA", "steps": [{ "title": "Reseat in same MTF slot", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-12", "station": "RIN", "code": "b085ddfaab4bb0d8", "name": "Power on the host. ( Failed to power on host. Check the device. ) [TC] System - Power On Compute Tray Host by ipmitool in Remote Server (GB NVL)", "components": "Retest", "flowchart": "Guía General FA", "steps": [{ "title": "Inspect Host RJ45 cable connection and reseat", "detail": "" }, { "title": "Wait 5 min", "detail": "" }, { "title": "Retest 1 time", "detail": "" }, { "title": "If still fail, move to 2nd level FA", "detail": "" }] }, { "id": "RIN-14", "station": "FTS/RIN", "code": "054001006_051-000-0-000000000050", "name": "I2C I2C_Failure - Read_SSD_SMART_status/temp_registers Check failed", "components": "M.2", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de M.2", "detail": "Revisar conectores, cables y daño físico asociados a: M.2\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "RIN-15", "station": "FTS/RIN", "code": "054001006_051-000-0-000000000050", "name": "I2C I2C_Failure - Read_SSDx_y_SMART_status/temp_registers Check failed / I2C I2C_Failure - Read_HDD_BP_0_(S8B)_MUX_ports_enabled Check failed", "components": "E1.S", "flowchart": "Guía General FA", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de E1.S", "detail": "Revisar conectores, cables y daño físico asociados a: E1.S\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "RIN-16", "station": "FTS/RIN", "code": "054001006_051-000-0-000000000050", "name": "I2C I2C_Failure - Getting_xxx_Bianca_AINy_ADC_reading Check failed. / Out of range in BMC returned data on Getting Primary Bianca AIN0 ADC reading", "components": "Leak Sensor", "flowchart": "Flowchart 12", "steps": [{ "title": "AC cycle", "detail": "AC cycle y retest" }, { "title": "Inspección de Leak Sensor", "detail": "Revisar conectores, cables y daño físico asociados a: Leak Sensor\nRe-seat y retest" }, { "title": "Escalar a FA Nivel 2", "detail": "Si la falla persiste, escalar con logs y evidencia fotográfica." }] }, { "id": "ALL-01", "station": "ALL", "code": "XXXXXX036_na", "name": "SSH Operation cmd sftp failed or Unable to establish SSH connection to XXX.XX.X.XXX", "components": "Retest", "flowchart": "Guía General FA", "steps": [{ "title": "Check the side screws on the busbar and PDB. If they are loose, tighten them.", "detail": "Figure example" }] }];
     const mtfPdfAdditions = window.FFDG_MTF_PDF_ADDITIONS || [];
     const mtfPdfRevertIds = new Set(window.FFDG_MTF_PDF_REVERT_IDS || []);
     const mtfPdfExistingFlowcharts = window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS || {};
+    const mtfPdfFlowchartGraphs = window.FFDG_MTF_PDF_FLOWCHART_GRAPHS || {};
+    const mtfPdfProcedureOverrides = window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES || [];
     const mtfBaseById = new Map(mtfRaw.map(item => [item.id, item]));
+    const normalizeMtfIdentity = value => String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const applyMtfPdfProcedureOverride = item => {
+      // Los registros suplementarios PDF ya llevan su transcripción particular; no sustituirlos por una coincidencia parcial del catálogo base.
+      if (String(item?.id || "").startsWith("PDF-MTF-CASE-")) return item;
+      const station = String(item?.station || "").toUpperCase();
+      const code = normalizeMtfIdentity(item?.code);
+      const name = normalizeMtfIdentity(item?.name);
+      const override = mtfPdfProcedureOverrides.find(candidate =>
+        candidate.station === station
+        && code.includes(candidate.codeContains)
+        && name.includes(candidate.nameContains)
+        && (!candidate.nameExcludes || !name.includes(candidate.nameExcludes))
+      );
+      if (!override) return item;
+      const updated = {
+        ...item,
+        steps: override.steps.map(step => ({ ...step })),
+        sourcePdfPage: override.sourcePdfPages[0],
+        sourcePdfPages: [...override.sourcePdfPages],
+      };
+      if (override.flowchartImage) {
+        updated.flowchartImage = window.FFDG_MTF_PDF_REFERENCE_ASSET_URL
+          ? window.FFDG_MTF_PDF_REFERENCE_ASSET_URL(override.flowchartImage)
+          : override.flowchartImage;
+        updated.flowchartImageWidth = override.flowchartImageWidth;
+        updated.flowchartImageHeight = override.flowchartImageHeight;
+      }
+      return updated;
+    };
     const mergeMtfPdfAdditions = cases => {
       const retained = cases.filter(item => !/^PDF-MTF-/.test(String(item?.id || ""))).map(item => {
         const original = mtfBaseById.get(item.id);
@@ -2034,17 +2222,28 @@
           && (item.flowchartImage || String(item.flowchart || "").startsWith("FDI ·"));
         const preserved = wasOverwrittenByPreviousPdfImport && original ? { ...original } : item;
         const pdfChart = mtfPdfExistingFlowcharts[item.id];
-        return pdfChart ? {
+        const charted = pdfChart ? {
           ...preserved,
           flowchart: `FFDG PDF · ${preserved.station}`,
-          flowchartImage: pdfChart.src,
+          flowchartImage: window.FFDG_MTF_PDF_REFERENCE_ASSET_URL
+            ? window.FFDG_MTF_PDF_REFERENCE_ASSET_URL(pdfChart.src)
+            : pdfChart.src,
           flowchartImageWidth: pdfChart.width,
           flowchartImageHeight: pdfChart.height,
-          referenceImages: pdfChart.referenceImages || preserved.referenceImages || [],
+          referenceImages: [...(preserved.referenceImages || []), ...(pdfChart.referenceImages || [])],
         } : preserved;
+        return applyMtfPdfProcedureOverride(charted);
       });
       const ids = new Set(retained.map(item => item.id));
-      return [...retained, ...mtfPdfAdditions.filter(item => !ids.has(item.id))];
+      const catalog = [...mtfRaw, ...mtfPdfAdditions];
+      return [...retained, ...mtfPdfAdditions.filter(item => !ids.has(item.id))].map(item =>
+        window.FFDG_MTF_ENRICH_REFERENCES
+          ? window.FFDG_MTF_ENRICH_REFERENCES(applyMtfPdfProcedureOverride(item), catalog)
+          : applyMtfPdfProcedureOverride(item)
+      );
+    };
+    const getMtfPdfReferences = item => {
+      return item.referenceImages || [];
     };
     const mtfFaults = mergeMtfPdfAdditions(mtfRaw).filter(c => c.station !== "OBA").map(c => ({
       id: c.id,
@@ -2056,8 +2255,9 @@
       flowchartImage: c.flowchartImage,
       flowchartImageWidth: c.flowchartImageWidth,
       flowchartImageHeight: c.flowchartImageHeight,
+      flowchartGraph: c.flowchartGraph || mtfPdfFlowchartGraphs[c.id] || null,
       pdfFlowchartSourceMissing: Boolean(c.pdfFlowchartSourceMissing || !c.flowchartImage),
-      referenceImages: c.referenceImages || [],
+      referenceImages: getMtfPdfReferences(c),
       pdfSection: c.pdfSection,
       pdfNewCase: Boolean(c.pdfNewCase),
       comments: c.comments,
@@ -2106,7 +2306,7 @@
       "140787": "Daniel Ornelas Carmona",
       "140789": "Oscar Tomas Esparza Mendoza"
     };
-    return { failureCatalog, mtfFaults, flows, analystDirectory };
+    return { failureCatalog, mtfFaults, flows, analystDirectory, mergeMtfPdfAdditions };
   })();
   // 2. UI VIEW ENGINE & THEME MANAGER
   window.FFDG.ui = (() => {
@@ -2119,14 +2319,7 @@
       const panel = detail?.closest(".mtf-row-3");
       if (!detail) return;
       if (panel) panel.scrollTop = 0;
-      if ($("mtf-layout")?.classList.contains("mtf-split")) {
-        window.scrollTo(0, 0);
-        return;
-      }
-      requestAnimationFrame(() => requestAnimationFrame(() => detail.scrollIntoView({
-        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-        block: "start"
-      })));
+      window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     }
     function escapeHtml(str) {
       return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -2253,7 +2446,10 @@
     }
     function getBatDetailSteps(failure) {
       if (!failure) return [];
-      const sourceSteps = failure.family === "NOBOOT" ? FFDG.data.flows.NOBOOT : (Array.isArray(failure.steps) ? failure.steps : []);
+      const hasCustomProcedure = failure.customProcedure && Array.isArray(failure.steps);
+      const sourceSteps = hasCustomProcedure
+        ? failure.steps
+        : failure.family === "NOBOOT" ? FFDG.data.flows.NOBOOT : (Array.isArray(failure.steps) ? failure.steps : []);
       const steps = sourceSteps.map((step, index) => {
         const originalTitle = step.title || step.q || `Paso ${index + 1}`;
         const candidateNumber = Number(step.sourceNumber || originalTitle.match(/^\s*(?:Paso\s*)?(\d+)[.:·)]?/i)?.[1] || index + 1);
@@ -2470,7 +2666,13 @@
       const summary = $("mtf-selection-summary");
       const toggle = $("mtf-selection-toggle");
       if (!layout || !summary || !toggle) return;
+      const catalog = $("mtf-row-2");
+      const detailRow = layout.querySelector(".mtf-row-3");
       layout.classList.toggle("mtf-selection-collapsed", shouldCollapse);
+      layout.classList.toggle("mtf-detail-open", shouldCollapse);
+      catalog?.classList.toggle("hidden", shouldCollapse);
+      detailRow?.classList.toggle("hidden", !shouldCollapse);
+      if (!shouldCollapse) layout.classList.remove("mtf-detail-viewport");
       summary.classList.toggle("hidden", !shouldCollapse);
       $("mtf-selection-text").textContent = shouldCollapse
         ? `${failure.station} · ${failure.id} · ${failure.name}`
@@ -2483,6 +2685,20 @@
           : layout.querySelector("#mtf-fault-list .mtf-item-card.selected");
         (selected || $("mtf-search"))?.focus({ preventScroll: true });
       });
+    }
+    function selectMtfFault(failure) {
+      if (!failure) return;
+      FFDG.state.mtfSelected = failure;
+      FFDG.state.mtfIndex = 0;
+      FFDG.state.mtfFinished = false;
+      failure.activeVariant = 0;
+      const layout = $("mtf-layout");
+      const desktopDetail = matchMedia("(min-width: 1081px)").matches;
+      layout.classList.toggle("mtf-detail-viewport", desktopDetail);
+      setMtfCatalogCollapsed(true, failure, true);
+      renderMtfList();
+      renderMtfDetail();
+      scrollMtfDetailIntoView();
     }
     function renderMtfList() {
       const q = $("mtf-search").value.toLowerCase().trim();
@@ -2497,6 +2713,7 @@
         const card = document.createElement("div");
         const selected = FFDG.state.mtfSelected && (f.recordKey ? FFDG.state.mtfSelected.recordKey === f.recordKey : FFDG.state.mtfSelected === f);
         card.className = `mtf-item-card ${selected ? "selected" : ""}`;
+        card.mtfFailure = f;
         card.setAttribute("role", "button");
         card.tabIndex = 0;
         card.setAttribute("aria-pressed", String(Boolean(selected)));
@@ -2508,18 +2725,7 @@
         <h3 class="mtf-item-title">${escapeHtml(f.name)}</h3>
         <span class="mtf-item-meta">${escapeHtml(f.code)} · ${escapeHtml(f.components)}</span>
       `;
-        card.addEventListener("click", () => {
-          FFDG.state.mtfSelected = f;
-          FFDG.state.mtfIndex = 0;
-          FFDG.state.mtfFinished = false;
-          f.activeVariant = 0;
-          renderMtfList();
-          renderMtfDetail();
-          const keepTechnicalListVisible = $("mtf-layout").classList.contains("mtf-split");
-          if (keepTechnicalListVisible) $("mtf-detail-title").focus({ preventScroll: true });
-          else setMtfCatalogCollapsed(true, f, true);
-          scrollMtfDetailIntoView();
-        });
+        card.addEventListener("click", () => selectMtfFault(f));
         card.addEventListener("keydown", event => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
@@ -2591,10 +2797,27 @@
       svg += `</svg>`;
       container.innerHTML = `${note ? `<p class="flowchart-source-note">${text(note)}</p>` : ""}${svg}`;
     }
+    function renderMtfPdfDecisionFlowchart(container, graph, activeIndex = 0) {
+      const pdfRenderer = window.FFDG && window.FFDG.renderMtfPdfVectorFlowchart;
+      return typeof pdfRenderer === "function" && pdfRenderer(container, graph, activeIndex);
+    }
     function renderFlowchart(f) {
       const container = $("mtf-flowchart-diagram");
       if (!container) return;
-      const steps = getActiveSteps(f);
+      const source = applyMtfPdfProcedureOverride(f);
+      if (source.flowchartImage && Number(source.flowchartImageWidth) > 0 && Number(source.flowchartImageHeight) > 0) {
+        const width = Number(source.flowchartImageWidth);
+        const height = Number(source.flowchartImageHeight);
+        const zoomSource = window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES?.[String(source.flowchartImage).split("/").pop()];
+        container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagrama original del FFDG para ${escapeHtml(source.station || "MTF")}, páginas ${escapeHtml((source.sourcePdfPages || []).join(", "))}" ${zoomSource ? `data-flowchart-hi-res-src="${escapeHtml(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${escapeHtml(source.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet"></image></svg>`;
+        return;
+      }
+      const flowchartGraph = source.flowchartGraph || mtfPdfFlowchartGraphs[source.id] || null;
+      if (flowchartGraph?.flowchartImage
+        && Number(flowchartGraph.flowchartImageWidth) > 0
+        && Number(flowchartGraph.flowchartImageHeight) > 0
+        && renderMtfPdfDecisionFlowchart(container, flowchartGraph, Math.max(0, FFDG.state.mtfIndex || 0))) return;
+      const steps = getActiveSteps(source);
       if (!steps.length) {
         const message = f.procedureSheet
           ? `La pestaña ${f.procedureSheet} existe, pero no contiene pasos reconocibles. No se generó una secuencia de acciones.`
@@ -2602,112 +2825,10 @@
         container.innerHTML = `<div class="mtf-no-procedure">${escapeHtml(message)}</div>`;
         return;
       }
-      if (f.flowchartImage && Number(f.flowchartImageWidth) > 0 && Number(f.flowchartImageHeight) > 0) {
-        const width = Number(f.flowchartImageWidth);
-        const height = Number(f.flowchartImageHeight);
-        container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Diagrama de flujo del FFDG para ${escapeHtml(f.station || "MTF")}" style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${escapeHtml(f.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMin meet"></image></svg>`;
-        return;
-      }
-      if (f.pdfFlowchartSourceMissing || f.pdfNewCase) {
-        renderStepSequenceSvg(container, steps, Math.max(0, FFDG.state.mtfIndex || 0), "Secuencia basada en los pasos documentados; sin figura fuente asociada.");
-        return;
-      }
-      const s_count = steps.length;
-      const s1_raw = s_count > 0 ? steps[0].title : "1. A/C Cycle";
-      const s1_clean = s1_raw.split('\n')[0].replace(/^\d+[.:]\s*/, '').trim();
-      const stName = f.station || "FLA";
-      // Todos los pasos posteriores (Paso 2, 3, 4, ... N)
-      const action_steps = steps.slice(1);
-      const n_actions = action_steps.length;
-      const y_last = n_actions ? 125 + (n_actions - 1) * 56 : 100;
-      const svg_h = Math.max(310, y_last + 95);
-      function trunc(str, n) {
-        if (!str) return "";
-        return str.length > n ? str.substring(0, n - 2) + ".." : str;
-      }
-      let svg = `
-    <svg viewBox="0 0 760 ${svg_h}" preserveAspectRatio="xMidYMin meet" width="100%" style="display:block; font-family: Roboto, -apple-system, BlinkMacSystemFont, sans-serif;">
-      <defs>
-        <marker id="fc-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#00a4e4"/>
-        </marker>
-        <marker id="fc-arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#d32f2f"/>
-        </marker>
-      </defs>
-      <!-- 1. Nodo Inicial (Paso 1: Centrado en X=390, Y=32) -->
-      <rect x="305" y="16" width="170" height="32" rx="16" fill="#00a4e4"/>
-      <text x="390" y="36" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">${escapeHtml(String(steps[0].sourceNumber || "1").replace(/[.:]$/, ""))}. ${escapeHtml(trunc(s1_clean, 20))}</text>
-      <!-- Línea Paso 1 -> Re-Test (390, 74) -->
-      <path d="M 390 48 L 390 70" fill="none" stroke="#00a4e4" stroke-width="2" marker-end="url(#fc-arrow)"/>
-      <!-- 2. Diamante Re-Test (Centrado en X=390, Y=100) -->
-      <polygon points="390,74 445,100 390,126 335,100" fill="#00a4e4"/>
-      <text x="390" y="104" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle">Re-Test</text>
-      <!-- 3. Pass -> Re-run diags (590, 145) -->
-      <path d="M 445 100 L 590 100 L 590 141" fill="none" stroke="#00a4e4" stroke-width="2" marker-end="url(#fc-arrow)"/>
-      <text x="505" y="93" fill="#2e7d32" font-size="10.5" font-weight="800">Pass</text>
-      <!-- 4. Diamante Re-run diags (Centrado en X=590, Y=175) -->
-      <polygon points="590,145 650,175 590,205 530,175" fill="#00a4e4"/>
-      <text x="590" y="171" fill="#ffffff" font-size="9" font-weight="700" text-anchor="middle">Re-run diags</text>
-      <text x="590" y="183" fill="#ffffff" font-size="8.5" font-weight="600" text-anchor="middle">hasta ${escapeHtml(stName)}</text>
-      <!-- Fail de Re-run -> Vuelve al inicio (Paso 1) -->
-      <path d="M 650 175 L 695 175 L 695 32 L 479 32" fill="none" stroke="#00a4e4" stroke-width="2" marker-end="url(#fc-arrow)"/>
-      <text x="658" y="168" fill="#d32f2f" font-size="10" font-weight="700">Fail</text>
-      <!-- Pass de Re-run -> Siguiente Estación -->
-      <path d="M 590 205 L 590 241" fill="none" stroke="#00a4e4" stroke-width="2" marker-end="url(#fc-arrow)"/>
-      <text x="598" y="226" fill="#2e7d32" font-size="10.5" font-weight="800">Pass</text>
-      <!-- Píldora Fin (Siguiente Estación, Centrada en X=590) -->
-      <rect x="515" y="245" width="150" height="32" rx="16" fill="#00a4e4"/>
-      <text x="590" y="265" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Siguiente Estación</text>
-      <!-- Fail de Re-Test -> Primer paso de acción (Paso 2) -->
-      <path d="M 390 126 L 390 144 L 289 144" fill="none" stroke="#00a4e4" stroke-width="2" marker-end="url(#fc-arrow)"/>
-      <text x="345" y="137" fill="#d32f2f" font-size="10.5" font-weight="800">Fail</text>
-      <!-- Bus vertical colector de retorno a Re-Test (X=40) -->
-      <path d="M 40 ${y_last + 19} L 40 100 L 331 100" fill="none" stroke="#00a4e4" stroke-width="2" marker-end="url(#fc-arrow)"/>
-    `;
-      // Generar dinámicamente TODOS los pasos de acción (Paso 2 al N)
-      action_steps.forEach((act, idx) => {
-        const step_num = idx + 2;
-        const y_k = 125 + idx * 56;
-        const raw_t = act.title ? act.title.split('\n')[0].trim() : `Paso ${step_num}`;
-        const clean_t = raw_t.replace(/^\d+[.:]\s*/, '').trim();
-        const display_t = `${act.sourceNumber || step_num}. ${clean_t}`;
-        const trunc_t = trunc(display_t, 27);
-        svg += `
-      <!-- Acción Paso ${step_num} (Centrada en X=180) -->
-      <rect x="75" y="${y_k}" width="210" height="38" rx="6" fill="#00a4e4"/>
-      <text x="180" y="${y_k + 16}" fill="#ffffff" font-size="9" font-weight="800" text-anchor="middle">${escapeHtml(trunc_t)}</text>
-      <text x="180" y="${y_k + 28}" fill="#e1f5fe" font-size="8" font-weight="500" text-anchor="middle">Ejecutar acción y retestear</text>
-      <!-- Conexión horizontal hacia el bus colector (X=40) -->
-      <path d="M 75 ${y_k + 19} L 40 ${y_k + 19}" fill="none" stroke="#00a4e4" stroke-width="1.8"/>
-      `;
-        if (idx < n_actions - 1) {
-          const next_y = y_k + 56;
-          svg += `
-        <!-- Si persiste falla en retest, avanzar a paso ${step_num + 1} -->
-        <path d="M 180 ${y_k + 38} L 180 ${next_y - 4}" fill="none" stroke="#00a4e4" stroke-width="1.6" stroke-dasharray="3,3" marker-end="url(#fc-arrow)"/>
-        <text x="192" y="${y_k + 48}" fill="#d32f2f" font-size="7.5" font-weight="700">Fail</text>
-        `;
-        } else {
-          const esc_y = y_k + 50;
-          svg += `
-        <!-- Escalación final si persisten todos los pasos del catálogo -->
-        <path d="M 180 ${y_k + 38} L 180 ${esc_y - 4}" fill="none" stroke="#d32f2f" stroke-width="1.6" stroke-dasharray="3,3" marker-end="url(#fc-arrow-red)"/>
-        <rect x="100" y="${esc_y}" width="160" height="28" rx="4" fill="#d32f2f"/>
-        <text x="180" y="${esc_y + 17}" fill="#ffffff" font-size="9" font-weight="800" text-anchor="middle">Escalar a FA Nivel 2</text>
-        `;
-        }
-      });
-      svg += `</svg>`;
-      container.innerHTML = svg;
-      if (window.matchMedia("screen").matches) {
-        container.querySelectorAll("svg text[font-size]").forEach(label => {
-          const currentSize = Number.parseFloat(label.getAttribute("font-size"));
-          if (Number.isFinite(currentSize) && currentSize < 12.5) {
-            label.setAttribute("font-size", (currentSize + 2 * 96 / 72).toFixed(2));
-          }
-        });
-      }
+      const sequenceRenderer = window.FFDG.renderMtfProcedureStepFlowchart;
+      if (typeof sequenceRenderer === "function"
+        && sequenceRenderer(container, steps, FFDG.state.mtfIndex || 0, `${source.station || "MTF"} · ${source.id || source.code || ""}`)) return;
+      container.innerHTML = '<div class="mtf-no-procedure">El PDF no contiene un flowchart fuente asociado con certeza a esta falla. No se muestra un diagrama inferido.</div>';
     }
     function renderMtfDetail() {
       const f = FFDG.state.mtfSelected;
@@ -2767,9 +2888,18 @@
       const pathContainer = $("mtf-path");
       pathContainer.replaceChildren();
       steps.forEach((s, idx) => {
-        const pill = document.createElement("span");
+        const pill = document.createElement("button");
+        pill.type = "button";
         pill.className = `m3-step-pill ${idx === FFDG.state.mtfIndex ? "active" : ""}`;
-        pill.textContent = `${s.sourceNumber || idx + 1}. ${s.title}`;
+        pill.textContent = `Paso ${idx + 1}`;
+        pill.setAttribute("aria-label", `${pill.textContent}${s.title ? `: ${s.title}` : ""}`);
+        if (idx === FFDG.state.mtfIndex) pill.setAttribute("aria-current", "step");
+        pill.addEventListener("click", () => {
+          if (FFDG.state.mtfIndex === idx && !FFDG.state.mtfFinished) return;
+          FFDG.state.mtfIndex = idx;
+          FFDG.state.mtfFinished = false;
+          renderMtfDetail();
+        });
         pathContainer.appendChild(pill);
       });
       // Step content with formatted terminal commands
@@ -2791,27 +2921,31 @@
       }
       const referenceHost = $("mtf-reference-images");
       if (referenceHost) {
-        referenceHost.replaceChildren();
         const references = f.referenceImages || [];
+        const referenceKey = references.length
+          ? `${f.id || [f.station, f.code, f.name].join("::")}::${references.map(reference => `${reference.sourcePage || ""}:${reference.src || ""}`).join("|")}`
+          : "";
+        referenceHost.replaceChildren();
         referenceHost.classList.toggle("hidden", !references.length);
         if (references.length) {
-          const heading = document.createElement("h3");
-          heading.textContent = "Reference Images";
-          const grid = document.createElement("div");
-          grid.className = "reference-images-grid";
-          references.forEach(reference => {
-            const figure = document.createElement("figure");
-            const image = document.createElement("img");
-            const caption = document.createElement("figcaption");
-            image.src = reference.src;
-            image.alt = reference.caption || `Imagen de referencia del PDF, página ${reference.sourcePage || ""}`;
-            image.loading = "lazy";
-            image.decoding = "async";
-            caption.textContent = reference.caption || `Página ${reference.sourcePage} del FFDG PDF`;
-            figure.append(image, caption);
-            grid.appendChild(figure);
-          });
-          referenceHost.append(heading, grid);
+          referenceHost.dataset.referenceKey = referenceKey;
+          const launch = document.createElement("button");
+          launch.type = "button";
+          launch.className = "pdf-reference-launch";
+          launch.setAttribute("aria-haspopup", "dialog");
+          launch.setAttribute("aria-label", `Abrir galería con ${references.length} ${references.length === 1 ? "imagen" : "imágenes"} de referencia`);
+          const heading = document.createElement("span");
+          heading.textContent = "Imágenes de referencia";
+          const count = document.createElement("span");
+          count.className = "topology-reference-badge";
+          count.textContent = `${references.length} ${references.length === 1 ? "imagen" : "imágenes"}`;
+          launch.append(heading, count);
+          launch.addEventListener("click", () => window.FFDG_OPEN_REFERENCE_GALLERY(`${f.id} · ${f.name}`, references, launch, referenceKey));
+          referenceHost.append(launch);
+          window.FFDG_SYNC_REFERENCE_GALLERY?.(referenceKey, launch);
+        } else {
+          delete referenceHost.dataset.referenceKey;
+          window.FFDG_SYNC_REFERENCE_GALLERY?.("", null);
         }
       }
       renderFlowchart(f);
@@ -3005,7 +3139,7 @@
       try {
         const saved = JSON.parse(localStorage.getItem(MTF_STORAGE_KEY) || "null");
         if (!saved || saved.version !== 2 || !Array.isArray(saved.cases) || !saved.cases.length) return false;
-        const restoredCases = mergeMtfPdfAdditions(saved.cases);
+        const restoredCases = FFDG.data.mergeMtfPdfAdditions(saved.cases);
         FFDG.data.mtfFaults = restoredCases;
         FFDG.state.mtfSelected = restoredCases[0];
         FFDG.state.mtfIndex = 0;
@@ -3031,7 +3165,7 @@
         const buffer = await file.arrayBuffer();
         const workbook = XLSX.read(buffer, { type: "array", cellDates: false });
         const { cases: importedCases, sheetName } = readWorksheetCatalog(workbook);
-        const cases = mergeMtfPdfAdditions(importedCases);
+        const cases = FFDG.data.mergeMtfPdfAdditions(importedCases);
         const importedAt = new Date().toISOString();
         const selectedKey = FFDG.state.mtfSelected?.recordKey;
         FFDG.data.mtfFaults = cases;
@@ -3052,7 +3186,7 @@
         $("excel-file-input").value = "";
       }
     }
-    return { initTheme, toggleTheme, setMode, filterStation, showStep, renderHistory, finish, renderEvidence, renderMtfList, renderMtfDetail, renderBatSelection, setBatCatalogCollapsed, setMtfCatalogCollapsed, advanceBatDetail, retreatBatDetail, loadExcelFile, restoreCatalog, updateStationFilterCounts, getActiveSteps };
+    return { initTheme, toggleTheme, setMode, filterStation, showStep, renderHistory, finish, renderEvidence, renderMtfList, renderMtfDetail, selectMtfFault, renderBatSelection, setBatCatalogCollapsed, setMtfCatalogCollapsed, advanceBatDetail, retreatBatDetail, loadExcelFile, restoreCatalog, updateStationFilterCounts, getActiveSteps };
   })();
   // 3. PRINT ENGINE
   window.FFDG.reports = (() => {
@@ -3103,16 +3237,26 @@
       const generatedAt = new Date();
       const serial = $("serial").value.trim();
       const failure = FFDG.state.activeFailure;
+      const isNoBoot = failure.family === "NOBOOT";
       const diagnostician = $("technician").value.trim();
       const employeeId = $("employee-id").value.trim();
       const reportDate = generatedAt.toLocaleDateString("es-MX");
       const rootCause = $("root-cause").value;
       const rootEvidence = $("root-cause-evidence").value.trim();
       const nextAction = $("next-action").value;
+      $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
+      $("bat-print-title").textContent = isNoBoot ? "Informe ejecutivo de falla" : "Reporte de Calidad";
+      $("bat-print-subtitle").textContent = isNoBoot
+        ? "No Boot · Diagnóstico de hardware GB200 / GB300"
+        : "Diagnóstico de hardware · GB200 / GB300";
+      $("bat-print-summary-title").textContent = isNoBoot ? "Resumen ejecutivo" : "Resumen para Calidad";
+      $("bat-print-stamp").textContent = isNoBoot ? "Revisión gerencial" : "Control de Calidad";
+      $("bat-print-actions-title").textContent = isNoBoot ? "Análisis de causa raíz y plan de acción" : "Causa raíz y acciones reportadas";
+      $("bat-print-evidence-section").textContent = isNoBoot ? "Evidencia fotográfica del evento" : "Evidencia de soporte";
       $("print-date").textContent = `Generado ${generatedAt.toLocaleString("es-MX")}`;
       const meta = $("bat-print-meta");
       meta.replaceChildren();
-      addMeta("Folio de sesión local", `BAT-${serial}-${generatedAt.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`);
+      if (!isNoBoot) addMeta("Folio de sesión local", `BAT-${serial}-${generatedAt.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`);
       addMeta("Estación", $("station").value);
       addMeta("Serial del Nodo (S/N)", serial);
       addMeta("Número de Parte (P/N)", $("part").value.trim());
@@ -3120,7 +3264,7 @@
       addMeta("Código de falla", failure.code);
       addMeta("Descripción reportada", failure.label, true);
       addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
-      $("bat-print-continuation").textContent = `INGRASYS · REPORTE DE CALIDAD  |  Serial ${serial}  |  Falla ${failure.code}`;
+      $("bat-print-continuation").textContent = `${isNoBoot ? "INGRASYS · CONTINUACIÓN DEL INFORME EJECUTIVO" : "INGRASYS · REPORTE DE CALIDAD"}  |  Serial ${serial}  |  Falla ${failure.code}`;
       const hasAnomaly = FFDG.state.history.some(item => item.result === "ANOMALÍA");
       const final = $("bat-print-final");
       final.replaceChildren();
@@ -3141,7 +3285,7 @@
       [
         ["Clasificación final", $("classification").value],
         ["Acción siguiente", nextAction],
-        ["Validaciones registradas", String(FFDG.state.history.length)]
+        ["Resultado del retest", $("retest").value || "No registrado"]
       ].forEach(([label, value]) => {
         const stat = document.createElement("div");
         stat.className = "bat-verdict-stat";
@@ -3157,13 +3301,13 @@
       const grid = document.createElement("div");
       grid.className = "print-final-grid";
       const finalFields = [
-        ["Causa raíz", rootCause],
+        ["Causa raíz identificada", rootCause],
         ["Evidencia de causa raíz", rootEvidence || "No registrada"],
-        ["Intervención / acción reportada", $("action").value.trim() || "No especificada"],
-        ["Estatus del retest", $("retest").value || "No registrado"],
+        ["Intervención realizada en el nodo", $("action").value.trim() || "No especificada", true],
       ];
-      finalFields.forEach(([label, value], index) => {
+      finalFields.forEach(([label, value, wide]) => {
         const field = document.createElement("div");
+        if (wide) field.className = "wide";
         const heading = document.createElement("strong");
         heading.textContent = `${label}: `;
         field.append(heading, document.createTextNode(value));
@@ -3198,7 +3342,7 @@
         evidence.classList.remove("hidden");
         $("bat-print-evidence-section").classList.remove("hidden");
       }
-      $("print-quality-note").textContent = `Documento para revisión de Calidad · ${FFDG.state.evidence.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
+      $("print-quality-note").textContent = `${isNoBoot ? "Informe ejecutivo para Gerencia y revisión de Calidad" : "Documento para revisión de Calidad"} · ${FFDG.state.evidence.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
       setPrintStatus("Se abrirá la ventana de impresión. Elige “Guardar como PDF” como destino para crear el archivo.");
       openPrintDialog("bat", `Reporte_BAT_${serial}_${failure.code}`);
     }
@@ -3256,15 +3400,63 @@
     const BAT_CATALOG_STORAGE_KEY = "ffdg-bat-catalog-v1";
     const normalizeBatText = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z0-9]+/g, " ").trim();
     const makeBatUid = item => `${item.code}::${normalizeBatText(item.label).replace(/\s+/g, "-")}`;
+    const managedBatAdditions = failureCatalog.filter(item => item.managedAddition);
+    const previousLedFaultLabel = "No encendido de los LEDs en panel de la IO board central";
+    let savedBatCatalog = null;
     try {
-      const savedBatCatalog = JSON.parse(localStorage.getItem(BAT_CATALOG_STORAGE_KEY) || "null");
+      savedBatCatalog = JSON.parse(localStorage.getItem(BAT_CATALOG_STORAGE_KEY) || "null");
       if (savedBatCatalog?.version === 1 && Array.isArray(savedBatCatalog.failures) && savedBatCatalog.failures.length) {
         failureCatalog.splice(0, failureCatalog.length, ...savedBatCatalog.failures);
       }
     } catch (error) {
       console.warn("No se pudo restaurar el catálogo BAT guardado:", error);
     }
+    let managedAdditionApplied = false;
+    const catalogWithoutPreviousLedFaultLabel = failureCatalog.filter(item => !(
+      item.code === "NDBG_092"
+      && item.family === "NOBOOT"
+      && normalizeBatText(item.label) === normalizeBatText(previousLedFaultLabel)
+    ));
+    if (catalogWithoutPreviousLedFaultLabel.length !== failureCatalog.length) {
+      failureCatalog.splice(0, failureCatalog.length, ...catalogWithoutPreviousLedFaultLabel);
+      managedAdditionApplied = true;
+    }
+    managedBatAdditions.forEach(addition => {
+      const uid = addition.uid || makeBatUid(addition);
+      const existing = failureCatalog.find(item => (item.uid || makeBatUid(item)) === uid);
+      if (existing) {
+        if (addition.customProcedure && Array.isArray(addition.steps)) {
+          const sameSteps = JSON.stringify(existing.steps || []) === JSON.stringify(addition.steps);
+          if (!existing.customProcedure || !sameSteps || !existing.managedAddition) {
+            existing.customProcedure = true;
+            existing.managedAddition = true;
+            existing.steps = addition.steps.map(step => ({ ...step }));
+            managedAdditionApplied = true;
+          }
+        }
+        return;
+      }
+      addition.uid = uid;
+      const anchorIndex = addition.insertAfterCode
+        ? failureCatalog.findIndex(item => item.code === addition.insertAfterCode)
+        : -1;
+      failureCatalog.splice(anchorIndex >= 0 ? anchorIndex + 1 : failureCatalog.length, 0, addition);
+      managedAdditionApplied = true;
+    });
     failureCatalog.forEach(item => { item.uid ||= makeBatUid(item); });
+    if (managedAdditionApplied) {
+      try {
+        localStorage.setItem(BAT_CATALOG_STORAGE_KEY, JSON.stringify({
+          ...(savedBatCatalog && typeof savedBatCatalog === "object" ? savedBatCatalog : {}),
+          version: 1,
+          failures: failureCatalog,
+          fileName: savedBatCatalog?.fileName || "ffdg.pdf",
+          importedAt: savedBatCatalog?.importedAt || new Date().toISOString()
+        }));
+      } catch (error) {
+        console.warn("No se pudo guardar la nueva falla BAT en el catálogo local:", error);
+      }
+    }
     FFDG.state = {
       mode: "bat",
       activeFailure: null,
@@ -3443,8 +3635,12 @@
       FFDG.ui.renderEvidence();
     });
     $("pdf-btn").addEventListener("click", FFDG.reports.printBatReport);
-    $("mtf-search").addEventListener("input", FFDG.ui.renderMtfList);
+    $("mtf-search").addEventListener("input", () => {
+      FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected);
+      FFDG.ui.renderMtfList();
+    });
     $("excel-file-input").addEventListener("change", (e) => { if (e.target.files.length) FFDG.ui.loadExcelFile(e.target.files[0]); });
+    $("mtf-pdf-select-button").addEventListener("click", () => $("mtf-pdf-file-input").click());
     $("mtf-prev").addEventListener("click", () => {
       if (FFDG.state.mtfIndex > 0) {
         FFDG.state.mtfIndex -= 1;
@@ -3476,14 +3672,15 @@
       (document.querySelector("#bat-board .bd-item.selected") || $("bat-board-search"))?.focus({ preventScroll: true });
     });
     $("bat-selection-toggle").addEventListener("click", () => {
-      FFDG.ui.setBatCatalogCollapsed(false);
+      FFDG.ui.renderBatSelection(null);
       focusSelectedBatCard();
       scrollToTarget($("bat-failure-board"));
     });
-    $("mtf-selection-toggle").addEventListener("click", () =>
-      FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected, true));
+    $("mtf-selection-toggle").addEventListener("click", () => {
+      FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected, true);
+    });
     $("bat-back-to-faults").addEventListener("click", () => {
-      FFDG.ui.setBatCatalogCollapsed(false);
+      FFDG.ui.renderBatSelection(null);
       focusSelectedBatCard();
       scrollToTarget($("bat-failure-board"));
     });
@@ -3833,16 +4030,6 @@
     window.FFDG.refreshBatBoard = render;
   })();</script>
 <script>(() => {
-  const referenceImages = [17, 17, 23, 40, 55, 55, 55, 55, 67, 75, 75, 75, 79, 88, 89, 89, 95, 96, 100, 100, 107, 134, 142, 159, 161, 161, 172, 183, 216, 231];
-  const referenceGallery = document.getElementById("mtf-reference-images");
-  if (referenceGallery) {
-    referenceGallery.innerHTML = referenceImages.map((page, index) => {
-      const number = String(index + 1).padStart(2, "0");
-      const pageNumber = String(page).padStart(3, "0");
-      const caption = page === 216 ? "Cable Debug Guide · página 216" : page === 231 ? "Material de referencia · página 231" : `Referencia FFDG · página ${page}`;
-      return `<figure><img src="./assets/reference-images/ffdg-page-${pageNumber}-ref-${number}.png" alt="${caption}" loading="lazy" decoding="async"><figcaption>${caption}</figcaption></figure>`;
-    }).join("");
-  }
   const dialog = document.getElementById("mtf-topology-modal");
   const openButton = document.getElementById("mtf-topology-open");
   const closeButton = document.getElementById("mtf-topology-close");
@@ -4024,7 +4211,8 @@ input[type=file]::file-selector-button{border:none;border-radius:999px;padding:8
     const esc = s => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const clean = t => (t || "").split("\n")[0].replace(/^(paso\s*)?\d+[.:]?\s*/i, "").trim();
     const tr = (s, n) => s.length > n ? s.slice(0, n - 1) + "…" : s;
-    function drawFlow() {
+    // No reactivar: su plantilla histórica agrega decisiones no respaldadas por el PDF.
+    function drawFlowLegacy() {
       const f = FFDG.state.mtfSelected, box = $("mtf-flowchart-diagram");
       if (!f || !box) return;
       const steps = FFDG.ui.getActiveSteps(f);
@@ -4066,6 +4254,31 @@ ${pill(305, 16, 170, `${String(steps[0].sourceNumber || "1").replace(/[.:]$/, ""
       box.innerHTML = s + "</svg>";
       const b = $("mtf-badge-station");
       if (b) b.dataset.st = stn;
+    }
+    function drawFlow() {
+      const f = FFDG.state.mtfSelected, box = $("mtf-flowchart-diagram");
+      if (!f || !box) return;
+      if (f.flowchartImage && Number(f.flowchartImageWidth) > 0 && Number(f.flowchartImageHeight) > 0) {
+        const width = Number(f.flowchartImageWidth), height = Number(f.flowchartImageHeight);
+        const zoomSource = window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES?.[String(f.flowchartImage).split("/").pop()];
+        box.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Diagrama original del FFDG para ${esc(f.station || "MTF")}" ${zoomSource ? `data-flowchart-hi-res-src="${esc(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${esc(f.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMin meet"></image></svg>`;
+        return;
+      }
+      const graph = f.flowchartGraph || (window.FFDG_MTF_PDF_FLOWCHART_GRAPHS || {})[f.id];
+      if (graph?.flowchartImage && Number(graph.flowchartImageWidth) > 0 && Number(graph.flowchartImageHeight) > 0
+        && window.FFDG.renderMtfPdfVectorFlowchart?.(box, graph, Math.max(0, FFDG.state.mtfIndex || 0))) return;
+      const steps = FFDG.ui.getActiveSteps(f);
+      if (!steps.length) {
+        const message = f.procedureSheet
+          ? `La pestaña ${f.procedureSheet} existe, pero no contiene pasos reconocibles. No se generó una secuencia de acciones.`
+          : "No hay pasos de procedimiento disponibles para esta falla.";
+        box.innerHTML = `<div class="mtf-no-procedure">${esc(message)}</div>`;
+        return;
+      }
+      const sequenceRenderer = window.FFDG.renderMtfProcedureStepFlowchart;
+      if (typeof sequenceRenderer === "function"
+        && sequenceRenderer(box, steps, FFDG.state.mtfIndex || 0, `${f.station || "MTF"} · ${f.id || f.code || ""}`)) return;
+      box.innerHTML = '<div class="mtf-no-procedure">No hay un diagrama fuente verificado para esta falla. Se conserva el procedimiento en sus pasos; no se infieren decisiones ni resultados.</div>';
     }
     /* ---------- 6. OBSERVADORES ---------- */
     const watch = (id, fn) => { const el = $(id); if (el) new MutationObserver(fn).observe(el, { childList: true }); };
@@ -4280,7 +4493,7 @@ html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 .mtf-row-1-actions{grid-column:3;justify-self:end;display:flex;flex-direction:row;align-items:center;gap:8px;width:auto;max-width:100%;margin:0;flex:none}
 .mtf-row-1-actions .theme-switch-btn{width:auto;min-height:40px;padding:6px 12px;white-space:nowrap}
 .mtf-row-1-actions>label{width:auto;max-width:100%;margin:0;white-space:nowrap}
-@media(max-width:1280px){.mtf-row-1{display:flex;flex-wrap:wrap;justify-content:center}.mtf-row-1-search{order:0;flex:1 1 560px;width:min(100%,800px);max-width:800px;margin:0 auto}.mtf-row-1-actions{order:1;flex:0 1 auto;margin:0 auto}}
+@media(max-width:1500px){.mtf-row-1{display:flex;flex-wrap:wrap;justify-content:center}.mtf-row-1-search{order:0;flex:1 1 560px;width:min(100%,800px);max-width:800px;margin:0 auto}.mtf-row-1-actions{order:1;flex:0 1 auto;margin:0 auto}}
 @media(max-width:640px){.mtf-row-1{display:flex;flex-direction:column;align-items:stretch;width:100%;max-width:100%}.mtf-row-1-search{width:100%;max-width:100%;flex:0 0 42px;margin:0}#mtf-layout .mtf-row-1-search input{text-align:left}.mtf-row-1-actions{width:100%;flex-wrap:wrap;justify-content:center}.mtf-row-1-actions .theme-switch-btn,.mtf-row-1-actions>label{width:min(100%,190px)}}
 #mtf-board{display:none;min-width:0}
 .mtf-cards-scroll-grid{max-height:min(64dvh,580px)}
@@ -4358,6 +4571,7 @@ main{padding-top:4px!important}
         delete g.ALL;
       }
       board.replaceChildren();
+      board.classList.toggle("mtf-board-centered", lay.classList.contains("v-board"));
       const orderedGroups = Object.keys(g).sort((a, b) => g[b].length - g[a].length || rank(a) - rank(b));
       function createColumn(s) {
         const col = document.createElement("section"); col.className = "bd-col"; col.dataset.st = s;
@@ -4370,7 +4584,7 @@ main{padding-top:4px!important}
           b.children[0].textContent = c.querySelector(".mtf-item-top span:last-child").textContent;
           b.children[1].textContent = c.querySelector(".mtf-item-title").textContent;
           b.children[2].textContent = c.querySelector(".mtf-item-meta").textContent;
-          b.onclick = () => c.click();
+          b.onclick = () => window.FFDG?.ui?.selectMtfFault(c.mtfFailure);
           col.lastChild.appendChild(b);
         });
         return col;
@@ -4563,6 +4777,7 @@ main{padding-top:4px!important}
   #mtf-flowchart-modal {
     width: min(1200px, calc(100vw - 32px));
     max-width: none;
+    height: min(90dvh, 820px);
     max-height: 90dvh;
     padding: 0;
     overflow: hidden;
@@ -4584,12 +4799,30 @@ main{padding-top:4px!important}
 
   .flowchart-modal-head {
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     padding: 16px 20px;
     border-bottom: 1px solid var(--md-sys-color-outline-variant);
   }
+  .flowchart-modal-tools { display: flex; flex: none; align-items: center; gap: 8px; }
+  .flowchart-modal-zoom {
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 999px;
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-primary);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: zoom-in;
+  }
+  .flowchart-modal-zoom { cursor: zoom-in; }
+  .flowchart-modal-zoom[data-zoom-max="true"] { cursor: zoom-out; }
+  .flowchart-modal-zoom:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+  .flowchart-modal-zoom[hidden] { display: none !important; }
 
   .flowchart-modal-kicker {
     color: var(--md-sys-color-primary);
@@ -4617,24 +4850,35 @@ main{padding-top:4px!important}
   }
 
   .flowchart-modal-content {
-    min-height: 180px;
+    flex: 1 1 auto;
+    min-height: 0;
     padding: 18px;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
-  .flowchart-modal-content svg {
-    display: block;
+  .flowchart-modal-stage {
+    position: relative;
     width: 100%;
-    height: auto;
-    max-height: none;
+    min-height: 100%;
+    overflow: visible;
   }
-  .flowchart-modal-content img {
+  .flowchart-modal-stage > svg,
+  .flowchart-modal-stage > img {
+    position: absolute;
+    top: 0;
+    left: 50%;
     display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: 76dvh;
-    height: auto;
-    margin-inline: auto;
-    object-fit: contain;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    transform: translateX(-50%) scale(var(--flowchart-zoom, 1));
+    transform-origin: center top;
+    transition: transform 140ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flowchart-modal-stage > svg,
+    .flowchart-modal-stage > img { transition: none; }
   }
   #bat-disposition-flow .flowchart-zoom-target,
   #mtf-flowchart-diagram .flowchart-zoom-target { cursor: zoom-in; }
@@ -5048,9 +5292,57 @@ main{padding-top:4px!important}
     const dialog = document.getElementById("mtf-flowchart-modal");
     const openButtons = [document.getElementById("mtf-flowchart-open"), document.getElementById("bat-flowchart-open")].filter(Boolean);
     const closeButton = document.getElementById("mtf-flowchart-close");
+    const zoomButton = document.getElementById("mtf-flowchart-zoom");
     const content = document.getElementById("mtf-flowchart-modal-content");
-    if (!dialog || !openButtons.length || !closeButton || !content) return;
+    if (!dialog || !openButtons.length || !closeButton || !zoomButton || !content) return;
     let lastTrigger = null;
+    let zoomScale = 1;
+    let fittedDiagramSize = null;
+    const maxZoomScale = 3;
+    function fitDiagramToModal() {
+      const stage = content.querySelector(".flowchart-modal-stage");
+      const diagram = stage?.firstElementChild;
+      if (!stage || !diagram) return;
+      const svgBox = diagram.tagName.toLowerCase() === "svg"
+        ? Array.from(diagram.getAttribute("viewBox")?.trim().split(/[ ,]+/) || []).map(Number)
+        : [];
+      const naturalWidth = svgBox.length === 4 && svgBox[2] > 0
+        ? svgBox[2]
+        : Number(diagram.getAttribute("width")) || diagram.naturalWidth || 1200;
+      const naturalHeight = svgBox.length === 4 && svgBox[3] > 0
+        ? svgBox[3]
+        : Number(diagram.getAttribute("height")) || diagram.naturalHeight || 800;
+      const style = getComputedStyle(content);
+      const availableWidth = Math.max(1, content.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight));
+      const availableHeight = Math.max(1, content.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom));
+      const fitScale = Math.min(1, availableWidth / naturalWidth, availableHeight / naturalHeight);
+      fittedDiagramSize = { width: naturalWidth * fitScale, height: naturalHeight * fitScale };
+      diagram.style.width = `${fittedDiagramSize.width}px`;
+      diagram.style.height = `${fittedDiagramSize.height}px`;
+      diagram.style.maxWidth = "none";
+      diagram.style.maxHeight = "none";
+      stage.style.height = `${fittedDiagramSize.height * zoomScale}px`;
+    }
+    function setZoomScale(nextScale) {
+      const stage = content.querySelector(".flowchart-modal-stage");
+      const diagram = stage?.firstElementChild;
+      if (!stage || !diagram || !fittedDiagramSize) return;
+      zoomScale = Math.max(1, Math.min(maxZoomScale, nextScale));
+      stage.style.height = `${fittedDiagramSize.height * zoomScale}px`;
+      stage.style.setProperty("--flowchart-zoom", zoomScale);
+      content.classList.toggle("flowchart-modal-zoomed", zoomScale > 1);
+      content.scrollLeft = 0;
+      zoomButton.setAttribute("aria-pressed", String(zoomScale > 1));
+      zoomButton.dataset.zoomMax = String(zoomScale >= maxZoomScale);
+      zoomButton.textContent = zoomScale >= maxZoomScale
+        ? `Restablecer zoom · ${Math.round(zoomScale * 100)}%`
+        : zoomScale > 1
+          ? `Zoom ${Math.round(zoomScale * 100)}% · 400 ppp`
+          : `Lupa · ${diagram.dataset.flowchartDpi || 400} ppp`;
+      zoomButton.setAttribute("aria-label", zoomScale >= maxZoomScale
+        ? "Restablecer el zoom del diagrama"
+        : `Aumentar zoom progresivo; nivel actual ${Math.round(zoomScale * 100)} por ciento`);
+    }
     function openDiagram(isBat, trigger) {
       const host = document.getElementById(isBat ? "bat-disposition-flow" : "mtf-flowchart-diagram");
       const sourceDiagram = host?.querySelector("svg, img");
@@ -5071,11 +5363,35 @@ main{padding-top:4px!important}
       delete expandedDiagram.dataset.flowchartZoomEnabled;
       delete expandedDiagram.dataset.flowchartOriginalRole;
       delete expandedDiagram.dataset.flowchartOriginalLabel;
-      content.replaceChildren(expandedDiagram);
+      const highResolutionSource = !isBat ? sourceDiagram.dataset.flowchartHiResSrc : "";
+      const sourceImage = expandedDiagram.querySelector("image");
+      if (highResolutionSource && sourceImage) sourceImage.setAttribute("href", highResolutionSource);
+      if (expandedDiagram.tagName.toLowerCase() === "svg") {
+        const viewBox = expandedDiagram.getAttribute("viewBox")?.trim().split(/[ ,]+/).map(Number);
+        if (viewBox?.length === 4 && viewBox[2] > 0 && viewBox[3] > 0) {
+          expandedDiagram.setAttribute("width", String(viewBox[2]));
+          expandedDiagram.setAttribute("height", String(viewBox[3]));
+        }
+      }
+      expandedDiagram.removeAttribute("style");
+      const stage = document.createElement("div");
+      stage.className = "flowchart-modal-stage";
+      stage.appendChild(expandedDiagram);
+      content.replaceChildren(stage);
+      content.classList.remove("flowchart-modal-zoomed");
+      zoomButton.hidden = !(highResolutionSource && sourceImage);
+      zoomScale = 1;
+      fittedDiagramSize = null;
+      content.scrollTop = 0;
+      content.scrollLeft = 0;
       const faultTitle = document.getElementById(isBat ? "bat-detail-title" : "mtf-detail-title")?.textContent.trim();
       document.getElementById("mtf-flowchart-modal-title").textContent = faultTitle ? `Diagrama · ${faultTitle}` : "Diagrama de flujo";
       lastTrigger = trigger;
       dialog.showModal();
+      requestAnimationFrame(() => {
+        fitDiagramToModal();
+        setZoomScale(1);
+      });
       closeButton.focus({ preventScroll: true });
     }
     function prepareDiagramTarget(host, isBat) {
@@ -5110,11 +5426,30 @@ main{padding-top:4px!important}
     openButtons.forEach(openButton => openButton.addEventListener("click", () => {
       openDiagram(openButton.id === "bat-flowchart-open", openButton);
     }));
+    zoomButton.addEventListener("click", () => {
+      setZoomScale(zoomScale >= maxZoomScale ? 1 : zoomScale + 0.25);
+    });
+    content.addEventListener("wheel", event => {
+      if (zoomButton.hidden || !dialog.open || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      event.preventDefault();
+      setZoomScale(zoomScale * Math.exp(-event.deltaY * 0.0015));
+    }, { passive: false });
+    window.addEventListener("resize", () => {
+      if (!dialog.open) return;
+      fitDiagramToModal();
+      setZoomScale(zoomScale);
+    });
     closeButton.addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", event => {
       if (event.target === dialog) dialog.close();
     });
     dialog.addEventListener("close", () => {
+      content.classList.remove("flowchart-modal-zoomed");
+      zoomButton.hidden = true;
+      zoomButton.setAttribute("aria-pressed", "false");
+      zoomButton.dataset.zoomMax = "false";
+      zoomScale = 1;
+      fittedDiagramSize = null;
       if (lastTrigger?.isConnected) lastTrigger.focus({ preventScroll: true });
       lastTrigger = null;
     });
@@ -5129,7 +5464,7 @@ main{padding-top:4px!important}
     #mtf-layout #mtf-detail .m3-step-instruction-line,
     #mtf-layout #mtf-detail .topology-preview figcaption,
     #mtf-layout #mtf-detail .topology-open-btn,
-    #mtf-layout #mtf-detail .mtf-pdf-reference-images h3 { font-size: calc(12px + 2pt) !important; }
+    #mtf-layout #mtf-detail .pdf-reference-launch { font-size: calc(12px + 2pt) !important; }
     #mtf-layout #mtf-detail .m3-step-pill { font-size: calc(10.5px + 2pt) !important; }
     #mtf-layout #mtf-detail .mtf-tag,
     #mtf-layout #mtf-detail .reference-images-grid figcaption,
@@ -5158,29 +5493,33 @@ main{padding-top:4px!important}
     #bat-failure-board.catalog-selection-collapsed #bat-board,
     #mtf-layout.mtf-selection-collapsed .mtf-row-2 { display: none; }
     #bat-failure-board.catalog-selection-collapsed .bat-selection-summary:not(.hidden) { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-width: 0; }
+    #bat-failure-board.catalog-selection-collapsed .bat-selection-summary:not(.hidden) .catalog-selection-text { display: none !important; }
+    #bat-failure-board.catalog-selection-collapsed #bat-selection-toggle { flex: 1 1 100%; width: 100%; min-width: 0; box-sizing: border-box; border-radius: 12px; text-align: center; }
     #mtf-layout.mtf-selection-collapsed .mtf-row-2-header { display: flex !important; align-items: center; justify-content: space-between; min-width: 0; }
     #mtf-layout.mtf-selection-collapsed .mtf-catalog-heading,
     #mtf-layout.mtf-selection-collapsed .mtf-design-controls,
     #mtf-layout.mtf-selection-collapsed #mtf-notifications-open { display: none !important; }
     #mtf-layout.mtf-selection-collapsed .mtf-selection-summary:not(.hidden) { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-width: 0; }
+    #mtf-layout:not(.mtf-detail-open) .mtf-row-3 { display: none; }
     @media (prefers-reduced-motion: no-preference) {
-      #bat-board, #mtf-row-2, #bat-selection-summary, #mtf-selection-summary, #bat-detail-area, #mtf-detail {
+      #bat-board, #mtf-row-2, #mtf-layout .mtf-row-3, #bat-selection-summary, #mtf-selection-summary, #bat-detail-area, #mtf-detail {
         transition: opacity 180ms ease, transform 180ms ease, display 180ms allow-discrete;
         transition-behavior: allow-discrete;
       }
       #bat-failure-board.catalog-selection-collapsed #bat-board,
       #mtf-layout.mtf-selection-collapsed #mtf-row-2,
+      #mtf-layout:not(.mtf-detail-open) .mtf-row-3,
       #bat-selection-summary.hidden, #mtf-selection-summary.hidden,
       #bat-detail-area.hidden, #mtf-detail.hidden { opacity: 0; transform: translateY(8px); }
       @starting-style {
         #bat-board, #mtf-row-2, #bat-selection-summary:not(.hidden), #mtf-selection-summary:not(.hidden),
-        #bat-detail-area:not(.hidden), #mtf-detail:not(.hidden) { opacity: 0; transform: translateY(8px); }
+        #mtf-layout.mtf-detail-open .mtf-row-3, #bat-detail-area:not(.hidden), #mtf-detail:not(.hidden) { opacity: 0; transform: translateY(8px); }
       }
     }
-    #mtf-selection-toggle { display: flex; flex-direction: row; align-items: center; justify-content: center; width: 100%; min-width: 0; min-height: 44px; box-sizing: border-box; border: 1px solid #76b900; border-radius: 12px; background: #111; color: #fff; text-align: center; }
+    #mtf-selection-toggle { display: flex; flex-direction: row; align-items: center; justify-content: center; width: 100%; min-width: 0; min-height: 44px; box-sizing: border-box; border: 1px solid var(--nvidia-green); border-radius: 12px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); text-align: center; }
     #mtf-selection-toggle .catalog-selection-text { display: none !important; }
-    #mtf-selection-toggle .catalog-selection-action { flex: 0 0 auto; padding: 0; background: transparent; color: #fff; font-weight: 800; }
-    #mtf-selection-toggle:hover { background: #28381d; }
+    #mtf-selection-toggle .catalog-selection-action { flex: 0 0 auto; padding: 0; background: transparent; color: inherit; font-weight: 800; }
+    #mtf-selection-toggle:hover { filter: brightness(1.08); }
     body { font-size: 14px; line-height: 1.45; }
     main { padding: 8px 16px 32px !important; }
     .m3-card { padding: 18px 20px !important; margin-bottom: 12px !important; }
@@ -5367,6 +5706,265 @@ main{padding-top:4px!important}
       margin: 0 !important;
       padding: 0 !important;
       justify-content: center;
+    }
+    #mtf-layout.mtf-detail-open.mtf-split:not(.hidden) { grid-template-columns: minmax(0, 1fr); }
+    #mtf-layout.mtf-detail-open .mtf-row-3 {
+      grid-column: 1 / -1;
+      position: static;
+      width: 100%;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      align-self: start;
+    }
+    #mtf-layout.v-board #mtf-board {
+      display: flex !important;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 10px;
+    }
+    #mtf-layout.v-board #mtf-board .bd-col {
+      flex: 1 1 200px;
+      width: 100%;
+      max-width: 240px;
+      min-width: min(180px, 100%);
+    }
+    @media (max-width: 600px) {
+      #mtf-layout.v-board #mtf-board { gap: 8px; }
+      #mtf-layout.v-board #mtf-board .bd-col { flex-basis: 160px; }
+    }
+  }
+  /* Regla final MTF: contener fuentes altas y reservar siempre la fila de navegación. */
+  @media screen and (min-width: 1081px) {
+    html:has(#mtf-layout.mtf-detail-open #mtf-detail:not(.hidden)),
+    body:has(#mtf-layout.mtf-detail-open #mtf-detail:not(.hidden)) { overflow-y: auto !important; }
+    #mtf-layout.mtf-detail-open .mtf-row-3 {
+      grid-column: 1 / -1;
+      position: static !important;
+      width: 100%;
+      height: clamp(420px, calc(100dvh - 280px), 760px) !important;
+      min-height: 420px !important;
+      max-height: calc(100dvh - 240px) !important;
+      overflow: hidden !important;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-open #mtf-detail,
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid {
+      width: 100%;
+      height: 100% !important;
+      min-height: 0 !important;
+    }
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      align-items: stretch;
+    }
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2,
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      height: 100% !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2 {
+      display: flex;
+      flex-direction: column;
+    }
+    #mtf-layout.mtf-detail-open #mtf-step {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      display: grid !important;
+      grid-template-rows: auto minmax(0, 1fr) auto !important;
+      align-content: stretch;
+      gap: 6px;
+    }
+    #mtf-layout.mtf-detail-open #mtf-disposition-content {
+      display: flex !important;
+      min-height: 0 !important;
+      flex-direction: column;
+      gap: 5px;
+    }
+    #mtf-layout.mtf-detail-open .mtf-quality-heading,
+    #mtf-layout.mtf-detail-open #mtf-action-text,
+    #mtf-layout.mtf-detail-open #mtf-outcome { flex: 0 0 auto; min-height: 0; margin-block: 0 !important; }
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram {
+      display: flex !important;
+      flex: 1 1 0%;
+      width: 100%;
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      overflow: hidden !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram > svg {
+      display: block;
+      flex: 0 1 auto !important;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+    #mtf-layout.mtf-detail-open .mtf-detail-controls-right {
+      display: flex;
+      flex: 0 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+</style>
+<style id="mtf-selection-results-layout">
+  #mtf-layout.mtf-split:not(.mtf-detail-open) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-items: start;
+  }
+  #mtf-layout.mtf-split:not(.mtf-detail-open) .mtf-row-2 {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  #mtf-layout.mtf-split:not(.mtf-detail-open) #mtf-fault-list {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  #mtf-layout.mtf-split:not(.mtf-detail-open) .mtf-item-card {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+  }
+  #mtf-layout.v-board #mtf-board.mtf-board-centered {
+    display: flex !important;
+    width: 100%;
+    box-sizing: border-box;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+  }
+  #mtf-layout.v-board #mtf-board.mtf-board-centered > .bd-col {
+    flex: 0 1 240px;
+    width: min(100%, 240px);
+    min-width: min(180px, 100%);
+    max-width: 240px;
+  }
+  @media (max-width: 600px) {
+    #mtf-layout.v-board #mtf-board.mtf-board-centered { gap: 8px; }
+    #mtf-layout.v-board #mtf-board.mtf-board-centered > .bd-col { flex-basis: 160px; }
+  }
+  @media screen and (min-width: 1081px) {
+    html:has(#mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail:not(.hidden)),
+    body:has(#mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail:not(.hidden)) { overflow-y: auto !important; }
+    main:has(#mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail:not(.hidden)) { padding-bottom: 0 !important; }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-row-3 {
+      grid-column: 1 / -1;
+      height: calc(100dvh - 260px) !important;
+      min-height: 430px !important;
+      max-height: calc(100dvh - 230px) !important;
+      overflow: hidden !important;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid { height: 100%; min-height: 0; }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 10px;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2 {
+      display: flex;
+      flex-direction: column;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .bento-block-heading,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-variants,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-path,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-topology-open,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-reference-images,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-controls { flex: 0 0 auto; }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-step {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      display: flex;
+      flex-direction: column;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-disposition-content {
+      display: flex;
+      flex: 1 1 auto;
+      min-height: 0;
+      flex-direction: column;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-flowchart-diagram {
+      flex: 1 1 0%;
+      height: 0 !important;
+      min-height: 0;
+      max-height: none !important;
+      overflow: hidden !important;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-flowchart-diagram > svg {
+      flex: 1 1 auto;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100%;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-controls-right {
+      flex: 0 0 auto;
+      flex-wrap: nowrap;
+      justify-content: center;
+      margin-top: 8px;
+      padding-top: 0;
+    }
+  }
+  @media (max-width: 1080px) {
+    .topology-reference-launch { align-items: flex-start; flex-direction: column; }
+    #mtf-layout.mtf-detail-viewport { scroll-margin-top: 8px; }
+    #mtf-layout #mtf-detail #mtf-flowchart-diagram {
+      flex: 0 1 auto;
+      height: clamp(220px, 40vh, 360px) !important;
+      min-height: 220px !important;
+      max-height: min(48vh, 420px) !important;
+      overflow: hidden !important;
+    }
+    #mtf-layout #mtf-detail #mtf-flowchart-diagram > svg {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100%;
+      max-height: 100% !important;
+      object-fit: contain;
     }
   }
 </style>
