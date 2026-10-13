@@ -5967,4 +5967,120 @@ main{padding-top:4px!important}
       object-fit: contain;
     }
   }
+
+  /* Acabado profesional exclusivo de las fichas de diagnóstico BAT y MTF. */
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-1,
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-2,
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-3 {
+    background: var(--md-sys-color-surface-container-lowest);
+    border: 2px solid var(--md-sys-color-outline);
+    border-top: 4px solid var(--md-sys-color-primary);
+    border-radius: 16px;
+    box-shadow: 0 3px 12px color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-heading {
+    min-height: 88px;
+    margin: 0 0 5px;
+    border: 1px solid color-mix(in srgb, var(--md-sys-color-on-primary) 20%, transparent);
+    border-bottom: 3px solid var(--md-sys-color-primary-container);
+    border-radius: 12px;
+    background: var(--md-sys-color-primary);
+    box-shadow: 0 2px 5px color-mix(in srgb, var(--md-sys-color-on-surface) 14%, transparent);
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-title {
+    letter-spacing: -0.015em;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-subtitle {
+    opacity: 0.9;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-meta-item {
+    justify-content: center;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-left: 3px solid var(--md-sys-color-primary);
+    border-radius: 9px;
+    background: var(--md-sys-color-surface-container-low);
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-meta-label {
+    color: var(--md-sys-color-primary);
+    letter-spacing: 0.075em;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-title, #mtf-detail-title) {
+    padding: 6px 8px;
+    border-radius: 9px;
+    background: var(--md-sys-color-surface-container);
+    box-shadow: inset 3px 0 var(--md-sys-color-primary);
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-code, #mtf-code) {
+    font-family: ui-monospace, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.015em;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .m3-step-kicker {
+    padding: 5px 8px;
+    border-left: 3px solid var(--md-sys-color-primary);
+    border-radius: 4px 8px 8px 4px;
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+  }
+
+  #bat-failure-detail .bat-detail-sequence li {
+    border-color: var(--md-sys-color-outline-variant);
+    border-radius: 10px;
+    background: var(--md-sys-color-surface-container-low);
+    box-shadow: 0 1px 3px color-mix(in srgb, var(--md-sys-color-on-surface) 7%, transparent);
+    animation: ffdig-active-step-glow 1.8s ease-in-out infinite;
+  }
+
+  #bat-failure-detail .bat-detail-sequence li strong span:first-child {
+    min-width: 20px;
+    height: 20px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+  }
+
+  #mtf-detail .m3-step-pill {
+    border: 1px solid var(--md-sys-color-outline-variant);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+  }
+
+  #mtf-detail .m3-step-pill.active {
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 2px 6px color-mix(in srgb, var(--md-sys-color-primary) 28%, transparent);
+    animation: ffdig-active-step-glow 1.8s ease-in-out infinite;
+  }
+
+  @keyframes ffdig-active-step-glow {
+    0%, 100% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary) 28%, transparent), 0 0 5px color-mix(in srgb, var(--md-sys-color-primary) 18%, transparent); }
+    50% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 42%, transparent), 0 0 13px color-mix(in srgb, var(--md-sys-color-primary) 42%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #bat-failure-detail .bat-detail-sequence li,
+    #mtf-detail .m3-step-pill.active { animation: none; }
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .mtf-quality-heading {
+    padding: 4px 8px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 8px;
+    background: var(--md-sys-color-surface-container-low);
+  }
+
+  #bat-failure-detail #bat-disposition-flow,
+  #mtf-detail #mtf-flowchart-diagram {
+    border-color: var(--md-sys-color-outline-variant) !important;
+    border-radius: 10px !important;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-sys-color-on-surface) 3%, transparent);
+  }
 </style>

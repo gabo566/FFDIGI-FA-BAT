@@ -1921,3 +1921,208 @@ Los casos sin flowchart fuente muestran una secuencia SVG transparente basada en
 - Un procedimiento puede tener condiciones internas en su descripción; el diagrama secundario muestra títulos y secuencia, no interpreta esas condiciones ni sustituye la consulta del texto completo.
 - Si una falla tiene pasos incompletos, el renderer no puede reconstruir los pasos ausentes; debe corregirse desde una fuente autorizada, no por inferencia.
 
+## 36. 2026-10-13 — Revertir acabado visual de catálogos BAT/MTF
+
+### Fecha
+
+2026-10-13.
+
+### Solicitud
+
+Revertir el retoque visual aplicado a las tablas/tableros BAT y MTF.
+
+### Objetivo
+
+Restablecer la apariencia previa sin afectar otros cambios acumulados del proyecto.
+
+### Estado anterior
+
+El turno anterior había agregado localmente el bloque CSS `ffdg-catalog-visual-polish` a `index.html` y una nota de diseño en `CONTEXTO_FFDIGI.md`; no se había creado commit ni push.
+
+### Análisis
+
+Se revisó el estado Git y se aisló el cambio por su identificador CSS y las dos notas asociadas. No se revirtió el archivo completo ni se tocaron cambios anteriores.
+
+### Causa
+
+El usuario pidió volver al aspecto anterior tras revisar el retoque.
+
+### Solución
+
+- Se retiró el bloque CSS temporal de `index.html`.
+- Se retiró de `CONTEXTO_FFDIGI.md` la regla que describía ese acabado como vigente.
+- Se conserva esta entrada únicamente como trazabilidad de la aplicación y reversión; no se preserva el estilo retirado.
+
+### Archivos modificados
+
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de la reversión.
+- `index.html` y `CONTEXTO_FFDIGI.md` — los cambios temporales fueron retirados y ambos vuelven al contenido previo a ese retoque.
+
+### Funciones o secciones afectadas
+
+- CSS de los catálogos BAT/MTF — vuelve al estilo anterior.
+- Datos, funciones, navegación, filtros, flowcharts y reportes — sin cambios.
+
+### Impacto
+
+Solo se deshace el tratamiento visual experimental. Se conservan los demás cambios del proyecto.
+
+### Validaciones realizadas
+
+- Se confirmó que `ffdg-catalog-visual-polish` ya no aparece en `index.html`.
+- `git diff --check` sin errores; `index.html` y `CONTEXTO_FFDIGI.md` no presentan diferencias respecto a su estado previo al retoque.
+- No se realizó prueba visual en navegador.
+
+### Resultado
+
+El acabado visual quedó revertido; no hubo commit ni push.
+
+### Pendientes
+
+- Ninguno para esta reversión.
+
+### Riesgos
+
+- Ningún riesgo funcional identificado; la validación fue estática.
+
+## 37. 2026-10-13 — Realzar visualmente las fichas de diagnóstico BAT/MTF
+
+### Fecha
+
+2026-10-13.
+
+### Solicitud
+
+Rediseñar para que luzcan más llamativas, formales y de primer nivel únicamente las tarjetas de detalle BAT/MTF: Failure Record, Troubleshooting Sequence, validaciones técnicas y Disposition Flow/flowchart. No cambiar los tableros o mosaicos de fallas.
+
+### Objetivo
+
+Dar a los paneles de diagnóstico una jerarquía visual más clara y una presentación técnica profesional, conservando información, navegación y diagramas.
+
+### Estado anterior
+
+Las tres tarjetas compartían fondo transparente, bordes neutros y elementos de metadatos con poco contraste. Los encabezados ya usaban el color primario verde; los diagramas y pasos se representaban con sus estilos funcionales existentes.
+
+### Análisis
+
+- Se releeron `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md` antes de editar.
+- Se revisaron los estilos, markup y renderizado de `#bat-failure-detail` y `#mtf-detail`, incluyendo secuencias BAT/MTF y contenedores de flowchart.
+- Se confirmó que el cambio puede quedar aislado por selectores de ambas fichas, sin tocar catálogos, fuente de datos, lógica de selección ni recursos de diagramas.
+- El árbol ya tenía una modificación local anterior en este historial, correspondiente a la reversión del acabado de catálogos; se preservó.
+
+### Causa / necesidad
+
+La solicitud previa se había interpretado como un cambio visual de las tarjetas del catálogo. El usuario aclaró que se refería a los tres paneles de diagnóstico, por lo que el ajuste debe centrarse en títulos, datos técnicos, secuencia activa y área de disposición.
+
+### Solución
+
+- Se añadió al final de los estilos de `index.html` un bloque CSS acotado a `#bat-failure-detail` y `#mtf-detail`.
+- Se reforzaron superficies, bordes, acentos verdes, profundidad ligera y jerarquía de encabezados.
+- Metadatos, identificadores, paso BAT activo, selector de pasos MTF y título de disposición ganaron contraste y separación visual.
+- Se conservó el color y contenido original de los diagramas. No se añadieron gradientes ni animaciones.
+- No se modificaron dimensiones, reglas de scroll, controles, catálogo, pasos, datos ni comportamiento.
+
+### Archivos modificados
+
+- `index.html` — estilos visuales acotados a las fichas de diagnóstico BAT y MTF.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- CSS de `.bento-block-1/2/3`, encabezados, metadatos y título de falla dentro de los detalles BAT/MTF.
+- Estilo de pasos activos BAT y pestañas de secuencia MTF.
+- Marco visual de Disposition Flow y del diagrama.
+- Sin funciones JavaScript modificadas.
+
+### Impacto
+
+Solo presentación de los paneles de diagnóstico. Los catálogos y mosaicos, pasos, diagramas fuente, navegación, importadores y reportes no cambian.
+
+### Validaciones realizadas
+
+- Inspección estática de los selectores para confirmar que el bloque nuevo está limitado a los detalles BAT/MTF.
+- `git diff --check` sin errores.
+- No se realizó validación visual interactiva; la URL local `file://` no está disponible para inspección por navegador en este entorno.
+
+### Resultado
+
+Las fichas BAT/MTF tienen un acabado más marcado y profesional, manteniendo contenido y funcionamiento existentes.
+
+### Pendientes
+
+- Revisar la apariencia final en escritorio, tableta y móvil cuando la página esté disponible en un contexto de navegador permitido.
+
+### Riesgos
+
+- El resultado estético definitivo no se confirmó visualmente en esta sesión. Los estilos usan tokens de tema existentes y no alteran deliberadamente layout, scroll o tamaños del diagrama.
+
+## 38. 2026-10-13 — Resaltar paso activo y reforzar contornos de fichas
+
+### Fecha
+
+2026-10-13.
+
+### Solicitud
+
+Aplicar una iluminación pulsante al paso técnico activo y marcar con más fuerza el contorno completo de las tres tarjetas de detalle de BAT y MTF.
+
+### Objetivo
+
+Permitir identificar inmediatamente la validación seleccionada y delimitar mejor Failure Record, Troubleshooting Sequence y Disposition Flow.
+
+### Estado anterior
+
+BAT presenta la validación activa en una tarjeta dentro de `#bat-detail-steps`; MTF marca la validación activa mediante `.m3-step-pill.active`. Los paneles tenían contorno neutro de 1 px.
+
+### Análisis
+
+- Se leyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md`, `HISTORIAL_CAMBIOS_FFDIGI.md` y las instrucciones operativas indicadas por el usuario antes de modificar.
+- Se inspeccionaron los selectores reales de la secuencia BAT y del estado activo MTF, además de la regla global `prefers-reduced-motion`.
+- La intervención queda confinada al bloque CSS de fichas ya añadido; no requiere tocar código de selección/renderizado.
+
+### Causa / necesidad
+
+El estado activo dependía de estilos estáticos; en la vista de diagnóstico no destacaba como una señal luminosa y los bordes exteriores podían distinguirse poco del fondo.
+
+### Solución
+
+- Se aumentó el contorno de los tres paneles de 1 px a 2 px, conservando el borde superior verde como acento.
+- Se añadió un pulso verde tenue al elemento BAT de paso actual y a la pestaña MTF `.active`.
+- El pulso alterna suavemente halo y contorno, sin desplazar ni cambiar dimensiones de elementos.
+- Se añadió una regla explícita para desactivar la animación con `prefers-reduced-motion: reduce`.
+- No se alteraron contenido, pasos, selección, diagramas, scroll, datos ni estilos del catálogo.
+
+### Archivos modificados
+
+- `index.html` — estilos de borde, animación del paso activo y preferencia de movimiento reducido.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- CSS de `#bat-failure-detail .bat-detail-sequence li`.
+- CSS de `#mtf-detail .m3-step-pill.active`.
+- CSS de los paneles `.bento-block-1/2/3` dentro de las fichas BAT/MTF.
+- Sin funciones JavaScript modificadas.
+
+### Impacto
+
+Solo señalización visual del paso actual y contraste de contornos en los detalles BAT/MTF. No afecta el catálogo ni el flujo funcional.
+
+### Validaciones realizadas
+
+- Inspección estática de selectores BAT/MTF y consulta `prefers-reduced-motion`.
+- Comprobación de balance de llaves CSS y `git diff --check`.
+- No se realizó prueba visual/interactiva en navegador; la página local `file://` no está habilitada en este entorno.
+
+### Resultado
+
+El paso activo pulsa con un halo verde y los tres paneles tienen contornos más marcados. Usuarios con movimiento reducido reciben un estado estático destacado.
+
+### Pendientes
+
+- Confirmar intensidad visual en escritorio y móvil al poder abrir la página en un contexto de navegador permitido.
+
+### Riesgos
+
+- El pulso puede percibirse demasiado tenue o intenso según brillo/tema de pantalla; su duración e intensidad pueden ajustarse tras una revisión visual.
+
