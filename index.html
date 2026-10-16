@@ -1286,16 +1286,21 @@
     }
 
     body[data-print-mode="bat"] .m3-segmented-nav-wrap,
-    body[data-print-mode="mtf"] .m3-segmented-nav-wrap { display: none !important; }
+    body[data-print-mode="mtf"] .m3-segmented-nav-wrap,
+    body[data-print-mode="mtf-case"] .m3-segmented-nav-wrap { display: none !important; }
 
     body[data-print-mode="bat"] #bat-print-report,
-    body[data-print-mode="mtf"] #mtf-print-report {
+    body[data-print-mode="mtf"] #mtf-print-report,
+    body[data-print-mode="mtf-case"] #mtf-case-print-report {
       display: block !important;
       padding: 0;
     }
 
     body[data-print-mode="bat"] #mtf-print-report,
-    body[data-print-mode="mtf"] #bat-print-report { display: none !important; }
+    body[data-print-mode="mtf"] #bat-print-report,
+    body[data-print-mode="mtf-case"] :is(#bat-print-report, #mtf-print-report) { display: none !important; }
+    body[data-print-mode="mtf-case"] #mtf-case-print-report { display: block !important; padding: 0; }
+    body[data-print-mode="mtf-case"] dialog { display: none !important; }
 
     .report-only { color: #111 !important; }
 
@@ -1437,6 +1442,80 @@
       .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   }
+
+  .mtf-case-dialog { width: min(760px, calc(100% - 24px)); max-width: 760px; max-height: min(88dvh, 900px); padding: 0; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 18px; color: var(--md-sys-color-on-surface); background: var(--md-sys-color-surface); box-shadow: 0 18px 60px rgba(0,0,0,.28); }
+  #mtf-case-report-open[hidden] { display: none !important; }
+  .mtf-case-dialog::backdrop { background: rgba(12,18,10,.58); }
+  .mtf-case-form { display: grid; gap: 14px; padding: 20px; overflow: auto; max-height: inherit; }
+  .mtf-case-dialog-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding-bottom: 12px; }
+  .mtf-case-dialog-head h2 { margin: 4px 0 0; font-size: 22px; }
+  .mtf-case-note { margin: 0; color: var(--md-sys-color-on-surface-variant); font-size: 13px; line-height: 1.45; }
+  .mtf-case-section { min-width: 0; margin: 0; padding: 12px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 12px; }
+  .mtf-case-section h3, .mtf-case-section legend { margin: 0 0 9px; padding: 0 4px; font-weight: 800; }
+  .mtf-case-fault-summary { padding: 10px 12px; border-left: 4px solid var(--md-sys-color-primary); border-radius: 6px; background: var(--md-sys-color-surface-container); font-weight: 700; overflow-wrap: anywhere; }
+  .mtf-case-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .mtf-case-fields > label, .mtf-case-block { display: grid; gap: 6px; min-width: 0; font-size: 13px; font-weight: 700; }
+  .mtf-case-action-fields { align-items: stretch; }
+  .mtf-case-action-fields .m3-textarea { min-height: 116px; }
+  .mtf-case-step-options { display: grid; gap: 7px; max-height: 220px; overflow: auto; }
+  .mtf-case-check { display: flex; align-items: flex-start; gap: 9px; padding: 8px; border-radius: 8px; background: var(--md-sys-color-surface-container); font-size: 13px; line-height: 1.4; }
+  .mtf-case-check input { margin-top: 2px; accent-color: var(--md-sys-color-primary); }
+  .mtf-case-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 12px; }
+  .mtf-case-evidence-intro { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; }
+  .mtf-case-evidence-intro h3 { margin:0 0 4px; }
+  .mtf-case-evidence-limit { flex:none; padding:5px 9px; border-radius:999px; background:var(--md-sys-color-surface-container-high); color:var(--md-sys-color-on-surface-variant); font-size:11px; font-weight:800; }
+  .mtf-case-evidence-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .mtf-case-evidence-card { display:grid; align-content:start; gap:7px; min-width:0; padding:13px; border:1px solid var(--md-sys-color-outline-variant); border-top:3px solid var(--md-sys-color-primary); border-radius:12px; background:var(--md-sys-color-surface-container-low); }
+  .mtf-case-evidence-card.is-after { border-top-color:#398347; }
+  .mtf-case-evidence-step { color:var(--md-sys-color-primary); font-size:10px; font-weight:900; letter-spacing:.08em; }
+  .mtf-case-evidence-card.is-after .mtf-case-evidence-step { color:var(--md-sys-color-primary); }
+  .mtf-case-evidence-card h4 { margin:0; font-size:14px; }
+  .mtf-case-evidence-input { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  .mtf-case-evidence-button { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:40px; padding:8px 12px; border:1px solid var(--md-sys-color-outline); border-radius:999px; color:var(--md-sys-color-primary); background:var(--md-sys-color-surface); font-family:inherit; font-size:12px; font-weight:700; line-height:1.25; cursor:pointer; }
+  .mtf-case-evidence-button:hover { background:var(--md-sys-color-surface-container-high); }
+  .mtf-case-evidence-button:focus-visible,.mtf-case-evidence-remove:focus-visible { outline:2px solid var(--md-sys-color-primary); outline-offset:2px; }
+  .mtf-case-evidence-button svg { width:18px; height:18px; flex:none; }
+  .mtf-case-evidence-preview { display:flex; flex-wrap:wrap; align-items:flex-start; gap:7px; color:var(--md-sys-color-on-surface-variant); font-size:11px; }
+  .mtf-case-evidence-thumb { display:grid; grid-template-columns:44px minmax(0,1fr) auto; align-items:center; gap:6px; width:100%; min-width:0; margin:0; padding:5px; border:1px solid var(--md-sys-color-outline-variant); border-radius:8px; background:var(--md-sys-color-surface); }
+  .mtf-case-evidence-thumb img { width:44px; height:38px; object-fit:cover; border-radius:5px; }
+  .mtf-case-evidence-thumb figcaption { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mtf-case-evidence-remove { padding:4px 6px; border:0; border-radius:6px; color:var(--md-sys-color-error); background:transparent; font-family:inherit; font-size:11px; font-weight:700; cursor:pointer; }
+  .mtf-case-actions [type="submit"]:disabled { opacity:.6; cursor:wait; }
+  #mtf-case-form-status:not(:empty) { padding: 8px 10px; border-radius: 8px; background: var(--md-sys-color-surface-container); }
+  @media (max-width: 600px) { .mtf-case-fields,.mtf-case-evidence-grid { grid-template-columns: minmax(0,1fr); } .mtf-case-form { padding: 15px; } .mtf-case-actions > button { flex: 1 1 100%; } }
+  @media print {
+    #mtf-case-print-report { color: #161a1d; font: 8.5pt/1.32 Arial, sans-serif; }
+    .mtf-case-print-head { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:0 0 9px; margin-bottom:10px; border-bottom:3px solid #76b900; break-inside:avoid; }
+    .mtf-case-print-head span { color:#467900; font-size:7pt; font-weight:800; letter-spacing:.08em; }
+    .mtf-case-print-head h1 { margin:3px 0; font-size:18pt; }
+    .mtf-case-print-head p { margin:0; font-size:10pt; font-weight:700; }
+    .mtf-case-print-head > strong { padding:8px 12px; border-radius:8px; background:#eef6e5; color:#315f08; font-size:13pt; }
+    .mtf-case-print-section { margin-top:10px; break-inside:avoid; }
+    .mtf-case-print-section h2 { margin:0 0 6px; padding:0 0 4px 7px; border-bottom:1px solid #d7ddd2; border-left:3px solid #76b900; font-size:10pt; }
+    .mtf-case-print-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; }
+    .mtf-case-print-analysis-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; margin-top:6px; }
+    .mtf-case-print-analysis-grid .mtf-case-print-field { break-inside:avoid; }
+    .mtf-case-print-field { min-width:0; padding:5px 7px; border:1px solid #dfe4dc; border-radius:6px; background:#fafcf8; overflow-wrap:anywhere; }
+    .mtf-case-print-field strong, .mtf-case-print-field span { display:block; }
+    .mtf-case-print-field strong { color:#52604b; font-size:6.5pt; text-transform:uppercase; letter-spacing:.03em; }
+    .mtf-case-print-field span { margin-top:2px; white-space:pre-wrap; }
+    .mtf-case-print-field.wide { grid-column:1/-1; }
+    .mtf-case-print-steps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px 12px; margin:4px 0 8px; padding-left:22px; }
+    .mtf-case-print-steps li { padding:5px 6px; border:1px solid #e0e5dc; border-radius:5px; break-inside:avoid; }
+    .mtf-case-print-steps li.is-checked { border-left:3px solid #76b900; background:#f6faef; }
+    .mtf-case-print-steps p { margin:3px 0; white-space:pre-wrap; }
+    .mtf-case-print-steps li > span { color:#506044; font-size:7pt; font-weight:700; }
+    .mtf-case-print-photos { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
+    .mtf-case-print-photos figure { margin:0; break-inside:avoid; }
+    .mtf-case-print-photos img { width:100%; height:72px; object-fit:contain; border:1px solid #d9ded5; }
+    .mtf-case-print-photos figcaption { overflow-wrap:anywhere; font-size:7pt; }
+    .mtf-case-print-empty { margin:0; color:#555; font-style:italic; }
+    .mtf-case-print-signatures { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .mtf-case-print-signatures > div { display:grid; gap:3px; min-height:62px; padding:7px; border:1px solid #dfe4dc; border-radius:6px; }
+    .mtf-case-print-signatures i { height:1px; margin-top:12px; background:#444; }
+    .mtf-case-print-signatures small { color:#555; }
+    .mtf-case-print-foot { margin-top:9px; padding-top:5px; border-top:1px solid #d7ddd2; color:#555; font-size:7pt; }
+  }
 </style>
 <!-- SheetJS para carga y actualización dinámica de Excel FFDG en navegador -->
 <script src="./xlsx.full.min.js"></script>
@@ -1519,7 +1598,10 @@
         </div>
         <div id="bat-selection-summary" class="bat-selection-summary hidden" aria-live="polite">
           <span id="bat-selection-text" class="catalog-selection-text"></span>
-          <button id="bat-selection-toggle" class="catalog-selection-toggle" type="button" aria-controls="bat-board" aria-expanded="false">Cambiar falla</button>
+          <button id="bat-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Cambiar Falla" aria-controls="bat-board" aria-expanded="false">
+            <svg class="catalog-selection-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="currentColor"/></svg>
+            <span>Cambiar Falla</span>
+          </button>
         </div>
         <div class="bat-board-controls">
           <div class="mtf-row-1-search bat-board-search">
@@ -1851,9 +1933,12 @@
         Customer notifications <span class="mtf-notification-count" aria-hidden="true">1</span>
       </button>
       <div id="mtf-selection-summary" class="mtf-selection-summary hidden no-print" aria-live="polite">
-        <button id="mtf-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Cambiar falla" aria-controls="mtf-row-2" aria-expanded="false">
+        <button id="mtf-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Cambiar Falla" aria-controls="mtf-row-2" aria-expanded="false">
           <span id="mtf-selection-text" class="catalog-selection-text"></span>
-          <span class="catalog-selection-action">Cambiar falla ▾</span>
+          <span class="catalog-selection-action">
+            <svg class="catalog-selection-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="currentColor"/></svg>
+            <span>Cambiar Falla</span><span class="catalog-selection-chevron" aria-hidden="true">▾</span>
+          </span>
         </button>
       </div>
     </div>
@@ -1903,6 +1988,7 @@
               <span class="bento-meta-label">Flowchart</span>
               <span id="mtf-flowchart" class="bento-meta-val"></span>
             </div>
+            <button id="mtf-case-report-open" class="m3-btn m3-btn-filled no-print" type="button" aria-haspopup="dialog" aria-controls="mtf-case-report-dialog" hidden>Realizar reporte de falla</button>
             <details id="mtf-source-details" class="mtf-source-details hidden">
               <summary>Campos originales del Excel</summary>
               <dl id="mtf-source-fields"></dl>
@@ -2075,7 +2161,41 @@
     <div class="print-section">Resultado Final de Ruta</div>
     <div id="mtf-print-final"></div>
   </div>
+  <div id="mtf-case-print-report" class="report-only"></div>
 </main>
+<dialog id="mtf-case-report-dialog" class="mtf-case-dialog" aria-labelledby="mtf-case-dialog-title" aria-describedby="mtf-case-dialog-help">
+  <form id="mtf-case-report-form" class="mtf-case-form">
+    <header class="mtf-case-dialog-head">
+      <div><span class="flowchart-modal-kicker">PILOTO · MTF / FLA-04</span><h2 id="mtf-case-dialog-title">Reporte de intervención</h2></div>
+      <button id="mtf-case-report-close" class="flowchart-modal-close" type="button" aria-label="Cerrar reporte">×</button>
+    </header>
+    <p id="mtf-case-dialog-help" class="mtf-case-note">Captura lo realizado en este nodo. La información se usa para esta impresión y no se guarda en el catálogo ni en servidor. Al final, elige «Guardar como PDF» en la ventana de impresión; el formulario no descarga el archivo por sí solo.</p>
+    <section class="mtf-case-section" aria-labelledby="mtf-case-fault-heading"><h3 id="mtf-case-fault-heading">Falla seleccionada</h3><div id="mtf-case-fault-summary" class="mtf-case-fault-summary"></div></section>
+    <div class="mtf-case-fields">
+      <label>Número de serie (S/N)<input class="m3-input" name="serial" autocomplete="off" required></label>
+      <label>Número de parte (P/N)<input class="m3-input" name="partNumber" autocomplete="off"></label>
+      <label>Número de empleado<input class="m3-input" name="employeeId" inputmode="numeric" autocomplete="off" required></label>
+      <label>Nombre del analista<input class="m3-input" name="analyst" autocomplete="name" required></label>
+    </div>
+    <fieldset class="mtf-case-section"><legend>Validaciones ejecutadas</legend><div id="mtf-case-step-options" class="mtf-case-step-options"></div><label class="mtf-case-check"><input name="acCycle" type="checkbox"> AC Cycle realizado como acción adicional</label></fieldset>
+    <div class="mtf-case-fields">
+      <label>Resultado de la falla<select class="m3-select" name="outcome" required><option value="">Selecciona</option><option value="Resuelta">Resuelta</option><option value="No resuelta">No resuelta</option><option value="No ejecutado">No ejecutado</option></select></label>
+      <label id="mtf-case-pass-step-wrap" class="hidden">Paso en el que pasó<select class="m3-select" name="passStep"><option value="">Selecciona</option></select></label>
+      <label>Resultado del retest<select class="m3-select" name="retest" required><option value="">Selecciona</option><option>Pass</option><option>Fail</option><option>No ejecutado</option></select></label>
+      <label>Daño físico<select class="m3-select" name="physicalDamage" required><option value="">Selecciona</option><option>No</option><option>Sí</option><option>No aplica</option></select></label>
+    </div>
+    <div class="mtf-case-fields mtf-case-action-fields"><label>Intervención / acciones realizadas<textarea class="m3-textarea" name="actions" rows="4" required></textarea></label><label>Causa raíz (RCA)<textarea class="m3-textarea" name="rca" rows="4" required></textarea></label></div>
+    <section class="mtf-case-section mtf-case-evidence-section" aria-labelledby="mtf-case-evidence-heading">
+      <div class="mtf-case-evidence-intro"><div><h3 id="mtf-case-evidence-heading">Evidencia fotográfica por etapa</h3><p class="mtf-case-note">Adjunta imágenes del estado inicial y del resultado después de intervenir. Máximo 4 imágenes entre ambas etapas.</p></div><span class="mtf-case-evidence-limit">4 imágenes máx.</span></div>
+      <div class="mtf-case-evidence-grid">
+        <article class="mtf-case-evidence-card is-before"><span class="mtf-case-evidence-step">01 · ANTES</span><h4>Antes de aplicar acciones</h4><p class="mtf-case-note">Muestra la falla o condición original.</p><input id="mtf-case-evidence-before" class="mtf-case-evidence-input" data-evidence-stage="before" type="file" accept="image/*" multiple aria-label="Seleccionar evidencia antes de aplicar acciones"><button class="mtf-case-evidence-button" type="button" data-evidence-target="mtf-case-evidence-before" aria-controls="mtf-case-evidence-before-preview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3v12H4zM12 10a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Adjuntar evidencia inicial</button><div id="mtf-case-evidence-before-preview" class="mtf-case-evidence-preview" aria-live="polite"></div></article>
+        <article class="mtf-case-evidence-card is-after"><span class="mtf-case-evidence-step">02 · DESPUÉS</span><h4>Después de aplicar acciones</h4><p class="mtf-case-note">Muestra el resultado de la intervención y el retest.</p><input id="mtf-case-evidence-after" class="mtf-case-evidence-input" data-evidence-stage="after" type="file" accept="image/*" multiple aria-label="Seleccionar evidencia después de aplicar acciones"><button class="mtf-case-evidence-button" type="button" data-evidence-target="mtf-case-evidence-after" aria-controls="mtf-case-evidence-after-preview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3v12H4zM12 10a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Adjuntar evidencia final</button><div id="mtf-case-evidence-after-preview" class="mtf-case-evidence-preview" aria-live="polite"></div></article>
+      </div>
+    </section>
+    <p id="mtf-case-form-status" class="mtf-case-note" role="status" aria-live="polite"></p>
+    <footer class="mtf-case-actions"><button id="mtf-case-report-cancel" class="m3-btn m3-btn-tonal" type="button">Cancelar</button><button class="m3-btn m3-btn-filled" type="submit">Imprimir / Guardar como PDF</button></footer>
+  </form>
+</dialog>
 <dialog id="mtf-flowchart-modal" aria-labelledby="mtf-flowchart-modal-title">
   <div class="flowchart-modal-head">
     <div>
@@ -2835,10 +2955,12 @@
       if (!f) {
         $("mtf-empty").classList.remove("hidden");
         $("mtf-detail").classList.add("hidden");
+        $("mtf-case-report-open").hidden = true;
         return;
       }
       $("mtf-empty").classList.add("hidden");
       $("mtf-detail").classList.remove("hidden");
+      $("mtf-case-report-open").hidden = !FFDG.reports?.isMtfCasePilot(f);
       $("mtf-detail-title").textContent = `${f.id} · ${f.name}`;
       $("mtf-badge-station").textContent = f.station;
       $("mtf-badge-flow").textContent = f.flowchart;
@@ -3209,7 +3331,7 @@
       cell.innerHTML = `<strong>${safe(label)}:</strong> ${safe(value || "No registrado")}`;
       $("bat-print-meta").appendChild(cell);
     }
-    function openPrintDialog(mode, title) {
+    function openPrintDialog(mode, title, preserveUserActivation = false) {
       const previousTitle = document.title;
       document.title = title;
       document.body.dataset.printMode = mode;
@@ -3217,7 +3339,8 @@
         delete document.body.dataset.printMode;
         document.title = previousTitle;
       }, { once: true });
-      requestAnimationFrame(() => window.print());
+      if (preserveUserActivation) window.print();
+      else requestAnimationFrame(() => window.print());
     }
     function printBatReport() {
       if (!$("classification").value) {
@@ -3389,7 +3512,234 @@
       document.title = `FA_MTF_${f.id}_${f.code}`;
       openPrintDialog("mtf", `Guia_MTF_${f.station}_${f.id}`);
     }
-    return { printBatReport, printMtfReport };
+    const mtfCasePilot = { id: "FLA-04", station: "FLA", code: "020023006_001", name: "ERROR: POST failed to complete; timeout" };
+    function isMtfCasePilot(f) {
+      return Boolean(f && f.id === mtfCasePilot.id && f.station === mtfCasePilot.station
+        && f.code === mtfCasePilot.code && f.name === mtfCasePilot.name);
+    }
+    function openMtfCaseReport() {
+      const f = FFDG.state.mtfSelected;
+      if (!isMtfCasePilot(f)) return;
+      const dialog = $("mtf-case-report-dialog");
+      const form = $("mtf-case-report-form");
+      const steps = FFDG.ui.getActiveSteps(f);
+      form.reset();
+      mtfCaseEvidence = { before: { files: [], photos: [], loading: false }, after: { files: [], photos: [], loading: false } };
+      ["before", "after"].forEach(stage => {
+        mtfCaseEvidenceTokens[stage] += 1;
+        $(`mtf-case-evidence-${stage}`).value = "";
+        renderMtfCaseEvidencePreview(stage);
+      });
+      updateMtfCaseEvidenceSubmitState();
+      $("mtf-case-form-status").textContent = "";
+      $("mtf-case-fault-summary").textContent = `${f.station} · ${f.id} · ${f.code} · ${f.name}`;
+      const stepOptions = $("mtf-case-step-options");
+      const passStep = form.elements.passStep;
+      stepOptions.replaceChildren();
+      passStep.replaceChildren(new Option("Selecciona", ""));
+      steps.forEach((step, index) => {
+        const label = document.createElement("label");
+        label.className = "mtf-case-check";
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.name = "executedSteps";
+        input.value = String(index);
+        const text = document.createElement("span");
+        text.textContent = `Paso ${index + 1} · ${step.title || "Validación"}${step.detail ? ` — ${step.detail}` : ""}`;
+        label.append(input, text);
+        stepOptions.appendChild(label);
+        passStep.add(new Option(`Paso ${index + 1} · ${step.title || "Validación"}`, String(index)));
+      });
+      passStep.add(new Option("AC Cycle adicional", "ac-cycle"));
+      $("mtf-case-pass-step-wrap").classList.add("hidden");
+      passStep.required = false;
+      dialog.showModal();
+      form.elements.serial.focus();
+    }
+    function renderMtfCaseField(label, value, wide = false) {
+      return `<div class="mtf-case-print-field${wide ? " wide" : ""}"><strong>${safe(label)}</strong><span>${safe(value || "No registrado")}</span></div>`;
+    }
+    let mtfCaseEvidence = { before: { files: [], photos: [], loading: false }, after: { files: [], photos: [], loading: false } };
+    const mtfCaseEvidenceTokens = { before: 0, after: 0 };
+    let mtfCasePrintPending = false;
+    function readImage(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve({ name: file.name, dataUrl: reader.result });
+        reader.onerror = () => reject(new Error(`No se pudo leer la imagen ${file.name}.`));
+        reader.readAsDataURL(file);
+      });
+    }
+    function updateMtfCaseEvidenceSubmitState() {
+      const loading = Object.values(mtfCaseEvidence).some(stage => stage.loading);
+      const submit = $("mtf-case-report-form").querySelector('[type="submit"]');
+      submit.disabled = loading;
+      submit.setAttribute("aria-busy", String(loading));
+    }
+    function clearMtfCaseEvidence() {
+      ["before", "after"].forEach(stage => {
+        mtfCaseEvidenceTokens[stage] += 1;
+        $(`mtf-case-evidence-${stage}`).value = "";
+        $(`mtf-case-evidence-${stage}-preview`).replaceChildren();
+      });
+      mtfCaseEvidence = { before: { files: [], photos: [], loading: false }, after: { files: [], photos: [], loading: false } };
+      updateMtfCaseEvidenceSubmitState();
+    }
+    function renderMtfCaseEvidencePreview(stage) {
+      const preview = $(`mtf-case-evidence-${stage}-preview`);
+      const entry = mtfCaseEvidence[stage];
+      preview.replaceChildren();
+      if (entry.loading) {
+        preview.textContent = "Leyendo y preparando evidencia…";
+        return;
+      }
+      if (!entry.photos.length) {
+        preview.textContent = "Sin imágenes adjuntas";
+        return;
+      }
+      entry.photos.forEach((photo, index) => {
+        const item = document.createElement("figure");
+        item.className = "mtf-case-evidence-thumb";
+        const image = document.createElement("img");
+        image.src = photo.dataUrl;
+        image.alt = `Vista previa ${stage === "before" ? "antes" : "después"}: ${photo.name}`;
+        const caption = document.createElement("figcaption");
+        caption.textContent = photo.name;
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "mtf-case-evidence-remove";
+        remove.textContent = "Quitar";
+        remove.setAttribute("aria-label", `Quitar ${photo.name}`);
+        remove.addEventListener("click", () => {
+          entry.photos.splice(index, 1);
+          entry.files.splice(index, 1);
+          renderMtfCaseEvidencePreview(stage);
+          $("mtf-case-form-status").textContent = "Evidencia eliminada de esta captura.";
+        });
+        item.append(image, caption, remove);
+        preview.appendChild(item);
+      });
+    }
+    async function updateMtfCaseEvidence(input) {
+      const stage = input.dataset.evidenceStage;
+      const files = [...input.files];
+      if (!stage || !files.length) return;
+      const otherStage = stage === "before" ? "after" : "before";
+      const status = $("mtf-case-form-status");
+      if (files.length + mtfCaseEvidence[otherStage].files.length > 4) {
+        status.textContent = "El límite total es de 4 imágenes; conserva algunas y vuelve a seleccionar.";
+        input.value = "";
+        return;
+      }
+      if (files.some(file => !file.type.startsWith("image/") || file.size > 8 * 1024 * 1024)) {
+        status.textContent = "Usa imágenes de hasta 8 MB cada una.";
+        input.value = "";
+        return;
+      }
+      const token = ++mtfCaseEvidenceTokens[stage];
+      mtfCaseEvidence[stage] = { files, photos: [], loading: true };
+      renderMtfCaseEvidencePreview(stage);
+      updateMtfCaseEvidenceSubmitState();
+      status.textContent = "Preparando las imágenes…";
+      try {
+        const photos = await Promise.all(files.map(readImage));
+        if (token !== mtfCaseEvidenceTokens[stage]) return;
+        mtfCaseEvidence[stage] = { files, photos, loading: false };
+        renderMtfCaseEvidencePreview(stage);
+        const images = [...$(`mtf-case-evidence-${stage}-preview`).querySelectorAll("img")];
+        await Promise.all(images.map(image => image.decode().catch(() => undefined)));
+        if (token !== mtfCaseEvidenceTokens[stage]) return;
+        status.textContent = `${photos.length} imagen(es) listas para “${stage === "before" ? "Antes" : "Después"}”.`;
+      } catch (error) {
+        if (token !== mtfCaseEvidenceTokens[stage]) return;
+        mtfCaseEvidence[stage] = { files: [], photos: [], loading: false };
+        input.value = "";
+        renderMtfCaseEvidencePreview(stage);
+        status.textContent = error.message || "No se pudieron preparar las imágenes.";
+      } finally {
+        updateMtfCaseEvidenceSubmitState();
+      }
+    }
+    function submitMtfCaseReport(event) {
+      event.preventDefault();
+      const f = FFDG.state.mtfSelected;
+      const form = $("mtf-case-report-form");
+      const status = $("mtf-case-form-status");
+      if (!isMtfCasePilot(f)) return;
+      if (!form.reportValidity()) return;
+      const values = new FormData(form);
+      const steps = FFDG.ui.getActiveSteps(f);
+      const executed = values.getAll("executedSteps").map(Number);
+      const outcome = String(values.get("outcome"));
+      const passStepIndex = String(values.get("passStep"));
+      const passedByAcCycle = passStepIndex === "ac-cycle";
+      if (outcome === "Resuelta" && (passStepIndex === "" || (passedByAcCycle ? !form.elements.acCycle.checked : !executed.includes(Number(passStepIndex))))) {
+        status.textContent = passedByAcCycle
+          ? "Marca AC Cycle como acción adicional para seleccionarlo como resultado."
+          : "Marca como ejecutado el paso que pasó y selecciónalo como resultado.";
+        form.elements.passStep.focus();
+        return;
+      }
+      if (outcome === "Resuelta" && values.get("retest") !== "Pass") {
+        status.textContent = "Si el retest no está en Pass, no registres la falla como resuelta.";
+        form.elements.retest.focus();
+        return;
+      }
+      try {
+        if (FFDG.state.mtfSelected !== f) throw new Error("La falla seleccionada cambió. Vuelve a abrir el reporte.");
+        const now = new Date();
+        const selectedPassStep = passStepIndex === "" ? "No aplica"
+          : passStepIndex === "ac-cycle" ? "AC Cycle adicional"
+          : `Paso ${Number(passStepIndex) + 1} · ${steps[Number(passStepIndex)]?.title || ""}`;
+        const report = $("mtf-case-print-report");
+        const photosForPrint = stage => mtfCaseEvidence[stage].photos.length
+          ? `<div class="mtf-case-print-photos">${mtfCaseEvidence[stage].photos.map(photo => `<figure><img src="${safe(photo.dataUrl)}" alt="Evidencia ${stage === "before" ? "antes" : "después"} de las acciones"><figcaption>${safe(photo.name)}</figcaption></figure>`).join("")}</div>`
+          : `<p class="mtf-case-print-empty">No se adjuntaron imágenes para esta etapa.</p>`;
+        const executedHtml = steps.map((step, index) => `<li class="${executed.includes(index) ? "is-checked" : ""}"><strong>Paso ${index + 1} · ${safe(step.title || "Validación")}</strong>${step.detail ? `<p>${safe(step.detail)}</p>` : ""}<span>${executed.includes(index) ? "Ejecutado" : "No marcado como ejecutado"}</span></li>`).join("");
+        report.innerHTML = `<header class="mtf-case-print-head"><div><span>FFDG · MTF · REPORTE DE INTERVENCIÓN</span><h1>Reporte de falla</h1><p>ERROR: POST failed to complete; timeout</p></div><strong>FLA-04</strong></header>
+          <section class="mtf-case-print-section"><h2>Identificación del nodo y la falla</h2><div class="mtf-case-print-grid">${renderMtfCaseField("Estación", f.station)}${renderMtfCaseField("Serial del nodo (S/N)", values.get("serial"))}${renderMtfCaseField("Número de parte (P/N)", values.get("partNumber"))}${renderMtfCaseField("Analista", `${values.get("analyst")} · ${values.get("employeeId")}`)}${renderMtfCaseField("Código de falla", f.code)}${renderMtfCaseField("Componentes", f.components)}${renderMtfCaseField("Generado", now.toLocaleString("es-MX"))}</div></section>
+          <section class="mtf-case-print-section"><h2>Validaciones y trabajo realizado</h2><p><strong>Procedimiento asociado:</strong> ${safe(f.flowchart)} · Pasos originales consultados desde la ficha activa.</p><ol class="mtf-case-print-steps">${executedHtml}</ol><div class="mtf-case-print-grid">${renderMtfCaseField("AC Cycle adicional", values.get("acCycle") ? "Sí" : "No")}${renderMtfCaseField("Resultado de la falla", outcome)}${renderMtfCaseField("Paso donde pasó", selectedPassStep)}${renderMtfCaseField("Retest", values.get("retest"))}</div><div class="mtf-case-print-analysis-grid">${renderMtfCaseField("Intervención / acciones realizadas", values.get("actions"))}${renderMtfCaseField("Causa raíz (RCA)", values.get("rca"))}</div></section>
+          <section class="mtf-case-print-section"><h2>Evidencia · Antes de aplicar acciones</h2>${photosForPrint("before")}</section><section class="mtf-case-print-section"><h2>Evidencia · Después de aplicar acciones</h2>${photosForPrint("after")}</section>
+          <section class="mtf-case-print-section"><h2>Firmas</h2><div class="mtf-case-print-signatures"><div><strong>Analista responsable</strong><span>${safe(values.get("analyst"))} · ${safe(values.get("employeeId"))}</span><i></i><small>Firma y fecha</small></div><div><strong>Revisión de Calidad</strong><span>Nombre: __________________________________</span><i></i><small>Firma y fecha</small></div></div></section>
+          <footer class="mtf-case-print-foot">Registro de intervención capturado para este reporte. La guía FFDG/MTF permanece sin cambios. Resultado declarado por el analista; no constituye liberación automática del nodo.</footer>`;
+        status.textContent = "Se abrirá la impresión. Selecciona “Guardar como PDF”.";
+        if (typeof window.print !== "function") throw new Error("Este navegador no ofrece la función de impresión. Abre la página en un navegador compatible e intenta de nuevo.");
+        setPrintStatus("Solicitando impresión. En el diálogo del navegador, elige “Guardar como PDF”.");
+        mtfCasePrintPending = true;
+        window.addEventListener("afterprint", () => {
+          mtfCasePrintPending = false;
+          clearMtfCaseEvidence();
+          $("mtf-case-print-report").replaceChildren();
+        }, { once: true });
+        $("mtf-case-report-dialog").close();
+        openPrintDialog("mtf-case", `Reporte_MTF_${f.station}_${f.id}_${String(values.get("serial")).trim()}`, true);
+      } catch (error) {
+        mtfCasePrintPending = false;
+        status.textContent = error.message || "No se pudo preparar el reporte.";
+        setPrintStatus(status.textContent, true);
+        if (!$("mtf-case-report-dialog").open) $("mtf-case-report-dialog").showModal();
+      }
+    }
+    $("mtf-case-report-close").addEventListener("click", () => $("mtf-case-report-dialog").close());
+    $("mtf-case-report-cancel").addEventListener("click", () => $("mtf-case-report-dialog").close());
+    $("mtf-case-report-open").addEventListener("click", openMtfCaseReport);
+    document.querySelectorAll("#mtf-case-report-form [data-evidence-stage]").forEach(input => input.addEventListener("change", () => updateMtfCaseEvidence(input)));
+    document.querySelectorAll("#mtf-case-report-form [data-evidence-target]").forEach(button => button.addEventListener("click", () => $(button.dataset.evidenceTarget).click()));
+    $("mtf-case-report-form").elements.outcome.addEventListener("change", event => {
+      const resolved = event.target.value === "Resuelta";
+      $("mtf-case-pass-step-wrap").classList.toggle("hidden", !resolved);
+      $("mtf-case-report-form").elements.passStep.required = resolved;
+      if (!resolved) $("mtf-case-report-form").elements.passStep.value = "";
+    });
+    $("mtf-case-report-form").elements.employeeId.addEventListener("input", event => {
+      const analystName = FFDG.data.analystDirectory[event.target.value.trim()];
+      if (analystName) $("mtf-case-report-form").elements.analyst.value = analystName;
+    });
+    $("mtf-case-report-form").addEventListener("submit", submitMtfCaseReport);
+    $("mtf-case-report-dialog").addEventListener("close", () => {
+      if (!mtfCasePrintPending) clearMtfCaseEvidence();
+    });
+    return { printBatReport, printMtfReport, openMtfCaseReport, isMtfCasePilot };
   })();
   // 4. APP INITIALIZER
   (() => {
@@ -5482,7 +5832,12 @@ main{padding-top:4px!important}
     #mtf-layout #mtf-detail .btn-row > .m3-btn,
     #mtf-layout #mtf-detail .btn-row > .flowchart-open-btn { font-size: calc(10px + 2pt) !important; }
     .catalog-selection-text { flex: 1 1 240px; min-width: 0; color: var(--md-sys-color-on-surface); font-size: 13px; font-weight: 800; line-height: 1.35; overflow-wrap: anywhere; }
-    .catalog-selection-toggle { flex: 0 0 auto; min-height: 44px; padding: 8px 14px; border: 0; border-radius: 999px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); font: inherit; font-weight: 800; cursor: pointer; }
+    .catalog-selection-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: 0 0 auto; min-height: 44px; padding: 8px 14px; border: 0; border-radius: 999px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); font: inherit; font-weight: 800; cursor: pointer; }
+    .catalog-selection-icon { display: block; flex: 0 0 18px; width: 18px; height: 18px; transition: transform 160ms; }
+    .catalog-selection-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .catalog-selection-toggle:is(:hover, :focus-visible) .catalog-selection-icon { transform: rotate(180deg); }
+    }
     .catalog-selection-toggle:focus-visible, .mtf-item-card:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 3px; }
     .bat-selection-summary, .mtf-selection-summary { display: none; }
     #bat-failure-board.catalog-selection-collapsed { padding-block: 10px !important; }
@@ -6012,9 +6367,12 @@ main{padding-top:4px!important}
 
   :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-title, #mtf-detail-title) {
     padding: 6px 8px;
+    border: 1px solid var(--md-sys-color-error);
+    border-left: 4px solid var(--md-sys-color-error);
     border-radius: 9px;
-    background: var(--md-sys-color-surface-container);
-    box-shadow: inset 3px 0 var(--md-sys-color-primary);
+    background: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-on-error-container) !important;
+    box-shadow: 0 1px 4px color-mix(in srgb, var(--md-sys-color-error) 18%, transparent);
   }
 
   :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-code, #mtf-code) {
@@ -6029,6 +6387,7 @@ main{padding-top:4px!important}
     border-radius: 4px 8px 8px 4px;
     background: var(--md-sys-color-primary-container);
     color: var(--md-sys-color-on-primary-container);
+    text-align: center;
   }
 
   #bat-failure-detail .bat-detail-sequence li {

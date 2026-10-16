@@ -2126,3 +2126,436 @@ El paso activo pulsa con un halo verde y los tres paneles tienen contornos más 
 
 - El pulso puede percibirse demasiado tenue o intenso según brillo/tema de pantalla; su duración e intensidad pueden ajustarse tras una revisión visual.
 
+## 39. 2026-10-15 — Destacar la falla activa en Failure Record
+
+### Fecha
+
+2026-10-15.
+
+### Solicitud
+
+Resaltar el recuadro con el identificador y nombre de la falla que se está consultando en Failure Record para cualquier falla BAT o MTF; probar un tratamiento rojo.
+
+### Objetivo
+
+Hacer evidente cuál falla está abierta sin colorear todas las tarjetas de diagnóstico ni modificar el catálogo.
+
+### Estado anterior
+
+`#bat-detail-title` y `#mtf-detail-title` mostraban el título dinámico con fondo neutro y un acento verde lateral.
+
+### Análisis
+
+- Se releeron las reglas, contexto e historial FFDIGI, además de la nota operativa requerida.
+- Se comprobó que ambas funciones de render asignan el ID y nombre seleccionados a esos encabezados.
+- El estilo puede aplicarse a ambos encabezados existentes, sin añadir clases, estado ni código de renderizado.
+- El tema define tokens semánticos de error para claro y oscuro, incluyendo texto contrastante.
+
+### Causa / necesidad
+
+Aunque la selección ya actualizaba el título, el fondo neutro no diferenciaba con claridad la falla activa de los demás datos técnicos.
+
+### Solución
+
+- Se aplicó fondo rojo suave mediante `--md-sys-color-error-container` al nombre/código de la falla activa en BAT y MTF.
+- Se marcó el borde con `--md-sys-color-error` y se asignó el color de texto correspondiente para contraste.
+- El tratamiento sigue automáticamente el contenido dinámico de la falla seleccionada y usa los tokens del tema claro/oscuro.
+- Se dejó sin cambio el resto de las tres tarjetas, los pasos, los diagramas y la selección.
+
+### Archivos modificados
+
+- `index.html` — CSS de los encabezados `#bat-detail-title` y `#mtf-detail-title`.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- Presentación del nombre/código activo en Failure Record BAT y MTF.
+- Sin cambio en `renderBatSelection`, `renderMtfDetail` u otra función JavaScript.
+
+### Impacto
+
+Solo resalta visualmente la falla abierta. No cambia datos, lógica, navegación, paneles de Troubleshooting ni Session/Disposition Flow.
+
+### Validaciones realizadas
+
+- Revisión estática de los IDs compartidos por ambas fichas y de los tokens de color en temas claro/oscuro.
+- `git diff --check` limpio.
+- No se confirmó visualmente en navegador durante esta intervención.
+
+### Resultado
+
+El rótulo dinámico de la falla activa tiene fondo rojo suave y contorno rojo; se aplica a cualquier falla vista en BAT o MTF.
+
+### Pendientes
+
+- Revisar la intensidad del rojo visualmente en tema claro y oscuro.
+
+### Riesgos
+
+- El rojo puede asociarse con severidad/error; se mantiene solo en el nombre de la falla activa, no en los estados de validación ni en los diagramas.
+
+## 40. 2026-10-15 — Mejorar el control «Cambiar Falla»
+
+### Fecha
+
+2026-10-15.
+
+### Solicitud
+
+Capitalizar «Falla» y añadir al control de cambio de falla un icono de intercambio con respuesta interactiva.
+
+### Objetivo
+
+Hacer más reconocible la acción para volver al catálogo BAT o MTF y seleccionar otra falla.
+
+### Estado anterior
+
+Los botones BAT y MTF mostraban el texto «Cambiar falla»; MTF además mostraba una flecha desplegable. Ambos ya controlaban el mismo flujo de expandir el catálogo.
+
+### Análisis
+
+- Se releeron `AGENTS.md`, `CONTEXTO_FFDIGI.md`, `HISTORIAL_CAMBIOS_FFDIGI.md` y la nota operativa requerida.
+- Se comprobó que los controles son `#bat-selection-toggle` y `#mtf-selection-toggle`, asociados a listeners existentes que muestran nuevamente el catálogo.
+- El ajuste se limita a sus etiquetas, icono SVG decorativo y CSS; se preservan IDs, atributos `aria-controls`, `aria-expanded` y listeners.
+
+### Causa / necesidad
+
+El control existente era solo texto; su propósito de cambiar/alternar falla podía destacarse más en ambos flujos.
+
+### Solución
+
+- Se cambió el texto visible y accesible a «Cambiar Falla» en BAT y MTF.
+- Se añadió un SVG decorativo de intercambio horizontal, oculto a lectores de pantalla porque el texto ya nombra la acción.
+- El icono rota al pasar el puntero por el botón; el efecto usa solo `transform` y se desactiva con `prefers-reduced-motion`.
+- Se conservó la flecha de despliegue MTF y el comportamiento existente de ambos controles.
+
+### Archivos modificados
+
+- `index.html` — markup de los dos controles y estilos del icono/estado hover.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- `#bat-selection-toggle` y `#mtf-selection-toggle`.
+- CSS `.catalog-selection-toggle`, `.catalog-selection-action` y `.catalog-selection-icon`.
+- Sin cambios a listeners o funciones JavaScript.
+
+### Impacto
+
+Solo presentación y texto de los controles para cambiar de falla BAT/MTF. El catálogo sigue expandiendo/colapsando igual que antes.
+
+### Validaciones realizadas
+
+- Inspección estática de ambos controles, IDs, atributos accesibles y listeners existentes.
+- `git diff --check` limpio.
+- No se comprobó el efecto hover visualmente en navegador.
+
+### Resultado
+
+Ambos controles muestran «Cambiar Falla» con icono de intercambio; el icono tiene una respuesta hover respetuosa con movimiento reducido.
+
+### Pendientes
+
+- Confirmar visualmente alineación/tamaño en escritorio y móvil.
+
+### Riesgos
+
+- La rotación podría no activarse en dispositivos exclusivamente táctiles; el texto y el icono quedan visibles como affordance estática.
+
+## 41. 2026-10-15 — Suavizar el verde de las fichas de diagnóstico
+
+### Fecha
+
+2026-10-15.
+
+### Solicitud
+
+Evaluar y aplicar un verde más elegante y sutil en las tablas/paneles BAT y MTF, reduciendo el protagonismo del verde actual.
+
+### Objetivo
+
+Conservar la identidad verde del sistema y la legibilidad, pero bajar la saturación visual de encabezados, bordes y paso activo.
+
+### Estado anterior
+
+Los paneles de detalle y el paso activo usaban los tokens `primary` y `primary-container`, de mayor viveza. El modo oscuro ya definía variantes semánticas `secondary`/`on-secondary` y sus contenedores.
+
+### Análisis
+
+- Se releeron las reglas, contexto e historial FFDIGI antes de editar; se revisó el estado Git para preservar los cambios locales existentes.
+- Se inspeccionaron los tokens de tema claro/oscuro y los selectores de las fichas de diagnóstico.
+- Los tokens secundarios ofrecen pares fondo/texto coordinados por tema; el cambio CSS puede limitarse a las fichas sin alterar el verde global o los catálogos.
+
+### Causa / necesidad
+
+El color primario ocupaba áreas grandes (encabezados y acentos) y podía competir con la lectura del contenido técnico.
+
+### Solución
+
+- Se cambió el fondo de los encabezados de las tres tarjetas y el borde superior a `secondary`, con texto `on-secondary`.
+- Se usaron acentos secundarios en metadatos, kicker de validación, número de paso BAT y paso MTF activo.
+- Se atenuó el halo verde del paso activo usando el mismo token semántico.
+- El rojo que destaca el nombre/código de la falla seleccionada se conservó.
+- Los tokens se ajustan al modo claro/oscuro existente. Catálogos, barra, botones fuera de las fichas, procedimientos y diagramas no se modificaron.
+
+### Archivos modificados
+
+- `index.html` — colores CSS acotados a las fichas BAT/MTF.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- Encabezados `.bento-block-heading` y contornos superiores de `.bento-block-1/2/3`.
+- Metadatos, etiquetas de validación, número de paso y estados activos.
+- Sin cambios JavaScript.
+
+### Impacto
+
+Solo apariencia de los paneles de detalle BAT/MTF. Se conserva el comportamiento, la jerarquía, el contraste semántico y el resaltado rojo de la falla.
+
+### Validaciones realizadas
+
+- Revisión estática de los tokens `secondary`/`on-secondary` en ambas paletas.
+- `git diff --check` limpio.
+- No se confirmó visualmente en navegador; quedan pendiente escritorio, móvil y tema oscuro.
+
+### Resultado
+
+El verde intenso de las superficies diagnósticas queda sustituido por el verde salvia semántico ya definido para claro/oscuro.
+
+### Pendientes
+
+- Revisar visualmente saturación y contraste en claro y oscuro cuando la página esté disponible en navegador permitido.
+
+### Riesgos
+
+- El verde secundario del modo oscuro es más claro que su equivalente en modo claro por diseño; validar que el peso visual permanezca equilibrado al cambiar de tema.
+
+## 42. 2026-10-15 — Restaurar verde primario y centrar contador de validación
+
+### Fecha
+
+2026-10-15.
+
+### Solicitud
+
+Revertir el verde salvia aplicado a los paneles y centrar el rótulo «Validación N de total» dentro del recuadro.
+
+### Objetivo
+
+Recuperar el verde original de las fichas y dar una alineación central al contador de validación BAT/MTF.
+
+### Estado anterior
+
+Los encabezados y acentos de las fichas usaban el token secundario salvia. El texto del contador conservaba alineación inicial dentro de su banda.
+
+### Análisis
+
+- Se releyeron reglas, contexto e historial antes de editar; se inspeccionaron la plantilla MTF y el contador BAT.
+- La solicitud se limita a revertir las declaraciones cromáticas añadidas en la intervención anterior, no a revertir estilos previos (resaltado rojo, contornos ni icono de cambio de falla).
+- `.m3-step-kicker` se utiliza para el contador de paso tanto en BAT como en MTF; centrar su texto sirve a ambos sin tocar renderizado.
+
+### Causa / necesidad
+
+El verde más apagado no correspondió a la preferencia visual del usuario; además, el contador de validación quedaba alineado hacia una esquina.
+
+### Solución
+
+- Se restauraron los tokens `primary`/`on-primary` originales en encabezados, acentos y estado activo.
+- Se añadió `text-align: center` al recuadro `.m3-step-kicker`.
+- Se preservaron los demás cambios de interfaz ajenos a la paleta revertida.
+
+### Archivos modificados
+
+- `index.html` — restauración de color primario y alineación del contador.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- CSS de encabezados, metadatos, secuencias y estado activo de las fichas BAT/MTF.
+- CSS de `.m3-step-kicker` para centrar el rótulo.
+- Sin cambios JavaScript.
+
+### Impacto
+
+Recupera el verde de las fichas anterior al intento salvia; el contador de validación queda centrado. El resaltado rojo de la falla activa se conserva.
+
+### Validaciones realizadas
+
+- Revisión estática de tokens restaurados y uso compartido del selector de contador.
+- Comprobación de llaves CSS y `git diff --check`.
+- No se confirmó visualmente en navegador.
+
+### Resultado
+
+Los paneles vuelven al verde primario anterior y «Validación N de total» se alinea al centro de su recuadro.
+
+### Pendientes
+
+- Confirmar visualmente la alineación en BAT, MTF, escritorio y móvil.
+
+### Riesgos
+
+- La longitud variable de «Validación N de total» puede ocupar varias líneas en pantallas estrechas; el centrado no modifica su ajuste de línea.
+
+## 43. 2026-10-15 — Piloto de reporte de intervención MTF para FLA-04
+
+### Fecha
+
+2026-10-15.
+
+### Solicitud
+
+Probar con una sola falla MTF un reporte de intervención comparable en propósito al reporte BAT: identificar el nodo y analista, registrar los pasos realmente ejecutados y dónde pasó, AC Cycle si se usó, RCA/RGC, retest, daño físico y evidencia, y generar un PDF para revisión.
+
+### Objetivo
+
+Entregar una primera versión aislada para `FLA-04 · ERROR: POST failed to complete; timeout`, para evaluar el flujo antes de considerar otras fallas.
+
+### Estado anterior
+
+- `printMtfReport` imprimía datos fuente y pasos del procedimiento, pero no capturaba una intervención real por nodo.
+- El reporte BAT usa otro estado/formulario y no se debía alterar para este piloto.
+- Hay descripciones/códigos repetidos en MTF; `FLA-10` muestra el mismo nombre pero es un registro diferente.
+
+### Análisis
+
+- Se revisaron `AGENTS.md`, `CONTEXTO_FFDIGI.md`, `HISTORIAL_CAMBIOS_FFDIGI.md`, la falla base y el renderizador `getActiveSteps`, el directorio disponible de analistas, `printBatReport`, `printMtfReport`, `openPrintDialog` y las reglas `@media print`.
+- Se confirmó la identidad del registro objetivo: estación `FLA`, id `FLA-04`, código `020023006_001`, descripción exacta `ERROR: POST failed to complete; timeout`, pasos fuente y flujo `Flowchart 14`.
+- El código también contiene `FLA-10` con el mismo nombre, pero código distinto. `FLA-02` comparte el código `020023006_001`, pero tiene otra descripción. Por eso el acceso requiere coincidencia simultánea de id, estación, código y descripción.
+- Los pasos activos pueden variar; se consumen mediante `FFDG.ui.getActiveSteps`, sin editar el procedimiento ni el diagrama.
+
+### Causa / necesidad
+
+El reporte MTF existente describe el procedimiento disponible, no qué hizo una persona sobre un serial particular ni el resultado del retest. Hacía falta separar los datos declarados de intervención de la guía técnica y limitar la prueba a una identidad inequívoca.
+
+### Solución
+
+- Se añadió el botón `Realizar reporte de falla`, visible solo al seleccionar el registro exacto FLA-04.
+- El diálogo captura S/N, P/N, número de empleado y analista (autocompleta con el directorio local conocido; mantiene edición manual), pasos marcados como ejecutados desde el procedimiento activo, AC Cycle como acción adicional, resultado de la falla, paso donde pasó, resultado del retest, acciones, RCA, RGC, daño físico/detalle y hasta cuatro evidencias de imagen (8 MB máx. cada una).
+- Cuando se declara «Resuelta», se requiere indicar un paso marcado o AC Cycle marcado como adicional y retest en `Pass`. El selector de paso se genera desde la secuencia activa; no codifica los pasos FLA-04.
+- Se agregó una plantilla de impresión separada `mtf-case` con identificación, acciones/pasos, causas, fotos, firma del analista y espacio de firma/nombre de Calidad sin asignar persona.
+- Se declara en la interfaz y pie del documento que la guía permanece intacta, que la captura no persiste ni se transmite, que es un resultado reportado por el analista y no libera automáticamente el nodo.
+- `printMtfReport`, `printBatReport`, los datos de falla, los flowcharts y el catálogo no se modificaron funcionalmente.
+
+### Archivos modificados
+
+- `index.html` — botón condicional, diálogo accesible, controles de captura, generador de reporte y estilos de impresión aislados.
+- `CONTEXTO_FFDIGI.md` — alcance actual del piloto, datos capturados, persistencia y límites de impresión.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderMtfDetail` — oculta/muestra el CTA según la identidad completa de FLA-04.
+- `FFDG.reports.isMtfCasePilot`, `openMtfCaseReport`, `submitMtfCaseReport` y `renderMtfCaseField` — armado del formulario y su impresión.
+- `openPrintDialog` — reutilizado con el modo separado `mtf-case`.
+- `#mtf-case-report-dialog`, `#mtf-case-print-report` y CSS `@media print` — captura modal e impresión del piloto.
+
+### Impacto
+
+Solo el detalle MTF del registro FLA-04 recibe el CTA. El flujo normal de selección, secuencia, diagrama, reporte de procedimiento MTF y reporte BAT permanece sin cambios. Los archivos seleccionados como evidencia se leen en memoria del navegador solo al preparar la impresión; no se suben ni se guardan en catálogo/servidor.
+
+### Validaciones realizadas
+
+- Comprobación de sintaxis: siete bloques JavaScript inline clásicos y un bloque `type="module"`; todos pasaron.
+- `git diff --check`; pasó.
+- Inspección del gate de cuatro campos de identidad, uso dinámico de pasos, comprobación de coherencia para «Resuelta», cota de archivos adjuntos y selector de impresión aislado.
+- No se ejecutó la página ni se validó visualmente el diálogo, la impresión o la paginación en navegador. La exportación PDF real queda pendiente de comprobar en impresión del navegador.
+
+### Resultado
+
+El piloto de captura e impresión quedó implementado en código para la falla FLA-04 exacta; el usuario podrá guardar como PDF desde el diálogo del navegador después de capturar el caso.
+
+### Pendientes
+
+- Revisar en navegador el modal, autocompletado, validaciones, foto, impresión A4 y paginación con entradas cortas/largas antes de considerar el formato aprobado.
+- Confirmar el significado interno esperado de `RGC` si se desea cambiar o ampliar su etiqueta.
+- La captura se pierde al cerrar o recargar; persistencia/historial requieren una solicitud y diseño separados.
+
+### Riesgos
+
+- Los datos capturados son declaraciones manuales; el formulario no autentica al analista ni verifica el resultado real del retest.
+- La longitud del texto o de las fotos puede producir varias páginas; no afirmar «una hoja» hasta probar impresión real.
+- La firma de Calidad permanece en blanco intencionalmente, sin asignar el nombre del reporte BAT.
+
+## 44. 2026-10-15 — Simplificar reporte MTF y separar evidencia antes/después
+
+### Fecha
+
+2026-10-15.
+
+### Solicitud
+
+Retirar el campo RGF/RGC y el apartado de daño físico; colocar Intervención/acciones junto a RCA; agregar controles separados para evidencia antes y después de las acciones; corregir el botón que no abría la impresión del reporte.
+
+### Objetivo
+
+Hacer la captura del piloto FLA-04 más clara para comparar el estado inicial del nodo con el resultado posterior y que el clic de generar mantenga la activación necesaria para abrir la impresión.
+
+### Estado anterior
+
+- El formulario tenía un campo RGC, un selector de daño físico, un detalle de daño y una sola entrada genérica de fotos.
+- La función de envío era `async`: esperaba la lectura de imágenes con `FileReader`, cerraba el diálogo y llamaba el helper, que difería `window.print()` a `requestAnimationFrame`.
+- La aplicación no descarga un PDF automáticamente; el archivo se crea al elegir «Guardar como PDF» en la interfaz de impresión del navegador.
+
+### Análisis
+
+- Se releyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md`, `HISTORIAL_CAMBIOS_FFDIGI.md`, la forma HTML del diálogo y plantilla, el generador MTF y las reglas `@media print`.
+- El clic de impresión no pudo reproducirse visualmente: la automatización del navegador falló al inicializar su kernel con error de ruta. Se inspeccionó el flujo real del código y se identificó una causa probable: `await FileReader` y `requestAnimationFrame` podían sacar la llamada de impresión del gesto directo de envío.
+- El usuario se refirió a `RGF`; el formulario vigente llevaba el rótulo `RGC`, así que se eliminó ese campo por correspondencia contextual. No se interpretó ni expandió el acrónimo.
+
+### Causa / necesidad
+
+La entrada genérica no distinguía la condición previa de la posterior. Además, la secuencia asíncrona posponía la llamada nativa de impresión hasta después de resolver archivos y cerrar el diálogo; eso podía impedir que el navegador presentara el flujo de impresión activado por el clic.
+
+### Solución
+
+- Se quitaron RGC y todos los campos/valores del apartado de daño físico del diálogo y del PDF piloto.
+- Se dejó una sola caja `Intervención / acciones realizadas` y RCA, en paralelo en escritorio y apiladas en pantallas estrechas.
+- Se agregaron dos tarjetas con botones independientes: `Antes de aplicar acciones` y `Después de aplicar acciones`. Cada selector admite imágenes, muestra miniaturas/nombres, permite quitar imágenes y comparten el límite de cuatro imágenes, 8 MB por archivo.
+- Intervención/acciones y RCA también quedan en dos columnas en la ficha imprimible, para conservar la misma jerarquía visual del formulario.
+- La carga/decodificación de imágenes ocurre al elegirlas; el botón de generar queda deshabilitado mientras se preparan. El submit dejó de ser async y llama a `window.print()` directamente, sin `requestAnimationFrame`, tras cerrar el modal.
+- Se añadió un aviso explícito: no hay descarga directa; en el cuadro de impresión hay que elegir `Guardar como PDF`. La imagen se elimina de memoria y se limpia la plantilla al terminar el ciclo `afterprint`.
+- Se conserva la plantilla MTF/BAT general, catálogo y FLA-04 exacta. El usuario aún debe revisar el diálogo del navegador y confirmar Guardar como PDF.
+
+### Archivos modificados
+
+- `index.html` — diálogo, preview/validación de evidencia, controlador de impresión síncrona, salida de impresión y estilos responsivos.
+- `CONTEXTO_FFDIGI.md` — descripción vigente del formulario e impresión del piloto.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `openMtfCaseReport` — reinicia controles/estados locales de evidencia.
+- `updateMtfCaseEvidence`, `renderMtfCaseEvidencePreview`, `clearMtfCaseEvidence` — lectura previa, previsualización, eliminación y limpieza en memoria.
+- `submitMtfCaseReport` — ya no espera archivos; prepara secciones comparativas y llama la impresión en el mismo gesto.
+- `openPrintDialog` — acepta una opción local para invocación síncrona; otros modos mantienen el comportamiento previo.
+- `#mtf-case-report-dialog`, `#mtf-case-print-report` y CSS responsivo/de impresión.
+
+### Impacto
+
+Solo cambia el piloto FLA-04. Los adjuntos son locales al navegador; no se suben ni persisten. El flujo BAT y el reporte general MTF no cambian. La impresión del navegador sigue requiriendo que el usuario escoja el destino PDF y confirme el guardado.
+
+### Validaciones realizadas
+
+- Pasaron los siete bloques JavaScript clásicos y el módulo inline con `node`.
+- Pasó `git diff --check`; bloques CSS balanceados.
+- Comprobación estática de identidad exacta FLA-04 frente a FLA-10/FLA-02; selectores y salidas Antes/Después presentes; se comprobó que no quedaron campos ni bindings RGC/daño/evidencia genérica.
+- Comprobación estática de campos únicos `actions`/`rca` y de que `submitMtfCaseReport` no contiene `await` y solicita impresión síncrona mediante el helper.
+- El navegador/CUA no se pudo inicializar; no se probó visualmente que el diálogo del sistema aparezca, ni la captura real de fotos o la impresión final.
+
+### Resultado
+
+El formulario piloto queda simplificado con evidencia comparativa antes/después y una ruta de impresión síncrona desde el clic. La generación final depende de aceptar «Guardar como PDF» en el navegador.
+
+### Pendientes
+
+- Probar en el navegador de escritorio la ventana de impresión y guardar un caso real de FLA-04 como PDF.
+- Revisar visualmente miniaturas, navegación por teclado, mobile stacking y paginación con fotos/textos largos.
+
+### Riesgos
+
+- No se puede detectar de forma fiable desde la página si el usuario guardó o canceló el PDF del diálogo nativo.
+- Si el entorno incrustado bloquea `window.print()`, el usuario necesitará abrir la página en un navegador que permita impresión; no se implementó una biblioteca PDF de descarga directa.
+- Las fotos incrementan el tamaño del PDF y pueden llevar el reporte a más de una página.
+
