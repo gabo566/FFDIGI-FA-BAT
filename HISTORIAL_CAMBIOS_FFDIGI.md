@@ -2627,3 +2627,67 @@ La barra MTF ya no muestra «Actualizar Excel FFDG» y no registra un listener p
 ### Riesgos
 
 - La importación Excel MTF deja de estar accesible desde la interfaz mientras no se agregue otra vía de selección.
+
+## 46. 2026-10-17 — Documentar el proyecto en README
+
+### Fecha
+
+2026-10-17.
+
+### Solicitud
+
+Preparar un README detallado que explique de qué trata el proyecto.
+
+### Objetivo
+
+Dar a quien abra el repositorio una descripción clara del propósito, los flujos BAT/MTF, la arquitectura, el uso local, las limitaciones actuales y las reglas de mantenimiento.
+
+### Estado anterior
+
+El repositorio no tenía un README en su raíz. La información del proyecto se repartía entre el código, `CONTEXTO_FFDIGI.md`, `HISTORIAL_CAMBIOS_FFDIGI.md` y `AGENTS.md`.
+
+### Análisis
+
+- Se revisaron las instrucciones del repositorio, el contexto técnico, el historial, la estructura versionada y las referencias de scripts/recursos de `index.html`.
+- Se separaron las funciones existentes de las limitaciones actuales: el selector PDF de MTF no importa; el botón Excel MTF fue retirado; el piloto de reporte de intervención está limitado a FLA-04.
+- Se documentó el arranque mediante servidor HTTP local y se aclaró que no genera una publicación ni una carpeta `dist`.
+
+### Causa / necesidad
+
+Una persona que llegue al repositorio necesita entender qué resuelve la página, qué datos usa, qué no hace y cómo abrirla localmente antes de modificarla.
+
+### Solución
+
+- Se agregó `README.md` en español con propósito, flujos BAT y MTF, límites de importación, reportes, almacenamiento local, dependencias, estructura, ejecución local y guía para contribuciones.
+- Se describió el estado real del botón Excel MTF y el selector PDF MTF para no presentar controles incompletos como funciones activas.
+- Se incluyeron las claves de almacenamiento local verificadas y la ausencia documentada de una suite automatizada.
+
+### Archivos modificados
+
+- `README.md` — documentación principal de uso y desarrollo.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- Documentación del proyecto; sin cambios de código ni comportamiento de la aplicación.
+
+### Impacto
+
+Mejora la orientación de usuarios y personas que mantienen el proyecto. No altera la página, los catálogos, los importadores ni los reportes.
+
+### Validaciones realizadas
+
+- Revisión estática de rutas, nombres de archivos y comportamiento descrito frente al árbol actual y al código de `index.html`.
+- No se ejecutó la aplicación ni una prueba automatizada.
+
+### Resultado
+
+El repositorio cuenta con una guía principal detallada que distingue las capacidades implementadas de las limitaciones y especifica cómo abrir el sitio solo de forma local.
+
+### Pendientes
+
+- Mantener el README alineado con cambios futuros de interfaz, datos y ejecución.
+
+### Riesgos
+
+- La información de procedimientos depende de manuales/workbooks externos que no están versionados en el repositorio; actualizarla requiere revisar la fuente aplicable.
