@@ -2559,3 +2559,71 @@ El formulario piloto queda simplificado con evidencia comparativa antes/después
 - Si el entorno incrustado bloquea `window.print()`, el usuario necesitará abrir la página en un navegador que permita impresión; no se implementó una biblioteca PDF de descarga directa.
 - Las fotos incrementan el tamaño del PDF y pueden llevar el reporte a más de una página.
 
+## 45. 2026-10-17 — Retirar el botón de actualización Excel de MTF
+
+### Fecha
+
+2026-10-17.
+
+### Solicitud
+
+Quitar de la sección MTF el botón «Actualizar Excel FFDG».
+
+### Objetivo
+
+Eliminar ese control de la barra MTF sin alterar el catálogo, sus datos ni los demás controles.
+
+### Estado anterior
+
+La barra MTF mostraba un botón que abría el selector de archivos Excel y llamaba a `loadExcelFile` para importar el workbook.
+
+### Análisis
+
+- Se revisaron `AGENTS.md`, `CONTEXTO_FFDIGI.md`, `HISTORIAL_CAMBIOS_FFDIGI.md` y los consumidores del input `excel-file-input`.
+- El control estaba limitado al markup de la barra MTF; su listener dependía de ese input. BAT no usaba este input.
+- El parser y `loadExcelFile` permanecen en el código; el reinicio del input puede ser opcional cuando no existe el control.
+
+### Causa / necesidad
+
+El usuario pidió retirar el botón de importación Excel de la sección MTF.
+
+### Solución
+
+- Se quitó el label «Actualizar Excel FFDG» y su input oculto de la barra MTF.
+- Se retiró el listener del input eliminado para evitar una referencia a un elemento inexistente al iniciar la página.
+- Se hizo opcional el reinicio del input al final de `loadExcelFile`.
+- Se conservaron el parser, el botón de PDF, el control de tema y el resto de los flujos.
+- Se actualizó la documentación para reflejar que la interfaz MTF ya no ofrece un selector visible de Excel.
+
+### Archivos modificados
+
+- `index.html` — markup del toolbar MTF, listener y reinicio del input Excel.
+- `CONTEXTO_FFDIGI.md` — descripción del estado de importación MTF.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de este cambio.
+
+### Funciones o secciones afectadas
+
+- `#mtf-layout .mtf-row-1-actions` — botón e input de Excel retirados.
+- Listener de `excel-file-input` retirado; `loadExcelFile` queda sin disparador desde la interfaz y tolera que el input no exista.
+
+### Impacto
+
+El usuario ya no puede seleccionar un workbook desde el botón de la barra MTF. El importador BAT, los datos/catálogos, el control «Actualizar PDF FFDG» y los reportes no cambian.
+
+### Validaciones realizadas
+
+- Comprobación estática: no queda el botón, el input ni su listener en `index.html`.
+- Revisión estática: se conservan los controles de tema y PDF de la barra MTF; el reinicio del input es condicional.
+- No se ejecutó la aplicación ni una prueba visual en navegador.
+
+### Resultado
+
+La barra MTF ya no muestra «Actualizar Excel FFDG» y no registra un listener para el input eliminado.
+
+### Pendientes
+
+- Ninguno para el retiro del botón.
+
+### Riesgos
+
+- La importación Excel MTF deja de estar accesible desde la interfaz mientras no se agregue otra vía de selección.

@@ -1865,7 +1865,7 @@
   </div>
   <!-- MODO 2: MTF CATALOG (DISTRIBUCIÓN EN 3 FILAS HORIZONTALES SIMÉTRICAS) -->
   <div id="mtf-layout" class="mtf-horizontal-container hidden">
-    <!-- FILA 1: TOOLBAR DE BÚSQUEDA, FILTROS Y BOTÓN DE CARGA EXCEL -->
+    <!-- FILA 1: TOOLBAR DE BÚSQUEDA Y FILTRADO HORIZONTAL -->
     <div class="mtf-row-1">
       <div class="mtf-row-1-search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -1876,7 +1876,6 @@
         <input id="mtf-search" type="search"
           placeholder="Buscar por código (ej. 020023...), estación, componente (Bianca, CX8, PDB, BF3)...">
       </div>
-      <!-- Botón para adjuntar y actualizar automáticamente desde archivo Excel FFDG -->
       <div class="mtf-row-1-actions">
         <button id="theme-toggle" class="theme-switch-btn" type="button" aria-label="Cambiar Tema">
           <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -1886,17 +1885,7 @@
           </svg>
           <span id="theme-text">Modo Noche</span>
         </button>
-      <label class="m3-btn m3-btn-filled"
-        style="cursor:pointer; padding:6px 14px; font-size:12px; display:inline-flex; align-items:center; justify-content:center; gap:6px; flex-shrink:0;"
-        title="Carga el workbook FFDG GB200/GB300. Se actualizarán el catálogo, los campos de origen, procedimientos, filtros y reportes.">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
-          </path>
-        </svg>
-        <span>Actualizar Excel FFDG</span>
-        <input id="excel-file-input" type="file" accept=".xlsx, .xls" style="display:none;">
-      </label>
+      
       <button id="mtf-pdf-select-button" class="m3-btn m3-btn-filled mtf-pdf-select-button" type="button"
         aria-label="Actualizar PDF FFDG"
         title="Abre el selector de PDF. El archivo no se importa ni modifica el catálogo todavía."
@@ -3305,7 +3294,8 @@
         console.error(error);
         showNotification(`No se actualizó el catálogo: ${error.message}`);
       } finally {
-        $("excel-file-input").value = "";
+        const excelInput = $("excel-file-input");
+        if (excelInput) excelInput.value = "";
       }
     }
     return { initTheme, toggleTheme, setMode, filterStation, showStep, renderHistory, finish, renderEvidence, renderMtfList, renderMtfDetail, selectMtfFault, renderBatSelection, setBatCatalogCollapsed, setMtfCatalogCollapsed, advanceBatDetail, retreatBatDetail, loadExcelFile, restoreCatalog, updateStationFilterCounts, getActiveSteps };
@@ -3989,7 +3979,6 @@
       FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected);
       FFDG.ui.renderMtfList();
     });
-    $("excel-file-input").addEventListener("change", (e) => { if (e.target.files.length) FFDG.ui.loadExcelFile(e.target.files[0]); });
     $("mtf-pdf-select-button").addEventListener("click", () => $("mtf-pdf-file-input").click());
     $("mtf-prev").addEventListener("click", () => {
       if (FFDG.state.mtfIndex > 0) {

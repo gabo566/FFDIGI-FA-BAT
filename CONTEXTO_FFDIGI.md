@@ -65,7 +65,7 @@ La hoja de estilos y gran parte de las funciones siguen dentro del HTML. No se d
 3. En MTF, el usuario busca por identificador, estación, código, nombre, componente o texto de origen; filtra por estación y abre una falla.
 4. En el detalle MTF puede elegir las pestañas compactas `Paso 1…N` para ver la descripción de la validación activa, seleccionar una variante si existe, consultar referencias del PDF y ampliar el flowchart.
 5. En BAT, el recorrido guiado registra respuestas/notas en memoria de la sesión. El formulario captura identificación, análisis/RCA y evidencias; la impresión del navegador permite elegir Guardar como PDF.
-6. El catálogo BAT puede actualizarse desde PDF; el importador MTF operativo sigue siendo Excel. La barra MTF también tiene un botón `Actualizar PDF FFDG` que solo abre el selector de archivos PDF: aún no extrae, sube ni guarda el documento ni modifica el catálogo. Los catálogos importados se guardan en `localStorage` del navegador cuando el almacenamiento está disponible.
+6. El catálogo BAT puede actualizarse desde PDF. El parser MTF de Excel y `loadExcelFile` permanecen en el código, pero se retiró el botón que abría el selector: la barra MTF ya no ofrece una vía visible para importar Excel. También conserva el botón `Actualizar PDF FFDG`, que solo abre el selector de archivos PDF; aún no extrae, sube ni guarda el documento ni modifica el catálogo. Los catálogos importados se guardan en `localStorage` del navegador cuando el almacenamiento está disponible.
 7. Las notificaciones y topología son paneles informativos; no son una API ni una fuente de verdad técnica por sí mismos.
 
 ## 4. Flujo BAT
@@ -102,7 +102,7 @@ La hoja de estilos y gran parte de las funciones siguen dentro del HTML. No se d
 - El detalle se muestra con la transición CSS existente, limitada por `prefers-reduced-motion`. El estado de fallo/paso continúa en `FFDG.state`.
 - Las pestañas superiores muestran solo `Paso N` y son botones accesibles para seleccionar directamente la validación; el contenido descriptivo permanece debajo de `Validación N de total` y no se duplica en las pestañas.
 - El importador Excel localiza una tabla con Tab No, Error Code y Error Code Description, asocia la hoja de detalle por Tab No y toma sus pasos, metadatos, comandos y variantes. Genera `recordKey` por ocurrencia/fila para mantener registros duplicados separados.
-- `Actualizar PDF FFDG` abre un selector limitado a PDF, pero está preparado únicamente como control de selección futura; no tiene parser ni manejador de selección y no modifica ni persiste información. El Excel sigue siendo el único importador MTF activo.
+- El parser Excel MTF y `loadExcelFile` permanecen implementados, pero se retiró el botón y el manejador del input de la barra MTF; actualmente no hay una vía visible para seleccionar un workbook desde la interfaz. `Actualizar PDF FFDG` abre un selector limitado a PDF, pero sigue sin parser ni manejador de selección y no modifica ni persiste información.
 - La lectura de detalles reconoce filas de flujo y columnas de variantes; actualiza el catálogo MTF y lo persiste en `localStorage` con clave `ffdg-mtf-catalog-v2`. Al restaurar también pasa por la función de combinación/enriquecimiento.
 - Si no hay hoja de procedimiento asociada, la interfaz informa el faltante; no debe inventarse un procedimiento para “completar” una falla.
 
