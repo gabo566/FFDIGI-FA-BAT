@@ -2691,3 +2691,66 @@ El repositorio cuenta con una guía principal detallada que distingue las capaci
 ### Riesgos
 
 - La información de procedimientos depende de manuales/workbooks externos que no están versionados en el repositorio; actualizarla requiere revisar la fuente aplicable.
+
+## 47. 2026-10-17 — Mantener README al día
+
+### Fecha
+
+2026-10-17.
+
+### Solicitud
+
+Asegurar que el README se actualice con cada modificación del proyecto y subirlo al repositorio designado con autor gabo.
+
+### Objetivo
+
+Dejar explícita la regla de mantenimiento de README para que las instrucciones y capacidades documentadas sigan alineadas con el código.
+
+### Estado anterior
+
+El README describía cómo documentar historial y contexto técnico, pero no indicaba que debía revisarse y actualizarse en cada modificación.
+
+### Análisis
+
+- Se comprobó que el repositorio designado es `gabo566/FFDIGI-FA-BAT`, rama `main`.
+- Se verificó que el commit anterior de README registra como autor y committer a `gabo566`.
+- El cambio es documental y no altera la aplicación.
+
+### Causa / necesidad
+
+El usuario solicitó que README se mantenga actualizado en cada modificación del proyecto.
+
+### Solución
+
+- Se agregó a las instrucciones de desarrollo la regla de actualizar README en cada modificación y comprobar su vigencia cuando no requiera cambios textuales.
+- Se mantuvo el destino en el repositorio de gabo y se creó el commit mediante la identidad conectada de `gabo566`.
+
+### Archivos modificados
+
+- `README.md` — regla permanente de mantenimiento documental.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta intervención.
+
+### Funciones o secciones afectadas
+
+- Sección «Desarrollo y cambios» de README.
+
+### Impacto
+
+Fija una pauta para mantener la documentación principal alineada en cambios futuros. No cambia la interfaz ni el comportamiento de BAT o MTF.
+
+### Validaciones realizadas
+
+- Revisión estática del texto añadido y del destino de rama.
+- No se ejecutó la aplicación ni pruebas; no hay cambios de código funcional.
+
+### Resultado
+
+README indica que debe actualizarse y revisarse con cada modificación del proyecto.
+
+### Pendientes
+
+- Aplicar esta regla en cambios posteriores.
+
+### Riesgos
+
+- La precisión de README dependerá de revisar el comportamiento real en cada cambio y no copiar descripciones antiguas sin verificarlas.

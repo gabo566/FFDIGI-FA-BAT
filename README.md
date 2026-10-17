@@ -130,7 +130,8 @@ Antes de modificar el proyecto:
 2. Confirma la rama y los cambios presentes; conserva cualquier trabajo existente.
 3. Localiza el código y todos sus consumidores. Mantén BAT y MTF separados salvo que el cambio requiera explícitamente afectar a ambos.
 4. Haz el cambio acotado, valida el comportamiento afectado y registra el resultado en `HISTORIAL_CAMBIOS_FFDIGI.md`.
-5. Actualiza `CONTEXTO_FFDIGI.md` cuando cambie la arquitectura, el comportamiento, las dependencias o el estado documentado.
+5. Actualiza este `README.md` con cada modificación del proyecto para que siempre describa el comportamiento, los archivos y las instrucciones vigentes. Comprueba que sigue correcto incluso cuando el cambio no requiera editar su contenido.
+6. Actualiza `CONTEXTO_FFDIGI.md` cuando cambie la arquitectura, el comportamiento, las dependencias o el estado documentado.
 
 El repositorio no tiene una suite automatizada de pruebas configurada según la documentación técnica actual. Una revisión estática no equivale a una prueba de la aplicación en navegador; describe con precisión qué validación se realizó.
 
