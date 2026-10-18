@@ -258,7 +258,7 @@ No se refactorizó ni cambió comportamiento durante la auditoría inicial.
 ## Presentación de detalle MTF a pantalla amplia
 
 - Cuando se selecciona una falla, se activa el modo de detalle enfocado en cualquier tamaño de pantalla.
-- En ese modo se ocultan la barra superior con logos, el selector BAT/MTF y la búsqueda; los demás controles MTF se conservan.
+- En ese modo se ocultan la barra superior con logos, el selector BAT/MTF y toda la fila MTF que contiene búsqueda, «Modo Noche» y «Actualizar PDF FFDG».
 - El botón «Cambiar Falla» conserva su presentación y ubicación originales dentro del encabezado del catálogo.
-- El panel de detalle se extiende por el espacio vertical restante hasta el borde inferior del viewport. En escritorio los tres paneles se distribuyen en columnas; en ventanas estrechas se apilan y el detalle conserva desplazamiento propio.
+- El panel de detalle ocupa toda la altura disponible bajo el encabezado, hasta el borde inferior del viewport. En escritorio los tres paneles se distribuyen en columnas; en ventanas estrechas se apilan y el detalle conserva desplazamiento propio.
 - Al regresar al catálogo o cambiar a BAT se retira el modo enfocado. El estado seleccionado y los datos del caso siguen gestionados por `FFDG.state`.

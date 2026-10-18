@@ -3198,3 +3198,47 @@ La vista MTF oculta solo la cabecera de logos, el selector BAT/MTF y la búsqued
 ### Pendientes y riesgos
 
 - Confirmar visualmente el alto final y la navegación en escritorio, tableta y móvil.
+
+
+## 55. 2026-10-18 — Ocultar controles restantes y dar más altura al detalle MTF
+
+### Solicitud
+
+Ocultar «Modo Noche» y «Actualizar PDF FFDG» durante la consulta de una falla y dejar la tabla más alargada y despejada.
+
+### Objetivo
+
+Dedicar el espacio visible al detalle técnico seleccionado y reducir la sensación de contenido comprimido.
+
+### Estado anterior
+
+En el modo de detalle MTF, la fila de búsqueda se ocultaba, pero la fila de acciones MTF aún mostraba los botones de tema y PDF. El layout reservaba una fila para esos controles y las reglas posteriores dejaban que el detalle y sus paneles tomaran una altura automática.
+
+### Solución
+
+- Se ocultó la fila superior de controles MTF mientras la falla está seleccionada; esto retira búsqueda, «Modo Noche» y «Actualizar PDF FFDG» de la vista enfocada.
+- Se preservó sin cambios el encabezado de catálogo y el botón «Cambiar Falla».
+- Se asignó el espacio vertical restante al panel de detalle y se fijó la altura de sus paneles en escritorio para que se distribuyan en el espacio disponible.
+- En pantallas estrechas se conserva el apilado y el desplazamiento del contenido extenso.
+- Se revisaron y actualizaron README y contexto técnico.
+
+### Archivos modificados
+
+- `index.html` — visibilidad de controles y dimensiones del panel.
+- `README.md` — comportamiento al abrir el detalle MTF.
+- `CONTEXTO_FFDIGI.md` — controles ocultos y distribución del detalle.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de este cambio.
+
+### Validaciones realizadas
+
+- Comprobación estática de que la fila MTF de controles se oculta durante el enfoque y el encabezado de «Cambiar Falla» permanece fuera de esa fila.
+- Comprobación estática de la fila flexible y las alturas forzadas para que el detalle ocupe el espacio disponible.
+- No se ejecutó la aplicación ni se comprobó visualmente en navegador.
+
+### Resultado
+
+Al abrir una falla MTF solo se mantiene el encabezado original con «Cambiar Falla» y la ficha técnica extendida; desaparecen los botones de modo noche y actualizar FFDG.
+
+### Pendientes y riesgos
+
+- Confirmar visualmente el espacio entre paneles en escritorio, tableta y móvil; el contenido extenso conserva desplazamiento.
