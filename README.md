@@ -29,6 +29,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 ### MTF L10
 
 - Catálogo de fallas con búsqueda y filtros, incluida la selección por estación.
+- En la vista Tablero, las estaciones se presentan en orden fijo: FLA, PRET, FLB, AST, FTS, IOT, FCT, RIN, T_VI, OBA y PACKING. Las estaciones disponibles que no estén en esa lista se muestran después por nombre; los conteos se calculan según el catálogo actual.
 - Ficha **Failure Record** con la identificación y los metadatos de la falla.
 - Secuencia de troubleshooting, pasos, comandos y variantes cuando están disponibles.
 - Flowcharts y referencias visuales locales; algunos diagramas se pueden ampliar en un modal.

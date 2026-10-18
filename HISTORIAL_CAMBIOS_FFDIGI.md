@@ -2958,3 +2958,69 @@ El encabezado de falla BAT centra el código y el nombre sobre la banda roja osc
 ### Riesgos
 
 - Los títulos extensos pueden ocupar varias líneas; permanecen centrados y conservan el ajuste de texto actual.
+
+## 51. 2026-10-18 — Fijar el orden de estaciones MTF
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Presentar las estaciones MTF en el orden indicado: FLA, PRET, FLB, AST, FTS, IOT, FCT, RIN, T_VI, OBA y PACKING.
+
+### Objetivo
+
+Mantener posiciones estables aunque una estación tenga más fallas que otra o cambie el conteo del catálogo.
+
+### Estado anterior
+
+El tablero agrupaba por estación, pero ordenaba primero por cantidad descendente y usaba un orden manual solo como desempate. La lista manual incluía FLC y NVL y no incluía T_VI ni PACKING.
+
+### Análisis
+
+- El orden y la comparación viven en `buildBoard` del módulo de tablero MTF en `index.html`.
+- Los encabezados calculan el conteo desde los casos visibles; el conteo no debe determinar la posición de la estación.
+- El código parte de las estaciones que están presentes y debe conservar las adicionales que no figuren en la secuencia solicitada.
+
+### Causa / necesidad
+
+Las estaciones cambiaban de posición al variar el número de fallas, y el usuario definió una secuencia fija de presentación.
+
+### Solución
+
+- Se reemplazó el orden manual con FLA, PRET, FLB, AST, FTS, IOT, FCT, RIN, T_VI, OBA y PACKING.
+- Se priorizó la posición manual por encima del número de fallas; las estaciones no listadas se conservan al final por orden alfabético.
+- Se actualizaron README y el contexto técnico con la secuencia y el comportamiento de los grupos restantes.
+
+### Archivos modificados
+
+- `index.html` — orden manual y comparador de columnas del tablero MTF.
+- `README.md` — orden fijo de estaciones.
+- `CONTEXTO_FFDIGI.md` — comportamiento del tablero MTF.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de este cambio.
+
+### Funciones o secciones afectadas
+
+- `buildBoard` y el comparador de `orderedGroups` en el script del tablero MTF.
+
+### Impacto
+
+Solo cambia el orden de las columnas en la vista Tablero MTF. Los datos, conteos, filtros, lista técnica, mosaico y BAT permanecen sin cambios.
+
+### Validaciones realizadas
+
+- Comprobación estática de la secuencia exacta y del comparador por prioridad, con orden alfabético para grupos adicionales.
+- No se ejecutó la aplicación ni se comprobó visualmente en navegador.
+
+### Resultado
+
+La vista Tablero presenta primero las estaciones en el orden solicitado, de manera independiente al número de fallas por estación.
+
+### Pendientes
+
+- Confirmar la distribución visual en la página con todos los grupos disponibles.
+
+### Riesgos
+
+- Las estaciones adicionales fuera de la secuencia solicitada aparecerán al final en orden alfabético hasta que se indique una posición específica.

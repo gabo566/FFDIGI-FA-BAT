@@ -4897,7 +4897,7 @@ main{padding-top:4px!important}
     const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
     const lay = $("mtf-layout"), list = $("mtf-fault-list"), tg = document.querySelector(".view-tg");
     const board = document.createElement("div"); board.id = "mtf-board"; list.after(board);
-    const order = ["FLA", "PRET", "FLB", "FLC", "FCT", "FTS", "AST", "IOT", "NVL", "RIN", "OBA"];
+    const order = ["FLA", "PRET", "FLB", "AST", "FTS", "IOT", "FCT", "RIN", "T_VI", "OBA", "PACKING"];
     const rank = s => { const i = order.indexOf(s); return i < 0 ? 99 : i; };
     function buildBoard() {
       const g = {};
@@ -4911,7 +4911,7 @@ main{padding-top:4px!important}
       }
       board.replaceChildren();
       board.classList.toggle("mtf-board-centered", lay.classList.contains("v-board"));
-      const orderedGroups = Object.keys(g).sort((a, b) => g[b].length - g[a].length || rank(a) - rank(b));
+      const orderedGroups = Object.keys(g).sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
       function createColumn(s) {
         const col = document.createElement("section"); col.className = "bd-col"; col.dataset.st = s;
         col.innerHTML = `<div class="bd-h"><span>${s}</span><small>${g[s].length}</small></div><div class="bd-l"></div>`;
