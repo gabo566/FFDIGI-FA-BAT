@@ -6433,4 +6433,14 @@ main{padding-top:4px!important}
     border-radius: 10px !important;
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-sys-color-on-surface) 3%, transparent);
   }
+
+  /* Centrar todos los datos de las fallas en la columna BAT de fondo rojo (No Boot). */
+  #bat-board .bd-col[data-st="NOBOOT"] .bd-item {
+    text-align: center;
+    justify-items: center;
+  }
+  #bat-board .bd-col[data-st="NOBOOT"] .bd-item > :is(b, span, small) {
+    width: 100%;
+    text-align: center;
+  }
 </style>

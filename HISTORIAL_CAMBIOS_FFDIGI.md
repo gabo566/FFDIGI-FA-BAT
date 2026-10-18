@@ -2823,3 +2823,70 @@ La falla activa queda marcada con rojo oscuro y el paso seleccionado usa un resp
 ### Riesgos
 
 - El rojo tiene una asociación visual fuerte con error; aquí se limita al identificador de la falla y al paso activo para conservar su énfasis.
+
+## 49. 2026-10-18 — Centrar fallas de la tabla BAT roja
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Centrar las fallas de la tabla BAT con fondo rojo.
+
+### Objetivo
+
+Alinear al centro el contenido de cada tarjeta en la columna No Boot, cuyo encabezado usa fondo rojo, sin modificar las demás columnas del tablero.
+
+### Estado anterior
+
+Las tarjetas de No Boot podían mostrar algunos campos con alineación inicial; el nombre ya tenía un estilo de centrado, mientras el código y la familia no compartían una regla específica para esa columna.
+
+### Análisis
+
+- El tablero BAT crea una columna con `data-st="NOBOOT"` y tarjetas `.bd-item` con tres campos: código, nombre y familia.
+- La columna MTF también reutiliza `.bd-item`; por eso el ajuste debe quedar limitado a `#bat-board` y a `NOBOOT`.
+- Las reglas responsive existentes ajustan el tamaño de las tarjetas; la nueva alineación no requiere cambiar sus dimensiones ni el flujo de selección.
+
+### Causa / necesidad
+
+El contenido de las fallas de la tabla roja no quedaba centrado de forma uniforme.
+
+### Solución
+
+- Se centraron el código, el nombre y la familia dentro de cada tarjeta No Boot.
+- Se limitó el selector a la columna roja BAT para conservar el resto de las columnas y el tablero MTF.
+- Se documentó la alineación en README y en el contexto técnico.
+
+### Archivos modificados
+
+- `index.html` — regla de alineación para las tarjetas BAT No Boot.
+- `README.md` — descripción de la presentación del tablero BAT.
+- `CONTEXTO_FFDIGI.md` — comportamiento visual a conservar.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de este cambio.
+
+### Funciones o secciones afectadas
+
+- `#bat-board .bd-col[data-st="NOBOOT"] .bd-item` y sus campos `b`, `span` y `small`.
+
+### Impacto
+
+Solo cambia la alineación del contenido de las tarjetas No Boot en BAT. MTF, las demás familias, el catálogo y la selección permanecen sin cambios.
+
+### Validaciones realizadas
+
+- Comprobación estática de que el selector está limitado a BAT y a `NOBOOT`.
+- Comprobación estática de que código, nombre y familia usan alineación centrada.
+- No se ejecutó la aplicación ni una prueba visual en navegador.
+
+### Resultado
+
+Los tres campos de cada falla de la columna roja BAT quedan centrados dentro de su tarjeta.
+
+### Pendientes
+
+- Confirmar visualmente en escritorio y móvil cuando se abra la página en navegador.
+
+### Riesgos
+
+- La descripción puede ocupar varias líneas; permanece centrada y conserva el ajuste de texto existente.

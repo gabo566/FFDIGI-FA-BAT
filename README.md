@@ -18,6 +18,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 ### BAT
 
 - Catálogo de fallas organizado por familias como FRU, Logic, Leak, Fan y No Boot.
+- En la columna No Boot, el código, el nombre de la falla y la familia aparecen centrados en cada tarjeta.
 - Búsqueda y selección de fallas; el detalle muestra los pasos y recursos asociados.
 - Recorrido de diagnóstico con respuestas y notas durante la sesión.
 - Captura de identificación del nodo, validaciones, disposición final, causa raíz (RCA) y evidencia fotográfica.
