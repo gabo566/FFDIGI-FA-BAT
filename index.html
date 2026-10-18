@@ -6356,12 +6356,12 @@ main{padding-top:4px!important}
 
   :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-title, #mtf-detail-title) {
     padding: 6px 8px;
-    border: 1px solid var(--md-sys-color-error);
-    border-left: 4px solid var(--md-sys-color-error);
+    border: 1px solid #5f0000;
+    border-left: 4px solid #470000;
     border-radius: 9px;
-    background: var(--md-sys-color-error-container);
-    color: var(--md-sys-color-on-error-container) !important;
-    box-shadow: 0 1px 4px color-mix(in srgb, var(--md-sys-color-error) 18%, transparent);
+    background: #8b0000;
+    color: #ffffff !important;
+    box-shadow: 0 1px 7px rgba(95, 0, 0, .42);
   }
 
   :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-code, #mtf-code) {
@@ -6380,11 +6380,11 @@ main{padding-top:4px!important}
   }
 
   #bat-failure-detail .bat-detail-sequence li {
-    border-color: var(--md-sys-color-outline-variant);
+    border-color: #8b0000;
     border-radius: 10px;
     background: var(--md-sys-color-surface-container-low);
-    box-shadow: 0 1px 3px color-mix(in srgb, var(--md-sys-color-on-surface) 7%, transparent);
-    animation: ffdig-active-step-glow 1.8s ease-in-out infinite;
+    box-shadow: 0 1px 5px rgba(139, 0, 0, .24);
+    animation: ffdig-active-step-red-glow 1.8s ease-in-out infinite;
   }
 
   #bat-failure-detail .bat-detail-sequence li strong span:first-child {
@@ -6393,8 +6393,8 @@ main{padding-top:4px!important}
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
-    background: var(--md-sys-color-primary);
-    color: var(--md-sys-color-on-primary);
+    background: #8b0000;
+    color: #ffffff;
   }
 
   #mtf-detail .m3-step-pill {
@@ -6403,14 +6403,16 @@ main{padding-top:4px!important}
   }
 
   #mtf-detail .m3-step-pill.active {
-    border-color: var(--md-sys-color-primary);
-    box-shadow: 0 2px 6px color-mix(in srgb, var(--md-sys-color-primary) 28%, transparent);
-    animation: ffdig-active-step-glow 1.8s ease-in-out infinite;
+    border-color: #5f0000;
+    background: #8b0000;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, .45);
+    animation: ffdig-active-step-red-glow 1.8s ease-in-out infinite;
   }
 
-  @keyframes ffdig-active-step-glow {
-    0%, 100% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary) 28%, transparent), 0 0 5px color-mix(in srgb, var(--md-sys-color-primary) 18%, transparent); }
-    50% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 42%, transparent), 0 0 13px color-mix(in srgb, var(--md-sys-color-primary) 42%, transparent); }
+  @keyframes ffdig-active-step-red-glow {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(139, 0, 0, .38), 0 0 6px rgba(139, 0, 0, .3); }
+    50% { box-shadow: 0 0 0 3px rgba(139, 0, 0, .58), 0 0 16px rgba(139, 0, 0, .62); }
   }
 
   @media (prefers-reduced-motion: reduce) {

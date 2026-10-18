@@ -38,6 +38,8 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 ### Tema y presentación
 
 - Tema claro y oscuro.
+- La falla seleccionada se resalta con fondo rojo oscuro y texto blanco en BAT y MTF.
+- Los pasos BAT y el botón del paso MTF activo tienen un brillo rojo pulsante; la animación se desactiva cuando el sistema solicita movimiento reducido.
 - Diseño adaptable para distintos anchos de pantalla.
 - Diagramas, logotipos y referencias se sirven desde archivos del repositorio; la aplicación no depende de un CDN para esos recursos.
 

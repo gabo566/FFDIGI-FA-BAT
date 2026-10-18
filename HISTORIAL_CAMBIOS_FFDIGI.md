@@ -2754,3 +2754,72 @@ README indica que debe actualizarse y revisarse con cada modificación del proye
 ### Riesgos
 
 - La precisión de README dependerá de revisar el comportamiento real en cada cambio y no copiar descripciones antiguas sin verificarlas.
+
+## 48. 2026-10-18 — Resaltar fallas y pasos con rojo
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Oscurecer el rojo del resaltado de la falla y hacer que brillen en rojo los botones/pasos.
+
+### Objetivo
+
+Hacer más visible la falla seleccionada y destacar visualmente el paso actual en BAT y MTF.
+
+### Estado anterior
+
+El título de la falla usaba un contenedor rojo claro dependiente del tema. El paso BAT y el botón activo del stepper MTF tenían un pulso verde.
+
+### Análisis
+
+- Se confirmó que los títulos BAT y MTF comparten el selector de resaltado.
+- Los pasos BAT se representan como elementos de una secuencia; el stepper MTF crea botones `.m3-step-pill` y marca el paso vigente con `.active`.
+- El estilo debía conservar contraste en temas claro/oscuro y respetar `prefers-reduced-motion`.
+
+### Causa / necesidad
+
+El usuario pidió un rojo más oscuro para la falla y brillo rojo para los pasos.
+
+### Solución
+
+- Se aplicó fondo rojo oscuro y texto blanco a los títulos de falla BAT/MTF.
+- Se cambió a rojo el pulso visual de la secuencia BAT y del botón activo de MTF; el botón activo también usa fondo rojo oscuro.
+- Se cambió a rojo el número de cada paso BAT.
+- Se conservaron los estilos de animación reducida.
+
+### Archivos modificados
+
+- `index.html` — resaltado del título, números de paso y estilos de brillo.
+- `README.md` — descripción de la apariencia de fallas y pasos.
+- `CONTEXTO_FFDIGI.md` — decisión visual a conservar.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de este cambio.
+
+### Funciones o secciones afectadas
+
+- `#bat-detail-title` y `#mtf-detail-title`.
+- `#bat-failure-detail .bat-detail-sequence li` y `#mtf-detail .m3-step-pill.active`.
+- Animación `ffdig-active-step-red-glow`.
+
+### Impacto
+
+Cambio visual en el detalle BAT y MTF. No modifica lógica, datos, navegación, diagramas ni reportes.
+
+### Validaciones realizadas
+
+- Revisión estática de selectores, colores, texto de contraste y selector de movimiento reducido.
+- No se ejecutó la página ni se comprobó visualmente en navegador.
+
+### Resultado
+
+La falla activa queda marcada con rojo oscuro y el paso seleccionado usa un resplandor rojo animado.
+
+### Pendientes
+
+- Revisar la intensidad visual en ambos temas y en móvil/escritorio en navegador.
+
+### Riesgos
+
+- El rojo tiene una asociación visual fuerte con error; aquí se limita al identificador de la falla y al paso activo para conservar su énfasis.

@@ -193,6 +193,7 @@ Los manuales/workbooks fuente no están incluidos en el árbol observado; por es
 - Las galerías de referencia abren en modal; captions, página e indicaciones deben acompañar a la imagen y la imagen debe corresponder a la falla.
 - Mantener el tema y catálogos locales compatibles con las claves/versiones actuales hasta diseñar migración explícita.
 - Diseño responsive, navegación por teclado, foco visible y `prefers-reduced-motion` son parte del comportamiento a conservar.
+- La falla seleccionada se resalta en rojo oscuro con texto blanco; los pasos BAT y el botón del paso MTF activo usan un resplandor rojo que respeta `prefers-reduced-motion`.
 
 ## 10. Reglas de modificación segura
 
