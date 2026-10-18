@@ -3140,3 +3140,61 @@ La vista MTF ampliada conserva el acceso «Cambiar Falla» en la esquina superio
 ### Pendientes y riesgos
 
 - Confirmar visualmente su posición en escritorio, tableta y móvil; el botón se mantiene dentro del viewport y sobre el panel.
+
+
+## 54. 2026-10-18 — Ampliar el alto del detalle y restaurar «Cambiar Falla»
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Alargar el área del detalle MTF y conservar el botón «Cambiar Falla» tal como aparece originalmente; ocultar solo los elementos superiores indicados.
+
+### Objetivo
+
+Aprovechar el alto libre de la pantalla para el procedimiento y conservar intacta la presentación y ubicación del control para volver al catálogo.
+
+### Estado anterior
+
+La regla del modo enfocado posicionaba «Cambiar Falla» de forma flotante en la esquina superior derecha. Además ocultaba otros controles MTF y reservaba solo dos filas en el grid, provocando que el encabezado del botón y el detalle compitieran por la misma fila.
+
+### Análisis y solución
+
+- Se retiró el posicionamiento flotante y cualquier regla visual propia del botón «Cambiar Falla», restaurando su ubicación y estilo originales.
+- El layout del modo enfocado ahora reserva filas independientes para la barra MTF restante, el encabezado original y el detalle.
+- El detalle ocupa la fila flexible restante hasta el límite inferior del viewport; conserva desplazamiento cuando el contenido supera el alto.
+- Se ocultan únicamente la barra superior con logos, el selector BAT/MTF y la búsqueda. Se mantienen los demás controles de la barra MTF.
+- Se actualizaron README y el contexto técnico para reflejar el alcance corregido.
+
+### Archivos modificados
+
+- `index.html` — distribución por filas y reglas de visibilidad del modo enfocado.
+- `README.md` — comportamiento de los controles al abrir un detalle MTF.
+- `CONTEXTO_FFDIGI.md` — presentación del detalle y control de retorno.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta modificación.
+
+### Funciones o secciones afectadas
+
+- Reglas CSS `body.mtf-detail-focus` y `#mtf-layout`.
+
+### Impacto
+
+El detalle dispone de más altura y llega al borde inferior del viewport. El botón de regreso recupera su aspecto y ubicación originales. BAT no cambia.
+
+### Validaciones realizadas
+
+- Comprobación estática de que no quedan reglas de posicionamiento o alineación nuevas sobre «Cambiar Falla».
+- Comprobación estática de filas independientes para barra, encabezado y detalle; la tercera fila usa el espacio restante.
+- Comprobación estática de los selectores ocultos y de los controles que permanecen disponibles.
+- README y contexto técnico revisados y actualizados.
+- No se ejecutó la aplicación ni se comprobó visualmente en navegador.
+
+### Resultado
+
+La vista MTF oculta solo la cabecera de logos, el selector BAT/MTF y la búsqueda; el detalle gana altura y «Cambiar Falla» conserva su presentación original.
+
+### Pendientes y riesgos
+
+- Confirmar visualmente el alto final y la navegación en escritorio, tableta y móvil.
