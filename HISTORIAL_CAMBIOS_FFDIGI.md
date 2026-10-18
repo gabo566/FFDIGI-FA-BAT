@@ -3024,3 +3024,76 @@ La vista Tablero presenta primero las estaciones en el orden solicitado, de mane
 ### Riesgos
 
 - Las estaciones adicionales fuera de la secuencia solicitada aparecerán al final en orden alfabético hasta que se indique una posición específica.
+
+
+## 52. 2026-10-18 — Ampliar detalle MTF al seleccionar una falla
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Al seleccionar cualquier falla MTF, hacer que la tabla/descripción abarque la mayor parte posible de la pantalla, ocultando los logotipos, la búsqueda y los controles de selección BAT/MTF.
+
+### Objetivo
+
+Dar más espacio al procedimiento y a la información del caso seleccionado, con una forma clara de volver al catálogo.
+
+### Estado anterior
+
+MTF contraía el catálogo al seleccionar una falla, pero conservaba la barra superior, la navegación BAT/MTF y controles de búsqueda. El detalle ampliado se activaba solo en escritorio y su altura descontaba el espacio de la cabecera.
+
+### Análisis
+
+- La selección común de fallas MTF se realiza en `selectMtfFault`; el tablero y las tarjetas convergen en esa función.
+- `setMtfCatalogCollapsed` controla la apertura del detalle y la acción «Cambiar Falla».
+- Para aprovechar el viewport sin perder el retorno al catálogo, la acción para cambiar falla permanece disponible y se ocultan la búsqueda y controles que no son necesarios mientras se lee el detalle.
+- En pantallas estrechas, las columnas del detalle se apilan y el área usa desplazamiento propio para conservar acceso a todo el contenido.
+
+### Causa / necesidad
+
+La barra y la búsqueda reducían el espacio vertical disponible para leer la descripción y los pasos técnicos.
+
+### Solución
+
+- Se activó un modo de enfoque de MTF al seleccionar cualquier falla, sin límite de ancho de pantalla.
+- Se ocultaron la barra superior con logotipos, el selector BAT/MTF, la búsqueda y los controles de la barra MTF.
+- El panel de detalle se extiende por el viewport; en escritorio conserva tres columnas y en pantallas estrechas apila los paneles.
+- Se mantuvo «Cambiar Falla» como acceso para volver a la lista.
+- El modo se desactiva al volver al catálogo o cambiar a BAT.
+- Se actualizó README y el contexto técnico.
+
+### Archivos modificados
+
+- `index.html` — activación del modo enfocado y reglas responsive.
+- `README.md` — comportamiento al seleccionar fallas MTF.
+- `CONTEXTO_FFDIGI.md` — decisión de presentación.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de este cambio.
+
+### Funciones o secciones afectadas
+
+- `selectMtfFault`, `setMtfCatalogCollapsed` y `setMode`.
+- Modo visual `body.mtf-detail-focus` y layout `#mtf-layout`.
+
+### Impacto
+
+Aumenta el espacio para la ficha y los pasos MTF al ocultar elementos de navegación y búsqueda durante la lectura. BAT no cambia. Se conserva un control para cambiar de falla.
+
+### Validaciones realizadas
+
+- Comprobación estática de que la selección activa el modo enfocado, el retorno al catálogo lo retira y el cambio a BAT limpia el modo.
+- Comprobación estática de las reglas de pantalla amplia, apilado en pantallas estrechas y disponibilidad de «Cambiar Falla».
+- No se ejecutó la aplicación ni se comprobó visualmente en navegador.
+
+### Resultado
+
+Al seleccionar cualquier falla MTF, el detalle ocupa el viewport disponible y los controles superiores dejan de ocupar espacio.
+
+### Pendientes
+
+- Confirmar visualmente la distribución en escritorio, tableta y móvil y revisar navegación por teclado en navegador.
+
+### Riesgos
+
+- En ventanas de poca altura, el detalle y sus paneles requieren desplazamiento; no se elimina contenido técnico.

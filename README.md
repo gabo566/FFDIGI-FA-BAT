@@ -43,6 +43,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - El título de la falla seleccionada se muestra centrado sobre el fondo rojo oscuro, con texto blanco en BAT y MTF.
 - Los pasos BAT y el botón del paso MTF activo tienen un brillo rojo pulsante; la animación se desactiva cuando el sistema solicita movimiento reducido.
 - Diseño adaptable para distintos anchos de pantalla.
+- Al abrir una falla MTF, el detalle pasa a ocupar la pantalla disponible: se ocultan los logotipos, el selector BAT/MTF, la búsqueda y los controles de la barra; «Cambiar Falla» permite volver al catálogo.
 - Diagramas, logotipos y referencias se sirven desde archivos del repositorio; la aplicación no depende de un CDN para esos recursos.
 
 ## Límites actuales que conviene conocer
