@@ -3274,3 +3274,35 @@ Se deshicieron los dos últimos ajustes; permanece la implementación anterior d
 ### Pendientes y riesgos
 
 - Ninguno identificado para la reversión.
+
+
+## 57. 2026-10-18 — Revertir la ampliación de detalle MTF
+
+### Solicitud
+
+Retroceder un cambio adicional y quitar el modo que ampliaba la vista MTF al seleccionar una falla.
+
+### Solución
+
+- Se restauraron los archivos del repositorio al estado anterior a la implementación de la vista MTF enfocada.
+- README y contexto técnico vuelven a reflejar el comportamiento de ese estado.
+- Se conservó este registro del retroceso sin reescribir el historial remoto.
+
+### Archivos restaurados
+
+- `index.html`
+- `README.md`
+- `CONTEXTO_FFDIGI.md`
+
+### Validaciones realizadas
+
+- Se comprobó que el commit objetivo es el estado inmediatamente anterior a la ampliación de la vista.
+- Se comprobó que la nueva rama conserva el historial y aplica el árbol del estado objetivo, con la excepción de este registro añadido al historial.
+
+### Resultado
+
+La vista MTF vuelve al comportamiento anterior al modo de pantalla enfocada. Los cambios de orden de estaciones y de color/resaltado anteriores permanecen.
+
+### Pendientes y riesgos
+
+- Ninguno identificado para la reversión.

@@ -1265,110 +1265,6 @@
     }
   }
 
-  /* MTF: ficha en pantalla amplia al seleccionar una falla */
-  body.mtf-detail-focus .m3-top-app-bar,
-  body.mtf-detail-focus .m3-segmented-nav-wrap {
-    display: none !important;
-  }
-
-  body.mtf-detail-focus main {
-    padding: 0 !important;
-    max-width: none !important;
-  }
-
-  body.mtf-detail-focus #mtf-layout.mtf-detail-open {
-    position: fixed;
-    inset: 0;
-    z-index: 20;
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    grid-template-rows: auto minmax(0, 1fr);
-    gap: 0;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-row-1 {
-    min-height: 0;
-    padding: 4px 10px;
-    border: 0;
-    border-radius: 0;
-    background: var(--md-sys-color-surface);
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-row-1-search,
-  body.mtf-detail-focus #mtf-layout .mtf-row-1-actions {
-    display: none !important;
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-row-2 {
-    display: none !important;
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-row-2-header {
-    position: absolute;
-    z-index: 2;
-    top: 4px;
-    right: 10px;
-    display: flex !important;
-    width: auto;
-    min-height: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-row-2-header .mtf-catalog-heading,
-  body.mtf-detail-focus #mtf-layout .mtf-row-2-header .mtf-design-controls,
-  body.mtf-detail-focus #mtf-layout .mtf-row-2-header #mtf-notifications-open {
-    display: none !important;
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-row-3 {
-    display: block !important;
-    grid-row: 2;
-    min-width: 0;
-    min-height: 0;
-    width: 100%;
-    height: 100%;
-    max-height: none !important;
-    overflow: auto !important;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 8px;
-    border: 0;
-    border-radius: 0;
-  }
-
-  body.mtf-detail-focus #mtf-layout #mtf-detail,
-  body.mtf-detail-focus #mtf-layout .mtf-detail-horizontal-grid {
-    min-height: 100%;
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-detail-horizontal-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: stretch;
-  }
-
-  body.mtf-detail-focus #mtf-layout .mtf-selection-summary:not(.hidden) {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  @media (max-width: 900px) {
-    body.mtf-detail-focus #mtf-layout .mtf-detail-horizontal-grid {
-      grid-template-columns: minmax(0, 1fr);
-      align-content: start;
-    }
-  }
-
   /* Print CSS */
   @media print {
     @page { size: A4; margin: 14mm; }
@@ -2606,7 +2502,6 @@
     function setMode(mode) {
       const isBat = mode === "bat";
       FFDG.state.mode = mode;
-      if (isBat) document.body.classList.remove("mtf-detail-focus");
       $("nav-bat").classList.toggle("active", isBat);
       $("nav-mtf").classList.toggle("active", !isBat);
       $("bat-layout").classList.toggle("hidden", !isBat);
@@ -2887,7 +2782,6 @@
       catalog?.classList.toggle("hidden", shouldCollapse);
       detailRow?.classList.toggle("hidden", !shouldCollapse);
       if (!shouldCollapse) layout.classList.remove("mtf-detail-viewport");
-      document.body.classList.toggle("mtf-detail-focus", shouldCollapse && FFDG.state.mode === "mtf");
       summary.classList.toggle("hidden", !shouldCollapse);
       $("mtf-selection-text").textContent = shouldCollapse
         ? `${failure.station} · ${failure.id} · ${failure.name}`
@@ -2908,7 +2802,8 @@
       FFDG.state.mtfFinished = false;
       failure.activeVariant = 0;
       const layout = $("mtf-layout");
-      layout.classList.add("mtf-detail-viewport");
+      const desktopDetail = matchMedia("(min-width: 1081px)").matches;
+      layout.classList.toggle("mtf-detail-viewport", desktopDetail);
       setMtfCatalogCollapsed(true, failure, true);
       renderMtfList();
       renderMtfDetail();
