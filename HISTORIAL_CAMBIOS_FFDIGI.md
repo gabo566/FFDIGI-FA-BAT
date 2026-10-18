@@ -2890,3 +2890,71 @@ Los tres campos de cada falla de la columna roja BAT quedan centrados dentro de 
 ### Riesgos
 
 - La descripción puede ocupar varias líneas; permanece centrada y conserva el ajuste de texto existente.
+
+## 50. 2026-10-18 — Centrar el título rojo de falla BAT
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Centrar el texto del encabezado rojo que identifica la falla BAT, como «NDBG_081 · PDB FRU EEPROM».
+
+### Objetivo
+
+Alinear el identificador y nombre de la falla en el centro de la banda roja del detalle BAT.
+
+### Estado anterior
+
+El título `#bat-detail-title` tenía fondo rojo oscuro y texto blanco, pero conservaba alineación a la izquierda. La alineación también se había aplicado por error a la columna No Boot del tablero.
+
+### Análisis
+
+- La captura compartida identifica el encabezado del detalle BAT como el elemento que debe centrarse.
+- El título MTF ya cuenta con alineación central mediante estilos existentes; el ajuste nuevo debe apuntar solo al título BAT.
+- La regla previa de centrado de tarjetas No Boot no correspondía a la captura y se debe retirar.
+
+### Causa / necesidad
+
+La falla destacada en rojo no estaba centrada dentro de su banda.
+
+### Solución
+
+- Se añadió `text-align: center` a `#bat-failure-detail #bat-detail-title`.
+- Se eliminó la regla de alineación añadida por error a las tarjetas No Boot y se corrigieron README/contexto.
+- Se conservaron el fondo rojo oscuro, el contraste y el resaltado MTF.
+
+### Archivos modificados
+
+- `index.html` — alineación del título BAT y retiro de la regla No Boot.
+- `README.md` — descripción del título centrado; se eliminó la nota incorrecta de No Boot.
+- `CONTEXTO_FFDIGI.md` — decisión visual actualizada.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta corrección.
+
+### Funciones o secciones afectadas
+
+- `#bat-failure-detail #bat-detail-title`.
+- Se quitó `#bat-board .bd-col[data-st="NOBOOT"] .bd-item`.
+
+### Impacto
+
+El texto del título BAT queda centrado. La disposición original de las tarjetas No Boot se restaura; MTF y las demás tarjetas no cambian.
+
+### Validaciones realizadas
+
+- Comprobación estática del selector BAT y de la regla `text-align: center`.
+- Comprobación estática de que ya no existe el ajuste de centrado de No Boot.
+- No se ejecutó la página ni se comprobó visualmente en navegador.
+
+### Resultado
+
+El encabezado de falla BAT centra el código y el nombre sobre la banda roja oscura.
+
+### Pendientes
+
+- Confirmar visualmente el centrado con nombres de distinta longitud y en tamaños de pantalla diferentes.
+
+### Riesgos
+
+- Los títulos extensos pueden ocupar varias líneas; permanecen centrados y conservan el ajuste de texto actual.

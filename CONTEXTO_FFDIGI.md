@@ -73,7 +73,7 @@ La hoja de estilos y gran parte de las funciones siguen dentro del HTML. No se d
 ### Datos y organización
 
 - El catálogo base se declara dentro de `index.html`, en `FFDG.data.failureCatalog`, agrupado por familias FRU, Logic, Leak, Fan y No Boot.
-- Las tarjetas de fallas de la columna No Boot del tablero BAT centran código, nombre y familia; el resto de las columnas mantiene su alineación propia. La falla No Boot `Central IO board panel LEDs do not turn on` usa `NDBG_092`, etiqueta propia y UID código+etiqueta, porque el catálogo también conserva el registro FRU existente `NDBG_092 · FRONT IO FRU EEPROM`. Al restaurar un catálogo local, el inicializador elimina la etiqueta española anterior exacta de esa falla administrada y persiste de nuevo el registro canónico en inglés. `NDBG_122 · FW ISSUE` es otra adición No Boot, insertada después de NDBG_092 incluso al restaurar un catálogo guardado, con tres pasos propios aportados por el usuario para revisar y actualizar firmware BMC/HMC y validarlo mediante BAT Script.
+ La falla No Boot `Central IO board panel LEDs do not turn on` usa `NDBG_092`, etiqueta propia y UID código+etiqueta, porque el catálogo también conserva el registro FRU existente `NDBG_092 · FRONT IO FRU EEPROM`. Al restaurar un catálogo local, el inicializador elimina la etiqueta española anterior exacta de esa falla administrada y persiste de nuevo el registro canónico en inglés. `NDBG_122 · FW ISSUE` es otra adición No Boot, insertada después de NDBG_092 incluso al restaurar un catálogo guardado, con tres pasos propios aportados por el usuario para revisar y actualizar firmware BMC/HMC y validarlo mediante BAT Script.
 - Fans incluye NDBG_104–106 (FAN SPEED 1–3) y NDBG_117–121 (FAN SPEED 4–8). Las ocho fallas tienen procedimiento propio de cuatro pasos, con el número del ventilador correspondiente: validar ruteo, ejecutar el script BMC Sensors, validar resultados y hacer reseat, retest. Todas se marcan `managedAddition`; al restaurar el catálogo local se agregan las ausentes y se sincronizan esos pasos en registros FAN existentes.
 - `bat-pdf-seed.js` aporta 25 registros iniciales. Si no hay catálogo guardado válido, `mergeProcedures` los asocia/combina con el catálogo base y guarda el resultado localmente.
 - El código BAT asigna UID compuesto de código + etiqueta normalizada para diferenciar casos que comparten código.
@@ -194,7 +194,7 @@ Los manuales/workbooks fuente no están incluidos en el árbol observado; por es
 - Las galerías de referencia abren en modal; captions, página e indicaciones deben acompañar a la imagen y la imagen debe corresponder a la falla.
 - Mantener el tema y catálogos locales compatibles con las claves/versiones actuales hasta diseñar migración explícita.
 - Diseño responsive, navegación por teclado, foco visible y `prefers-reduced-motion` son parte del comportamiento a conservar.
-- La falla seleccionada se resalta en rojo oscuro con texto blanco; los pasos BAT y el botón del paso MTF activo usan un resplandor rojo que respeta `prefers-reduced-motion`.
+- El título de la falla seleccionada se centra y se resalta en rojo oscuro con texto blanco; los pasos BAT y el botón del paso MTF activo usan un resplandor rojo que respeta `prefers-reduced-motion`.
 
 ## 10. Reglas de modificación segura
 
