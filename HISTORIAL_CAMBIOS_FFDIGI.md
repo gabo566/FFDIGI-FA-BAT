@@ -3097,3 +3097,46 @@ Al seleccionar cualquier falla MTF, el detalle ocupa el viewport disponible y lo
 ### Riesgos
 
 - En ventanas de poca altura, el detalle y sus paneles requieren desplazamiento; no se elimina contenido técnico.
+
+
+## 53. 2026-10-18 — Conservar acceso a «Cambiar Falla» en el detalle ampliado
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Mantener disponible el control para regresar al catálogo en el modo MTF de pantalla amplia.
+
+### Objetivo
+
+Evitar que la ampliación del detalle oculte la acción de navegación que permite seleccionar otra falla.
+
+### Estado anterior
+
+El contenedor de «Cambiar Falla» está dentro de `.mtf-row-2-header`. La primera regla de pantalla amplia ocultaba ese encabezado junto con sus controles secundarios, ocultando también el botón.
+
+### Análisis y solución
+
+- Se conserva visible el contenedor del encabezado en posición flotante sobre el detalle.
+- Se ocultan solo el título, el diseño y las notificaciones; el botón «Cambiar Falla» queda disponible.
+- README y el contexto técnico se revisaron y siguen describiendo el comportamiento esperado; no requieren cambios de texto.
+
+### Archivos modificados
+
+- `index.html` — posicionamiento del botón de retorno en modo de enfoque.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta corrección.
+
+### Validaciones realizadas
+
+- Comprobación estática de que el contenedor permanece visible y sus controles secundarios se ocultan individualmente.
+- No se ejecutó la aplicación ni una prueba visual en navegador.
+
+### Resultado
+
+La vista MTF ampliada conserva el acceso «Cambiar Falla» en la esquina superior derecha.
+
+### Pendientes y riesgos
+
+- Confirmar visualmente su posición en escritorio, tableta y móvil; el botón se mantiene dentro del viewport y sobre el panel.

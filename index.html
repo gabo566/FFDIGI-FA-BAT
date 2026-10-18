@@ -1307,8 +1307,26 @@
     display: none !important;
   }
 
-  body.mtf-detail-focus #mtf-layout .mtf-row-2,
+  body.mtf-detail-focus #mtf-layout .mtf-row-2 {
+    display: none !important;
+  }
+
   body.mtf-detail-focus #mtf-layout .mtf-row-2-header {
+    position: absolute;
+    z-index: 2;
+    top: 4px;
+    right: 10px;
+    display: flex !important;
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  body.mtf-detail-focus #mtf-layout .mtf-row-2-header .mtf-catalog-heading,
+  body.mtf-detail-focus #mtf-layout .mtf-row-2-header .mtf-design-controls,
+  body.mtf-detail-focus #mtf-layout .mtf-row-2-header #mtf-notifications-open {
     display: none !important;
   }
 
