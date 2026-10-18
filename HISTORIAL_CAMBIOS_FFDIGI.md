@@ -3242,3 +3242,35 @@ Al abrir una falla MTF solo se mantiene el encabezado original con «Cambiar Fal
 ### Pendientes y riesgos
 
 - Confirmar visualmente el espacio entre paneles en escritorio, tableta y móvil; el contenido extenso conserva desplazamiento.
+
+
+## 56. 2026-10-18 — Revertir los dos últimos ajustes de la vista MTF
+
+### Solicitud
+
+Revertir los dos cambios más recientes relacionados con la ampliación y los controles de la vista de detalle MTF.
+
+### Solución
+
+- Se restauró la versión de los archivos de aplicación y documentación correspondiente al commit anterior a esos dos ajustes.
+- Se mantuvo el cambio previo que activa el detalle enfocado y conserva el acceso a «Cambiar Falla».
+- Se creó este commit de reversión sin reescribir el historial remoto.
+
+### Archivos restaurados
+
+- `index.html`
+- `README.md`
+- `CONTEXTO_FFDIGI.md`
+
+### Validaciones realizadas
+
+- Se verificó que los dos commits objetivo son los dos padres inmediatos anteriores al nuevo commit de reversión.
+- Se comprobó que el árbol de archivos corresponde al commit anterior a esos cambios, salvo este registro de historial.
+
+### Resultado
+
+Se deshicieron los dos últimos ajustes; permanece la implementación anterior de vista MTF enfocada.
+
+### Pendientes y riesgos
+
+- Ninguno identificado para la reversión.
