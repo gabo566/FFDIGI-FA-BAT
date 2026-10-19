@@ -89,7 +89,7 @@
     font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
     font-size: 14.5px;
     line-height: 1.5;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition: background-color var(--motion-content) var(--motion-ease-standard), color var(--motion-content) var(--motion-ease-standard);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -883,12 +883,19 @@
   .topology-reference-launch-action { flex: none; color: var(--md-sys-color-primary); font-size: 11px; font-weight: 800; }
   .topology-reference-launch:hover { background: var(--md-sys-color-surface-container-high); }
   #mtf-path { margin-bottom: 14px; }
+  .mtf-detail-progress { height: 5px; margin: 2px 0 6px; overflow: hidden; border-radius: 999px; background: var(--md-sys-color-surface-container-high); }
+  .mtf-detail-progress-fill { width: 0; height: 100%; border-radius: inherit; background: var(--md-sys-color-primary); transition: width .2s ease; }
   #mtf-step { gap: 8px !important; }
   #mtf-step .m3-step-kicker + .m3-step-kicker { margin-top: 6px; }
   .bat-failure-detail { grid-column: 1 / -1; }
   #bat-layout.bat-details-mode > section { grid-column:1 / -1; }
   #bat-layout:not(.bat-details-mode) > aside { display:none; }
-  #bat-layout.bat-details-mode:not(.bat-no-boot-mode) > aside { display:none; }
+  #bat-layout.bat-details-mode > aside { display:none; }
+  #bat-layout.bat-no-boot-mode > #bat-node-form,
+  #bat-layout.bat-no-boot-mode > #step-card,
+  #bat-layout.bat-no-boot-mode > #bat-history-card,
+  #bat-layout.bat-no-boot-mode > #closing-card,
+  #bat-layout.bat-no-boot-mode > aside { display:none !important; }
   .bat-detail-sequence { display:grid; gap:9px; margin:8px 0 0; padding:0; list-style:none; }
   .bat-detail-sequence li { box-sizing:border-box; width:100%; min-width:0; padding:9px 10px; border:1px solid var(--md-sys-color-outline-variant); border-radius:10px; font-size:12px; line-height:1.4; overflow-wrap:anywhere; }
   .bat-detail-sequence li strong { display:flex; gap:8px; align-items:flex-start; }
@@ -980,6 +987,29 @@
     flex-direction: column;
     min-width: 0;
   }
+
+  #closing-card.bat-no-boot-report .bat-no-boot-action-field,
+  #closing-card.bat-no-boot-report #root-cause-field { grid-column:span 1; }
+  #closing-card.bat-no-boot-report .bat-no-boot-pass-field { grid-column:1 / -1; }
+  .bat-no-boot-evidence { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:14px; }
+  .bat-no-boot-evidence-card { min-width:0; padding:10px; border:1px solid var(--md-sys-color-outline-variant); border-radius:12px; background:var(--md-sys-color-surface-container-low); }
+  .bat-no-boot-evidence-card h3 { margin:0 0 4px; font-size:12px; }
+  .bat-no-boot-evidence-card p { margin:0 0 8px; color:var(--md-sys-color-on-surface-variant); font-size:11px; line-height:1.35; }
+  .bat-no-boot-evidence-card input { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  .bat-no-boot-evidence-button { min-height:34px; padding:6px 10px; border:1px solid var(--md-sys-color-outline); border-radius:999px; background:var(--md-sys-color-surface); color:var(--md-sys-color-primary); font-size:11px; font-weight:700; line-height:1.2; font-family:inherit; cursor:pointer; }
+  .bat-no-boot-evidence-button:focus-visible { outline:2px solid var(--md-sys-color-primary); outline-offset:2px; }
+  .bat-no-boot-evidence-preview { display:grid; gap:5px; margin-top:7px; }
+  .bat-no-boot-evidence-preview figure { display:grid; grid-template-columns:38px minmax(0,1fr); align-items:center; gap:6px; margin:0; padding:4px; border:1px solid var(--md-sys-color-outline-variant); border-radius:8px; background:var(--md-sys-color-surface); font-size:10px; }
+  .bat-no-boot-evidence-preview img { width:38px; height:34px; object-fit:cover; border-radius:5px; }
+  .bat-no-boot-evidence-preview figcaption { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .bat-no-boot-report-open { display:flex; width:100%; min-height:40px; align-items:center; justify-content:center; gap:8px; margin-top:12px; padding:9px 13px; border:1px solid var(--md-sys-color-primary); border-radius:999px; background:var(--md-sys-color-primary); color:var(--md-sys-color-on-primary); font-size:12px; font-weight:700; line-height:1.2; font-family:inherit; cursor:pointer; }
+  .bat-no-boot-report-open:hover { filter:brightness(.94); }
+  .bat-no-boot-report-open:focus-visible { outline:3px solid var(--md-sys-color-primary); outline-offset:2px; }
+  .bat-no-boot-report-dialog .mtf-case-dialog-head h2 { margin:3px 0 0; font-size:19px; }
+  .bat-no-boot-step-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .bat-no-boot-step-summary label { display:grid; gap:6px; min-width:0; font-size:13px; font-weight:700; }
+  @media(max-width:600px) { .bat-no-boot-evidence { grid-template-columns:minmax(0,1fr); } #closing-card.bat-no-boot-report .bat-no-boot-action-field,#closing-card.bat-no-boot-report #root-cause-field { grid-column:1/-1; } }
+  @media(max-width:600px) { .bat-no-boot-step-summary { grid-template-columns:minmax(0,1fr); } }
 
   .field-label {
     font-size: 11.5px;
@@ -1444,7 +1474,6 @@
   }
 
   .mtf-case-dialog { width: min(760px, calc(100% - 24px)); max-width: 760px; max-height: min(88dvh, 900px); padding: 0; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 18px; color: var(--md-sys-color-on-surface); background: var(--md-sys-color-surface); box-shadow: 0 18px 60px rgba(0,0,0,.28); }
-  #mtf-case-report-open[hidden] { display: none !important; }
   .mtf-case-dialog::backdrop { background: rgba(12,18,10,.58); }
   .mtf-case-form { display: grid; gap: 14px; padding: 20px; overflow: auto; max-height: inherit; }
   .mtf-case-dialog-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding-bottom: 12px; }
@@ -1641,6 +1670,10 @@
             <div class="bento-meta-item"><span class="bento-meta-label">Tipo de falla</span><span id="bat-detail-component" class="bento-meta-val"></span></div>
             <div class="bento-meta-item"><span class="bento-meta-label">Descripción</span><span id="bat-detail-description" class="bento-meta-val"></span></div>
             <div class="bento-meta-item"><span class="bento-meta-label">Flowchart</span><span id="bat-detail-flowchart" class="bento-meta-val"></span></div>
+            <button id="bat-no-boot-report-open" class="bat-no-boot-report-open no-print hidden" type="button" aria-haspopup="dialog" aria-controls="bat-no-boot-report-dialog">
+              <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm8 1.5V8h3.5M8 12h8m-8 3h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Realizar reporte de falla
+            </button>
           </div>
           <div class="bento-block-2">
             <header class="bento-block-heading">
@@ -1660,7 +1693,6 @@
               <button id="bat-detail-prev" class="m3-btn m3-btn-tonal" type="button">← Anterior</button>
               <button id="bat-detail-next" class="m3-btn m3-btn-filled" type="button">Paso siguiente →</button>
               <button id="bat-flowchart-open" class="flowchart-open-btn" type="button" aria-haspopup="dialog" aria-controls="mtf-flowchart-modal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Ampliar diagrama</button>
-              <button id="bat-back-to-faults" class="m3-btn m3-btn-tonal" type="button">Volver a fallas</button>
             </div>
           </div>
         </div>
@@ -1775,12 +1807,12 @@
               <option>Fail (Reincidente)</option>
             </select>
           </div>
-          <div class="field-group full-span">
+          <div id="action-field" class="field-group full-span bat-no-boot-action-field">
             <label class="field-label" for="action">Acción Física Ejecutada en la Placa / Nodo:</label>
             <textarea id="action" class="m3-textarea"
               placeholder="Describe inspección, reconexión, reemplazo o retrabajo ejecutado."></textarea>
           </div>
-          <div class="field-group">
+          <div id="root-cause-field" class="field-group">
             <label class="field-label" for="root-cause">Causa raíz / RCA *</label>
             <select id="root-cause" class="m3-select">
               <option value="">-- Selecciona la causa raíz --</option>
@@ -1977,7 +2009,6 @@
               <span class="bento-meta-label">Flowchart</span>
               <span id="mtf-flowchart" class="bento-meta-val"></span>
             </div>
-            <button id="mtf-case-report-open" class="m3-btn m3-btn-filled no-print" type="button" aria-haspopup="dialog" aria-controls="mtf-case-report-dialog" hidden>Realizar reporte de falla</button>
             <details id="mtf-source-details" class="mtf-source-details hidden">
               <summary>Campos originales del Excel</summary>
               <dl id="mtf-source-fields"></dl>
@@ -2152,6 +2183,58 @@
   </div>
   <div id="mtf-case-print-report" class="report-only"></div>
 </main>
+<dialog id="bat-no-boot-report-dialog" class="mtf-case-dialog bat-no-boot-report-dialog" aria-labelledby="bat-no-boot-report-title" aria-describedby="bat-no-boot-report-help">
+  <form id="bat-no-boot-report-form" class="mtf-case-form">
+    <header class="mtf-case-dialog-head">
+      <div><span class="flowchart-modal-kicker">REPORTE BAT · NO BOOT</span><h2 id="bat-no-boot-report-title">Reporte de falla</h2></div>
+      <button id="bat-no-boot-report-close" class="flowchart-modal-close" type="button" aria-label="Cerrar reporte">×</button>
+    </header>
+    <p id="bat-no-boot-report-help" class="mtf-case-note">Registra la intervención del nodo, el punto de detención y el resultado. Datos e imágenes se conservan solo en esta sesión; al imprimir, elige “Guardar como PDF”.</p>
+    <section class="mtf-case-section" aria-labelledby="bat-no-boot-summary-heading"><h3 id="bat-no-boot-summary-heading">Falla seleccionada</h3><div id="bat-no-boot-report-summary" class="mtf-case-fault-summary"></div></section>
+    <section class="mtf-case-section" aria-labelledby="bat-no-boot-identity-heading"><h3 id="bat-no-boot-identity-heading">Identificación del nodo y analista</h3>
+      <div class="mtf-case-fields">
+        <label for="bat-no-boot-report-serial">Serial del nodo (S/N) *<input id="bat-no-boot-report-serial" class="m3-input" name="serial" autocomplete="off" required></label>
+        <label for="bat-no-boot-report-part">Número de parte (P/N) *<select id="bat-no-boot-report-part" class="m3-select" name="part" required></select></label>
+        <label for="bat-no-boot-report-employee">Número de empleado *<input id="bat-no-boot-report-employee" class="m3-input" name="employeeId" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required></label>
+        <label for="bat-no-boot-report-analyst">Nombre del analista *<input id="bat-no-boot-report-analyst" class="m3-input" name="analyst" autocomplete="name" required></label>
+      </div>
+    </section>
+    <div class="mtf-case-fields">
+      <label for="bat-no-boot-report-outcome">Resultado de la falla *<select id="bat-no-boot-report-outcome" class="m3-select" name="outcome" aria-describedby="bat-no-boot-report-status" required><option value="">Selecciona</option><option value="Resuelta">Resuelta</option><option value="No resuelta">No resuelta</option><option value="No ejecutado">No ejecutado</option></select></label>
+      <label for="bat-no-boot-report-retest">Resultado del retest *<select id="bat-no-boot-report-retest" class="m3-select" name="retest" aria-describedby="bat-no-boot-report-status" required></select></label>
+    </div>
+    <div class="bat-no-boot-step-summary">
+      <label for="bat-no-boot-stopped-step">Paso donde se detuvo o detectó la falla *<select id="bat-no-boot-stopped-step" class="m3-select" name="stoppedStep" aria-describedby="bat-no-boot-report-status" required></select></label>
+      <label id="bat-no-boot-pass-wrap" class="hidden" for="bat-no-boot-pass-step">Paso/acción donde se obtuvo Pass *<select id="bat-no-boot-pass-step" class="m3-select" name="passStep" aria-describedby="bat-no-boot-report-status"><option value="">Selecciona</option></select></label>
+    </div>
+    <div class="mtf-case-fields">
+      <label for="bat-no-boot-report-classification">Clasificación final *<select id="bat-no-boot-report-classification" class="m3-select" name="classification" required></select></label>
+      <label for="bat-no-boot-report-next-action">Siguiente acción *<select id="bat-no-boot-report-next-action" class="m3-select" name="nextAction" required></select></label>
+      <label for="bat-no-boot-report-root-cause">Causa raíz (RCA) *<select id="bat-no-boot-report-root-cause" class="m3-select" name="rootCause" required></select></label>
+      <label class="mtf-case-block" for="bat-no-boot-report-root-evidence">Evidencia concluyente de RCA<textarea id="bat-no-boot-report-root-evidence" class="m3-textarea" name="rootEvidence" rows="3"></textarea></label>
+    </div>
+    <div class="mtf-case-fields mtf-case-action-fields">
+      <label for="bat-no-boot-report-actions">Intervención / acciones realizadas *<textarea id="bat-no-boot-report-actions" class="m3-textarea" name="actions" rows="4" required></textarea></label>
+      <label for="bat-no-boot-report-notes">Notas del retest / resultado<textarea id="bat-no-boot-report-notes" class="m3-textarea" name="retestNotes" rows="4"></textarea></label>
+    </div>
+    <section id="bat-no-boot-evidence" class="bat-no-boot-evidence" aria-label="Evidencia antes y después de la intervención">
+      <article class="bat-no-boot-evidence-card">
+        <h3>Antes de aplicar acciones</h3><p>Condición inicial observada en el nodo.</p>
+        <input id="bat-no-boot-evidence-before" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia antes de aplicar acciones">
+        <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-before">＋ Evidencia antes</button>
+        <div id="bat-no-boot-evidence-before-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
+      </article>
+      <article class="bat-no-boot-evidence-card">
+        <h3>Después de aplicar acciones</h3><p>Intervención realizada y resultado del retest.</p>
+        <input id="bat-no-boot-evidence-after" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia después de aplicar acciones">
+        <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-after">＋ Evidencia después</button>
+        <div id="bat-no-boot-evidence-after-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
+      </article>
+    </section>
+    <p id="bat-no-boot-report-status" class="mtf-case-note" role="status" aria-live="polite"></p>
+    <footer class="mtf-case-actions"><button id="bat-no-boot-report-cancel" class="m3-btn m3-btn-tonal" type="button">Cancelar</button><button class="m3-btn m3-btn-filled" type="submit">Generar reporte · PDF</button></footer>
+  </form>
+</dialog>
 <dialog id="mtf-case-report-dialog" class="mtf-case-dialog" aria-labelledby="mtf-case-dialog-title" aria-describedby="mtf-case-dialog-help">
   <form id="mtf-case-report-form" class="mtf-case-form">
     <header class="mtf-case-dialog-head">
@@ -2415,7 +2498,7 @@
       "140787": "Daniel Ornelas Carmona",
       "140789": "Oscar Tomas Esparza Mendoza"
     };
-    return { failureCatalog, mtfFaults, flows, analystDirectory, mergeMtfPdfAdditions };
+    return { failureCatalog, mtfFaults, flows, analystDirectory, mergeMtfPdfAdditions, applyMtfPdfProcedureOverride };
   })();
   // 2. UI VIEW ENGINE & THEME MANAGER
   window.FFDG.ui = (() => {
@@ -2499,6 +2582,25 @@
       const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
       setTheme(currentTheme === "light" ? "dark" : "light");
     }
+    function runMotionTransition(update) {
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion || typeof document.startViewTransition !== "function") {
+        update();
+        return;
+      }
+      let didUpdate = false;
+      const applyUpdate = () => {
+        didUpdate = true;
+        update();
+      };
+      try {
+        const transition = document.startViewTransition(applyUpdate);
+        transition?.finished?.catch(() => {});
+      } catch (error) {
+        if (didUpdate) throw error;
+        update();
+      }
+    }
     function setMode(mode) {
       const isBat = mode === "bat";
       FFDG.state.mode = mode;
@@ -2512,12 +2614,14 @@
       }
     }
     function filterStation(st) {
-      currentStationFilter = st;
-      document.querySelectorAll('.filter-chip-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.station === st);
-        btn.setAttribute("aria-pressed", String(btn.dataset.station === st));
+      runMotionTransition(() => {
+        currentStationFilter = st;
+        document.querySelectorAll('.filter-chip-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.station === st);
+          btn.setAttribute("aria-pressed", String(btn.dataset.station === st));
+        });
+        renderMtfList();
       });
-      renderMtfList();
     }
     function showStep() {
       const step = FFDG.state.steps[FFDG.state.index];
@@ -2597,10 +2701,12 @@
       if (!keepProgress) {
         layout.classList.toggle("bat-details-mode", Boolean(failure));
         layout.classList.toggle("bat-no-boot-mode", isNoBoot);
+        $("closing-card").classList.toggle("bat-no-boot-report", isNoBoot);
+        $("bat-no-boot-report-open").classList.toggle("hidden", !isNoBoot);
         $("bat-detail-area").classList.toggle("hidden", !failure);
-        $("bat-node-form").classList.toggle("hidden", !isNoBoot);
+        $("bat-node-form").classList.add("hidden");
         $("step-card").classList.add("hidden");
-        $("bat-history-card").classList.toggle("hidden", !isNoBoot);
+        $("bat-history-card").classList.add("hidden");
         $("closing-card").classList.add("hidden");
         setBatCatalogCollapsed(Boolean(failure), failure);
       }
@@ -2742,6 +2848,20 @@
       FFDG.state.diagFinishedAt = new Date().toISOString();
       $("step-card").classList.add("hidden");
       $("closing-card").classList.remove("hidden");
+      const passStep = $("bat-no-boot-pass-step");
+      if (passStep) {
+        const selectedValue = passStep.value;
+        passStep.replaceChildren(new Option("-- Selecciona el paso con resultado Pass --", ""));
+        FFDG.state.history.forEach(entry => {
+          const index = Number(entry.step) - 1;
+          const step = FFDG.state.steps[index];
+          if (!step) return;
+          const source = step.title || step.q || `Validación ${index + 1}`;
+          const title = source.replace(/^\s*Paso\s*\d+\s*[.:·)]?\s*/i, "").trim() || `Validación ${index + 1}`;
+          passStep.add(new Option(`Paso ${index + 1} · ${title}`, String(index)));
+        });
+        if (Array.from(passStep.options).some(option => option.value === selectedValue)) passStep.value = selectedValue;
+      }
       const recBox = $("recommendation");
       recBox.className = `callout-box ${passed ? "callout-pass" : "callout-fail"}`;
       recBox.innerHTML = `<strong>${passed ? "Secuencia Eléctrica Nominal Verificada" : "Acción de Reparación Inmediata Requerida"}</strong>
@@ -2913,7 +3033,7 @@
     function renderFlowchart(f) {
       const container = $("mtf-flowchart-diagram");
       if (!container) return;
-      const source = applyMtfPdfProcedureOverride(f);
+      const source = FFDG.data.applyMtfPdfProcedureOverride(f);
       if (source.flowchartImage && Number(source.flowchartImageWidth) > 0 && Number(source.flowchartImageHeight) > 0) {
         const width = Number(source.flowchartImageWidth);
         const height = Number(source.flowchartImageHeight);
@@ -2921,7 +3041,7 @@
         container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagrama original del FFDG para ${escapeHtml(source.station || "MTF")}, páginas ${escapeHtml((source.sourcePdfPages || []).join(", "))}" ${zoomSource ? `data-flowchart-hi-res-src="${escapeHtml(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${escapeHtml(source.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet"></image></svg>`;
         return;
       }
-      const flowchartGraph = source.flowchartGraph || mtfPdfFlowchartGraphs[source.id] || null;
+      const flowchartGraph = source.flowchartGraph || window.FFDG_MTF_PDF_FLOWCHART_GRAPHS?.[source.id] || null;
       if (flowchartGraph?.flowchartImage
         && Number(flowchartGraph.flowchartImageWidth) > 0
         && Number(flowchartGraph.flowchartImageHeight) > 0
@@ -2944,12 +3064,10 @@
       if (!f) {
         $("mtf-empty").classList.remove("hidden");
         $("mtf-detail").classList.add("hidden");
-        $("mtf-case-report-open").hidden = true;
         return;
       }
       $("mtf-empty").classList.add("hidden");
       $("mtf-detail").classList.remove("hidden");
-      $("mtf-case-report-open").hidden = !FFDG.reports?.isMtfCasePilot(f);
       $("mtf-detail-title").textContent = `${f.id} · ${f.name}`;
       $("mtf-badge-station").textContent = f.station;
       $("mtf-badge-flow").textContent = f.flowchart;
@@ -2995,6 +3113,11 @@
         variantPicker.appendChild(button);
       });
       const steps = getActiveSteps(f);
+      const progressValue = steps.length
+        ? (FFDG.state.mtfFinished ? steps.length : Math.min(steps.length, Math.max(0, FFDG.state.mtfIndex) + 1))
+        : 0;
+      const progressPercent = steps.length ? (progressValue / steps.length) * 100 : 0;
+      const progressLabel = FFDG.state.mtfFinished ? "Ruta completada" : `Paso ${progressValue} de ${steps.length}`;
       // Stepper pills
       const pathContainer = $("mtf-path");
       pathContainer.replaceChildren();
@@ -3019,6 +3142,7 @@
         $("mtf-step").innerHTML = `
         ${step.section ? `<span class="m3-step-kicker">${escapeHtml(step.section)}</span>` : ""}
         <span class="m3-step-kicker">Validación ${FFDG.state.mtfIndex + 1} de ${steps.length}${step.sourceNumber ? ` · Origen ${escapeHtml(step.sourceNumber)}` : ""}</span>
+        <div class="mtf-detail-progress" role="progressbar" aria-label="Avance de pasos MTF" aria-valuemin="0" aria-valuemax="${steps.length}" aria-valuenow="${progressValue}" aria-valuetext="${progressLabel}"><div class="mtf-detail-progress-fill" aria-hidden="true" style="width:${progressPercent}%"></div></div>
         <h3 class="m3-step-title">${escapeHtml(step.title)}</h3>
         ${formatStepDetail(step.detail)}
       `;
@@ -3298,7 +3422,7 @@
         if (excelInput) excelInput.value = "";
       }
     }
-    return { initTheme, toggleTheme, setMode, filterStation, showStep, renderHistory, finish, renderEvidence, renderMtfList, renderMtfDetail, selectMtfFault, renderBatSelection, setBatCatalogCollapsed, setMtfCatalogCollapsed, advanceBatDetail, retreatBatDetail, loadExcelFile, restoreCatalog, updateStationFilterCounts, getActiveSteps };
+    return { initTheme, toggleTheme, setMode, filterStation, runMotionTransition, showStep, renderHistory, finish, renderEvidence, renderMtfList, renderMtfDetail, selectMtfFault, renderBatSelection, setBatCatalogCollapsed, setMtfCatalogCollapsed, advanceBatDetail, retreatBatDetail, loadExcelFile, restoreCatalog, updateStationFilterCounts, getActiveSteps, getBatDetailSteps };
   })();
   // 3. PRINT ENGINE
   window.FFDG.reports = (() => {
@@ -3332,31 +3456,52 @@
       if (preserveUserActivation) window.print();
       else requestAnimationFrame(() => window.print());
     }
-    function printBatReport() {
-      if (!$("classification").value) {
-        setPrintStatus("Selecciona la clasificación final en “Disposición Final y Causa Raíz (RCA)” para habilitar el reporte.", true);
-        $("classification").focus();
+    function printBatReport(caseReport = null) {
+      const failure = caseReport ? FFDG.state.batDetailFailure : FFDG.state.activeFailure;
+      const isNoBoot = failure?.family === "NOBOOT";
+      const classification = caseReport?.classification ?? $("classification").value;
+      const rootCause = caseReport?.rootCause ?? $("root-cause").value;
+      const nextAction = caseReport?.nextAction ?? $("next-action").value;
+      const reportStatus = (message, isError = false) => {
+        if (caseReport) {
+          const status = $("bat-no-boot-report-status");
+          status.textContent = message;
+          status.style.color = isError ? "var(--md-sys-color-error)" : "var(--md-sys-color-on-surface-variant)";
+        } else setPrintStatus(message, isError);
+      };
+      if (!classification) {
+        reportStatus("Selecciona la clasificación final para habilitar el reporte.", true);
+        if (!caseReport) $("classification").focus();
         return;
       }
-      if (!$("root-cause").value || !$("next-action").value) {
-        setPrintStatus("Selecciona la causa raíz y la siguiente acción antes de generar el reporte.", true);
-        (!$("root-cause").value ? $("root-cause") : $("next-action")).focus();
+      if (!rootCause || !nextAction) {
+        reportStatus("Selecciona la causa raíz y la siguiente acción antes de generar el reporte.", true);
+        if (!caseReport) (!rootCause ? $("root-cause") : $("next-action")).focus();
         return;
       }
-      if (!FFDG.state.activeFailure || !FFDG.state.history.length) {
-        setPrintStatus("Completa al menos una validación del diagnóstico antes de generar el reporte.", true);
+      if (!failure || (!caseReport && !FFDG.state.history.length) || (caseReport && !isNoBoot)) {
+        reportStatus("Completa la información del reporte para la falla seleccionada antes de imprimir.", true);
         return;
       }
       const generatedAt = new Date();
-      const serial = $("serial").value.trim();
-      const failure = FFDG.state.activeFailure;
-      const isNoBoot = failure.family === "NOBOOT";
-      const diagnostician = $("technician").value.trim();
-      const employeeId = $("employee-id").value.trim();
+      const serial = caseReport?.serial ?? $("serial").value.trim();
+      if (isNoBoot && (FFDG.state.noBootEvidenceLoading?.before || FFDG.state.noBootEvidenceLoading?.after)) {
+        reportStatus("Espera a que termine la preparación de las imágenes antes de generar el reporte.", true);
+        return;
+      }
+      const passStepValue = $("bat-no-boot-pass-step").value;
+      const passStepLabel = caseReport?.passStepLabel ?? (passStepValue ? $("bat-no-boot-pass-step").selectedOptions[0]?.textContent || "" : "");
+      const retest = caseReport?.retest ?? $("retest").value;
+      if (isNoBoot && retest === "Pass (Resuelto)" && passStepLabel === "") {
+        reportStatus("Selecciona el paso/acción donde se obtuvo Pass.", true);
+        if (!caseReport) $("bat-no-boot-pass-step").focus();
+        return;
+      }
+      const diagnostician = caseReport?.analyst ?? $("technician").value.trim();
+      const employeeId = caseReport?.employeeId ?? $("employee-id").value.trim();
       const reportDate = generatedAt.toLocaleDateString("es-MX");
-      const rootCause = $("root-cause").value;
-      const rootEvidence = $("root-cause-evidence").value.trim();
-      const nextAction = $("next-action").value;
+      const rootEvidence = caseReport?.rootEvidence ?? $("root-cause-evidence").value.trim();
+      const actions = caseReport?.actions ?? $("action").value.trim();
       $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
       $("bat-print-title").textContent = isNoBoot ? "Informe ejecutivo de falla" : "Reporte de Calidad";
       $("bat-print-subtitle").textContent = isNoBoot
@@ -3370,15 +3515,16 @@
       const meta = $("bat-print-meta");
       meta.replaceChildren();
       if (!isNoBoot) addMeta("Folio de sesión local", `BAT-${serial}-${generatedAt.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`);
-      addMeta("Estación", $("station").value);
+      addMeta("Estación", caseReport ? "BAT" : $("station").value);
       addMeta("Serial del Nodo (S/N)", serial);
-      addMeta("Número de Parte (P/N)", $("part").value.trim());
+      addMeta("Número de Parte (P/N)", caseReport?.part ?? $("part").value.trim());
       addMeta("Analista FA · No. de empleado", `${diagnostician} · ${employeeId}`);
       addMeta("Código de falla", failure.code);
       addMeta("Descripción reportada", failure.label, true);
-      addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
+      if (caseReport) addMeta("Fecha del reporte", generatedAt.toLocaleString("es-MX"));
+      else addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
       $("bat-print-continuation").textContent = `${isNoBoot ? "INGRASYS · CONTINUACIÓN DEL INFORME EJECUTIVO" : "INGRASYS · REPORTE DE CALIDAD"}  |  Serial ${serial}  |  Falla ${failure.code}`;
-      const hasAnomaly = FFDG.state.history.some(item => item.result === "ANOMALÍA");
+      const hasAnomaly = caseReport ? caseReport.outcome !== "Resuelta" : FFDG.state.history.some(item => item.result === "ANOMALÍA");
       const final = $("bat-print-final");
       final.replaceChildren();
       const card = document.createElement("section");
@@ -3392,13 +3538,13 @@
       leadLabel.textContent = "Resultado de validación";
       const leadTitle = document.createElement("strong");
       leadTitle.className = "bat-verdict-title";
-      leadTitle.textContent = hasAnomaly ? "Anomalía registrada" : "Falla no reproducida";
+      leadTitle.textContent = caseReport ? caseReport.outcome : hasAnomaly ? "Anomalía registrada" : "Falla no reproducida";
       lead.append(leadLabel, leadTitle);
       verdict.appendChild(lead);
       [
-        ["Clasificación final", $("classification").value],
+        ["Clasificación final", classification],
         ["Acción siguiente", nextAction],
-        ["Resultado del retest", $("retest").value || "No registrado"]
+        ["Resultado del retest", retest || "No registrado"]
       ].forEach(([label, value]) => {
         const stat = document.createElement("div");
         stat.className = "bat-verdict-stat";
@@ -3416,8 +3562,20 @@
       const finalFields = [
         ["Causa raíz identificada", rootCause],
         ["Evidencia de causa raíz", rootEvidence || "No registrada"],
-        ["Intervención realizada en el nodo", $("action").value.trim() || "No especificada", true],
+        ["Intervención realizada en el nodo", actions || "No especificada", true],
       ];
+      if (caseReport?.stoppedStepLabel) finalFields.push(["Paso donde se detuvo / detectó la falla", caseReport.stoppedStepLabel]);
+      if (caseReport?.passStepLabel) finalFields.push(["Paso/acción donde se obtuvo Pass", caseReport.passStepLabel]);
+      if (caseReport?.retestNotes) finalFields.push(["Notas del retest", caseReport.retestNotes]);
+      if (!caseReport && isNoBoot && passStepValue !== "") {
+        const passStepIndex = Number.parseInt(passStepValue, 10);
+        const passStep = FFDG.state.steps[passStepIndex];
+        if (passStep) {
+          const source = passStep.title || passStep.q || `Validación ${passStepIndex + 1}`;
+          const title = source.replace(/^\s*Paso\s*\d+\s*[.:·)]?\s*/i, "").trim() || `Validación ${passStepIndex + 1}`;
+          finalFields.push(["Validación en la que se obtuvo Pass", `Paso ${passStepIndex + 1} · ${title}`]);
+        }
+      }
       finalFields.forEach(([label, value, wide]) => {
         const field = document.createElement("div");
         if (wide) field.className = "wide";
@@ -3447,17 +3605,38 @@
       $("bat-print-signatures").replaceChildren(signatures);
       final.appendChild(card);
       const evidence = $("print-evidence-list");
-      if (!FFDG.state.evidence.length) {
-        evidence.replaceChildren();
+      const evidenceItems = FFDG.state.evidence.map(item => ({ name: item.name, src: item.url, label: item.name }));
+      if (isNoBoot) {
+        [
+          ["before", "Antes de aplicar acciones"],
+          ["after", "Después de aplicar acciones"]
+        ].forEach(([stage, stageLabel]) => {
+          (FFDG.state.noBootReportEvidence?.[stage] || []).forEach(item => {
+            evidenceItems.push({ name: item.name, src: item.dataUrl, label: `${stageLabel} · ${item.name}` });
+          });
+        });
+      }
+      evidence.replaceChildren();
+      evidenceItems.forEach(item => {
+        const figure = document.createElement("figure");
+        const image = document.createElement("img");
+        image.src = item.src;
+        image.alt = item.label;
+        const caption = document.createElement("figcaption");
+        caption.textContent = item.label;
+        figure.append(image, caption);
+        evidence.appendChild(figure);
+      });
+      if (!evidenceItems.length) {
         evidence.classList.add("hidden");
         $("bat-print-evidence-section").classList.add("hidden");
       } else {
         evidence.classList.remove("hidden");
         $("bat-print-evidence-section").classList.remove("hidden");
       }
-      $("print-quality-note").textContent = `${isNoBoot ? "Informe ejecutivo para Gerencia y revisión de Calidad" : "Documento para revisión de Calidad"} · ${FFDG.state.evidence.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
-      setPrintStatus("Se abrirá la ventana de impresión. Elige “Guardar como PDF” como destino para crear el archivo.");
-      openPrintDialog("bat", `Reporte_BAT_${serial}_${failure.code}`);
+      $("print-quality-note").textContent = `${isNoBoot ? "Informe ejecutivo para Gerencia y revisión de Calidad" : "Documento para revisión de Calidad"} · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
+      reportStatus("Se abrirá la ventana de impresión. Elige “Guardar como PDF” como destino para crear el archivo.");
+      openPrintDialog("bat", `Reporte_BAT_${serial}_${failure.code}`, isNoBoot);
     }
     function printMtfReport() {
       const f = FFDG.state.mtfSelected;
@@ -3712,7 +3891,6 @@
     }
     $("mtf-case-report-close").addEventListener("click", () => $("mtf-case-report-dialog").close());
     $("mtf-case-report-cancel").addEventListener("click", () => $("mtf-case-report-dialog").close());
-    $("mtf-case-report-open").addEventListener("click", openMtfCaseReport);
     document.querySelectorAll("#mtf-case-report-form [data-evidence-stage]").forEach(input => input.addEventListener("change", () => updateMtfCaseEvidence(input)));
     document.querySelectorAll("#mtf-case-report-form [data-evidence-target]").forEach(button => button.addEventListener("click", () => $(button.dataset.evidenceTarget).click()));
     $("mtf-case-report-form").elements.outcome.addEventListener("change", event => {
@@ -3804,6 +3982,9 @@
       index: 0,
       history: [],
       evidence: [],
+      noBootReportSteps: [],
+      noBootReportEvidence: { before: [], after: [] },
+      noBootEvidenceLoading: { before: false, after: false },
       batDetailFailure: null,
       batDetailIndex: 0,
       mtfSelected: null,
@@ -3812,6 +3993,128 @@
       diagStartedAt: null,
       diagFinishedAt: null
     };
+    const batEvidenceReadTokens = { before: 0, after: 0 };
+    function resetNoBootReportEvidence() {
+      ["before", "after"].forEach(stage => {
+        batEvidenceReadTokens[stage] += 1;
+        FFDG.state.noBootReportEvidence[stage] = [];
+        FFDG.state.noBootEvidenceLoading[stage] = false;
+        const input = $(`bat-no-boot-evidence-${stage}`);
+        const preview = $(`bat-no-boot-evidence-${stage}-preview`);
+        if (input) input.value = "";
+        if (preview) {
+          preview.replaceChildren();
+          preview.setAttribute("aria-busy", "false");
+        }
+      });
+      $("bat-no-boot-pass-step").value = "";
+    }
+    function readBatReportImage(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve({ name: file.name, dataUrl: reader.result });
+        reader.onerror = () => reject(new Error(`No se pudo leer la imagen ${file.name}.`));
+        reader.readAsDataURL(file);
+      });
+    }
+    function cloneSelectOptions(sourceId, targetId) {
+      const source = $(sourceId);
+      const target = $(targetId);
+      target.replaceChildren(...Array.from(source.options, option => option.cloneNode(true)));
+      target.value = "";
+    }
+    function populateNoBootStepOptions(failure) {
+      const steps = FFDG.ui.getBatDetailSteps(failure);
+      FFDG.state.noBootReportSteps = steps;
+      const stopped = $("bat-no-boot-stopped-step");
+      const passed = $("bat-no-boot-pass-step");
+      stopped.replaceChildren(new Option("Selecciona el paso", ""), new Option("No se detuvo · secuencia completada", "not-stopped"));
+      passed.replaceChildren(new Option("Selecciona el paso/acción", ""));
+      steps.forEach((step, index) => {
+        const number = step.sourceNumber || index + 1;
+        const label = `Paso ${number} · ${step.title || "Validación"}`;
+        stopped.add(new Option(label, String(index)));
+        passed.add(new Option(label, String(index)));
+      });
+      passed.add(new Option("AC Cycle adicional", "ac-cycle"));
+    }
+    function syncNoBootPassRequirement() {
+      const outcome = $("bat-no-boot-report-outcome").value;
+      const retest = $("bat-no-boot-report-retest").value;
+      const required = outcome === "Resuelta" || retest === "Pass (Resuelto)";
+      $("bat-no-boot-pass-wrap").classList.toggle("hidden", !required);
+      $("bat-no-boot-pass-step").required = required;
+      ["bat-no-boot-report-outcome", "bat-no-boot-report-retest", "bat-no-boot-pass-step"].forEach(id => $(id).removeAttribute("aria-invalid"));
+      if (!required) $("bat-no-boot-pass-step").value = "";
+    }
+    function openBatNoBootReport() {
+      const failure = FFDG.state.batDetailFailure;
+      if (failure?.family !== "NOBOOT") return;
+      const form = $("bat-no-boot-report-form");
+      form.reset();
+      resetNoBootReportEvidence();
+      cloneSelectOptions("part", "bat-no-boot-report-part");
+      cloneSelectOptions("classification", "bat-no-boot-report-classification");
+      cloneSelectOptions("next-action", "bat-no-boot-report-next-action");
+      cloneSelectOptions("root-cause", "bat-no-boot-report-root-cause");
+      cloneSelectOptions("retest", "bat-no-boot-report-retest");
+      populateNoBootStepOptions(failure);
+      $("bat-no-boot-pass-wrap").classList.add("hidden");
+      $("bat-no-boot-pass-step").required = false;
+      $("bat-no-boot-report-summary").textContent = `BAT · ${failure.code} · ${failure.label}`;
+      $("bat-no-boot-report-status").textContent = "";
+      $("bat-no-boot-report-form").querySelectorAll("[aria-invalid='true']").forEach(field => field.removeAttribute("aria-invalid"));
+      FFDG.state.activeFailure = failure;
+      $("bat-no-boot-report-dialog").showModal();
+      $("bat-no-boot-report-serial").focus();
+    }
+    function submitBatNoBootReport(event) {
+      event.preventDefault();
+      const form = $("bat-no-boot-report-form");
+      const values = new FormData(form);
+      const outcome = String(values.get("outcome") || "");
+      const retest = String(values.get("retest") || "");
+      const passStepValue = String(values.get("passStep") || "");
+      const status = $("bat-no-boot-report-status");
+      if ((outcome === "Resuelta") !== (retest === "Pass (Resuelto)")) {
+        status.textContent = "El resultado de falla y el retest deben coincidir: “Resuelta” requiere retest Pass.";
+        $("bat-no-boot-report-retest").focus();
+        $("bat-no-boot-report-outcome").setAttribute("aria-invalid", "true");
+        $("bat-no-boot-report-retest").setAttribute("aria-invalid", "true");
+        return;
+      }
+      if ((outcome === "Resuelta" || retest === "Pass (Resuelto)") && !passStepValue) {
+        status.textContent = "Selecciona el paso o AC Cycle donde se obtuvo Pass.";
+        $("bat-no-boot-pass-step").focus();
+        $("bat-no-boot-pass-step").setAttribute("aria-invalid", "true");
+        return;
+      }
+      if (FFDG.state.noBootEvidenceLoading.before || FFDG.state.noBootEvidenceLoading.after) {
+        status.textContent = "Espera a que termine la preparación de las imágenes antes de generar el reporte.";
+        return;
+      }
+      const stoppedStepLabel = $("bat-no-boot-stopped-step").selectedOptions[0]?.textContent || "";
+      const passStepLabel = passStepValue ? $("bat-no-boot-pass-step").selectedOptions[0]?.textContent || "" : "";
+      const selectedRootCause = $("bat-no-boot-report-root-cause").selectedOptions[0];
+      const caseReport = {
+        serial: String(values.get("serial") || "").trim(),
+        part: String(values.get("part") || ""),
+        employeeId: String(values.get("employeeId") || "").trim(),
+        analyst: String(values.get("analyst") || "").trim(),
+        outcome,
+        retest,
+        classification: String(values.get("classification") || ""),
+        nextAction: String(values.get("nextAction") || ""),
+        rootCause: selectedRootCause?.textContent || "",
+        rootEvidence: String(values.get("rootEvidence") || "").trim(),
+        actions: String(values.get("actions") || "").trim(),
+        stoppedStepLabel,
+        passStepLabel,
+        retestNotes: String(values.get("retestNotes") || "").trim()
+      };
+      $("bat-no-boot-report-dialog").close();
+      FFDG.reports.printBatReport(caseReport);
+    }
     FFDG.ui.initTheme();
     $("theme-toggle").addEventListener("click", FFDG.ui.toggleTheme);
     const syncBatThemeButton = () => {
@@ -3890,6 +4193,7 @@
       FFDG.state.history = [];
       FFDG.state.diagStartedAt = new Date().toISOString();
       FFDG.state.diagFinishedAt = null;
+      resetNoBootReportEvidence();
       $("step-card").classList.remove("hidden");
       $("closing-card").classList.add("hidden");
       FFDG.ui.renderHistory();
@@ -3947,6 +4251,7 @@
       FFDG.state.history = [];
       FFDG.state.diagStartedAt = null;
       FFDG.state.diagFinishedAt = null;
+      resetNoBootReportEvidence();
       FFDG.state.evidence.forEach(item => URL.revokeObjectURL(item.url));
       FFDG.state.evidence = [];
       FFDG.ui.renderHistory();
@@ -3956,6 +4261,7 @@
     });
     $("new-btn").addEventListener("click", () => {
       $("closing-card").classList.add("hidden");
+      resetNoBootReportEvidence();
       $("serial").value = "";
       $("action").value = "";
       $("root-cause").value = "";
@@ -3964,6 +4270,8 @@
       FFDG.state.history = [];
       FFDG.state.diagStartedAt = null;
       FFDG.state.diagFinishedAt = null;
+      $("classification").value = "";
+      $("retest").value = "No aplica";
       FFDG.ui.renderHistory();
     });
     $("evidence-input").addEventListener("change", (e) => {
@@ -3974,10 +4282,70 @@
       });
       FFDG.ui.renderEvidence();
     });
+    $("bat-no-boot-report-open").addEventListener("click", openBatNoBootReport);
+    $("bat-no-boot-report-close").addEventListener("click", () => $("bat-no-boot-report-dialog").close());
+    $("bat-no-boot-report-cancel").addEventListener("click", () => $("bat-no-boot-report-dialog").close());
+    $("bat-no-boot-report-form").addEventListener("submit", submitBatNoBootReport);
+    $("bat-no-boot-report-outcome").addEventListener("change", syncNoBootPassRequirement);
+    $("bat-no-boot-report-retest").addEventListener("change", syncNoBootPassRequirement);
+    $("bat-no-boot-pass-step").addEventListener("change", () => $("bat-no-boot-pass-step").removeAttribute("aria-invalid"));
+    $("bat-no-boot-report-employee").addEventListener("input", event => {
+      const name = FFDG.data.analystDirectory[event.target.value.trim()];
+      if (name) $("bat-no-boot-report-analyst").value = name;
+    });
+    document.querySelectorAll("[data-bat-evidence-target]").forEach(button => {
+      button.addEventListener("click", () => $(button.dataset.batEvidenceTarget).click());
+    });
+    ["before", "after"].forEach(stage => {
+      const input = $(`bat-no-boot-evidence-${stage}`);
+      input.addEventListener("change", async () => {
+        const token = ++batEvidenceReadTokens[stage];
+        const files = Array.from(input.files || []).filter(file => file.type.startsWith("image/"));
+        const preview = $(`bat-no-boot-evidence-${stage}-preview`);
+        preview.replaceChildren();
+        preview.setAttribute("aria-busy", "false");
+        FFDG.state.noBootReportEvidence[stage] = [];
+        FFDG.state.noBootEvidenceLoading[stage] = false;
+        if (!files.length) return;
+        FFDG.state.noBootEvidenceLoading[stage] = true;
+        preview.textContent = "Preparando evidencia…";
+        preview.setAttribute("aria-busy", "true");
+        try {
+          const photos = await Promise.all(files.map(readBatReportImage));
+          if (token !== batEvidenceReadTokens[stage]) return;
+          FFDG.state.noBootEvidenceLoading[stage] = false;
+          preview.setAttribute("aria-busy", "false");
+          FFDG.state.noBootReportEvidence[stage] = photos;
+          preview.replaceChildren();
+          photos.forEach(photo => {
+            const figure = document.createElement("figure");
+            const image = document.createElement("img");
+            image.src = photo.dataUrl;
+            image.alt = photo.name;
+            const caption = document.createElement("figcaption");
+            caption.textContent = photo.name;
+            figure.append(image, caption);
+            preview.appendChild(figure);
+          });
+        } catch (error) {
+          if (token !== batEvidenceReadTokens[stage]) return;
+          FFDG.state.noBootEvidenceLoading[stage] = false;
+          preview.setAttribute("aria-busy", "false");
+          preview.textContent = "No se pudo preparar la evidencia. Vuelve a seleccionar las imágenes.";
+          $("bat-no-boot-report-status").textContent = error.message;
+        }
+      });
+    });
+    $("retest").addEventListener("change", () => {
+      const passStep = $("bat-no-boot-pass-step");
+      passStep.required = FFDG.state.activeFailure?.family === "NOBOOT" && $("retest").value === "Pass (Resuelto)";
+    });
     $("pdf-btn").addEventListener("click", FFDG.reports.printBatReport);
     $("mtf-search").addEventListener("input", () => {
-      FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected);
-      FFDG.ui.renderMtfList();
+      FFDG.ui.runMotionTransition(() => {
+        FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected);
+        FFDG.ui.renderMtfList();
+      });
     });
     $("mtf-pdf-select-button").addEventListener("click", () => $("mtf-pdf-file-input").click());
     $("mtf-prev").addEventListener("click", () => {
@@ -4017,11 +4385,6 @@
     });
     $("mtf-selection-toggle").addEventListener("click", () => {
       FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected, true);
-    });
-    $("bat-back-to-faults").addEventListener("click", () => {
-      FFDG.ui.renderBatSelection(null);
-      focusSelectedBatCard();
-      scrollToTarget($("bat-failure-board"));
     });
     FFDG.ui.setMode("bat");
   })();</script>
@@ -4354,7 +4717,7 @@
         board.appendChild(column);
       });
     }
-    search.addEventListener("input", render);
+    search.addEventListener("input", () => window.FFDG.ui.runMotionTransition(render));
     select.addEventListener("change", () => {
       selectedCode = select.value;
       const selectedFailure = catalog.find(item => item.uid === selectedCode || item.code === selectedCode);
@@ -5846,18 +6209,81 @@ main{padding-top:4px!important}
     #mtf-layout.mtf-selection-collapsed .mtf-selection-summary:not(.hidden) { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-width: 0; }
     #mtf-layout:not(.mtf-detail-open) .mtf-row-3 { display: none; }
     @media (prefers-reduced-motion: no-preference) {
-      #bat-board, #mtf-row-2, #mtf-layout .mtf-row-3, #bat-selection-summary, #mtf-selection-summary, #bat-detail-area, #mtf-detail {
-        transition: opacity 180ms ease, transform 180ms ease, display 180ms allow-discrete;
+      #bat-board, #bat-selection-summary, #bat-detail-area {
+        transition: opacity var(--motion-content) var(--motion-ease-standard), transform var(--motion-content) var(--motion-ease-standard), display var(--motion-content) allow-discrete;
         transition-behavior: allow-discrete;
       }
       #bat-failure-board.catalog-selection-collapsed #bat-board,
+      #bat-selection-summary.hidden, #bat-detail-area.hidden { opacity: 0; transform: translateY(8px); }
+      @starting-style {
+        #bat-board, #bat-selection-summary:not(.hidden), #bat-detail-area:not(.hidden) {
+          opacity: 0; transform: translateY(8px);
+        }
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      #mtf-layout {
+        --mtf-motion-duration: var(--motion-content);
+        --mtf-motion-ease: var(--motion-ease-emphasized);
+      }
+      #mtf-layout #mtf-row-2,
+      #mtf-layout .mtf-row-3,
+      #mtf-layout #mtf-selection-summary,
+      #mtf-layout #mtf-detail {
+        transition:
+          opacity var(--mtf-motion-duration) var(--mtf-motion-ease),
+          transform var(--mtf-motion-duration) var(--mtf-motion-ease),
+          display var(--mtf-motion-duration) allow-discrete;
+        transition-behavior: allow-discrete;
+      }
       #mtf-layout.mtf-selection-collapsed #mtf-row-2,
       #mtf-layout:not(.mtf-detail-open) .mtf-row-3,
-      #bat-selection-summary.hidden, #mtf-selection-summary.hidden,
-      #bat-detail-area.hidden, #mtf-detail.hidden { opacity: 0; transform: translateY(8px); }
+      #mtf-layout #mtf-selection-summary.hidden,
+      #mtf-layout #mtf-detail.hidden {
+        opacity: 0;
+        transform: translateY(8px);
+      }
       @starting-style {
-        #bat-board, #mtf-row-2, #bat-selection-summary:not(.hidden), #mtf-selection-summary:not(.hidden),
-        #mtf-layout.mtf-detail-open .mtf-row-3, #bat-detail-area:not(.hidden), #mtf-detail:not(.hidden) { opacity: 0; transform: translateY(8px); }
+        #mtf-layout.mtf-detail-open .mtf-row-3,
+        #mtf-layout.mtf-selection-collapsed #mtf-selection-summary:not(.hidden),
+        #mtf-layout.mtf-detail-open #mtf-detail:not(.hidden) {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+      }
+      #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+      #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2,
+      #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity var(--mtf-motion-duration) var(--mtf-motion-ease),
+          transform var(--mtf-motion-duration) var(--mtf-motion-ease);
+      }
+      #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1 { transition-delay: 0ms; }
+      #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2 { transition-delay: 12ms; }
+      #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 { transition-delay: 24ms; }
+      @starting-style {
+        #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+        #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2,
+        #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #mtf-layout #mtf-row-2,
+      #mtf-layout .mtf-row-3,
+      #mtf-layout #mtf-selection-summary,
+      #mtf-layout #mtf-detail,
+      #mtf-layout .mtf-detail-horizontal-grid > .bento-block-1,
+      #mtf-layout .mtf-detail-horizontal-grid > .bento-block-2,
+      #mtf-layout .mtf-detail-horizontal-grid > .bento-block-3 {
+        animation: none !important;
+        transition: none !important;
+        transition-delay: 0ms !important;
+        transform: none !important;
       }
     }
     #mtf-selection-toggle { display: flex; flex-direction: row; align-items: center; justify-content: center; width: 100%; min-width: 0; min-height: 44px; box-sizing: border-box; border: 1px solid var(--nvidia-green); border-radius: 12px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); text-align: center; }
@@ -6437,4 +6863,112 @@ main{padding-top:4px!important}
     border-radius: 10px !important;
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-sys-color-on-surface) 3%, transparent);
   }
+
+  /* En escritorio, fija la navegación al fondo de Disposition Flow sin redimensionar las otras tarjetas. */
+  @media screen and (min-width: 1081px) {
+    #bat-failure-detail .bat-detail-grid > .bento-block-3 .bat-detail-controls {
+      margin-top: auto;
+      padding-top: 8px;
+      justify-content: center;
+    }
+  }
+
+  /* MTF: evitar que el badge tape el criterio y dar ancho útil a los controles del flowchart. */
+  #mtf-detail .mtf-quality-heading { gap: 8px; min-width: 0; }
+  #mtf-detail .mtf-quality-heading > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+  #mtf-detail .mtf-quality-heading #mtf-flowchart-tag {
+    position: static;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+  @media screen and (min-width: 1281px) {
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+  @media screen and (min-width: 1081px) {
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail .mtf-detail-controls-right {
+      flex-wrap: wrap;
+      width: 100%;
+      min-width: 0;
+      justify-content: center;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail .mtf-detail-controls-right > button {
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 100%;
+      white-space: normal;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  /* MTF: marco uniforme para fallas con diagramas fuente, generados o sin diagrama. */
+  @media screen and (min-width: 1081px) {
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      display: flex !important;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+    #mtf-layout.mtf-detail-open #mtf-disposition-content {
+      display: grid !important;
+      grid-template-rows: auto auto minmax(0, 1fr) !important;
+      flex: 1 1 auto;
+      min-width: 0;
+      min-height: 0;
+      gap: 6px;
+    }
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > .mtf-quality-heading,
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > #mtf-action-text,
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > #mtf-outcome {
+      min-width: 0;
+      margin-block: 0 !important;
+    }
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > .mtf-quality-heading {
+      min-height: 32px;
+      box-sizing: border-box;
+      align-self: stretch;
+    }
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      min-height: 0;
+      height: auto !important;
+      max-height: none !important;
+      overflow: auto !important;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram > svg,
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram > img {
+      display: block;
+      flex: 0 1 auto;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+    #mtf-layout.mtf-detail-open .mtf-detail-controls-right {
+      flex: 0 0 auto;
+      align-items: stretch;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      margin-top: 8px;
+      padding-top: 0;
+    }
+  }
+
 </style>
+<link rel="stylesheet" href="./ffdg-motion.css">

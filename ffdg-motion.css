@@ -1,0 +1,229 @@
+:root {
+  --motion-micro: 120ms;
+  --motion-control: 160ms;
+  --motion-content: 180ms;
+  --motion-panel: 220ms;
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Sistema de movimiento FFDIGI: respuestas cortas, sin animar layout ni lógica. */
+body,
+.m3-card,
+#bat-failure-board,
+#mtf-layout .mtf-row-1,
+#mtf-layout .mtf-row-2-header,
+#mtf-layout .mtf-row-3,
+:is(#bat-failure-detail, #mtf-detail) .bento-block-1,
+:is(#bat-failure-detail, #mtf-detail) .bento-block-2,
+:is(#bat-failure-detail, #mtf-detail) .bento-block-3,
+#bat-board .bd-col,
+#mtf-board .bd-col,
+.m3-segmented-nav,
+.mtf-row-1-search,
+.m3-input,
+.m3-select,
+.m3-textarea {
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: var(--motion-content);
+  transition-timing-function: var(--motion-ease-standard);
+}
+
+:is(.m3-btn, .filter-chip-btn, .m3-seg-btn, .theme-switch-btn, .view-tg button,
+    .flowchart-open-btn, .flowchart-modal-close, .flowchart-modal-zoom,
+    .topology-reference-launch, .catalog-selection-toggle, .mtf-variant-btn,
+    .terminal-copy-btn, .mtf-notification-close, .pdf-reference-launch) {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: var(--motion-control);
+  transition-timing-function: var(--motion-ease-standard);
+}
+:is(.m3-btn, .filter-chip-btn, .m3-seg-btn, .theme-switch-btn)::before {
+  transition-duration: var(--motion-micro);
+  transition-timing-function: var(--motion-ease-standard);
+}
+.m3-btn:active:not(:disabled) { transform: scale(.985); }
+.m3-ripple { animation-duration: var(--motion-panel); }
+:is(.m3-btn, .filter-chip-btn, .m3-seg-btn, .theme-switch-btn, .view-tg button,
+    .flowchart-open-btn, .flowchart-modal-close, .flowchart-modal-zoom,
+    .topology-reference-launch, .catalog-selection-toggle, .mtf-variant-btn,
+    .terminal-copy-btn, .mtf-notification-close, .pdf-reference-launch):focus-visible {
+  outline-offset: 3px;
+}
+.view-tg button:focus-visible,
+.mtf-variant-btn:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 2px; }
+
+#bat-board .bd-item,
+#mtf-board .bd-item,
+#mtf-fault-list .mtf-item-card {
+  transition-property: background-color, color, border-color, box-shadow, transform;
+  transition-duration: var(--motion-control);
+  transition-timing-function: var(--motion-ease-standard);
+}
+#bat-board .bd-item:focus-visible,
+#mtf-board .bd-item:focus-visible { outline-offset: 2px; }
+#bat-board .bd-item:active,
+#mtf-board .bd-item:active,
+#mtf-fault-list .mtf-item-card:active { transform: scale(.995); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  #bat-board .bd-item:not(.selected):hover,
+  #mtf-board .bd-item:not(.selected):hover,
+  #mtf-fault-list .mtf-item-card:not(.selected):hover {
+    transform: translateY(-1px);
+    box-shadow: var(--md-elevation-1);
+  }
+}
+
+#bat-layout,
+#mtf-layout {
+  transition: opacity var(--motion-content) var(--motion-ease-emphasized),
+    transform var(--motion-content) var(--motion-ease-emphasized),
+    display var(--motion-content) allow-discrete;
+  transition-behavior: allow-discrete;
+}
+#bat-layout.hidden,
+#mtf-layout.hidden { opacity: 0; transform: translateY(4px); }
+@starting-style {
+  #bat-layout:not(.hidden),
+  #mtf-layout:not(.hidden) { opacity: 0; transform: translateY(4px); }
+}
+
+#mtf-layout #mtf-row-2,
+#mtf-layout .mtf-row-3,
+#mtf-layout #mtf-selection-summary,
+#mtf-layout #mtf-detail,
+#bat-board,
+#mtf-fault-list,
+#mtf-layout #mtf-board { transition-timing-function: var(--motion-ease-emphasized); }
+#mtf-layout #mtf-fault-list,
+#mtf-layout #mtf-board {
+  transition-property: opacity, transform, display;
+  transition-duration: var(--motion-content);
+  transition-behavior: allow-discrete;
+}
+#mtf-layout:not(.v-board) #mtf-board,
+#mtf-layout.v-board #mtf-fault-list { opacity: 0; transform: translateY(4px); }
+@starting-style {
+  #mtf-layout.v-board #mtf-board,
+  #mtf-layout:not(.v-board) #mtf-fault-list { opacity: 0; transform: translateY(4px); }
+}
+
+#mtf-step > *,
+#mtf-action-text > *,
+#step-question > *,
+#bat-detail-steps > li > *,
+#bat-disposition-flow > svg,
+#mtf-flowchart-diagram > svg,
+#mtf-flowchart-diagram > img,
+#mtf-reference-images .pdf-reference-launch,
+.topology-reference[open] > :not(summary),
+.mtf-source-details[open] > :not(summary),
+.mtf-source-details-raw[open] > :not(summary) {
+  animation: ffdg-content-enter var(--motion-content) var(--motion-ease-emphasized) both;
+}
+@keyframes ffdg-content-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.topology-reference summary::after {
+  display: inline-block;
+  transition: transform var(--motion-control) var(--motion-ease-standard);
+}
+.topology-reference[open] summary::after { transform: rotate(180deg); }
+.mtf-detail-progress-fill,
+.bat-detail-progress-fill {
+  transition-duration: var(--motion-content);
+  transition-timing-function: var(--motion-ease-standard);
+}
+.flowchart-modal-stage > svg,
+.flowchart-modal-stage > img { transition-duration: var(--motion-control); }
+
+@supports (transition-behavior: allow-discrete) {
+  dialog {
+    opacity: 0;
+    transform: translateY(6px) scale(.99);
+    transition: opacity var(--motion-panel) var(--motion-ease-emphasized),
+      transform var(--motion-panel) var(--motion-ease-emphasized),
+      display var(--motion-panel) allow-discrete,
+      overlay var(--motion-panel) allow-discrete;
+    transition-behavior: allow-discrete;
+  }
+  dialog[open] { opacity: 1; transform: translateY(0) scale(1); }
+  dialog::backdrop { transition: background-color var(--motion-panel) var(--motion-ease-standard); }
+  dialog:not([open])::backdrop { background-color: transparent; }
+  @starting-style {
+    dialog[open] { opacity: 0; transform: translateY(6px) scale(.99); }
+    dialog[open]::backdrop { background-color: transparent; }
+  }
+}
+
+@supports (view-transition-name: none) {
+  #bat-board { view-transition-name: ffdg-bat-results; }
+  #mtf-layout #mtf-fault-list { view-transition-name: ffdg-mtf-list-results; }
+  #mtf-layout #mtf-board { view-transition-name: ffdg-mtf-board-results; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(ffdg-bat-results),
+  ::view-transition-group(ffdg-mtf-list-results),
+  ::view-transition-group(ffdg-mtf-board-results) {
+    animation-duration: var(--motion-content);
+    animation-timing-function: var(--motion-ease-standard);
+  }
+  ::view-transition-old(ffdg-bat-results),
+  ::view-transition-old(ffdg-mtf-list-results),
+  ::view-transition-old(ffdg-mtf-board-results) {
+    animation: ffdg-view-out var(--motion-micro) ease-in both;
+  }
+  ::view-transition-new(ffdg-bat-results),
+  ::view-transition-new(ffdg-mtf-list-results),
+  ::view-transition-new(ffdg-mtf-board-results) {
+    animation: ffdg-view-in var(--motion-content) var(--motion-ease-emphasized) both;
+  }
+}
+@keyframes ffdg-view-out { to { opacity: 0; transform: translateY(-3px); } }
+@keyframes ffdg-view-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  #bat-layout,
+  #mtf-layout,
+  #mtf-layout #mtf-row-2,
+  #mtf-layout .mtf-row-3,
+  #mtf-layout #mtf-selection-summary,
+  #mtf-layout #mtf-detail,
+  #bat-board,
+  #mtf-layout #mtf-fault-list,
+  #mtf-layout #mtf-board,
+  dialog,
+  dialog::backdrop,
+  .topology-reference summary::after,
+  .flowchart-modal-stage > svg,
+  .flowchart-modal-stage > img {
+    animation: none !important;
+    transition: none !important;
+    transition-delay: 0ms !important;
+    transform: none !important;
+  }
+  #mtf-step > *,
+  #mtf-action-text > *,
+  #step-question > *,
+  #bat-detail-steps > li > *,
+  #bat-disposition-flow > svg,
+  #mtf-flowchart-diagram > svg,
+  #mtf-flowchart-diagram > img,
+  #mtf-reference-images .pdf-reference-launch,
+  .topology-reference[open] > :not(summary),
+  .mtf-source-details[open] > :not(summary),
+  .mtf-source-details-raw[open] > :not(summary) { animation: none !important; }
+  html,
+  body,
+  .mtf-cards-scroll-grid,
+  .pdf-reference-gallery-grid,
+  .flowchart-modal-content,
+  .topology-modal-figure { scroll-behavior: auto !important; }
+}
+
+/* Mantener visible el stage MTF según el tamaño de su celda en escritorio. */
+@media screen and (min-width: 1081px) {
+  #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-flowchart-diagram {
+    height: auto !important;
+  }
+}

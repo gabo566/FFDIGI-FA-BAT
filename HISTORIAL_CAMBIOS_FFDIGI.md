@@ -3275,6 +3275,407 @@ Se deshicieron los dos últimos ajustes; permanece la implementación anterior d
 
 - Ninguno identificado para la reversión.
 
+## 66. 2026-10-18 — Refinar animaciones y UI/UX BAT/MTF
+
+### Fecha
+
+2026-10-18.
+
+### Solicitud
+
+Pulir de forma integral y discreta las animaciones/interacciones de BAT y MTF, con ritmo de 120–180 ms para la mayoría de estados y hasta 220 ms para paneles/modales; conservar contenido, procedimientos, datos, IDs, listeners, persistencia y flujo funcional.
+
+### Objetivo
+
+Unificar el movimiento de tarjetas, búsqueda/filtros, módulos, pasos, disclosures, temas y diálogos; mejorar feedback visual y accesibilidad sin rediseño ni animación de layout.
+
+### Estado previo
+
+- La página tenía transiciones dispersas entre 120 y 300 ms y el efecto ripple duraba 600 ms.
+- El detalle MTF usaba 120 ms y retrasos 16/32 ms entre cards; el detalle BAT usaba 180 ms.
+- Búsqueda y filtros ya actualizaban resultados síncronamente. El paso activo BAT/MTF ya tenía un pulso rojo con regla para movimiento reducido.
+- El árbol ya tenía cambios locales previos en `index.html`, README, contexto e historial, y `develop` estaba 19 commits por delante de `origin/develop`; se preservaron sin sincronizar, revertir, commit ni push.
+
+### Análisis
+
+- Se revisaron los tres documentos obligatorios, todos los estilos/eventos de navegación BAT y MTF, los renderers de pasos, filtros y tarjetas, `setMode`, tema, disclosures, modales y movimiento reducido.
+- La actualización BAT/MFT puede conservar el render síncrono y usar View Transitions solo como mejora progresiva en las superficies de resultado. No se añadieron debounce, temporizadores ni dependencias.
+- El pulso rojo del paso activo debe conservarse como efecto único; las entradas de contenido se aplican a hijos reemplazados, no a la pestaña pulsante ni a propiedades de tamaño/posición de layout.
+
+### Causa / necesidad
+
+Duraciones y curvas distintas daban una respuesta visual poco coherente. El ripple de 600 ms y algunas transiciones de superficie eran más largas que el ritmo solicitado; pasos y cambios de vista podían percibirse abruptos.
+
+### Solución
+
+- Se centralizaron en CSS `--motion-micro` (120 ms), `--motion-control` (160 ms), `--motion-content` (180 ms), `--motion-panel` (220 ms) y dos curvas reutilizables.
+- Se ajustaron feedback de botones, hover/active/focus de tarjetas, tema y módulos BAT/MTF, selección de vistas, entrada de contenido de pasos, referencias y flowcharts; las cards MTF del detalle entran con delays 0/12/24 ms.
+- Los diálogos nativos usan transición de opacidad/transform y `display`/`overlay` discreta hasta 220 ms; no se cambiaron sus handlers ni su gestión de foco.
+- `FFDG.ui.runMotionTransition` envuelve búsqueda BAT, búsqueda MTF y filtros MTF: usa View Transitions en las superficies de resultados cuando la API está disponible; si no está disponible o se pide movimiento reducido, ejecuta la actualización directamente. La búsqueda no se retrasa ni se debouncea.
+- Se conservaron el contenido técnico, dimensiones/layout, estado, listeners, IDs, navegación, almacenamiento y el pulso rojo existente. Bajo `prefers-reduced-motion` se desactivan las animaciones nuevas y el scroll se hace instantáneo.
+
+### Archivos modificados
+
+- `index.html` — tokens de movimiento, helper progresivo de transición de resultados, estados interactivos, entradas de contenido, tema, disclosures y diálogos.
+- `README.md` — ritmos, áreas animadas, búsqueda inmediata y movimiento reducido.
+- `CONTEXTO_FFDIGI.md` — sistema de movimiento, helper y límites de comportamiento.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `FFDG.ui.runMotionTransition`, `filterStation` y listeners de búsqueda BAT/MTF.
+- CSS de tarjetas BAT/MTF, controles, selector de módulo, vistas, pasos, referencias, theme surfaces, disclosures, diálogos y media queries de movimiento reducido.
+- No se modificaron renderers técnicos, catálogos, procedimientos, reportes, importadores, APIs ni `localStorage`.
+
+### Validaciones realizadas
+
+- Scripts inline: 7 scripts clásicos y 1 módulo inline pasaron verificación sintáctica; 207 IDs HTML fueron únicos; `git diff --check` pasó.
+- Prueba local HTTP con Chromium/Playwright: cargó BAT/MTF; BAT «Cambiar Falla» regresó al catálogo, la búsqueda NDBG_107 devolvió un caso y seleccionar la tarjeta reabrió su ficha; BAT avanzó al paso 2 y abrió/cerró su modal de flowchart. En MTF, la búsqueda por descripción devolvió FLA-04 y FLA-10; seleccionar FLA-04 mostró sus siete pasos; el paso 2 actualizó la validación; «Cambiar Falla» devolvió el catálogo y Tablero cambió de vista.
+- Se abrieron/cerraron los diálogos de notificaciones, topología y galería de referencias. El navegador reportó además un `ReferenceError: applyMtfPdfProcedureOverride is not defined` al renderizar el flowchart MTF; la llamada pertenece al código de render existente y no se modificó en esta tarea, por lo que el flowchart MTF no queda validado.
+- Viewports 390×844, 768×900 y 1440×900: sin overflow horizontal. MTF apiló a una columna en móvil/tableta y mostró tres columnas iguales en escritorio; los botones de disposición estuvieron visibles dentro del viewport móvil en la medición realizada.
+- Teclado: Tab llevó al control de tema con `:focus-visible` activo y contorno de 3 px. Tema probado dos veces y regresado a `ffdg-theme=light`.
+- Movimiento reducido: Chromium reportó 0 s para transiciones de diálogo, `transform:none` y animación de contenido `none`; la búsqueda mostró un resultado sin la transición animada.
+- Captura desktop revisada. Servidor HTTP temporal y sesión automatizada cerrados al finalizar. No se alteró el estado persistido de catálogo; no commit ni push.
+
+### Resultado
+
+Ritmo visual unificado y aplicado en BAT/MTF; búsqueda y filtros conservan actualización inmediata, el pulso activo no se duplica y movimiento reducido evita desplazamientos/animaciones nuevas. Validación estática y navegador ejecutadas con la limitación MTF descrita.
+
+### Pendientes y riesgos
+
+- Corregir `applyMtfPdfProcedureOverride is not defined` en una tarea funcional separada; mientras exista, puede fallar la generación del flowchart MTF aunque los pasos y la ficha aparezcan.
+- La captura visual interactiva del flowchart MTF y su modal queda pendiente hasta resolver ese error; los demás modales probados abrieron y cerraron.
+
+## 60. 2026-10-18 — Ajustes al reporte BAT de fallas No Boot
+
+### Solicitud
+
+Trasladar a la falla No Boot BAT los cambios antes definidos para el reporte de falla: quitar la lista de validaciones ejecutadas, documentar únicamente la validación donde se obtuvo Pass, agrupar visualmente intervención y causa raíz, y hacer compactos los controles de evidencia antes/después.
+
+### Análisis de impacto
+
+- Se revisaron el flujo de diagnóstico BAT, `FFDG.state.history`, `FFDG.state.steps`, `printBatReport`, la plantilla ejecutiva y sus estilos de impresión.
+- El historial real del diagnóstico registra el resultado de cada validación (`OK` o `ANOMALÍA`). El selector Pass usa exclusivamente pasos que aparecen en ese historial y los mapea a `FFDG.state.steps`; no añade una lista de checkboxes ni inventa validaciones.
+- Se detectó una discrepancia preexistente: el detalle puede presentar `failure.steps` para `customProcedure`, mientras que el diagnóstico guiado No Boot siempre asigna `flows.NOBOOT`. Se documentó para corrección futura; esta solicitud no amplía el alcance para cambiar el procedimiento ejecutado.
+- La captura nueva se limita al reporte No Boot. Se preservan los reportes BAT de otras familias, los flujos PDF/diagramas y los cambios locales MTF ya presentes en el árbol.
+
+### Solución aplicada
+
+- Se añadió un selector único de “Validación en la que se obtuvo Pass”; se vuelve obligatorio únicamente cuando el retest se marca `Pass (Resuelto)` y sus opciones provienen de pasos efectivamente registrados en el historial.
+- Intervención y causa raíz se muestran en columnas contiguas en escritorio y se apilan en viewport estrecho.
+- Se añadieron dos controles compactos de carga múltiple: “Evidencia antes” y “Evidencia después”. Las imágenes se preparan al seleccionarlas, se previsualizan en la pantalla y se imprimen con su etapa/caption correspondiente.
+- La evidencia No Boot y la selección Pass se limpian al iniciar un nuevo diagnóstico o reiniciarlo; permanecen durante una reapertura del último paso.
+- El reporte No Boot sigue siendo ejecutivo y no imprime la bitácora de pasos ni el diagrama. Su llamada a `window.print()` es síncrona desde el botón; el usuario debe elegir “Guardar como PDF”.
+
+### Archivos modificados
+
+- `index.html` — interfaz/estilos scoped al cierre No Boot, estado temporal de evidencias, carga/previsualización, selección de Pass y composición del PDF.
+- `README.md` — funciones y alcance del reporte No Boot actualizados; se retiró la afirmación obsoleta de que el reporte BAT no se había alterado.
+- `CONTEXTO_FFDIGI.md` — flujo nuevo de captura/impresión y discrepancia comprobada entre detalle y diagnóstico `customProcedure` documentados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- `git diff --check` pasó.
+- Siete scripts clásicos inline compilaron con `vm.Script`; la revisión encontró 184 IDs HTML sin duplicados.
+- No se probó la selección de archivos ni la impresión en navegador/PDF. La URL local `file:` no estuvo disponible para prueba visual en esta sesión; no se afirma validación end-to-end.
+
+### Resultado y pendientes
+
+- El cierre No Boot ahora permite registrar el paso con Pass y adjuntar evidencia antes/después sin modificar el formato de las otras familias.
+- Pendiente separado: alinear los procedimientos custom No Boot del detalle con el diagnóstico guiado que se ejecuta.
+- Los cambios locales previos en MTF se conservaron; no se hizo commit ni push.
+
+
+## 61. 2026-10-18 — Abrir reporte desde la ficha No Boot
+
+### Solicitud
+
+Al elegir una falla No Boot, mostrar su ficha técnica como vista principal y ocultar identificación del nodo, historial, evidencia fotográfica lateral y secuencia de potencia. Añadir en Failure Record el botón verde «Realizar reporte de falla» que abre captura modal BAT para el paso detenido, el paso/acción con Pass, intervención, RCA, retest y evidencia.
+
+### Objetivo e impacto esperado
+
+Separar consulta de la falla y captura del caso: la ficha queda limpia y el reporte se inicia solo cuando la persona lo pide. El modal mantiene identidad del nodo necesaria para el informe y reutiliza la impresión ejecutiva BAT.
+
+### Estado anterior
+
+Al seleccionar No Boot, renderBatSelection mostraba el formulario de nodo y el historial; el reporte solo aparecía al terminar el diagnóstico guiado. El cierre incluía campos/selector/evidencia antes-después. Las tarjetas de evidencia fotográfica y secuencia de potencia vivían en el aside.
+
+### Análisis
+
+- Se revisaron renderBatSelection, getBatDetailSteps, la estructura de #bat-layout, la plantilla printBatReport, el modal piloto MTF y sus estilos/eventos. Se mantuvo BAT separado del prototipo MTF sin punto de entrada.
+- El nuevo reporte usa getBatDetailSteps de la falla seleccionada, por lo que los pasos del modal corresponden al procedimiento mostrado; no presenta checklist de validaciones ejecutadas ni crea historial sintético.
+- Los selects de clasificación, causa raíz, siguiente acción, P/N y retest se clonan desde controles BAT existentes para no duplicar opciones fuente.
+- El motor de impresión BAT permite ahora una captura explícita No Boot sin exigir FFDG.state.history; los reportes BAT normales siguen requiriendo su historial.
+- No se cambia la función de diagnóstico ni se elimina su markup legacy; sus bloques quedan ocultos al seleccionar No Boot.
+
+### Solución aplicada
+
+- Se ocultaron en modo No Boot el formulario de identificación inicial, historial, cierre del diagnóstico, evidencia lateral y secuencia de potencia. Failure Record, Troubleshooting Sequence y Disposition Flow permanecen visibles.
+- Se añadió el CTA verde «Realizar reporte de falla» dentro de Failure Record, solo visible para No Boot.
+- Se añadió modal responsivo con identidad de nodo/analista, resultado de falla, retest, paso donde se detuvo o «No se detuvo», paso/AC Cycle con Pass, clasificación, acción siguiente, RCA, intervención, notas y evidencia antes/después.
+- Se valida coherencia entre estado Resuelta y retest Pass; el paso Pass es requerido si el caso se declara resuelto. Las opciones de paso salen del procedimiento visible de la falla.
+- El submit pasa los datos capturados a la plantilla ejecutiva BAT existente y abre window.print() sincrónicamente; las imágenes solo permanecen en memoria local. No se modifica el reporte ni el acceso MTF.
+
+### Archivos modificados
+
+- index.html — layout No Boot, CTA, modal de captura, mapeo de pasos/campos y entrada No Boot a printBatReport.
+- README.md — vista inicial No Boot y flujo modal de reporte documentados.
+- CONTEXTO_FFDIGI.md — comportamiento, campos, fuente de pasos y requisitos de historial actualizados.
+- HISTORIAL_CAMBIOS_FFDIGI.md — este registro.
+
+### Validaciones
+
+- Se compiló sintácticamente cada uno de los 7 scripts clásicos inline con vm.Script.
+- Se comprobaron 208 IDs únicos y presencia de controles/listeners del modal.
+- git diff --check pasó sin errores.
+- No se probó en navegador ni se generó un PDF real; no se afirma validación visual ni de paginación.
+
+### Resultado, pendientes y riesgos
+
+- No Boot abre directamente su ficha; el CTA abre el nuevo modal; el modal produce el reporte con datos capturados, sin checklist ni historial inventado.
+- Pendiente: prueba visual con No Boot estándar y NDBG_092/NDBG_122, resolución móvil/escritorio, captura de imágenes y diálogo PDF.
+- La captura requiere selección manual veraz de paso detenido/Pass; no certifica por sí sola que la acción ocurrió. La impresión todavía requiere elegir «Guardar como PDF».
+
+## 62. 2026-10-18 — Anclar navegación BAT al fondo de Disposition Flow
+
+### Solicitud
+
+Mover los controles al fondo de Disposition Flow sin cambiar el tamaño de Failure Record ni Troubleshooting Sequence. Seguimiento: eliminar «Volver a fallas» y centrar los controles restantes.
+
+### Análisis y solución
+
+- Se comprobó el cascade responsive: una regla posterior a la regla de margen automático volvía a asignar un margen fijo a los controles.
+- Se añadió un override solo para escritorio, limitado a los controles dentro de `#bat-failure-detail .bento-block-3`; `margin-top:auto` aprovecha el espacio libre existente de Disposition Flow.
+- Se quitó el botón «Volver a fallas» y su listener; el catálogo sigue accesible por «Cambiar falla». Los tres controles restantes se centran en la tarjeta.
+- No se movió markup ni se alteraron alturas, columnas, diagramas o reglas de tamaño de las otras tarjetas. En móvil/tableta se conserva el orden normal después del flowchart.
+- Se mantuvieron etiquetas, IDs, orden del DOM y manejadores de los tres controles restantes.
+
+### Archivos modificados
+
+- `index.html` — anclaje y centrado desktop; retiro del botón redundante y su listener.
+- `README.md` — ubicación de los controles BAT documentada.
+- `CONTEXTO_FFDIGI.md` — alcance responsive y tarjetas preservadas documentados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Los 7 scripts clásicos inline compilaron con `vm.Script`; los IDs son únicos, no hay referencia al botón retirado y las llaves CSS están balanceadas.
+- Se confirmó que el selector y centrado afectan solo los tres controles dentro de Disposition Flow desde 1081 px; `git diff --check` pasó.
+- No se afirma validación visual en navegador.
+- Se conservaron cambios locales preexistentes; sin commit/push.
+
+## 63. 2026-10-18 — Ajustar encabezado y controles de Disposition Flow MTF
+
+### Solicitud
+
+Evitar que «Criterio de Calidad & Retest» se corte bajo el badge FLOWCHART y distribuir los botones dentro del panel, dando algo más de ancho a Disposition Flow en escritorio amplio.
+
+### Análisis y solución
+
+- La etiqueta FLOWCHART estaba posicionada de forma absoluta, superponiéndose al texto del criterio.
+- En detalle MTF de escritorio amplio se asignó una fracción de columna ligeramente mayor a Disposition Flow; no se modificaron las alturas ni el layout BAT.
+- El criterio y el badge ahora comparten una fila adaptable sin superposición. Los tres controles MTF pueden crecer y envolver dentro del panel, centrados y contenidos.
+- No se alteraron listeners, nombres accesibles ni orden de teclado.
+
+### Archivos modificados
+
+- `index.html` — reglas responsive scoped al detalle MTF.
+- `README.md` — distribución responsive de Disposition Flow documentada.
+- `CONTEXTO_FFDIGI.md` — ajuste de columna/encabezado y controles MTF documentados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Los 7 scripts clásicos inline compilaron con `vm.Script`; los 207 IDs son únicos y las llaves CSS están balanceadas.
+- Se comprobó que los overrides del badge y botones están acotados a MTF/escritorio y `git diff --check` pasó.
+- No se afirma validación visual en navegador.
+- Se conservaron cambios locales previos; sin commit/push.
+
+## 64. 2026-10-18 — Igualar proporción de las cards MTF
+
+### Solicitud
+
+Hacer simétricas las tres cards de detalle MTF, con Disposition Flow al mismo ancho que Failure Record y Troubleshooting Sequence.
+
+### Solución
+
+- Se sustituyó la proporción ampliada de Disposition Flow por tres columnas iguales en el detalle MTF de escritorio amplio.
+- Se conservaron el contenido, alturas, encabezado sin superposición, botones, flowchart, listeners y layout BAT.
+
+### Validación
+
+- Los 7 scripts clásicos inline compilaron con `vm.Script`; los 207 IDs son únicos y el CSS mantiene llaves balanceadas.
+- Se verificó que el selector queda limitado al grid MTF de escritorio amplio; `git diff --check` pasó.
+- No se realizó prueba visual en navegador ni commit/push.
+
+## 65. 2026-10-18 — Uniformar estética de cards MTF
+
+### Solicitud
+
+Uniformar la apariencia de las tres cards MTF para que Disposition Flow conserve la misma composición cuando la falla tenga pocos pasos, muchos pasos, diagrama fuente, diagrama generado o ningún diagrama.
+
+### Análisis y solución
+
+- Se revisaron los estados de detalle MTF, el grid simétrico, el contenedor `#mtf-disposition-content`, el stage `#mtf-flowchart-diagram` y la fila de controles.
+- Se dejó el grid de tres columnas iguales y se estabilizó Disposition Flow como columna flex con contenido interno en filas: criterio, acción/resultado y stage de diagrama.
+- El stage usa área flexible, centrado y `contain` para SVG/IMG; conserva `overflow:auto` únicamente como respaldo para mensajes o contenido extremo.
+- Los botones permanecen en una fila inferior estable, con ancho flexible y wrapping controlado; no se modifican sus IDs ni listeners.
+- El cambio está limitado a MTF; no toca BAT, catálogo, procedimientos, datos ni modales.
+
+### Archivos modificados
+
+- `index.html` — reglas CSS responsive scoped al detalle MTF.
+- `README.md` — estética uniforme documentada.
+- `CONTEXTO_FFDIGI.md` — estructura visual y fallback del stage documentados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Los 7 scripts clásicos inline compilaron con `vm.Script`; los 207 IDs son únicos y el CSS mantiene llaves balanceadas.
+- Se comprobaron estáticamente las rutas de diagrama fuente, flowchart generado, pasos disponibles y estado sin diagrama; también el grid simétrico, stage contenido y controles inferiores. `git diff --check` pasó.
+- El navegador integrado no pudo inicializarse por un error local de ruta; no se afirma validación visual ni responsive interactiva.
+- Sin commit/push.
+
+## 58. 2026-10-18 — Mostrar avance de pasos en MTF
+
+### Solicitud
+
+Añadir en MTF una barra verde para visualizar el avance de los pasos, con una presentación equivalente a la barra de BAT.
+
+### Objetivo
+
+Dar una señal visual inmediata del progreso del procedimiento MTF al navegar entre sus validaciones.
+
+### Estado anterior
+
+MTF mostraba botones `Paso N`, coloreaba los pasos anteriores y actualizaba el contador `Validación N de total`, pero no tenía una barra continua de avance. BAT ya contaba con una barra en el detalle guiado.
+
+### Análisis
+
+- Se revisaron las reglas, contexto e historial FFDIGI, README, la estructura de `#mtf-step`, `renderMtfDetail`, los eventos Anterior/Siguiente y la marca existente de pasos previos.
+- El índice `FFDG.state.mtfIndex`, la cantidad de pasos activos y `FFDG.state.mtfFinished` ya controlan la navegación; se pueden reutilizar sin introducir estado persistente ni modificar el catálogo.
+- La barra se limita a la ficha MTF. El avance sigue la posición activa como en BAT; el estado de ruta completada llena la barra y conserva el anuncio accesible.
+
+### Causa / necesidad
+
+Sin indicador continuo, el usuario debía inferir cuánto faltaba revisando la serie de pestañas de pasos.
+
+### Solución
+
+- Se añadió una barra verde debajo del contador de validación activa.
+- El llenado representa el paso activo sobre el total; los botones existentes siguen indicando visualmente los pasos anteriores y no se alteran.
+- La barra llega a 100 % cuando se finaliza la ruta, se reajusta al navegar o cambiar de variante y no aparece si el caso carece de pasos.
+- Se añadieron atributos `progressbar` y valores accesibles. La transición respeta la regla global de movimiento reducido.
+- Se actualizaron README y contexto técnico.
+
+### Archivos modificados
+
+- `index.html` — CSS de barra MTF y representación accesible del porcentaje en `renderMtfDetail`.
+- `README.md` — descripción de la barra de avance MTF.
+- `CONTEXTO_FFDIGI.md` — semántica, estado y límites del indicador.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderMtfDetail` — calcula el valor desde el índice, pasos activos y estado de ruta completa.
+- `#mtf-step` — muestra el contador y barra en la secuencia técnica.
+- `.mtf-detail-progress` y `.mtf-detail-progress-fill` — presentación usando los tokens verdes existentes.
+
+### Impacto
+
+Solo añade un indicador visual y accesible al detalle MTF. No cambia procedimientos, flowcharts, botones de navegación, persistencia, catálogos ni BAT.
+
+### Validaciones realizadas
+
+- `git diff --check` pasó sin errores.
+- `node` analizó los siete bloques JavaScript inline clásicos; la sintaxis pasó. El cálculo de proporción se comprobó con una secuencia de cinco pasos.
+- Se inspeccionó el cálculo de avance para índice activo y ruta completada, además de los atributos ARIA.
+- No se pudo probar visualmente en el navegador integrado: la política del navegador bloqueó el acceso a la URL `file:` local. No se usó una vía alternativa para eludir el bloqueo.
+
+### Resultado
+
+La barra quedó implementada y pasó validación estática; el comportamiento visual e interactivo queda pendiente de prueba en navegador.
+
+### Pendientes
+
+- Comprobar la navegación con pasos, variantes y ruta completada en el navegador disponible.
+
+### Riesgos
+
+- El porcentaje refleja el paso activo, no confirma que cada acción técnica haya sido ejecutada o pasada; la UI no registra resultados individuales de los pasos MTF.
+
+
+## 59. 2026-10-18 — Retirar acceso al piloto de reporte MTF
+
+### Solicitud
+
+Quitar de MTF el botón «Realizar reporte de falla» y definir por separado los cambios que se realizarán en BAT.
+
+### Objetivo
+
+Dejar de ofrecer el reporte de intervención piloto dentro de MTF, sin alterar el reporte BAT existente ni adelantar un rediseño BAT aún por definir.
+
+### Estado anterior
+
+El detalle MTF mostraba condicionalmente el botón para el registro exacto FLA-04. El prototipo asociado incluía un diálogo, campos de validaciones, paso Pass, acciones/RCA y evidencia antes/después. BAT conserva un reporte distinto.
+
+### Análisis
+
+- Se releen reglas, contexto e historial FFDIGI; se inspeccionan la condición del botón, el markup, el listener y el reporte BAT por separado.
+- El cambio solicitado afecta solo el acceso MTF. No autoriza modificar los campos, impresión ni reglas de validación del reporte BAT existente.
+- Se conservan temporalmente las funciones/diálogo MTF sin un punto de entrada de interfaz, evitando borrar el prototipo antes de confirmar si debe eliminarse por completo.
+- Se preservan sin sobrescribir los cambios locales previos de la barra de avance MTF en los mismos archivos.
+
+### Causa / necesidad
+
+El piloto FLA-04 se había colocado en MTF, pero el usuario definió que los reportes se trabajarán primero en BAT y que su alcance se determinará separadamente.
+
+### Solución
+
+- Se retiró el botón «Realizar reporte de falla» del detalle MTF.
+- Se quitaron las referencias de render y el listener que dependían del botón; los reportes normales MTF y BAT permanecen intactos.
+- No se cambiaron los campos ni el diseño del reporte BAT, ni se trasladó el prototipo a una familia BAT.
+- README y contexto describen que el prototipo MTF está temporalmente sin acceso y que los cambios futuros se definirán para BAT.
+
+### Archivos modificados
+
+- `index.html` — retiro del CTA MTF y de sus referencias de render/evento.
+- `README.md` — funciones y estado del piloto actualizados.
+- `CONTEXTO_FFDIGI.md` — estado del prototipo MTF y separación del trabajo BAT.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderMtfDetail` — ya no actualiza visibilidad de un botón retirado.
+- Inicialización MTF — ya no enlaza el evento click del CTA.
+- El código `openMtfCaseReport`, el diálogo y el renderer permanecen sin punto de entrada visible.
+- `printBatReport` y la plantilla BAT — sin cambios.
+
+### Impacto
+
+La interfaz MTF ya no permite abrir el piloto de intervención. Búsqueda, selección, procedimientos, diagramas, reporte general MTF y BAT no cambian. Las modificaciones del reporte BAT quedan pendientes de definición; esta intervención no incluye botones o evidencia nuevos en BAT.
+
+### Validaciones realizadas
+
+- `git diff --check` pasó sin errores.
+- Los siete bloques JavaScript inline clásicos compilaron con `vm.Script`.
+- Búsqueda estática confirmó que el ID `mtf-case-report-open` ya no existe, que no quedan referencias de render/listener al CTA y que el botón BAT conserva su listener a `printBatReport`.
+- No se ejecutó prueba visual en navegador; no se volvió a intentar acceder a la URL local `file:` bloqueada por política.
+
+### Resultado
+
+El acceso visible al reporte MTF fue retirado; el código del piloto se conserva temporalmente por decisión de alcance. Validación estática aprobada; sin validación visual.
+
+### Pendientes
+
+- Definir el alcance, fallas de ejemplo y campos requeridos para el reporte BAT.
+- Confirmar en una solicitud posterior si se debe borrar el código interno del prototipo MTF.
+
+### Riesgos
+
+- El prototipo MTF sigue en el código fuente sin botón de acceso; una llamada programática futura podría reabrirlo si se reutiliza `FFDG.reports.openMtfCaseReport`.
+
 
 ## 57. 2026-10-18 — Revertir la ampliación de detalle MTF
 
@@ -3306,3 +3707,139 @@ La vista MTF vuelve al comportamiento anterior al modo de pantalla enfocada. Los
 ### Pendientes y riesgos
 
 - Ninguno identificado para la reversión.
+
+## 67. 2026-10-18 — Separar estilos de movimiento en CSS
+
+### Solicitud
+
+Mover las reglas de animación/microinteracción a una hoja CSS aparte para reducir el HTML principal y mantener la capa visual ordenada.
+
+### Análisis
+
+- Se confirmó que el bloque de movimiento estaba al final del último `<style>` inline de `index.html`, después de las reglas responsive y de detalle.
+- Para conservar su prioridad en la cascada, la hoja externa debe cargarse después de los estilos inline existentes.
+- El JavaScript de transición permanece en `index.html`; los tokens de duración/curva también pertenecen al sistema visual y deben acompañar las reglas en la hoja externa.
+
+### Solución
+
+- Se trasladó sin cambios el bloque de microinteracciones, entradas, diálogos, View Transitions y `prefers-reduced-motion` a `ffdg-motion.css`.
+- Se movieron a `ffdg-motion.css` los seis tokens de duración/curvas, conservando sus valores.
+- Se reemplazó el bloque inline por `<link rel="stylesheet" href="./ffdg-motion.css">` al final del documento.
+- Se actualizó la estructura técnica y la guía del proyecto para describir el nuevo archivo y su orden de carga.
+
+### Archivos modificados
+
+- `index.html` — se retiró el bloque CSS de movimiento y se añadió el enlace externo posterior a los estilos restantes.
+- `ffdg-motion.css` — nueva hoja local con las reglas extraídas, sin dependencias externas.
+- `README.md` — se agregó el archivo a la estructura y se describió su alcance.
+- `CONTEXTO_FFDIGI.md` — se actualizó el mapa de archivos, el orden de carga y el reparto de estilos.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Impacto
+
+El comportamiento visual se mantiene; `index.html` queda más corto y el orden de carga preserva la cascada anterior. No se modificaron JavaScript, valores de tokens, IDs, datos, listeners ni lógica técnica.
+
+### Validaciones
+
+- Chromium cargó `ffdg-motion.css` sin error; CSSOM reportó 31 reglas de nivel superior y la hoja quedó como la última del documento.
+- El botón M3 mantuvo `transition-duration: 0.16s`; se comprobó carga de BAT, cambio al catálogo MTF y disponibilidad de las 287 fallas.
+- Con emulación `prefers-reduced-motion: reduce`, el diálogo reportó transición `0s` y el contenido no conservó una animación activa.
+- El DOM presentó 201 IDs y 201 valores únicos; `git diff --check` pasó.
+- 7 scripts clásicos y 1 módulo inline pasaron verificación sintáctica; `index.html` quedó en 6974 líneas frente a las 7193 observadas antes del traslado (219 menos).
+- Servidor HTTP local y sesión automatizada cerrados al finalizar; no commit ni push.
+
+### Resultado
+
+Hoja de movimiento externa cargada en último lugar y validada en Chromium; tokens, cascada, duración de controles y movimiento reducido se conservaron. El HTML principal perdió 219 líneas.
+
+## 68. 2026-10-18 — Restaurar el render de flowcharts MTF
+
+### Solicitud
+
+Corregir que los diagramas MTF no aparecieran después de separar la capa CSS de movimiento.
+
+### Análisis y causa
+
+- La prueba anterior ya había capturado `ReferenceError: applyMtfPdfProcedureOverride is not defined`: `renderFlowchart` se ejecuta dentro de `FFDG.ui`, pero ese helper estaba declarado localmente en el cierre de `FFDG.data`.
+- Al probar también fallas sin diagrama fuente, se detectó una segunda referencia fuera de alcance: `mtfPdfFlowchartGraphs` pertenecía al mismo cierre de datos. El error de `applyMtfPdfProcedureOverride` impedía incluso llegar a la selección del SVG/fuente.
+- Los PNG y el markup del contenedor seguían presentes; el fallo ocurría en JavaScript antes de insertar contenido. La hoja `ffdg-motion.css` no establece `display:none` ni opacidad permanente sobre el diagrama.
+
+### Solución
+
+- Se expuso `applyMtfPdfProcedureOverride` en `FFDG.data` y `renderFlowchart` lo usa mediante ese namespace.
+- El fallback de grafos consulta `window.FFDG_MTF_PDF_FLOWCHART_GRAPHS`, la fuente global que ya publica el módulo MTF, en vez de leer el alias privado del cierre.
+- No se cambiaron archivos de diagramas, procedimientos, catálogo, IDs ni lógica de pasos.
+
+### Archivos modificados
+
+- `index.html` — corrección de los dos accesos entre el cierre de datos MTF y el renderizador UI.
+- `README.md` — limitación sustituida por el comportamiento corregido y los casos verificados.
+- `CONTEXTO_FFDIGI.md` — causa, solución y responsabilidad del helper documentadas.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validaciones
+
+- Chromium/Playwright: seleccionar FLA-04 insertó un SVG con la imagen fuente `mtf-flow-007.png`; sin errores de consola.
+- Chromium/Playwright: seleccionar FLA-10 insertó `mtf-procedure-step-flowchart`, con la nota y tres pasos de secuencia derivados del procedimiento; sin errores de consola.
+- La hoja externa de movimiento cargó normalmente durante las pruebas.
+- 7 scripts clásicos y 1 módulo inline pasaron verificación sintáctica; `git diff --check` pasó.
+- Servidor y sesión de navegador de prueba cerrados; no commit ni push.
+
+### Resultado
+
+Los flowcharts fuente y las secuencias SVG para fallas sin fuente vuelven a mostrarse en MTF. No se añadieron ramas ni resultados técnicos nuevos.
+
+## 69. 2026-10-18 — Restaurar el tamaño visible de los diagramas MTF
+
+### Solicitud
+
+Restaurar los diagramas MTF que aparecían vacíos en AST-02 y otras fallas.
+
+### Objetivo
+
+Mostrar de nuevo las imágenes fuente y las secuencias SVG generadas, manteniendo el layout responsive de las tres cards.
+
+### Estado previo
+
+- Los registros y assets sí contenían los diagramas; en AST-02 la ruta `mtf-flow-027.png` respondía correctamente y el SVG se insertaba en el DOM.
+- En escritorio, el contenedor del diagrama y su SVG quedaban con altura efectiva cercana a cero. Los controles seguían disponibles.
+
+### Análisis y causa
+
+- `index.html` imponía `height: 0 !important` con un selector MTF más específico para el detalle.
+- El override previo tenía menor especificidad, por lo que no reemplazaba esa altura aunque la hoja `ffdg-motion.css` cargara al final.
+- El fallo era de tamaño CSS, no de asociaciones, importación ni carga de los PNG.
+
+### Solución
+
+- Se añadió en `ffdg-motion.css` un override de altura con la especificidad del selector que colapsaba el stage. La hoja externa conserva su posición final en la cascada.
+- El stage recupera el tamaño de su celda; se mantienen centrado, `contain`, botones y estructura de las cards.
+- No se cambiaron datos, procedimientos, IDs, listeners ni lógica de BAT.
+
+### Archivos modificados
+
+- `ffdg-motion.css` — override de altura del stage MTF de escritorio.
+- `CONTEXTO_FFDIGI.md` — causa, corrección y responsabilidad visual documentadas; se retiró el pendiente obsoleto del `ReferenceError` ya resuelto.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `#mtf-flowchart-diagram` y su SVG/imagen dentro de `Disposition Flow`.
+- La regla CSS responde al detalle MTF en escritorio; no modifica la selección de fallas ni el render de datos.
+
+### Validaciones
+
+- Chromium/Playwright, escritorio `1468×884`: AST-02 cargó `mtf-flow-027.png` dentro de un stage de `438×338 px`; FLA-04 mostró su diagrama fuente dentro de un stage de `438×338 px`.
+- FLA-10, sin diagrama fuente, mostró el SVG de secuencia generado desde sus pasos.
+- Tableta `900×900` y teléfono `390×844`: diagrama visible, los tres botones presentes y sin overflow horizontal.
+- Consola Chromium: cero errores y cero advertencias.
+- `git diff --check` se ejecutó después del cambio; no se hicieron commit ni push.
+
+### Resultado
+
+Los diagramas fuente de AST-02 y FLA-04, junto con el fallback generado de FLA-10, se muestran con altura visible en los tamaños probados.
+
+### Pendientes y riesgos
+
+- No se hizo una inspección individual de las 287 fallas; se probaron ejemplos fuente y generados representativos.
+- Los artefactos locales creados por Playwright permanecen dentro de `.playwright-cli/` y no se limpiaron.

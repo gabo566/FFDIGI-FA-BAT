@@ -9,7 +9,7 @@ El nombre **FFDG/FFDIGI** se conserva como identificador del proyecto. El reposi
 La aplicación ayuda al personal técnico a seleccionar una falla, revisar la información disponible para ella y seguir o registrar actividades de diagnóstico. Tiene dos áreas con objetivos distintos:
 
 - **BAT — Basic Assurance Test:** guía un diagnóstico paso a paso para fallas NDBG y permite preparar un reporte para revisión de Calidad.
-- **MTF L10 Failure:** permite buscar fallas de estación, consultar sus metadatos y procedimientos, revisar flowcharts y referencias y, para un caso piloto específico, preparar un reporte de intervención.
+- **MTF L10 Failure:** permite buscar fallas de estación, consultar sus metadatos y procedimientos, revisar flowcharts y referencias.
 
 La aplicación es una herramienta de consulta y captura. No autentica usuarios, asigna roles ni sustituye los manuales, el workbook fuente o los procesos de autorización y liberación del nodo.
 
@@ -20,8 +20,11 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - Catálogo de fallas organizado por familias como FRU, Logic, Leak, Fan y No Boot.
 
 - Búsqueda y selección de fallas; el detalle muestra los pasos y recursos asociados.
+- En escritorio, **Anterior**, **Paso siguiente** y **Ampliar diagrama** quedan centrados al fondo de **Disposition Flow**; el regreso al catálogo se hace con **Cambiar falla**.
 - Recorrido de diagnóstico con respuestas y notas durante la sesión.
 - Captura de identificación del nodo, validaciones, disposición final, causa raíz (RCA) y evidencia fotográfica.
+- Al seleccionar No Boot, la ficha técnica aparece limpia de identificación, historial y paneles auxiliares. Su botón **Realizar reporte de falla** abre un modal para identidad del nodo, paso de detención, resultado/retest, paso Pass, acciones, RCA y evidencia antes/después.
+- La captura de reporte No Boot no requiere ejecutar el diagnóstico guiado en pantalla; reutiliza el procedimiento visible de la falla para ofrecer los pasos y genera el informe con la plantilla BAT de impresión.
 - Secuencia de potencia informativa cuando corresponde.
 - Importación local de procedimientos BAT desde PDF y combinación con los datos de la aplicación.
 - Preparación de un reporte imprimible para revisión de Calidad. El archivo PDF se crea desde el diálogo del navegador cuando se elige **Guardar como PDF**.
@@ -31,15 +34,18 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - Catálogo de fallas con búsqueda y filtros, incluida la selección por estación.
 - En la vista Tablero, las estaciones se presentan en orden fijo: FLA, PRET, FLB, AST, FTS, IOT, FCT, RIN, T_VI, OBA y PACKING. Las estaciones disponibles que no estén en esa lista se muestran después por nombre; los conteos se calculan según el catálogo actual.
 - Ficha **Failure Record** con la identificación y los metadatos de la falla.
-- Secuencia de troubleshooting, pasos, comandos y variantes cuando están disponibles.
+- Secuencia de troubleshooting, pasos, comandos y variantes cuando están disponibles; incluye una barra verde de avance que sigue el paso activo y llega al 100 % al finalizar la ruta.
 - Flowcharts y referencias visuales locales; algunos diagramas se pueden ampliar en un modal.
+- En MTF, las tres cards de detalle mantienen la misma proporción en escritorio. Disposition Flow usa un marco uniforme para diagramas fuente, diagramas generados y estados sin diagrama; el criterio, flowchart y botones conservan alineación y separación consistentes.
 - Paneles informativos de topología y notificaciones cuando hay contenido asociado.
-- Reporte de intervención piloto para la falla **FLA-04** con identidad completa. La captura reúne identificación del nodo, analista, pasos declarados como ejecutados, AC Cycle, resultado, retest, acciones, RCA y evidencia antes/después.
-- El reporte FLA-04 se prepara para imprimir; el usuario debe elegir **Guardar como PDF** en el navegador.
 
 ### Tema y presentación
 
 - Tema claro y oscuro.
+- Microinteracciones refinadas para botones, tarjetas, pasos, cambios BAT/MTF, paneles, referencias y diálogos. La mayoría usa 120–180 ms; paneles y modales llegan como máximo a 220 ms.
+- La capa de movimiento completa, incluidos tokens de tiempo/curvas y reglas compartidas BAT/MTF, está aislada en `ffdg-motion.css`.
+- Búsqueda y filtros siguen actualizando sin debounce ni temporizadores; cuando el navegador ofrece View Transitions se usa una transición corta en el área de resultados, con actualización directa como fallback.
+- Las animaciones nuevas respetan `prefers-reduced-motion`; el pulso rojo existente del paso activo se conserva y no se duplica.
 - El título de la falla seleccionada se muestra centrado sobre el fondo rojo oscuro, con texto blanco en BAT y MTF.
 - Los pasos BAT y el botón del paso MTF activo tienen un brillo rojo pulsante; la animación se desactiva cuando el sistema solicita movimiento reducido.
 - Diseño adaptable para distintos anchos de pantalla.
@@ -50,7 +56,8 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - El botón **Actualizar Excel FFDG** fue retirado de la barra MTF. El parser Excel y la función `loadExcelFile` siguen en el código, pero la interfaz ya no ofrece un selector para cargar un workbook.
 - El botón **Actualizar PDF FFDG** de MTF abre un selector de archivo PDF. Actualmente no importa el PDF, no actualiza el catálogo y no guarda el archivo.
 - El importador BAT desde PDF sí forma parte del flujo BAT.
-- El piloto de reporte MTF está limitado al registro FLA-04 que valida por estación, ID, código y descripción. No debe suponerse habilitado para otras fallas.
+- Se corrigió el alcance de los helpers MTF que impedía renderizar diagramas. La prueba local mostró el flowchart fuente de FLA-04 y la secuencia SVG de tres pasos para FLA-10, que no tiene diagrama fuente verificado.
+- El piloto de reporte MTF FLA-04 sigue sin acceso desde la interfaz; el modal nuevo pertenece únicamente a BAT No Boot y no reactiva ese piloto.
 - Los reportes se preparan en el cliente. La aplicación no sube imágenes ni reportes a un servidor y no genera ni descarga automáticamente un PDF.
 - Los catálogos importados por la aplicación se guardan en `localStorage` del navegador. Esa información pertenece al perfil/navegador local: no se sincroniza con otros equipos o usuarios y puede perderse al borrar los datos del sitio.
 - Los manuales y workbooks originales usados como referencia no forman parte de este repositorio. Los datos y asociaciones incluidos en el código no permiten revalidar por sí solos el contenido contra una versión nueva de esas fuentes.
@@ -86,7 +93,8 @@ No se requiere `npm install` ni hay un paso de build definido por el proyecto. N
 
 | Ruta | Propósito |
 | --- | --- |
-| `index.html` | Entrada versionada de la aplicación. Contiene la estructura principal, estilos, datos base, estado, renderizado, eventos, importadores, diálogos y plantillas de impresión. |
+| `index.html` | Entrada versionada de la aplicación. Contiene la estructura principal, estilos base, datos, estado, renderizado, eventos, importadores, diálogos y plantillas de impresión; enlaza la capa de movimiento al final para conservar la cascada. |
+| `ffdg-motion.css` | Microinteracciones y transiciones compartidas BAT/MTF, incluidos estados de tarjetas/controles, entradas, diálogos, View Transitions y movimiento reducido. |
 | `bat-pdf-seed.js` | Datos iniciales/semilla de procedimientos BAT. |
 | `mtf-pdf-additions.js` | Registros MTF adicionales derivados de la documentación fuente. |
 | `mtf-pdf-procedure-overrides.js` | Ajustes de procedimientos MTF asociados a identidades y páginas verificadas. |
@@ -119,7 +127,7 @@ El estado guardado puede ser distinto entre navegadores y perfiles. La aplicaci�
 
 ## Privacidad y alcance de los reportes
 
-- La captura del reporte de intervención MTF FLA-04 se mantiene en memoria para preparar la impresión; no se guarda en el catálogo ni se transmite a un servidor.
+- El código interno del piloto de reporte MTF FLA-04 se conserva temporalmente, pero no tiene un botón de acceso en la interfaz. Si se reactiva, su captura permanece en memoria y no se transmite al servidor.
 - La evidencia seleccionada para ese reporte se prepara localmente en el navegador.
 - El contenido impreso es información declarada por la persona que completa el formulario. No autentica al analista, no confirma el resultado de retest y no libera automáticamente un nodo.
 - En BAT, la información de diagnóstico y evidencia del reporte se prepara desde la sesión de la página; revisa el reporte antes de guardarlo o compartirlo.
