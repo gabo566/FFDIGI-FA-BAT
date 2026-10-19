@@ -4107,4 +4107,4 @@ Replicar el botón BAT en el detalle MTF: botón verde con texto blanco, sobre s
 - Pasaron `git diff --check`, compilación con Node de los siete scripts inline clásicos, balance de llaves CSS, 207 IDs únicos y comprobaciones estáticas de las reglas/IDs del botón.
 - No hubo prueba visual: el navegador integrado falló al iniciar con `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`.
 - Antes del push, `develop` estaba en la rama correcta y sin commits nuevos en `origin/develop` (0 remotos / 22 locales); `secundaria/main` coincidía con HEAD. Se preservó y reaplicó el stash `codex pre-push MTF BAT button 2026-10-19`; `.playwright-cli/` queda fuera del commit.
-- SHA de publicación pendiente de verificación.
+- Publicado en `secundaria/main` como `8d14a73ec16e7c35008eafaeeab60b8be3384e7f` (`style(mtf): match BAT change-failure button`), autor `gabo566`; `git ls-remote` confirmó el mismo SHA en `refs/heads/main`.
