@@ -4084,3 +4084,27 @@ Cambiar el aspecto del botón de MTF en el detalle a fondo blanco y subir los ca
 - La página no pudo validarse visualmente: el navegador integrado no inició por `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`.
 - Antes de publicar, `secundaria/main` estaba alineada con HEAD; `origin/develop` no tenía commits nuevos frente al checkout. Se preservó el stash previo y se excluirá `.playwright-cli/` del commit.
 - Publicado en `secundaria/main` como `b776c7654bed7f45beb9e181926bc4a368e6bb59` (`style(ffdigi): refine BAT/MTF detail UI`); autor `gabo566`. `git ls-remote` confirmó el mismo SHA en `refs/heads/main`.
+
+## 76. 2026-10-19 — Igualar botón MTF «Cambiar Falla» con BAT
+
+### Solicitud
+
+Replicar el botón BAT en el detalle MTF: botón verde con texto blanco, sobre superficie blanca y con los mismos espacios.
+
+### Solución
+
+- Se quitó el override que volvía blanco el botón MTF; ahora conserva el verde y el texto blanco de `.catalog-selection-toggle`, con el mismo padding `8px 14px`, alto mínimo de 44 px y ancho completo que BAT.
+- La barra MTF durante el detalle ahora usa la superficie y borde neutros de BAT, con padding `10px 16px`; la summary mantiene 12 px de separación y ocupa el ancho disponible.
+- Se conservaron IDs, listeners, navegación y comportamiento responsive existente.
+
+### Archivos modificados
+
+- `ffdg-detail-presentation.css` — superficie, dimensiones y espaciado de la barra/botón MTF en detalle.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación y publicación
+
+- Pasaron `git diff --check`, compilación con Node de los siete scripts inline clásicos, balance de llaves CSS, 207 IDs únicos y comprobaciones estáticas de las reglas/IDs del botón.
+- No hubo prueba visual: el navegador integrado falló al iniciar con `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`.
+- Antes del push, `develop` estaba en la rama correcta y sin commits nuevos en `origin/develop` (0 remotos / 22 locales); `secundaria/main` coincidía con HEAD. Se preservó y reaplicó el stash `codex pre-push MTF BAT button 2026-10-19`; `.playwright-cli/` queda fuera del commit.
+- SHA de publicación pendiente de verificación.

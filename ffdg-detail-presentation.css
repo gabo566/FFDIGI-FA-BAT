@@ -53,10 +53,38 @@
   display: none !important;
 }
 
+#mtf-layout.mtf-selection-collapsed .mtf-row-2-header {
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 10px 16px !important;
+  border-color: var(--md-sys-color-outline-variant) !important;
+  background: var(--md-sys-color-surface-container-lowest) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  box-shadow: var(--md-elevation-1);
+}
+
+#mtf-layout.mtf-selection-collapsed .mtf-selection-summary:not(.hidden) {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100%;
+  min-width: 0;
+}
+
 #mtf-layout.mtf-selection-collapsed #mtf-selection-toggle {
-  border: 1px solid var(--md-sys-color-outline-variant) !important;
-  background: #fff !important;
-  color: #2d6b00 !important;
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  padding: 8px 14px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+  text-align: center !important;
 }
 
 :is(#bat-failure-detail, #mtf-detail) .bento-meta-item {
