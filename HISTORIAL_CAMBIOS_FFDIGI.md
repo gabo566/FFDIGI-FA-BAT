@@ -4183,3 +4183,25 @@ Quitar del botón **Realizar reporte de falla** de No Boot «Evidencia concluyen
 
 - Revisión estática de los campos del modal, el objeto `caseReport`, la plantilla No Boot y el campo RCA del reporte general.
 - No se generó `dist` ni se desplegó el sitio.
+
+
+## 80. 2026-10-19 — Corregir sintaxis del reporte BAT
+
+### Solicitud
+
+Restablecer la visualización de fallas BAT y MTF tras el cambio localizado del reporte No Boot.
+
+### Solución
+
+- Se retiró un cierre duplicado de arreglo en la plantilla compartida de impresión BAT. El error impedía que el script principal cargara y afectaba la visualización de fallas.
+- Se conserva el retiro de los dos campos únicamente en el reporte No Boot; el campo RCA del reporte BAT general sigue disponible.
+
+### Archivos modificados
+
+- `index.html` — corrección sintáctica en la plantilla BAT compartida.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- `node --check` pasó para el script principal extraído de `index.html`.
+- Se verificó estáticamente que los campos No Boot siguen retirados y el campo RCA BAT general se conserva.

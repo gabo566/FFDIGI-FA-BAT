@@ -3580,8 +3580,6 @@
         ["Intervención realizada en el nodo", actions || "No especificada", true],
       ];
       if (!isNoBoot) finalFields.push(["Evidencia de causa raíz", rootEvidence || "No registrada"]);
-      
-      ];
       if (caseReport?.stoppedStepLabel) finalFields.push(["Paso donde se detuvo / detectó la falla", caseReport.stoppedStepLabel]);
       if (caseReport?.passStepLabel) finalFields.push(["Paso/acción donde se obtuvo Pass", caseReport.passStepLabel]);
 
