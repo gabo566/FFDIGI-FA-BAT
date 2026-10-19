@@ -4136,3 +4136,27 @@ Quitar «Evidencia concluyente de RCA» y «Notas del retest / resultado» del b
 - Revisión estática: la evidencia textual continúa disponible en la plantilla BAT normal; no se cambió el formulario general de RCA.
 - No se generó `dist`, no se desplegó el sitio y no se ejecutó una suite automatizada.
 - El commit y la rama remota quedan verificados al terminar la actualización GitHub.
+
+
+## 78. 2026-10-19 — Restaurar campos del reporte BAT No Boot
+
+### Solicitud
+
+Restablecer el cambio anterior del formulario de reporte de No Boot.
+
+### Solución
+
+- Se restauraron en el modal los campos «Evidencia concluyente de RCA» y «Notas del retest / resultado», junto con su inclusión en el reporte imprimible.
+- README y contexto técnico vuelven a describir el comportamiento vigente.
+- Se conserva la entrada 77 como registro de la modificación temporal y esta entrada deja constancia de su reversión.
+
+### Archivos modificados
+
+- `index.html` — campos del formulario y salida impresa.
+- `README.md` y `CONTEXTO_FFDIGI.md` — documentación restaurada.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de reversión.
+
+### Validación y publicación
+
+- Revisión estática de los campos del modal, el objeto del reporte y la plantilla imprimible.
+- No se generó `dist` ni se desplegó el sitio.

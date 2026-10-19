@@ -2219,9 +2219,11 @@
       <label for="bat-no-boot-report-classification">Clasificación final *<select id="bat-no-boot-report-classification" class="m3-select" name="classification" required></select></label>
       <label for="bat-no-boot-report-next-action">Siguiente acción *<select id="bat-no-boot-report-next-action" class="m3-select" name="nextAction" required></select></label>
       <label for="bat-no-boot-report-root-cause">Causa raíz (RCA) *<select id="bat-no-boot-report-root-cause" class="m3-select" name="rootCause" required></select></label>
+      <label class="mtf-case-block" for="bat-no-boot-report-root-evidence">Evidencia concluyente de RCA<textarea id="bat-no-boot-report-root-evidence" class="m3-textarea" name="rootEvidence" rows="3"></textarea></label>
     </div>
     <div class="mtf-case-fields mtf-case-action-fields">
       <label for="bat-no-boot-report-actions">Intervención / acciones realizadas *<textarea id="bat-no-boot-report-actions" class="m3-textarea" name="actions" rows="4" required></textarea></label>
+      <label for="bat-no-boot-report-notes">Notas del retest / resultado<textarea id="bat-no-boot-report-notes" class="m3-textarea" name="retestNotes" rows="4"></textarea></label>
     </div>
     <section id="bat-no-boot-evidence" class="bat-no-boot-evidence" aria-label="Evidencia antes y después de la intervención">
       <article class="bat-no-boot-evidence-card">
@@ -3516,7 +3518,7 @@
       const diagnostician = caseReport?.analyst ?? $("technician").value.trim();
       const employeeId = caseReport?.employeeId ?? $("employee-id").value.trim();
       const reportDate = generatedAt.toLocaleDateString("es-MX");
-      const rootEvidence = caseReport ? "" : $("root-cause-evidence").value.trim();
+      const rootEvidence = caseReport?.rootEvidence ?? $("root-cause-evidence").value.trim();
       const actions = caseReport?.actions ?? $("action").value.trim();
       $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
       $("bat-print-title").textContent = isNoBoot ? "Informe ejecutivo de falla" : "Reporte de Calidad";
@@ -3577,14 +3579,12 @@
       grid.className = "print-final-grid";
       const finalFields = [
         ["Causa raíz identificada", rootCause],
+        ["Evidencia de causa raíz", rootEvidence || "No registrada"],
         ["Intervención realizada en el nodo", actions || "No especificada", true],
-      ];
-      if (!isNoBoot) finalFields.push(["Evidencia de causa raíz", rootEvidence || "No registrada"]);
-      
       ];
       if (caseReport?.stoppedStepLabel) finalFields.push(["Paso donde se detuvo / detectó la falla", caseReport.stoppedStepLabel]);
       if (caseReport?.passStepLabel) finalFields.push(["Paso/acción donde se obtuvo Pass", caseReport.passStepLabel]);
-
+      if (caseReport?.retestNotes) finalFields.push(["Notas del retest", caseReport.retestNotes]);
       if (!caseReport && isNoBoot && passStepValue !== "") {
         const passStepIndex = Number.parseInt(passStepValue, 10);
         const passStep = FFDG.state.steps[passStepIndex];
@@ -4124,9 +4124,11 @@
         classification: String(values.get("classification") || ""),
         nextAction: String(values.get("nextAction") || ""),
         rootCause: selectedRootCause?.textContent || "",
+        rootEvidence: String(values.get("rootEvidence") || "").trim(),
         actions: String(values.get("actions") || "").trim(),
         stoppedStepLabel,
         passStepLabel,
+        retestNotes: String(values.get("retestNotes") || "").trim()
       };
       $("bat-no-boot-report-dialog").close();
       FFDG.reports.printBatReport(caseReport);
