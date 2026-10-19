@@ -4083,4 +4083,4 @@ Cambiar el aspecto del botón de MTF en el detalle a fondo blanco y subir los ca
 - `git diff --check` pasó.
 - La página no pudo validarse visualmente: el navegador integrado no inició por `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`.
 - Antes de publicar, `secundaria/main` estaba alineada con HEAD; `origin/develop` no tenía commits nuevos frente al checkout. Se preservó el stash previo y se excluirá `.playwright-cli/` del commit.
-- La autorización de commit/push a `secundaria/main` y la identidad `gabo566` provienen de la solicitud de subir a GitHub; el resultado remoto se verifica al terminar.
+- Publicado en `secundaria/main` como `b776c7654bed7f45beb9e181926bc4a368e6bb59` (`style(ffdigi): refine BAT/MTF detail UI`); autor `gabo566`. `git ls-remote` confirmó el mismo SHA en `refs/heads/main`.
