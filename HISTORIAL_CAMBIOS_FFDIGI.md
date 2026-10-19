@@ -4108,3 +4108,31 @@ Replicar el botón BAT en el detalle MTF: botón verde con texto blanco, sobre s
 - No hubo prueba visual: el navegador integrado falló al iniciar con `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`.
 - Antes del push, `develop` estaba en la rama correcta y sin commits nuevos en `origin/develop` (0 remotos / 22 locales); `secundaria/main` coincidía con HEAD. Se preservó y reaplicó el stash `codex pre-push MTF BAT button 2026-10-19`; `.playwright-cli/` queda fuera del commit.
 - Publicado en `secundaria/main` como `8d14a73ec16e7c35008eafaeeab60b8be3384e7f` (`style(mtf): match BAT change-failure button`), autor `gabo566`; `git ls-remote` confirmó el mismo SHA en `refs/heads/main`.
+
+
+## 77. 2026-10-19 — Retirar campos textuales del reporte BAT No Boot
+
+### Solicitud
+
+Quitar «Evidencia concluyente de RCA» y «Notas del retest / resultado» del botón **Realizar reporte de falla** de No Boot y actualizar GitHub.
+
+### Solución
+
+- Se retiraron los dos controles del formulario del modal No Boot y sus valores del objeto que alimenta la impresión.
+- La plantilla imprimible de No Boot ya no incluye evidencia textual de RCA ni notas del retest; conserva causa raíz, resultado del retest y evidencia fotográfica antes/después.
+- Se mantuvo sin cambios el campo de evidencia del flujo BAT normal, que pertenece a otro reporte.
+- Se actualizó README y contexto técnico para describir los campos vigentes.
+
+### Archivos modificados
+
+- `index.html` — formulario y plantilla impresa de No Boot.
+- `README.md` — descripción del flujo No Boot.
+- `CONTEXTO_FFDIGI.md` — alcance de la plantilla BAT.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación y publicación
+
+- Revisión estática: el modal No Boot ya no contiene los nombres/IDs de los dos campos; el objeto `caseReport` y la plantilla No Boot no consumen ni muestran sus valores.
+- Revisión estática: la evidencia textual continúa disponible en la plantilla BAT normal; no se cambió el formulario general de RCA.
+- No se generó `dist`, no se desplegó el sitio y no se ejecutó una suite automatizada.
+- El commit y la rama remota quedan verificados al terminar la actualización GitHub.
