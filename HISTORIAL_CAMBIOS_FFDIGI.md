@@ -4160,3 +4160,26 @@ Restablecer el cambio anterior del formulario de reporte de No Boot.
 
 - Revisión estática de los campos del modal, el objeto del reporte y la plantilla imprimible.
 - No se generó `dist` ni se desplegó el sitio.
+
+
+## 79. 2026-10-19 — Retirar dos campos solo del reporte No Boot
+
+### Solicitud
+
+Quitar del botón **Realizar reporte de falla** de No Boot «Evidencia concluyente de RCA» y «Notas del retest / resultado», sin afectar el reporte BAT general.
+
+### Solución
+
+- Se eliminaron ambos campos del formulario y de los datos que alimentan el reporte imprimible No Boot.
+- El PDF No Boot conserva la causa raíz, el resultado del retest y la evidencia fotográfica antes/después.
+- Se mantuvo intacta la captura y presentación de evidencia RCA del reporte BAT general; no se modificaron otras fallas ni MTF.
+
+### Archivos modificados
+
+- `index.html` — solo el formulario y la composición de impresión asociada a No Boot.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Revisión estática de los campos del modal, el objeto `caseReport`, la plantilla No Boot y el campo RCA del reporte general.
+- No se generó `dist` ni se desplegó el sitio.
