@@ -36,7 +36,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - Ficha **Failure Record** con la identificación y los metadatos de la falla.
 - Secuencia de troubleshooting, pasos, comandos y variantes cuando están disponibles; incluye una barra verde de avance que sigue el paso activo y llega al 100 % al finalizar la ruta.
 - Flowcharts y referencias visuales locales; algunos diagramas se pueden ampliar en un modal.
-- En MTF, las tres cards de detalle mantienen la misma proporción en escritorio. Disposition Flow usa un marco uniforme para diagramas fuente, diagramas generados y estados sin diagrama; el criterio, flowchart y botones conservan alineación y separación consistentes.
+- Las fichas BAT y MTF comparten encabezados verdes, tres columnas simétricas en escritorio, aviso de falla con icono, filas de identificación con iconos, paso activo verde y controles/diagramas enmarcados.
 - Paneles informativos de topología y notificaciones cuando hay contenido asociado.
 
 ### Tema y presentación
@@ -45,9 +45,9 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - Microinteracciones refinadas para botones, tarjetas, pasos, cambios BAT/MTF, paneles, referencias y diálogos. La mayoría usa 120–180 ms; paneles y modales llegan como máximo a 220 ms.
 - La capa de movimiento completa, incluidos tokens de tiempo/curvas y reglas compartidas BAT/MTF, está aislada en `ffdg-motion.css`.
 - Búsqueda y filtros siguen actualizando sin debounce ni temporizadores; cuando el navegador ofrece View Transitions se usa una transición corta en el área de resultados, con actualización directa como fallback.
-- Las animaciones nuevas respetan `prefers-reduced-motion`; el pulso rojo existente del paso activo se conserva y no se duplica.
-- El título de la falla seleccionada se muestra centrado sobre el fondo rojo oscuro, con texto blanco en BAT y MTF.
-- Los pasos BAT y el botón del paso MTF activo tienen un brillo rojo pulsante; la animación se desactiva cuando el sistema solicita movimiento reducido.
+- Las animaciones nuevas respetan `prefers-reduced-motion`; BAT y MTF resaltan el paso activo en verde con pulso sutil.
+- El título de la falla se resalta con tokens de error y contraste adaptado al tema; el nombre/código permanece centrado.
+- Los pasos activos BAT/MTF usan el mismo brillo verde sutil; se desactiva con `prefers-reduced-motion`.
 - Diseño adaptable para distintos anchos de pantalla.
 - Diagramas, logotipos y referencias se sirven desde archivos del repositorio; la aplicación no depende de un CDN para esos recursos.
 
@@ -93,8 +93,10 @@ No se requiere `npm install` ni hay un paso de build definido por el proyecto. N
 
 | Ruta | Propósito |
 | --- | --- |
-| `index.html` | Entrada versionada de la aplicación. Contiene la estructura principal, estilos base, datos, estado, renderizado, eventos, importadores, diálogos y plantillas de impresión; enlaza la capa de movimiento al final para conservar la cascada. |
+| `index.html` | Entrada versionada de la aplicación. Contiene la estructura principal, estilos base, datos, estado, renderizado, eventos, importadores, diálogos y plantillas de impresión; enlaza las capas CSS locales al final para conservar la cascada. |
 | `ffdg-motion.css` | Microinteracciones y transiciones compartidas BAT/MTF, incluidos estados de tarjetas/controles, entradas, diálogos, View Transitions y movimiento reducido. |
+| `ffdg-detail-presentation.css` | Acabado visual compartido de las fichas BAT/MTF; se carga después de movimiento y no contiene datos ni lógica. |
+| `assets/ui-icons/` | Iconos SVG locales de Bootstrap Icons usados en datos, secuencia, referencias y acciones; no requiere CDN. Incluye licencia. |
 | `bat-pdf-seed.js` | Datos iniciales/semilla de procedimientos BAT. |
 | `mtf-pdf-additions.js` | Registros MTF adicionales derivados de la documentación fuente. |
 | `mtf-pdf-procedure-overrides.js` | Ajustes de procedimientos MTF asociados a identidades y páginas verificadas. |

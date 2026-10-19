@@ -3843,3 +3843,244 @@ Los diagramas fuente de AST-02 y FLA-04, junto con el fallback generado de FLA-1
 
 - No se hizo una inspección individual de las 287 fallas; se probaron ejemplos fuente y generados representativos.
 - Los artefactos locales creados por Playwright permanecen dentro de `.playwright-cli/` y no se limpiaron.
+
+## 70. 2026-10-19 — Aplicar propuesta visual a la ficha MTF
+
+### Solicitud
+
+Aplicar a BAT/MTF la propuesta visual seleccionada por el usuario. La imagen de referencia muestra la ficha de detalle MTF con navegación superior, falla activa, secuencia técnica y disposición en tres cards.
+
+### Objetivo
+
+Acercar la ficha MTF al diseño aprobado, conservando el comportamiento, contenido técnico, diagramas, distribución responsive y navegación existentes.
+
+### Estado anterior
+
+- La ficha ya tenía tres columnas simétricas, título rojo para la falla, barra de avance, área de flowchart y controles funcionales.
+- Los paneles tenían bordes más pesados y encabezados más altos; el paso MTF activo usaba el pulso rojo anterior.
+- BAT y MTF comparten reglas base de detalle, por lo que la nueva capa visual debía limitarse explícitamente a MTF.
+- La rama estaba en `develop`, 20 commits por delante de `origin/develop`; `.playwright-cli/` ya estaba sin seguimiento y se preservó.
+
+### Análisis
+
+- Se leyeron `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md`; se revisaron README, markup de la ficha y reglas CSS en cascada.
+- Las tres cards, IDs, listeners, título, stepper, progreso, acción, stage del flowchart y controles ya existen; no se requiere modificar renderizadores ni datos.
+- La referencia enfatiza tarjetas ligeras, encabezados verdes compactos, metadatos organizados, paso activo verde y flowchart enmarcado.
+
+### Causa / necesidad
+
+El acabado previo no coincidía con la propuesta elegida, en especial por el grosor de contornos, altura de encabezados y color del paso MTF activo.
+
+### Solución
+
+- Se añadió `ffdg-mtf-presentation.css` y se cargó después de `ffdg-motion.css` para que el tratamiento quede aislado y gane prioridad sobre estilos MTF anteriores.
+- Se refinaron solo las cards MTF: contorno neutro fino, superficie clara según tema, encabezados verdes compactos, banner de falla con token semántico de error, metadatos agrupados y controls/progreso contenidos.
+- El paso MTF activo ahora usa verde y un pulso sutil; `prefers-reduced-motion` elimina ese pulso.
+- Se conservaron la distribución de tres columnas, el apilado responsive, el tamaño/ajuste `contain` del flowchart, todos los botones, IDs, listeners, pasos y datos. BAT no se modifica.
+- README y contexto describen la nueva hoja y el estado visual MTF.
+
+### Archivos modificados
+
+- `index.html` — enlace a la hoja MTF posterior a la capa de movimiento.
+- `ffdg-mtf-presentation.css` — nueva capa CSS limitada a `#mtf-layout #mtf-detail`.
+- `README.md` — presentación MTF y estructura de hojas locales actualizadas.
+- `CONTEXTO_FFDIGI.md` — arquitectura, orden de carga, fuente de UI y estado visual MTF actualizados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- Solo estilos de Failure Record, Troubleshooting Sequence y Disposition Flow de MTF.
+- No se modificaron funciones JavaScript, catálogos, localStorage, importadores, datos, procedimientos, diagramas ni BAT.
+
+### Validaciones
+
+- Los 15 scripts clásicos inline compilaron con `vm.Script`.
+- La hoja CSS nueva tiene llaves balanceadas; el enlace local existe y queda después de `ffdg-motion.css`.
+- `git diff --check` pasó.
+- Se intentó reabrir el navegador integrado, pero la inicialización del kernel falló con `El sistema no puede encontrar la ruta especificada (os error 3)`. No se usó Playwright ni otro navegador; por tanto, no se declara inspección visual, interacción, responsive o comparación final.
+- No se hizo commit ni push. No se tocaron las capturas preexistentes de `.playwright-cli/`.
+
+### Resultado
+
+La propuesta quedó aplicada localmente mediante una hoja CSS MTF aislada, con los checks estáticos aprobados. La fidelidad visual final queda pendiente de una inspección en navegador disponible.
+
+### Pendientes y riesgos
+
+- Revisar con el navegador del usuario escritorio, tableta, móvil, tema claro/oscuro, foco y movimiento reducido; confirmar que el flowchart y los tres controles siguen visibles.
+- La referencia adjunta no incluye interacción ni estado oscuro, por lo que esos estados se conservaron según los tokens y comportamientos actuales, sin validación visual en esta sesión.
+
+## 71. 2026-10-19 — Unificar diseño visual de fallas BAT y MTF
+
+### Solicitud
+
+El usuario indicó que el acabado anterior no reproducía la referencia aprobada: faltaban los iconos y el espaciado. Solicitó aplicar el diseño a las fallas de BAT y MTF.
+
+### Objetivo
+
+Acercar ambas fichas a la captura proporcionada: columnas simétricas, alerta visible, datos técnicos en filas con iconos, pasos/progreso claros y disposición enmarcada, sin modificar contenido técnico ni flujos.
+
+### Análisis y causa
+
+- La capa previa era exclusiva de MTF; BAT seguía con contornos, espaciado y paso activo distintos.
+- El proyecto no tenía una biblioteca de iconos instalada/local. Añadir una fuente remota afectaría el funcionamiento sin conexión del HTML local.
+- Los datos, diagramas, IDs y listeners existentes permiten presentar el diseño desde CSS, markup y los puntos actuales de renderizado.
+
+### Solución
+
+- Se sustituyó la hoja MTF-only por `ffdg-detail-presentation.css`, común a BAT/MTF. Igualó el ancho de las tres columnas en escritorio y normalizó encabezados, metadatos, banner de falla, progreso, espaciado y marcos.
+- Se añadieron recursos oficiales SVG de Bootstrap Icons en `assets/ui-icons/` con su licencia MIT local; no hay CDN ni dependencia instalada.
+- Las filas de estación, código, componente y flowchart ahora incluyen iconos decorativos accesibles; título de falla incluye alerta. Secuencia BAT/MTF comparte activo verde; `prefers-reduced-motion` apaga el pulso.
+- Se incorporaron iconos a acción/procedimiento, referencias, topología y paso actual sin cambiar el texto técnico. Se conservaron IDs, listeners, datos, diagramas, navegación y reglas responsive existentes.
+- README y contexto actualizaron la fuente visual compartida y el comportamiento BAT/MTF.
+
+### Archivos modificados o añadidos
+
+- `index.html` — estructura de banner y metadatos; referencias a iconos locales; iconos decorativos en renders BAT/MTF; hoja de presentación común.
+- `ffdg-detail-presentation.css` — diseño compartido BAT/MTF, columnas y componentes visuales.
+- `assets/ui-icons/*.svg` — iconos locales; `assets/ui-icons/LICENSE.txt` — licencia MIT.
+- `README.md` — presentación común y archivos.
+- `CONTEXTO_FFDIGI.md` — arquitectura y estado visual compartido.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validaciones
+
+- 7 scripts clásicos inline pasaron compilación con Node `vm.Script`; el cambio de markup/render estático quedó dentro de dichos scripts.
+- Llaves CSS balanceadas; los 8 archivos de iconos existen localmente.
+- No hay IDs duplicados; iconos decorativos incorporados llevan `alt=""` y `aria-hidden="true"`.
+- `git diff --check` pasó.
+- Se intentó capturar la página con el navegador integrado; no inició por `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`. No se usó otro navegador, por lo que no se declara validación visual, responsive, de diagramas ni interacción.
+- No se hizo commit ni push; se preservó `.playwright-cli/` preexistente.
+
+### Resultado y pendientes
+
+Los cambios están aplicados localmente. La fidelidad final de espacios, tamaños, flowcharts, móvil/tableta, foco y movimiento reducido queda pendiente de comprobar en navegador funcional.
+
+## 72. 2026-10-19 — Igualar la barra de selección y dimensiones de detalle BAT/MTF
+
+### Solicitud
+
+El usuario pidió que «Cambiar Falla» en MTF coincida con BAT, que al abrir una falla MTF desaparezcan búsqueda/tema/PDF y que las tres cards mantengan las mismas dimensiones y espacios que en BAT.
+
+### Análisis y causa
+
+- BAT colapsa su encabezado del catálogo y oculta búsqueda/tema/PDF; MTF conservaba su toolbar `.mtf-row-1` durante el detalle.
+- El botón MTF tenía una flecha descendente y un wrapper adicional; BAT mostraba icono de intercambio y etiqueta simple.
+- El alto desktop de BAT usa `max(560px, calc(100dvh - 320px))`; MTF reservaba `calc(100dvh - 260px)`, por lo que la fila MTF podía ser más alta.
+- Los dos botones comparten clases, pero necesitaban una regla final común para fijar borde, alto, ancho, relleno y foco visual.
+
+### Solución
+
+- MTF ahora usa el mismo contenido visible del botón BAT (icono de intercambio + «Cambiar Falla»); se conserva `#mtf-selection-text` porque el render lo actualiza.
+- Al seleccionar falla se oculta `.mtf-row-1`, que contiene búsqueda, Modo Noche y Actualizar PDF; al volver al catálogo se muestra de nuevo.
+- El encabezado MTF seleccionado adopta la misma superficie, borde, padding y radio del encabezado BAT colapsado.
+- Las dos fichas usan en escritorio la misma fórmula de alto y tres columnas iguales. El flujo apilado/tableta/móvil sigue con altura automática y controles existentes.
+- Sin cambios a datos, pasos, localStorage, diagramas ni listeners.
+
+### Archivos modificados
+
+- `index.html` — contenido visible común del botón MTF; se preserva el ID de texto usado por el renderer.
+- `ffdg-detail-presentation.css` — ocultamiento contextual del toolbar MTF, presentación compartida del botón y altura desktop común.
+- `README.md` — visibilidad de controles MTF y dimensiones igualadas.
+- `CONTEXTO_FFDIGI.md` — reglas visuales, navegación y comportamiento responsive.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validaciones
+
+- 7 scripts clásicos inline pasaron `vm.Script`.
+- 207 IDs únicos; se conserva `mtf-selection-text`.
+- CSS con llaves balanceadas; comprobación estática de toolbar condicionado a `mtf-selection-collapsed`, botones con mismo contenido visible y fórmula desktop compartida.
+- Cálculo estático a viewport de 884 px: ambas fichas usan 564 px de alto mínimo.
+- `git diff --check` pasó.
+- El navegador integrado no inició: `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`. No se declara validación visual ni medición real del DOM.
+- Sin commit ni push; se preservaron cambios locales y `.playwright-cli/`.
+
+### Resultado y pendiente
+
+La implementación está igualada en código/CSS y el toolbar MTF vuelve al mostrarse el catálogo. Falta confirmar visualmente en navegador funcional escritorio, tableta y móvil.
+
+## 73. 2026-10-19 — Revertir igualación de barra y dimensiones BAT/MTF
+
+### Solicitud
+
+El usuario pidió revertir el ajuste de la barra «Cambiar Falla», ocultamiento de controles MTF y dimensiones compartidas entre las fichas.
+
+### Solución
+
+- Se restauró el botón MTF previo, con su icono, flecha y wrapper de acción.
+- Se retiró el ocultamiento de búsqueda/tema/PDF al abrir el detalle MTF.
+- Se quitaron los overrides que igualaban la altura de detalle BAT/MTF; se conservan las reglas de anchos y los acabados visuales compartidos de la propuesta anterior.
+- Se preservó el contenido técnico, navegación y listeners. No se restauraron otros archivos ni cambios de tareas anteriores.
+
+### Archivos modificados
+
+- `index.html` — markup y estilo base del botón MTF restaurados.
+- `ffdg-detail-presentation.css` — reglas de toolbar y altura compartida retiradas.
+- `README.md` y `CONTEXTO_FFDIGI.md` — descripción corregida para quitar el comportamiento revertido.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta reversión.
+
+### Validación
+
+- Validación pendiente; no se ejecutó navegador en esta reversión.
+- Sin commit ni push.
+
+## 74. 2026-10-19 — Ocultar controles MTF durante el detalle
+
+### Solicitud
+
+Al abrir cualquier falla MTF, mostrar únicamente el botón «Cambiar Falla» y la ficha completa; ocultar búsqueda, modo noche y actualizar PDF. Al volver al catálogo, recuperar los controles.
+
+### Objetivo
+
+Reducir elementos visibles durante la lectura de la falla sin modificar dimensiones ni contenido de sus tres cards.
+
+### Estado previo y análisis
+
+- `setMtfCatalogCollapsed` ya controla `mtf-selection-collapsed` y se utiliza para abrir la ficha desde las vistas MTF y regresar al catálogo.
+- `.mtf-row-1` contiene búsqueda, tema y selector PDF; ocultar esa fila solo durante el estado colapsado cumple el alcance sin tocar funciones ni listeners.
+- El resumen MTF conserva `#mtf-selection-text`, que actualiza la función existente; se mantiene el ID aunque el texto no sea visible.
+
+### Solución
+
+- Se ocultó `.mtf-row-1` cuando `#mtf-layout` tiene `mtf-selection-collapsed`; el retiro de la clase al volver muestra de nuevo búsqueda, tema y PDF.
+- El botón MTF ahora comparte el icono y texto visibles «Cambiar Falla» de BAT, sin la flecha adicional. Se conservaron IDs, atributos ARIA, listeners y `#mtf-selection-text`.
+- No se modificaron el alto/ancho de las cards, sus datos, pasos, diagramas, responsive ni el flujo de selección.
+
+### Archivos modificados
+
+- `index.html` — contenido visible del botón MTF; retirado un estilo ya sin uso del wrapper; no se alteraron listeners.
+- `ffdg-detail-presentation.css` — ocultamiento de la toolbar MTF solo en detalle.
+- `CONTEXTO_FFDIGI.md` — comportamiento de controles MTF actualizado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Los siete scripts inline clásicos compilaron con Node `vm.Script`; se contaron 207 IDs únicos y se conservó `#mtf-selection-text`.
+- Revisión estática confirmó que la regla oculta `.mtf-row-1` solo bajo `mtf-selection-collapsed`; la función/listener existente conserva el retorno al catálogo y la regla no toca tamaños de cards.
+- `git diff --check` pasó.
+- Se intentó revisar la página en el navegador integrado, pero el kernel no inició (`failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`). No se declara validación visual/interactiva ni responsive.
+- Sin commit ni push.
+
+## 75. 2026-10-19 — Fondo blanco para «Cambiar Falla» en MTF
+
+### Solicitud
+
+Cambiar el aspecto del botón de MTF en el detalle a fondo blanco y subir los cambios a GitHub.
+
+### Solución
+
+- Se aplicó fondo blanco al botón MTF visible durante el detalle, con texto/icono verde oscuro y borde neutro para conservar contraste.
+- El estilo solo aplica en el estado `mtf-selection-collapsed`; BAT y el resto de controles no cambian.
+- El destino GitHub confirmado es `secundaria/main` (`gabo566/FFDIGI-FA-BAT`), con autor `gabo566`. El remoto estaba alineado con HEAD antes de aplicar cambios.
+
+### Archivos modificados
+
+- `ffdg-detail-presentation.css` — estilo contextual blanco del botón MTF.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación y publicación
+
+- Compilaron los siete scripts inline clásicos; hay 207 IDs únicos, se comprobaron 17 referencias a iconos (0 ausentes) y se verificó el contraste CSS de fondo blanco/texto verde oscuro.
+- `git diff --check` pasó.
+- La página no pudo validarse visualmente: el navegador integrado no inició por `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`.
+- Antes de publicar, `secundaria/main` estaba alineada con HEAD; `origin/develop` no tenía commits nuevos frente al checkout. Se preservó el stash previo y se excluirá `.playwright-cli/` del commit.
+- La autorización de commit/push a `secundaria/main` y la identidad `gabo566` provienen de la solicitud de subir a GitHub; el resultado remoto se verifica al terminar.

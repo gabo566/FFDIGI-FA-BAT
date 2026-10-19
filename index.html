@@ -1663,13 +1663,16 @@
             <header class="bento-block-heading">
               <div class="bento-block-heading-copy"><h2 class="bento-block-title">Failure Record</h2><p class="bento-block-subtitle">Identificación de falla y datos técnicos</p></div>
             </header>
-            <div style="display:flex;align-items:center;gap:6px"><span id="bat-detail-station" class="mtf-tag" style="background:var(--md-sys-color-primary);color:#fff">BAT</span><span id="bat-detail-family" class="mtf-tag"></span></div>
-            <h3 id="bat-detail-title" tabindex="-1" style="margin:0;font-size:14px;font-weight:800;line-height:1.35;color:var(--md-sys-color-on-surface)"></h3>
-            <div class="bento-meta-item"><span class="bento-meta-label">Estación</span><span id="bat-detail-station-value" class="bento-meta-val">BAT</span></div>
-            <div class="bento-meta-item"><span class="bento-meta-label">Error Code</span><span id="bat-detail-code" class="bento-meta-val"></span></div>
-            <div class="bento-meta-item"><span class="bento-meta-label">Tipo de falla</span><span id="bat-detail-component" class="bento-meta-val"></span></div>
-            <div class="bento-meta-item"><span class="bento-meta-label">Descripción</span><span id="bat-detail-description" class="bento-meta-val"></span></div>
-            <div class="bento-meta-item"><span class="bento-meta-label">Flowchart</span><span id="bat-detail-flowchart" class="bento-meta-val"></span></div>
+            <div class="ffdg-failure-badges"><span id="bat-detail-station" class="mtf-tag" style="background:var(--md-sys-color-primary);color:#fff">BAT</span><span id="bat-detail-family" class="mtf-tag"></span></div>
+            <div class="ffdg-failure-banner">
+              <img src="./assets/ui-icons/exclamation-triangle-fill.svg" alt="" aria-hidden="true">
+              <h3 id="bat-detail-title" tabindex="-1" style="margin:0;font-size:14px;font-weight:800;line-height:1.35;color:var(--md-sys-color-on-surface)"></h3>
+            </div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/ui-icons/hdd-rack.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Estación</span><span id="bat-detail-station-value" class="bento-meta-val">BAT</span></div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/ui-icons/code-slash.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Error Code</span><span id="bat-detail-code" class="bento-meta-val"></span></div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/ui-icons/cpu.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Tipo de falla</span><span id="bat-detail-component" class="bento-meta-val"></span></div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/ui-icons/file-earmark-text.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Descripción</span><span id="bat-detail-description" class="bento-meta-val"></span></div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/ui-icons/file-earmark-text.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Flowchart</span><span id="bat-detail-flowchart" class="bento-meta-val"></span></div>
             <button id="bat-no-boot-report-open" class="bat-no-boot-report-open no-print hidden" type="button" aria-haspopup="dialog" aria-controls="bat-no-boot-report-dialog">
               <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm8 1.5V8h3.5M8 12h8m-8 3h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               Realizar reporte de falla
@@ -1956,10 +1959,8 @@
       <div id="mtf-selection-summary" class="mtf-selection-summary hidden no-print" aria-live="polite">
         <button id="mtf-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Cambiar Falla" aria-controls="mtf-row-2" aria-expanded="false">
           <span id="mtf-selection-text" class="catalog-selection-text"></span>
-          <span class="catalog-selection-action">
-            <svg class="catalog-selection-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="currentColor"/></svg>
-            <span>Cambiar Falla</span><span class="catalog-selection-chevron" aria-hidden="true">▾</span>
-          </span>
+          <svg class="catalog-selection-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="currentColor"/></svg>
+          <span>Cambiar Falla</span>
         </button>
       </div>
     </div>
@@ -1985,27 +1986,33 @@
                 <p class="bento-block-subtitle">Identificación de falla y datos técnicos</p>
               </div>
             </header>
-            <div style="display:flex; align-items:center; gap:6px;">
+            <div class="ffdg-failure-badges">
               <span id="mtf-badge-station" class="mtf-tag"
                 style="background:var(--md-sys-color-primary); color:#fff;"></span>
               <span id="mtf-badge-flow" class="mtf-tag"></span>
             </div>
-            <h3 id="mtf-detail-title" tabindex="-1"
-              style="margin:0; font-size:14px; font-weight:800; line-height:1.35; color:var(--md-sys-color-on-surface);">
-            </h3>
+            <div class="ffdg-failure-banner">
+              <img src="./assets/ui-icons/exclamation-triangle-fill.svg" alt="" aria-hidden="true">
+              <h3 id="mtf-detail-title" tabindex="-1"
+                style="margin:0; font-size:14px; font-weight:800; line-height:1.35; color:var(--md-sys-color-on-surface);"></h3>
+            </div>
             <div class="bento-meta-item">
+              <img class="ffdg-meta-icon" src="./assets/ui-icons/hdd-rack.svg" alt="" aria-hidden="true">
               <span class="bento-meta-label">Estación</span>
               <span id="mtf-station" class="bento-meta-val"></span>
             </div>
             <div class="bento-meta-item">
+              <img class="ffdg-meta-icon" src="./assets/ui-icons/code-slash.svg" alt="" aria-hidden="true">
               <span class="bento-meta-label">Error Code</span>
               <span id="mtf-code" class="bento-meta-val"></span>
             </div>
             <div class="bento-meta-item">
+              <img class="ffdg-meta-icon" src="./assets/ui-icons/cpu.svg" alt="" aria-hidden="true">
               <span class="bento-meta-label">Componentes / Cables</span>
               <span id="mtf-components" class="bento-meta-val"></span>
             </div>
             <div class="bento-meta-item">
+              <img class="ffdg-meta-icon" src="./assets/ui-icons/file-earmark-text.svg" alt="" aria-hidden="true">
               <span class="bento-meta-label">Flowchart</span>
               <span id="mtf-flowchart" class="bento-meta-val"></span>
             </div>
@@ -2032,6 +2039,7 @@
             <div id="mtf-step" style="display:flex; flex-direction:column; gap:4px;"></div>
             <section id="mtf-reference-images" class="mtf-pdf-reference-images hidden" aria-label="Reference Images del FFDG PDF"></section>
             <button id="mtf-topology-open" class="topology-reference-launch" type="button" aria-haspopup="dialog" aria-controls="mtf-topology-modal">
+              <img class="ffdg-detail-icon" src="./assets/ui-icons/diagram-3.svg" alt="" aria-hidden="true">
               <span class="topology-reference-launch-title">GB300 System Topology <span class="topology-reference-badge">Reference Images</span></span>
               <span class="topology-reference-launch-action">Abrir esquema ↗</span>
             </button>
@@ -2740,7 +2748,12 @@
         number.textContent = `${activeStep.sourceNumber || activeIndex + 1}.`;
         const title = document.createElement("span");
         title.textContent = activeStep.title;
-        heading.append(number, title);
+        const icon = document.createElement("img");
+        icon.className = "ffdg-step-icon";
+        icon.src = "./assets/ui-icons/file-earmark-text.svg";
+        icon.alt = "";
+        icon.setAttribute("aria-hidden", "true");
+        heading.append(icon, number, title);
         item.appendChild(heading);
         if (activeStep.detail) {
           const description = document.createElement("span");
@@ -3143,16 +3156,16 @@
         ${step.section ? `<span class="m3-step-kicker">${escapeHtml(step.section)}</span>` : ""}
         <span class="m3-step-kicker">Validación ${FFDG.state.mtfIndex + 1} de ${steps.length}${step.sourceNumber ? ` · Origen ${escapeHtml(step.sourceNumber)}` : ""}</span>
         <div class="mtf-detail-progress" role="progressbar" aria-label="Avance de pasos MTF" aria-valuemin="0" aria-valuemax="${steps.length}" aria-valuenow="${progressValue}" aria-valuetext="${progressLabel}"><div class="mtf-detail-progress-fill" aria-hidden="true" style="width:${progressPercent}%"></div></div>
-        <h3 class="m3-step-title">${escapeHtml(step.title)}</h3>
+        <h3 class="m3-step-title"><img class="ffdg-step-icon" src="./assets/ui-icons/file-earmark-text.svg" alt="" aria-hidden="true">${escapeHtml(step.title)}</h3>
         ${formatStepDetail(step.detail)}
       `;
-        $("mtf-action-text").innerHTML = `<strong>Acción / Procedimiento:</strong><br>${escapeHtml(step.action || "Seguir el procedimiento de la fuente.")}`;
+        $("mtf-action-text").innerHTML = `<img src="./assets/ui-icons/gear-fill.svg" alt="" aria-hidden="true"><span class="ffdg-action-copy"><strong>Acción / Procedimiento:</strong>${escapeHtml(step.action || "Seguir el procedimiento de la fuente.")}</span>`;
       } else {
         const message = f.procedureSheet
           ? `La pestaña ${f.procedureSheet} existe, pero no contiene pasos reconocibles. Consulta el contenido original de la pestaña.`
           : "Esta falla no tiene pestaña de procedimiento asociada por Tab No. Consulta los campos originales; no se agregaron recomendaciones inventadas.";
         $("mtf-step").innerHTML = `<div class="mtf-no-procedure">${escapeHtml(message)}</div>`;
-        $("mtf-action-text").textContent = "Sin procedimiento cargado en el archivo fuente.";
+        $("mtf-action-text").innerHTML = `<img src="./assets/ui-icons/gear-fill.svg" alt="" aria-hidden="true"><span class="ffdg-action-copy">Sin procedimiento cargado en el archivo fuente.</span>`;
       }
       const referenceHost = $("mtf-reference-images");
       if (referenceHost) {
@@ -3171,10 +3184,15 @@
           launch.setAttribute("aria-label", `Abrir galería con ${references.length} ${references.length === 1 ? "imagen" : "imágenes"} de referencia`);
           const heading = document.createElement("span");
           heading.textContent = "Imágenes de referencia";
+          const icon = document.createElement("img");
+          icon.className = "ffdg-detail-icon";
+          icon.src = "./assets/ui-icons/images.svg";
+          icon.alt = "";
+          icon.setAttribute("aria-hidden", "true");
           const count = document.createElement("span");
           count.className = "topology-reference-badge";
           count.textContent = `${references.length} ${references.length === 1 ? "imagen" : "imágenes"}`;
-          launch.append(heading, count);
+          launch.append(icon, heading, count);
           launch.addEventListener("click", () => window.FFDG_OPEN_REFERENCE_GALLERY(`${f.id} · ${f.name}`, references, launch, referenceKey));
           referenceHost.append(launch);
           window.FFDG_SYNC_REFERENCE_GALLERY?.(referenceKey, launch);
@@ -6288,7 +6306,6 @@ main{padding-top:4px!important}
     }
     #mtf-selection-toggle { display: flex; flex-direction: row; align-items: center; justify-content: center; width: 100%; min-width: 0; min-height: 44px; box-sizing: border-box; border: 1px solid var(--nvidia-green); border-radius: 12px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); text-align: center; }
     #mtf-selection-toggle .catalog-selection-text { display: none !important; }
-    #mtf-selection-toggle .catalog-selection-action { flex: 0 0 auto; padding: 0; background: transparent; color: inherit; font-weight: 800; }
     #mtf-selection-toggle:hover { filter: brightness(1.08); }
     body { font-size: 14px; line-height: 1.45; }
     main { padding: 8px 16px 32px !important; }
@@ -6972,3 +6989,4 @@ main{padding-top:4px!important}
 
 </style>
 <link rel="stylesheet" href="./ffdg-motion.css">
+<link rel="stylesheet" href="./ffdg-detail-presentation.css">
