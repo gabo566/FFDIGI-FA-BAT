@@ -2,3 +2,7 @@
 desktop.ini
 /package.json
 /package-lock.json
+
+# Sesiones y capturas locales de validación Playwright
+/.playwright-cli/
+/output/playwright/

@@ -4619,3 +4619,43 @@ El detalle BAT ocupa mejor el alto disponible. Las cards mantienen su altura; lo
 
 - Refinamiento visual aplicado sin cambiar el SVG técnico ni la lógica. Las etiquetas internas del diagrama siguen siendo pequeñas a escala de tarjeta; el botón existente «Ampliar diagrama» conserva el acceso a la vista ampliada. Sin cambio en MTF.
 
+
+## 90. 2026-10-20 — Ignorar artefactos locales de Playwright
+
+### Solicitud
+
+Evitar que las sesiones de navegador y capturas locales de validación aparezcan como cambios pendientes para Git.
+
+### Estado previo y análisis
+
+- `.playwright-cli/` contenía snapshots, registros de consola y capturas de sesiones locales.
+- `output/playwright/` contenía únicamente capturas de QA observadas; otras rutas bajo `output/` no se deben ignorar por posible contenido del usuario.
+- La petición es excluir esos artefactos de futuras incorporaciones sin borrarlos del equipo.
+
+### Solución
+
+- Se agregan reglas exactas para `/.playwright-cli/` y `/output/playwright/`.
+- Los archivos locales permanecen intactos; no se ignora el directorio `output/` completo.
+
+### Archivos modificados
+
+- `.gitignore` — exclusiones puntuales para sesiones y capturas Playwright.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- Reglas de exclusión Git para artefactos temporales de QA.
+
+### Impacto
+
+Las sesiones y capturas dejan de aparecer como archivos sin seguimiento y no se incluirán accidentalmente en próximos commits. Permanecen disponibles localmente.
+
+### Validación
+
+- `git check-ignore -v` confirmó las dos reglas en rutas representativas; `Test-Path` confirmó que las capturas/sesiones siguen presentes.
+- `git diff --check` pasó.
+
+### Resultado, pendientes y riesgos
+
+- Alcance restringido a artefactos generados de Playwright; no se eliminó ni se excluyó contenido funcional.
+
