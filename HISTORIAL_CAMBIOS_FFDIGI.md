@@ -4310,3 +4310,57 @@ El cambio se limita al reporte No Boot y sus campos asociados. Los procedimiento
 - El nombre de Claudia identifica a la responsable solicitada, pero no constituye una firma digital ni evidencia de aprobación.
 - Textos y fotografías extensos pueden cambiar la paginación A4.
 
+
+## 83. 2026-10-20 — Dar más presencia visual Material Design 3 al PDF No Boot
+
+### Solicitud
+
+Añadir más color y una presentación visual más impactante al reporte No Boot, con una composición Material Design 3.
+
+### Objetivo
+
+Hacer el documento más memorable para equipos de ingeniería y gerencia sin sacrificar legibilidad, orden de lectura ni su formato A4.
+
+### Estado previo y análisis
+
+- El reporte No Boot ya tenía el contenido solicitado en la intervención anterior, pero su salida A4 usaba mayormente superficies verde pálido y separadores discretos.
+- Los estilos están dentro de `@media print` y se activan únicamente para `#bat-print-report.bat-executive-report`; el formulario en pantalla, los reportes BAT generales y MTF no necesitan cambios.
+- La prueba de impresión con dos fotografías ocupó una segunda página solo para el pie, por lo que el rediseño debía cuidar el espacio vertical además del color.
+
+### Solución
+
+- Se diseñó una cabecera en gradiente verde profundo con el logo en una superficie blanca elevada, tipografía clara y panel de fecha/hora en vidrio tonal.
+- Se aplicaron superficies M3 diferenciadas a los datos: verde, teal, índigo, azul y ámbar, con categorías resaltadas por el color inferior.
+- El status y la síntesis ahora forman una banda de alto contraste verde/azul, con un acento que cambia según Resuelta, En validación, NVIDIA o Reparación; la acción siguiente usa superficie verde lima.
+- Causa raíz, intervención y procedimiento aplicado reciben tonos complementarios propios. Evidencias y firmas también tienen superficies, contornos y acentos cromáticos diferenciados.
+- Se añadieron marcadores circulares numerados para status, acciones, evidencia y firmas; divisores y radios redondeados refuerzan la jerarquía sin convertir todo el reporte en cajas.
+- Se redujeron espacios en impresión para que cabecera, dos evidencias, firmas y pie permanezcan juntos en una hoja A4 de Chromium en el caso de prueba.
+
+### Archivos modificados
+
+- `index.html` — estilos de impresión aislados a No Boot.
+- `README.md` — descripción de la presentación visual del PDF.
+- `CONTEXTO_FFDIGI.md` — aspecto de impresión y estrategia de color del reporte.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- CSS de `#bat-print-report.bat-executive-report` bajo `@media print`; no cambió JavaScript de aplicación.
+
+### Impacto
+
+El nuevo diseño afecta exclusivamente el PDF No Boot. Los datos, validaciones y controles de impresión permanecen iguales. BAT general, MTF y sus plantillas mantienen sus estilos.
+
+### Validaciones
+
+- La salida PDF de Chromium se inspeccionó visualmente en raster y se confirmó en una página A4, incluyendo dos imágenes de prueba, leyendas, firmas y pie.
+- `pdfinfo` confirmó el tamaño A4 y una página; `pdftotext` conservó encabezado, estado, procedimiento, evidencias, firmas y pie.
+- `node --check` pasó para los ocho bloques JavaScript inline; `git diff --check` pasó. Chromium no reportó errores JavaScript.
+- La impresión de prueba se invocó sincrónicamente desde el formulario; el diálogo del sistema no se automatizó. El PDF de validación se generó con la interfaz PDF de Chromium.
+- No se generó `dist` ni se desplegó el sitio.
+
+### Riesgos y límites
+
+- Los fondos de color dependen de que el motor de impresión aplique `print-color-adjust`; los estilos lo solicitan explícitamente, pero el cuadro nativo puede variar por navegador.
+- Con fotos grandes o texto excepcionalmente largo el reporte puede ocupar más de una hoja.
+
