@@ -4240,3 +4240,73 @@ Corregir el botón de generación PDF, validar el flujo e imprimir un informe ap
 - Se generó un PDF A4 de una página con dos imágenes en Chromium y se verificó su texto; la llamada a impresión se interceptó en la prueba y no se interactuó con el diálogo nativo del sistema.
 - No se generó artefacto de distribución ni se desplegó el sitio.
 
+
+## 82. 2026-10-20 — Ajustar reporte PDF No Boot para NVIDIA RACKS
+
+### Solicitud
+
+Renombrar y rediseñar el reporte PDF No Boot; eliminar folio y selector de paso Pass; agregar estados operativos, registrar el procedimiento FFDG aplicado, asignar responsable de Calidad, permitir nombrar evidencias y mostrar la hora de generación.
+
+### Objetivo
+
+Hacer que el reporte de No Boot se entienda como registro técnico de seguimiento para equipos de ingeniería y Calidad, con jerarquía visual clara y datos seleccionados directamente por quien documenta el caso.
+
+### Estado previo
+
+- El PDF se titulaba «Informe ejecutivo de incidente», imprimía un folio local y mostraba resumen para gerencia.
+- El formulario ofrecía «Resuelta / No resuelta / No ejecutado», un campo de paso de detención y otro paso/acción donde se obtuvo Pass.
+- Las evidencias mostraban el nombre original del archivo sin edición. La firma de Calidad quedaba pendiente de asignación en No Boot.
+- La captura No Boot ya invocaba `window.print()` de forma síncrona desde el submit y mantenía el modal disponible durante la impresión.
+
+### Análisis
+
+- La copia de trabajo estaba en `work` y detrás de `origin/main`; el árbol estaba limpio. Se adelantó por fast-forward al commit `743b1ee` antes de editar, preservando los cambios existentes y tomando la última versión funcional del reporte.
+- Se rastrearon los consumidores del selector Pass. El elemento estaba ligado al formulario No Boot, al cierre del stepper guiado, al reporte y a su validación; se retiraron esas referencias BAT obsoletas. El selector Pass del piloto MTF FLA-04 permanece independiente y sin cambios.
+- Los procedimientos del modal No Boot provienen de `FFDG.ui.getBatDetailSteps(failure)`, la misma fuente que alimenta el detalle BAT de la falla seleccionada.
+- Las cadenas extrañas reportadas (URL mal formada y «Cal Od 2 L. du p.») no aparecen en los archivos versionados consultados; no se borró contenido aproximado ni se alteraron textos ajenos.
+
+### Solución
+
+- Se tituló el PDF «Reporte de Análisis de Falla NVIDIA RACKS» y se aumentó el logo de Ingrasys en la versión de impresión No Boot.
+- El nombre sugerido por el navegador para guardar el archivo también usa «Reporte_de_Analisis_de_Falla_NVIDIA_RACKS» y el serial del nodo.
+- Se eliminó el folio del informe No Boot; el encabezado muestra hora local de generación. El folio del reporte BAT general se conserva en su modo aparte.
+- El campo «Estado reportado» ofrece Resuelta, En validación, NVIDIA, Reparación y Pruebas. «Resuelta» exige retest Pass; los demás estados se pueden reportar mientras el caso sigue en gestión.
+- Se renombró el selector como «Procedimiento aplicado según el FFDG de NVIDIA» y conserva únicamente los pasos obtenidos del procedimiento de la falla activa.
+- Se retiró el selector dedicado a señalar dónde se obtuvo Pass y sus dependencias en la ruta BAT. El resultado del retest permanece.
+- La firma de revisión de Calidad muestra Claudia Itzel Almaza Lopez.
+- Cada imagen antes/después tiene un campo «Nombre para el reporte»; la leyenda personalizada se incluye en la impresión y, si se deja vacía, se usa el nombre de archivo.
+- Se reemplazó el sello «Informe ejecutivo» por «Hora de generación» y se añadieron acentos NVIDIA verdes, logo más grande, bandas y separadores para reducir el aspecto de bloques enmarcados.
+- Se conserva el flujo de impresión del navegador activado directamente por el submit, con modal disponible si la impresión falla. MTF, otros reportes BAT y el catálogo no se modificaron.
+
+### Archivos modificados
+
+- `index.html` — formulario, validación, leyendas de evidencia, campos de salida, encabezado y estilos de impresión No Boot.
+- `README.md` — descripción del formulario y PDF vigente.
+- `CONTEXTO_FFDIGI.md` — campos, fuente del procedimiento y comportamiento del reporte actualizado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `populateNoBootStepOptions`, `submitBatNoBootReport` y `printBatReport`.
+- Captura/preview de `noBootReportEvidence` y plantilla `#bat-print-report`.
+- CSS de impresión `.bat-executive-report`, restringido al modo No Boot.
+
+### Impacto
+
+El cambio se limita al reporte No Boot y sus campos asociados. Los procedimientos visibles siguen siendo la fuente del selector. La captura y las imágenes se mantienen en memoria de la página; el navegador no envía ni guarda automáticamente el PDF.
+
+### Validaciones
+
+- `node --check` pasó para los ocho bloques JavaScript inline extraídos de `index.html`; `git diff --check` pasó.
+- Chromium abrió la aplicación sin errores JavaScript. El modal No Boot se verificó en escritorio (1365 px), tableta (768 px) y móvil (390 px): sin desbordamiento horizontal, con foco en el primer campo, las cinco opciones de estado y sin selector BAT de Pass. `prefers-reduced-motion` se verificó en modo reducido.
+- Un caso «Resuelta / Pass» produjo la plantilla esperada, con procedimiento FFDG, firma de Calidad y nombres de evidencia personalizados antes/después. Se interceptó `window.print()` para comprobar el gesto síncrono y luego se generó una copia A4 de una página con Chromium; `pdftotext` confirmó encabezado, fecha/hora, campos y leyendas.
+- Un segundo caso «NVIDIA / Fail» fue aceptado y estableció el color/estado correspondiente; el título sugerido para guardar incluyó NVIDIA RACKS y el serial.
+- El diálogo nativo de impresión no se abrió ni se guardó desde el entorno de prueba. Se comprobó además la selección/renderizado BAT y MTF sin errores. No se creó `dist` ni se desplegó el sitio.
+- No se creó `dist`, ni se ejecutó ni publicó un despliegue.
+
+### Riesgos y límites
+
+- La creación del archivo sigue dependiendo de que el navegador permita abrir impresión y la persona seleccione «Guardar como PDF».
+- El nombre de Claudia identifica a la responsable solicitada, pero no constituye una firma digital ni evidencia de aprobación.
+- Textos y fotografías extensos pueden cambiar la paginación A4.
+
