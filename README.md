@@ -24,7 +24,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - Recorrido de diagnóstico con respuestas y notas durante la sesión.
 - Captura de identificación del nodo, validaciones, disposición final, causa raíz (RCA) y evidencia fotográfica.
 - Al seleccionar No Boot, la ficha técnica aparece limpia de identificación, historial y paneles auxiliares. Su botón **Realizar reporte de falla** abre un modal para identidad del nodo, paso de detención, resultado/retest, paso Pass, acciones, RCA y evidencia antes/después.
-- La captura de reporte No Boot no requiere ejecutar el diagnóstico guiado en pantalla; reutiliza el procedimiento visible de la falla para ofrecer los pasos y genera el informe con la plantilla BAT de impresión.
+- La captura de reporte No Boot no requiere ejecutar el diagnóstico guiado en pantalla; reutiliza el procedimiento visible para ofrecer los pasos. El informe ejecutivo incluye folio, estado declarado, síntesis del caso, siguiente acción, RCA, intervención, pasos de detección/solución, evidencia fotográfica antes/después y espacios de revisión. El diálogo del navegador permite guardarlo como PDF.
 - Secuencia de potencia informativa cuando corresponde.
 - Importación local de procedimientos BAT desde PDF y combinación con los datos de la aplicación.
 - Preparación de un reporte imprimible para revisión de Calidad. El archivo PDF se crea desde el diálogo del navegador cuando se elige **Guardar como PDF**.

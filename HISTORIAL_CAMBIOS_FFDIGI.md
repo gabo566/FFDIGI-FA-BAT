@@ -4205,3 +4205,38 @@ Restablecer la visualización de fallas BAT y MTF tras el cambio localizado del 
 
 - `node --check` pasó para el script principal extraído de `index.html`.
 - Se verificó estáticamente que los campos No Boot siguen retirados y el campo RCA BAT general se conserva.
+
+## 81. 2026-10-20 — Validar impresión y reestructurar informe ejecutivo No Boot
+
+### Solicitud
+
+Corregir el botón de generación PDF, validar el flujo e imprimir un informe apto para lectura gerencial de NVIDIA RACKS.
+
+### Estado previo y análisis
+
+- El reporte se preparaba en la plantilla BAT, pero el formulario No Boot se cerraba antes de llamar a impresión y el mensaje de preparación quedaba dentro del modal ya cerrado.
+- La plantilla usaba una composición compacta de 8 pt, fotografías de 35 px y una firma de revisión con nombre fijo, sin resumen ejecutivo de estado/acción.
+
+### Solución
+
+- El submit conserva el gesto del usuario y abre la impresión directamente. El modal se oculta solo en impresión, permanece disponible si el diálogo no abre y se cierra al regresar del diálogo.
+- Se añadió folio, resumen gerencial de falla/serial/resultado/retest/RCA, estado declarado y siguiente acción.
+- Se reorganizó el diseño de impresión con mayor legibilidad, ficha de datos en tres columnas, fotografías amplias antes/después, y firmas sin atribuir una aprobación a una persona no capturada en el formulario.
+- El reporte sigue requiriendo que el usuario elija Guardar como PDF en el diálogo del navegador; la aplicación no descarga archivos de forma silenciosa.
+- El flujo y el contenido de los reportes BAT generales y MTF se mantienen intactos.
+
+### Archivos modificados
+
+- index.html — impresión No Boot, estado del formulario y plantilla ejecutiva.
+- README.md — alcance y contenido del informe.
+- CONTEXTO_FFDIGI.md — comportamiento de generación/impresión.
+- HISTORIAL_CAMBIOS_FFDIGI.md — este registro.
+
+### Validación
+
+- node --check del script principal.
+- Prueba de navegador Chromium local en escritorio, tableta y móvil: el diálogo no se desborda; el foco de teclado permanece dentro y Escape lo cierra; se confirmó el estado de movimiento reducido.
+- Con datos No Boot de ejemplo, el formulario pasó validación, llamó a window.print y preparó la plantilla; se probó tanto resultado no resuelto como resuelto/Pass.
+- Se generó un PDF A4 de una página con dos imágenes en Chromium y se verificó su texto; la llamada a impresión se interceptó en la prueba y no se interactuó con el diálogo nativo del sistema.
+- No se generó artefacto de distribución ni se desplegó el sitio.
+

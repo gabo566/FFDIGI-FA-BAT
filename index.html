@@ -1330,7 +1330,8 @@
     body[data-print-mode="mtf"] #bat-print-report,
     body[data-print-mode="mtf-case"] :is(#bat-print-report, #mtf-print-report) { display: none !important; }
     body[data-print-mode="mtf-case"] #mtf-case-print-report { display: block !important; padding: 0; }
-    body[data-print-mode="mtf-case"] dialog { display: none !important; }
+    body[data-print-mode="mtf-case"] dialog,
+    body[data-print-mode="bat"] dialog { display: none !important; }
 
     .report-only { color: #111 !important; }
 
@@ -1386,29 +1387,42 @@
     .bat-verdict-stat { display: grid; align-content: center; gap: 4px; min-width: 0; padding: 7px 9px; border-left: 1px solid #e2d8d7; }
     .bat-verdict-stat strong { color: #717982; font-size: 7pt; letter-spacing: .035em; text-transform: uppercase; }
     .bat-verdict-stat span { color: #24282d; font-size: 8.5pt; font-weight: 700; overflow-wrap: anywhere; }
-    #bat-print-report.bat-executive-report { font-size: 8pt; line-height: 1.2; }
-    #bat-print-report.bat-executive-report .print-head { gap: 10px; margin-bottom: 7px; padding-bottom: 7px; }
-    #bat-print-report.bat-executive-report .print-brand-primary { gap: 9px; }
-    #bat-print-report.bat-executive-report .ingrasys-print-logo { width: 104px; max-height: 34px; }
-    #bat-print-report.bat-executive-report .print-brand-title { font-size: 15pt; }
-    #bat-print-report.bat-executive-report .print-doc-stamp { min-width: 118px; gap: 2px; padding: 5px 7px; }
-    #bat-print-report.bat-executive-report .print-doc-stamp span { font-size: 7pt; }
+    #bat-print-report.bat-executive-report { font-size: 9pt; line-height: 1.35; }
+    #bat-print-report.bat-executive-report .print-head { gap: 12px; margin-bottom: 10px; padding-bottom: 9px; }
+    #bat-print-report.bat-executive-report .print-brand-primary { gap: 11px; }
+    #bat-print-report.bat-executive-report .ingrasys-print-logo { width: 124px; max-height: 40px; }
+    #bat-print-report.bat-executive-report .print-brand-title { font-size: 16pt; }
+    #bat-print-report.bat-executive-report .print-doc-stamp { min-width: 138px; gap: 3px; padding: 7px 9px; }
+    #bat-print-report.bat-executive-report .print-doc-stamp span { font-size: 7.3pt; }
     #bat-print-report.bat-executive-report #bat-print-continuation { display: none !important; }
-    #bat-print-report.bat-executive-report .bat-print-grid { gap: 5px; margin-bottom: 6px; }
-    #bat-print-report.bat-executive-report .bat-meta-card { padding: 5px 7px; border-top-width: 2px; border-radius: 6px; font-size: 7.5pt; }
-    #bat-print-report.bat-executive-report .bat-meta-card strong { margin-bottom: 2px; font-size: 6.2pt; }
-    #bat-print-report.bat-executive-report .bat-print-section { margin-top: 7px; padding: 3px 0 4px 7px; border-left-color: #76b900; font-size: 9pt; }
-    #bat-print-report.bat-executive-report .bat-report-verdict { grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 4px; margin-bottom: 6px; padding: 6px; border-left-color: #76b900; }
-    #bat-print-report.bat-executive-report .bat-verdict-lead { gap: 2px; padding: 1px 5px; }
-    #bat-print-report.bat-executive-report .bat-verdict-title { font-size: 9.5pt; }
-    #bat-print-report.bat-executive-report .bat-verdict-stat { gap: 2px; padding: 4px 6px; }
-    #bat-print-report.bat-executive-report .bat-verdict-stat span { font-size: 7.5pt; }
+    #bat-print-report.bat-executive-report .bat-print-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-bottom: 9px; }
+    #bat-print-report.bat-executive-report .bat-meta-card { padding: 7px 8px; border-top-width: 2px; border-radius: 6px; font-size: 8pt; }
+    #bat-print-report.bat-executive-report .bat-meta-card strong { margin-bottom: 3px; font-size: 6.7pt; }
+    #bat-print-report.bat-executive-report .bat-print-section { margin-top: 11px; padding: 4px 0 5px 8px; border-left-color: #76b900; font-size: 10pt; }
+    #bat-print-report.bat-executive-report #bat-print-summary-title,
+    #bat-print-report.bat-executive-report #bat-print-verdict { display: none !important; }
+    #bat-print-report.bat-executive-report .bat-executive-summary { display: grid !important; grid-template-columns: minmax(130px, .85fr) minmax(0, 2fr) minmax(130px, 1.1fr); gap: 8px; margin: 2px 0 12px; break-inside: avoid; }
+    #bat-print-report.bat-executive-report .bat-executive-summary > div { min-width: 0; padding: 9px 10px; border: 1px solid #dce4d7; border-radius: 8px; background: #f7faf4; }
+    #bat-print-report.bat-executive-report .bat-executive-summary span { display: block; margin-bottom: 5px; color: #426c18; font-size: 6.8pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    #bat-print-report.bat-executive-report .bat-executive-status { border-left: 4px solid #ba3325 !important; }
+    #bat-print-report.bat-executive-report .bat-executive-summary[data-state="resolved"] .bat-executive-status { border-left-color: #76b900 !important; }
+    #bat-print-report.bat-executive-report .bat-executive-summary[data-state="pending"] .bat-executive-status { border-left-color: #c17a16 !important; }
+    #bat-print-report.bat-executive-report .bat-executive-status strong,
+    #bat-print-report.bat-executive-report .bat-executive-action-card strong { display: block; color: #252a30; font-size: 11pt; line-height: 1.2; overflow-wrap: anywhere; }
+    #bat-print-report.bat-executive-report .bat-executive-status small { display: block; margin-top: 5px; color: #606a72; font-size: 7pt; }
+    #bat-print-report.bat-executive-report .bat-executive-copy-card p { margin: 0; color: #32373d; font-size: 8.6pt; }
+    #bat-print-report.bat-executive-report .bat-executive-action-card { background: #f4f8fb !important; border-color: #d5e2ec !important; }
+    #bat-print-report.bat-executive-report .bat-executive-action-card span { color: #365970; }
     #bat-print-report.bat-executive-report .print-final-card { padding: 0; border: 0; border-radius: 0; }
-    #bat-print-report.bat-executive-report .print-final-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
-    #bat-print-report.bat-executive-report .print-final-grid > div { padding: 5px 7px; border-top-width: 2px; border-radius: 6px; font-size: 7.6pt; }
+    #bat-print-report.bat-executive-report .print-final-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+    #bat-print-report.bat-executive-report .print-final-grid > div { padding: 7px 9px; border-top-width: 2px; border-radius: 6px; font-size: 8.4pt; }
     #bat-print-report.bat-executive-report .print-final-grid .wide { grid-column: 1 / -1; }
-    #bat-print-report.bat-executive-report .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; margin-top: 5px !important; }
-    #bat-print-report.bat-executive-report .gallery-grid img { height: 35px; }
+    #bat-print-report.bat-executive-report .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 7px !important; }
+    #bat-print-report.bat-executive-report .gallery-grid figure { break-inside: avoid; }
+    #bat-print-report.bat-executive-report .gallery-grid img { height: 42mm; object-fit: contain; background: #f7f8fa; }
+    #bat-print-report.bat-executive-report .print-signatures { gap: 12px; margin-top: 10px; }
+    #bat-print-report.bat-executive-report .print-signature-rule { margin: 20px 0 5px; }
+    #bat-print-report.bat-executive-report .print-footer { margin-top: 10px; padding-top: 7px; font-size: 7.5pt; }
     #bat-print-report.bat-executive-report .gallery-grid figcaption { padding: 2px 4px; font-size: 6pt; }
     #bat-print-report.bat-executive-report .print-signatures { gap: 9px; margin-top: 7px; }
     #bat-print-report.bat-executive-report .print-signature { padding: 6px 8px; border-radius: 7px; font-size: 7.3pt; }
@@ -2107,7 +2121,8 @@
       </div>
       <div class="print-doc-stamp">
         <strong id="bat-print-stamp">Control de Calidad</strong>
-        <span>Reporte de diagnóstico BAT</span>
+        <span id="bat-print-type">Reporte de diagnóstico BAT</span>
+        <span id="bat-print-report-number"></span>
         <span id="print-date"></span>
       </div>
       <div class="print-legacy-brand">
@@ -2165,6 +2180,21 @@
       </div>
     </div>
     <div id="bat-print-meta" class="print-grid bat-print-grid"></div>
+    <section id="bat-print-executive-summary" class="bat-executive-summary hidden" aria-label="Resumen ejecutivo del incidente">
+      <div class="bat-executive-status">
+        <span>Estado reportado</span>
+        <strong id="bat-print-executive-status"></strong>
+        <small>Información declarada por el analista</small>
+      </div>
+      <div class="bat-executive-copy-card">
+        <span>Resumen para gerencia</span>
+        <p id="bat-print-executive-copy"></p>
+      </div>
+      <div class="bat-executive-action-card">
+        <span>Siguiente acción registrada</span>
+        <strong id="bat-print-executive-action"></strong>
+      </div>
+    </section>
     <div id="bat-print-summary-title" class="print-section bat-print-section">Resumen para Calidad</div>
     <div id="bat-print-verdict"></div>
     <div id="bat-print-continuation" class="bat-report-continuation"></div>
@@ -3461,16 +3491,35 @@
       cell.innerHTML = `<strong>${safe(label)}:</strong> ${safe(value || "No registrado")}`;
       $("bat-print-meta").appendChild(cell);
     }
-    function openPrintDialog(mode, title, preserveUserActivation = false) {
+    function openPrintDialog(mode, title, preserveUserActivation = false, onAfterPrint = null) {
       const previousTitle = document.title;
-      document.title = title;
-      document.body.dataset.printMode = mode;
-      window.addEventListener("afterprint", () => {
+      const cleanup = () => {
         delete document.body.dataset.printMode;
         document.title = previousTitle;
-      }, { once: true });
-      if (preserveUserActivation) window.print();
-      else requestAnimationFrame(() => window.print());
+        onAfterPrint?.();
+      };
+      document.title = title;
+      document.body.dataset.printMode = mode;
+      window.addEventListener("afterprint", cleanup, { once: true });
+      const print = () => {
+        try {
+          window.print();
+        } catch (error) {
+          window.removeEventListener("afterprint", cleanup);
+          delete document.body.dataset.printMode;
+          document.title = previousTitle;
+          console.error("No se pudo abrir el diálogo de impresión:", error);
+          const message = "No se pudo abrir la impresión. Revisa la configuración de impresión del navegador e inténtalo de nuevo.";
+          setPrintStatus(message, true);
+          if (mode === "bat" && $("bat-no-boot-report-dialog")?.open) {
+            const status = $("bat-no-boot-report-status");
+            status.textContent = message;
+            status.style.color = "var(--md-sys-color-error)";
+          }
+        }
+      };
+      if (preserveUserActivation) print();
+      else requestAnimationFrame(print);
     }
     function printBatReport(caseReport = null) {
       const failure = caseReport ? FFDG.state.batDetailFailure : FFDG.state.activeFailure;
@@ -3483,6 +3532,7 @@
           const status = $("bat-no-boot-report-status");
           status.textContent = message;
           status.style.color = isError ? "var(--md-sys-color-error)" : "var(--md-sys-color-on-surface-variant)";
+          setPrintStatus(message, isError);
         } else setPrintStatus(message, isError);
       };
       if (!classification) {
@@ -3516,31 +3566,46 @@
       const diagnostician = caseReport?.analyst ?? $("technician").value.trim();
       const employeeId = caseReport?.employeeId ?? $("employee-id").value.trim();
       const reportDate = generatedAt.toLocaleDateString("es-MX");
+      const reportNumber = `BAT-${isNoBoot ? "NB" : "QC"}-${generatedAt.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`;
       const rootEvidence = caseReport ? "" : $("root-cause-evidence").value.trim();
       const actions = caseReport?.actions ?? $("action").value.trim();
       $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
-      $("bat-print-title").textContent = isNoBoot ? "Informe ejecutivo de falla" : "Reporte de Calidad";
+      $("bat-print-title").textContent = isNoBoot ? "Informe ejecutivo de incidente" : "Reporte de Calidad";
       $("bat-print-subtitle").textContent = isNoBoot
-        ? "No Boot · Diagnóstico de hardware GB200 / GB300"
+        ? "NVIDIA RACKS · GB200 / GB300 · Diagnóstico BAT No Boot"
         : "Diagnóstico de hardware · GB200 / GB300";
       $("bat-print-summary-title").textContent = isNoBoot ? "Resumen ejecutivo" : "Resumen para Calidad";
-      $("bat-print-stamp").textContent = isNoBoot ? "Revisión gerencial" : "Control de Calidad";
+      $("bat-print-stamp").textContent = isNoBoot ? "Informe ejecutivo" : "Control de Calidad";
+      $("bat-print-type").textContent = isNoBoot ? "Reporte técnico para Gerencia y Calidad" : "Reporte de diagnóstico BAT";
+      $("bat-print-report-number").textContent = isNoBoot ? reportNumber : "";
       $("bat-print-actions-title").textContent = isNoBoot ? "Análisis de causa raíz y plan de acción" : "Causa raíz y acciones reportadas";
       $("bat-print-evidence-section").textContent = isNoBoot ? "Evidencia fotográfica del evento" : "Evidencia de soporte";
       $("print-date").textContent = `Generado ${generatedAt.toLocaleString("es-MX")}`;
       const meta = $("bat-print-meta");
       meta.replaceChildren();
       if (!isNoBoot) addMeta("Folio de sesión local", `BAT-${serial}-${generatedAt.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`);
+      if (isNoBoot) addMeta("Folio del reporte", reportNumber);
       addMeta("Estación", caseReport ? "BAT" : $("station").value);
       addMeta("Serial del Nodo (S/N)", serial);
       addMeta("Número de Parte (P/N)", caseReport?.part ?? $("part").value.trim());
       addMeta("Analista FA · No. de empleado", `${diagnostician} · ${employeeId}`);
       addMeta("Código de falla", failure.code);
       addMeta("Descripción reportada", failure.label, true);
-      if (caseReport) addMeta("Fecha del reporte", generatedAt.toLocaleString("es-MX"));
-      else addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
+      if (caseReport && !isNoBoot) addMeta("Fecha del reporte", generatedAt.toLocaleString("es-MX"));
+      else if (!caseReport) addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
       $("bat-print-continuation").textContent = `${isNoBoot ? "INGRASYS · CONTINUACIÓN DEL INFORME EJECUTIVO" : "INGRASYS · REPORTE DE CALIDAD"}  |  Serial ${serial}  |  Falla ${failure.code}`;
       const hasAnomaly = caseReport ? caseReport.outcome !== "Resuelta" : FFDG.state.history.some(item => item.result === "ANOMALÍA");
+      const executiveSummary = $("bat-print-executive-summary");
+      executiveSummary.classList.toggle("hidden", !isNoBoot);
+      if (isNoBoot) {
+        const reportedOutcome = caseReport?.outcome || (hasAnomaly ? "Anomalía registrada" : "Falla no reproducida");
+        const resultState = reportedOutcome === "Resuelta" ? "resolved" : reportedOutcome === "No ejecutado" ? "pending" : "open";
+        executiveSummary.dataset.state = resultState;
+        $("bat-print-executive-status").textContent = reportedOutcome;
+        $("bat-print-executive-copy").textContent =
+          `Falla ${failure.code} · ${failure.label} · Nodo ${serial}. Retest: ${retest || "No registrado"}. Causa raíz registrada: ${rootCause}.`;
+        $("bat-print-executive-action").textContent = nextAction;
+      }
       const final = $("bat-print-final");
       final.replaceChildren();
       const card = document.createElement("section");
@@ -3613,8 +3678,8 @@
         </div>
         <div class="print-signature">
           <strong>Revisión de Calidad</strong>
-          <span class="print-signature-name">Claudia Itzel Almaza Lopez</span>
-          <span class="print-signature-meta">Responsable de revisión</span>
+          <span class="print-signature-name">${isNoBoot ? "Pendiente de asignación" : "Claudia Itzel Almaza Lopez"}</span>
+          <span class="print-signature-meta">${isNoBoot ? "Revisión de Gerencia / Calidad" : "Responsable de revisión"}</span>
           <div class="print-signature-rule" aria-hidden="true"></div>
           <span class="print-signature-meta">Firma · Fecha: ${safe(reportDate)}</span>
         </div>`;
@@ -3650,9 +3715,16 @@
         evidence.classList.remove("hidden");
         $("bat-print-evidence-section").classList.remove("hidden");
       }
-      $("print-quality-note").textContent = `${isNoBoot ? "Informe ejecutivo para Gerencia y revisión de Calidad" : "Documento para revisión de Calidad"} · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
-      reportStatus("Se abrirá la ventana de impresión. Elige “Guardar como PDF” como destino para crear el archivo.");
-      openPrintDialog("bat", `Reporte_BAT_${serial}_${failure.code}`, isNoBoot);
+      $("print-quality-note").textContent = isNoBoot
+        ? `Documento de trabajo para revisión gerencial y Calidad · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo requiere validación del proceso aplicable.`
+        : `Documento para revisión de Calidad · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
+      reportStatus("El reporte está preparado. En la ventana de impresión selecciona “Guardar como PDF”. Si no aparece, el formulario permanecerá abierto para volver a intentarlo.");
+      openPrintDialog("bat", `Reporte_BAT_${serial}_${failure.code}`, isNoBoot, () => {
+        if (caseReport) {
+          const dialog = $("bat-no-boot-report-dialog");
+          if (dialog.open) dialog.close();
+        }
+      });
     }
     function printMtfReport() {
       const f = FFDG.state.mtfSelected;
@@ -4126,7 +4198,6 @@
         stoppedStepLabel,
         passStepLabel,
       };
-      $("bat-no-boot-report-dialog").close();
       FFDG.reports.printBatReport(caseReport);
     }
     FFDG.ui.initTheme();
