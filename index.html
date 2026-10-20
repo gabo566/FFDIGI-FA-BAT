@@ -1726,7 +1726,7 @@
             </header>
             <div id="bat-detail-step-count" class="m3-step-kicker"></div>
             <div class="bat-detail-progress" aria-hidden="true"><div id="bat-detail-progress-fill" class="bat-detail-progress-fill"></div></div>
-            <ol id="bat-detail-steps" class="bat-detail-sequence"></ol>
+            <ol id="bat-detail-steps" class="bat-detail-sequence" aria-label="Pasos del procedimiento BAT"></ol>
           </div>
           <div class="bento-block-3">
             <header class="bento-block-heading">
@@ -2759,6 +2759,7 @@
       if (!keepProgress) {
         FFDG.state.batDetailFailure = failure || null;
         FFDG.state.batDetailIndex = 0;
+        FFDG.state.batDetailCompletedThrough = -1;
       }
       if (!keepProgress) {
         layout.classList.toggle("bat-details-mode", Boolean(failure));
@@ -2777,7 +2778,11 @@
 
       const steps = getBatDetailSteps(failure);
       const activeIndex = steps.length ? Math.min(FFDG.state.batDetailIndex || 0, steps.length - 1) : 0;
+      const completedThrough = steps.length
+        ? Math.min(Number.isInteger(FFDG.state.batDetailCompletedThrough) ? FFDG.state.batDetailCompletedThrough : -1, steps.length - 1)
+        : -1;
       FFDG.state.batDetailIndex = activeIndex;
+      FFDG.state.batDetailCompletedThrough = completedThrough;
 
       $("bat-detail-station").textContent = "BAT";
       $("bat-detail-family").textContent = failure.familyLabel || failure.family || "BAT";
@@ -2788,44 +2793,64 @@
       $("bat-detail-description").textContent = failure.description || failure.label;
       $("bat-detail-flowchart").textContent = isNoBoot ? "No Boot · Guía establecida" : `FFDG BAT · ${steps.length} pasos`;
       $("bat-detail-step-count").textContent = steps.length
-        ? `Paso ${activeIndex + 1} de ${steps.length} · ${isNoBoot ? "guía BAT establecida" : "FFDG PDF"}`
+        ? completedThrough >= steps.length - 1
+          ? `Secuencia completada · Paso ${activeIndex + 1} de ${steps.length}`
+          : `Paso ${activeIndex + 1} de ${steps.length} · ${isNoBoot ? "guía BAT establecida" : "FFDG PDF"}`
         : "No hay pasos asociados a esta falla en el catálogo BAT.";
-      $("bat-detail-progress-fill").style.width = steps.length ? `${((activeIndex + 1) / steps.length) * 100}%` : "0%";
+      const progressStep = Math.max(activeIndex + 1, completedThrough + 1);
+      $("bat-detail-progress-fill").style.width = steps.length ? `${(progressStep / steps.length) * 100}%` : "0%";
 
       const stepList = $("bat-detail-steps");
       stepList.replaceChildren();
-      const activeStep = steps[activeIndex];
-      if (activeStep) {
+      steps.forEach((step, index) => {
         const item = document.createElement("li");
+        const isActive = index === activeIndex;
+        const isComplete = index <= completedThrough;
+        item.classList.toggle("is-active", isActive);
+        item.classList.toggle("is-complete", isComplete);
+        if (isActive) item.setAttribute("aria-current", "step");
         const heading = document.createElement("strong");
         const number = document.createElement("span");
-        number.textContent = `${activeStep.sourceNumber || activeIndex + 1}.`;
+        number.textContent = `${step.sourceNumber || index + 1}.`;
         const title = document.createElement("span");
-        title.textContent = activeStep.title;
+        title.textContent = step.title;
+        const status = document.createElement("span");
+        status.className = "bat-detail-step-status";
+        status.textContent = "✓";
+        status.setAttribute("role", "img");
+        status.setAttribute("aria-label", "Paso completado");
         const icon = document.createElement("img");
         icon.className = "ffdg-step-icon";
         icon.src = "./assets/ui-icons/file-earmark-text.svg";
         icon.alt = "";
         icon.setAttribute("aria-hidden", "true");
         heading.append(icon, number, title);
+        if (isComplete) heading.appendChild(status);
         item.appendChild(heading);
-        if (activeStep.detail) {
+        if (isActive && step.detail) {
           const description = document.createElement("span");
           description.className = "bat-detail-step-detail";
-          description.textContent = activeStep.detail;
+          description.textContent = step.detail;
           item.appendChild(description);
         }
-        if (activeStep.fail && !activeStep.fail.includes("No se pudo completar este paso")) {
+        if (isActive && step.fail && !step.fail.includes("No se pudo completar este paso")) {
           const failureGuidance = document.createElement("span");
           failureGuidance.className = "bat-detail-step-detail";
-          failureGuidance.textContent = `Si no pasa: ${activeStep.fail}`;
+          failureGuidance.textContent = `Si no pasa: ${step.fail}`;
           item.appendChild(failureGuidance);
         }
         stepList.appendChild(item);
-      }
+      });
       const nextButton = $("bat-detail-next");
-      nextButton.disabled = !steps.length || activeIndex >= steps.length - 1;
-      nextButton.textContent = !steps.length ? "Sin pasos" : activeIndex >= steps.length - 1 ? "Fin de la secuencia" : "Paso siguiente →";
+      const sequenceComplete = steps.length > 0 && completedThrough >= steps.length - 1;
+      nextButton.disabled = !steps.length || sequenceComplete;
+      nextButton.textContent = !steps.length
+        ? "Sin pasos"
+        : sequenceComplete
+          ? "Secuencia completada"
+          : activeIndex >= steps.length - 1
+            ? "Completar secuencia"
+            : "Paso siguiente →";
       $("bat-detail-prev").disabled = !steps.length || activeIndex === 0;
       renderBatFlowchart(steps, activeIndex);
     }
@@ -2901,8 +2926,14 @@
       const failure = FFDG.state.batDetailFailure;
       if (!failure) return;
       const steps = getBatDetailSteps(failure);
-      if (FFDG.state.batDetailIndex >= steps.length - 1) return;
-      FFDG.state.batDetailIndex += 1;
+      if (!steps.length) return;
+      const activeIndex = Math.min(FFDG.state.batDetailIndex || 0, steps.length - 1);
+      const completedThrough = Number.isInteger(FFDG.state.batDetailCompletedThrough)
+        ? FFDG.state.batDetailCompletedThrough
+        : -1;
+      if (completedThrough >= steps.length - 1) return;
+      FFDG.state.batDetailCompletedThrough = Math.max(completedThrough, activeIndex);
+      if (activeIndex < steps.length - 1) FFDG.state.batDetailIndex = activeIndex + 1;
       renderBatSelection(failure, true);
     }
     function retreatBatDetail() {
@@ -4068,6 +4099,7 @@
       noBootEvidenceLoading: { before: false, after: false },
       batDetailFailure: null,
       batDetailIndex: 0,
+      batDetailCompletedThrough: -1,
       mtfSelected: null,
       mtfIndex: 0,
       mtfFinished: false,
@@ -4717,6 +4749,13 @@
     let selectedCode = select.value;
     const familyOrder = ["FRU", "LEAK", "FAN", "LOGIC", "NOBOOT"];
     const familyLabels = { FRU: "FRU / EEPROM", LOGIC: "LOGIC", LEAK: "LEAKAGE", FAN: "FANS", NOBOOT: "NO BOOT" };
+    const familyIcons = {
+      FRU: "cpu.svg",
+      LEAK: "droplet.svg",
+      FAN: "fan.svg",
+      LOGIC: "code-slash.svg",
+      NOBOOT: "power.svg"
+    };
     const familyRank = family => { const index = familyOrder.indexOf(family); return index < 0 ? 99 : index; };
     function render() {
       const familyCounts = catalog.reduce((counts, item) => {
@@ -4738,11 +4777,24 @@
         const heading = document.createElement("div");
         heading.className = "bd-h";
         heading.title = groups[family][0].familyLabel;
+        const headingLabel = document.createElement("span");
+        headingLabel.className = "bd-heading-label";
+        const familyIcon = familyIcons[family];
+        if (familyIcon) {
+          const icon = document.createElement("img");
+          icon.className = "bd-family-icon";
+          icon.src = `./assets/ui-icons/${familyIcon}`;
+          icon.alt = "";
+          icon.setAttribute("aria-hidden", "true");
+          headingLabel.appendChild(icon);
+        }
         const familyName = document.createElement("span");
+        familyName.className = "bd-family-label";
         familyName.textContent = familyLabels[family] || family;
+        headingLabel.appendChild(familyName);
         const count = document.createElement("small");
         count.textContent = groups[family].length;
-        heading.append(familyName, count);
+        heading.append(headingLabel, count);
         const list = document.createElement("div");
         list.className = "bd-l";
         groups[family].forEach(item => {
@@ -7031,3 +7083,4 @@ main{padding-top:4px!important}
 </style>
 <link rel="stylesheet" href="./ffdg-motion.css">
 <link rel="stylesheet" href="./ffdg-detail-presentation.css">
+<link rel="stylesheet" href="./ffdg-bat-catalog.css">

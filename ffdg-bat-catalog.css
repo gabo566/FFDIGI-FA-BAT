@@ -1,0 +1,305 @@
+/* Acabado visual BAT: familias reconocibles y pasos compactos en secuencia. */
+#bat-board .bd-h .bd-heading-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  padding-inline: 22px;
+}
+
+#bat-board .bd-h .bd-family-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+#bat-board .bd-h .bd-family-label {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] #bat-board .bd-h .bd-family-icon {
+  filter: none;
+}
+
+#bat-failure-detail #bat-detail-steps {
+  position: relative;
+  gap: 4px !important;
+  margin: 12px 0 0 !important;
+  padding: 0 !important;
+}
+
+#bat-failure-detail #bat-detail-steps::before {
+  position: absolute;
+  z-index: 0;
+  top: 16px;
+  bottom: 16px;
+  left: 45px;
+  width: 1px;
+  background: var(--md-sys-color-outline-variant);
+  content: "";
+}
+
+#bat-failure-detail #bat-detail-steps li {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 48px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 7px 10px !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transition: background-color var(--motion-control, 160ms) ease,
+    border-color var(--motion-control, 160ms) ease,
+    box-shadow var(--motion-control, 160ms) ease;
+}
+
+#bat-failure-detail #bat-detail-steps li.is-active {
+  border-color: var(--md-sys-color-primary) !important;
+  background: var(--md-sys-color-surface-container-low) !important;
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--md-sys-color-primary) 22%, transparent) !important;
+  animation: ffdig-detail-active-green-glow 1.8s ease-in-out infinite !important;
+}
+
+#bat-failure-detail #bat-detail-steps li strong {
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  min-width: 0;
+}
+
+#bat-failure-detail #bat-detail-steps li strong span:nth-of-type(2) {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#bat-failure-detail #bat-detail-steps li strong .ffdg-step-icon {
+  width: 16px;
+  height: 16px;
+}
+
+#bat-failure-detail #bat-detail-steps li strong span:first-of-type {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--md-sys-color-primary);
+  border-radius: 50%;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  display: inline-grid;
+  flex: 0 0 22px;
+  place-items: center;
+}
+
+#bat-failure-detail #bat-detail-steps li:not(.is-active) strong span:first-of-type {
+  border-color: var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+#bat-failure-detail #bat-detail-steps li:not(.is-active) strong .ffdg-step-icon {
+  opacity: .72;
+}
+
+#bat-failure-detail #bat-detail-steps li.is-complete:not(.is-active) {
+  border-color: color-mix(in srgb, var(--md-sys-color-primary) 58%, var(--md-sys-color-outline-variant)) !important;
+  background: color-mix(in srgb, var(--md-sys-color-primary) 11%, var(--md-sys-color-surface-container-low)) !important;
+  box-shadow: inset 3px 0 0 var(--md-sys-color-primary) !important;
+  animation: none !important;
+}
+
+#bat-failure-detail #bat-detail-steps li:not(.is-active):not(.is-complete) {
+  border-color: var(--md-sys-color-outline-variant) !important;
+  background: var(--md-sys-color-surface-container-lowest) !important;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--md-sys-color-on-surface) 6%, transparent) !important;
+}
+
+#bat-failure-detail #bat-detail-steps li.is-complete:not(.is-active) strong span:first-of-type {
+  border-color: var(--md-sys-color-primary);
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+#bat-failure-detail #bat-detail-steps li .bat-detail-step-status {
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  place-items: center;
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+@media screen and (min-width: 1081px) {
+  #bat-failure-detail {
+    height: max(420px, calc(100dvh - 260px));
+    min-height: 420px;
+    overflow: hidden;
+  }
+
+  #bat-failure-detail .bat-detail-grid {
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  #bat-failure-detail .bat-detail-grid > .bento-block-1,
+  #bat-failure-detail .bat-detail-grid > .bento-block-2,
+  #bat-failure-detail .bat-detail-grid > .bento-block-3 {
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+  }
+
+  #bat-failure-detail .bat-detail-grid > .bento-block-1 {
+    overflow: auto;
+  }
+
+  #bat-failure-detail .bat-detail-grid > .bento-block-2 {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #bat-failure-detail .bat-detail-grid > .bento-block-3 {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #bat-failure-detail .bat-detail-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) minmax(0, 1.2fr) !important;
+  }
+
+  #bat-failure-detail .bat-detail-grid > .bento-block-3 {
+    grid-column: auto !important;
+  }
+
+  #bat-failure-detail #bat-detail-steps {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    align-content: stretch;
+    grid-auto-rows: minmax(54px, 1fr);
+    gap: 8px !important;
+  }
+
+  #bat-failure-detail #bat-disposition-flow {
+    display: flex;
+    flex: 1 1 0;
+    min-height: 160px;
+    max-height: none;
+    overflow: hidden;
+  }
+
+  #bat-failure-detail #bat-disposition-flow svg {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    flex: 1 1 auto;
+  }
+
+  #bat-failure-detail .bat-detail-controls {
+    margin-top: auto;
+    padding-top: 8px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1080px) {
+  #bat-failure-detail .bat-detail-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  #bat-failure-detail .bat-detail-controls > .m3-btn,
+  #bat-failure-detail .bat-detail-controls > .flowchart-open-btn {
+    padding-inline: 3px;
+    font-size: 9.5px;
+  }
+}
+
+@media (max-width: 700px) {
+  #bat-board .bd-h .bd-heading-label {
+    gap: 6px;
+    padding-inline: 12px;
+  }
+
+  #bat-board .bd-h .bd-family-icon {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #bat-failure-detail #bat-detail-steps li {
+    transition: none !important;
+  }
+
+  #bat-failure-detail #bat-detail-steps li.is-active {
+    animation: none !important;
+  }
+}
+
+/* Ajustes finales exclusivos BAT: ocupar el panel de datos y dar presencia al flowchart. */
+#bat-failure-detail #bat-disposition-flow {
+  padding: 6px !important;
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 24%, var(--md-sys-color-outline-variant)) !important;
+  border-top: 3px solid color-mix(in srgb, var(--md-sys-color-primary) 72%, var(--md-sys-color-outline-variant)) !important;
+  border-radius: 12px !important;
+  background: var(--md-sys-color-surface-container-low) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary) 7%, transparent),
+    0 2px 6px color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent) !important;
+}
+
+#bat-failure-detail #bat-disposition-flow svg .fc-l {
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#bat-failure-detail #bat-disposition-flow svg .fc-g .fc-n {
+  stroke-width: 2px;
+}
+
+#bat-failure-detail #bat-disposition-flow svg .fc-g text {
+  font-weight: 800;
+}
+
+@media screen and (min-width: 1081px) {
+  #bat-failure-detail .bat-detail-grid > .bento-block-1 > .bento-meta-item {
+    flex: 1 1 48px;
+    min-height: 48px;
+    align-content: center;
+    box-sizing: border-box;
+  }
+
+  #bat-failure-detail .bat-detail-controls > .m3-btn,
+  #bat-failure-detail .bat-detail-controls > .flowchart-open-btn {
+    height: 34px;
+    min-height: 34px;
+    padding: 4px 8px;
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  #bat-failure-detail .bat-detail-controls > .m3-btn,
+  #bat-failure-detail .bat-detail-controls > .flowchart-open-btn {
+    min-height: 44px;
+  }
+}

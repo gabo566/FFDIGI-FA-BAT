@@ -17,9 +17,10 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 
 ### BAT
 
-- Catálogo de fallas organizado por familias como FRU, Logic, Leak, Fan y No Boot.
+- Catálogo de fallas organizado por familias como FRU, Logic, Leak, Fan y No Boot, con un icono local por categoría.
 
-- Búsqueda y selección de fallas; el detalle muestra los pasos y recursos asociados.
+- Búsqueda y selección de fallas; el detalle muestra la secuencia completa, con el paso activo resaltado y los pasos confirmados en verde al pulsar «Paso siguiente». El estado es temporal mientras la falla permanece abierta; no se persiste.
+- En escritorio, las filas reparten el espacio disponible y Disposition Flow obtiene algo más de ancho; en móvil/tableta las cards se apilan. El flowchart BAT conserva su SVG original y su proporción.
 - En escritorio, **Anterior**, **Paso siguiente** y **Ampliar diagrama** quedan centrados al fondo de **Disposition Flow**; el regreso al catálogo se hace con **Cambiar falla**.
 - Recorrido de diagnóstico con respuestas y notas durante la sesión.
 - Captura de identificación del nodo, validaciones, disposición final, causa raíz (RCA) y evidencia fotográfica.
@@ -37,6 +38,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - Secuencia de troubleshooting, pasos, comandos y variantes cuando están disponibles; incluye una barra verde de avance que sigue el paso activo y llega al 100 % al finalizar la ruta.
 - Flowcharts y referencias visuales locales; algunos diagramas se pueden ampliar en un modal.
 - Las fichas BAT y MTF comparten encabezados verdes, tres columnas simétricas en escritorio, aviso de falla con icono, filas de identificación con iconos, paso activo verde y controles/diagramas enmarcados.
+- En la ficha BAT de escritorio, los recuadros de Failure Record se estiran de forma uniforme para ocupar el alto libre; el flowchart usa un marco verde de mayor contraste. Los controles se compactan a 34 px en escritorio y conservan 44 px en tableta/teléfono.
 - Paneles informativos de topología y notificaciones cuando hay contenido asociado.
 
 ### Tema y presentación
@@ -96,6 +98,7 @@ No se requiere `npm install` ni hay un paso de build definido por el proyecto. N
 | `index.html` | Entrada versionada de la aplicación. Contiene la estructura principal, estilos base, datos, estado, renderizado, eventos, importadores, diálogos y plantillas de impresión; enlaza las capas CSS locales al final para conservar la cascada. |
 | `ffdg-motion.css` | Microinteracciones y transiciones compartidas BAT/MTF, incluidos estados de tarjetas/controles, entradas, diálogos, View Transitions y movimiento reducido. |
 | `ffdg-detail-presentation.css` | Acabado visual compartido de las fichas BAT/MTF; se carga después de movimiento y no contiene datos ni lógica. |
+| `ffdg-bat-catalog.css` | Presentación exclusiva BAT: iconos locales, estados visuales de pasos activos/completados, distribución de espacio en escritorio y columnas responsive. |
 | `assets/ui-icons/` | Iconos SVG locales de Bootstrap Icons usados en datos, secuencia, referencias y acciones; no requiere CDN. Incluye licencia. |
 | `bat-pdf-seed.js` | Datos iniciales/semilla de procedimientos BAT. |
 | `mtf-pdf-additions.js` | Registros MTF adicionales derivados de la documentación fuente. |

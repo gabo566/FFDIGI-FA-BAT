@@ -53,6 +53,20 @@
   display: none !important;
 }
 
+/* En BAT quita el margen de la barra solo mientras la ficha está abierta. */
+#bat-layout > #bat-failure-board.catalog-selection-collapsed {
+  margin-bottom: 0 !important;
+}
+
+#bat-layout:has(> #bat-failure-board.catalog-selection-collapsed) {
+  row-gap: 4px !important;
+}
+
+/* MTF usa la misma separación entre la barra y la ficha BAT equivalente. */
+#mtf-layout.mtf-selection-collapsed {
+  row-gap: 4px !important;
+}
+
 #mtf-layout.mtf-selection-collapsed .mtf-row-2-header {
   justify-content: space-between !important;
   gap: 12px !important;

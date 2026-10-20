@@ -4364,3 +4364,258 @@ El nuevo diseño afecta exclusivamente el PDF No Boot. Los datos, validaciones y
 - Los fondos de color dependen de que el motor de impresión aplique `print-color-adjust`; los estilos lo solicitan explícitamente, pero el cuadro nativo puede variar por navegador.
 - Con fotos grandes o texto excepcionalmente largo el reporte puede ocupar más de una hoja.
 
+
+## 84. 2026-10-20 — Acercar la barra BAT a la ficha de falla
+
+### Solicitud
+
+Reducir el espacio entre la barra completa «Cambiar Falla» de BAT y la tabla de detalle, igualando la proximidad visual de MTF, sin cambiar otros elementos.
+
+### Estado previo y análisis
+
+- El panel BAT conserva la clase `m3-card`, que aplica margen inferior de 12 px; además, `#bat-layout` mantiene su separación entre filas.
+- En MTF la barra de selección no añade ese margen de card. La suma en BAT crea el espacio adicional visible al abrir una falla.
+
+### Solución
+
+- Se elimina el margen inferior únicamente de `#bat-failure-board` cuando tiene `catalog-selection-collapsed`. Se conserva la separación normal del layout, el tamaño de la tabla, el estado de catálogo y todos los controles.
+
+### Archivos modificados
+
+- `ffdg-detail-presentation.css` — regla de margen condicionada al detalle BAT abierto.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- CSS `#bat-layout > #bat-failure-board.catalog-selection-collapsed`.
+
+### Impacto
+
+Solo reduce el espacio vertical entre la barra BAT y la ficha durante la selección. Al regresar al catálogo se conserva el espaciado original. Sin cambios a MTF, datos, procedimientos o listeners.
+
+### Validación
+
+- Pasaron `git diff --check` y la verificación estática de llaves CSS, del selector condicionado, de los IDs BAT y del toggle de estado existente.
+- No hubo prueba visual: el navegador integrado falló al iniciar con `failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`.
+
+### Resultado, pendientes y riesgos
+
+- Cambio acotado a la presentación BAT. No se solicitó commit ni push.
+
+
+## 85. 2026-10-20 — Reducir más la separación de la barra BAT
+
+### Solicitud
+
+Acercar todavía más «Cambiar Falla» BAT a la tabla, con una separación visual como la de MTF.
+
+### Estado previo y análisis
+
+- La entrada 84 quitó el margen inferior de la barra, pero el `row-gap` general de `#bat-layout` aún aporta 13 px durante el detalle.
+- Ese espacio adicional explica que el botón siga viéndose más separado que en MTF.
+
+### Solución
+
+- Mientras el catálogo BAT esté colapsado, `#bat-layout` usa `row-gap: 4px`. Se conserva el margen cero de la barra de la entrada 84 y el espacio original al regresar al catálogo.
+
+### Archivos modificados
+
+- `ffdg-detail-presentation.css` — `row-gap` BAT condicionado al detalle abierto.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- CSS `#bat-layout:has(> #bat-failure-board.catalog-selection-collapsed)`.
+
+### Impacto
+
+Solo acerca la barra BAT a la ficha cuando una falla está abierta. No cambia dimensiones de tarjetas, MTF, datos ni listeners.
+
+### Validación
+
+- Pasaron `git diff --check` y la revisión estática del `row-gap` de 4 px, el margen cero condicionado, el balance CSS y el toggle BAT existente.
+- No hubo validación visual: el navegador integrado no pudo iniciar en la comprobación previa (`failed to write kernel assets: El sistema no puede encontrar la ruta especificada (os error 3)`).
+
+### Resultado, pendientes y riesgos
+
+- Ajuste limitado al espaciado solicitado; sin commit ni push.
+
+
+## 87. 2026-10-20 — Afinar catálogo BAT con iconos y secuencia compacta
+
+### Solicitud
+
+Aplicar la referencia visual compartida a las fichas BAT: mostrar los pasos en una secuencia vertical más compacta y añadir iconos a FRU/EEPROM, LEAKAGE, FANS, LOGIC y NO BOOT.
+
+### Estado previo y análisis
+
+- `renderBatSelection` solo dibujaba el paso actual, así que el resto de la secuencia no quedaba visible para orientar al técnico.
+- Los encabezados del tablero BAT mostraban el nombre y el conteo de cada familia, sin iconografía.
+- La regla responsive común apilaba las cards hasta 1080 px, incluso en el ancho de 1080 px de la referencia.
+- Se mantuvieron intactos los procedimientos, datos técnicos, generador del flowchart y los listeners existentes.
+
+### Solución
+
+- La ficha BAT ahora presenta los títulos de todos los pasos en una lista vertical compacta; destaca el actual con `aria-current="step"` y conserva sus textos de detalle/guía de fallo solo cuando existen.
+- Se agregaron iconos SVG locales decorativos para las cinco familias; `alt` vacío y `aria-hidden` evitan duplicar el nombre accesible.
+- `ffdg-bat-catalog.css` concentra la nueva presentación, mantiene tres columnas a partir de 1024 px y el apilado en anchos menores.
+- En el rango 1024–1080 px se compactaron únicamente los controles de navegación BAT para mantenerlos en una fila.
+- Se conservaron los diagramas técnicos existentes; el flowchart conceptual dibujado en la imagen de referencia no se copió como dato/procedimiento.
+
+### Archivos modificados
+
+- `index.html` — etiqueta accesible de la lista, renderizado de todos los pasos, estado actual, iconos por familia y enlace a la hoja CSS nueva.
+- `ffdg-bat-catalog.css` — iconografía, estados de lista compacta y reglas responsive exclusivas de BAT.
+- `assets/ui-icons/droplet.svg`, `assets/ui-icons/fan.svg`, `assets/ui-icons/power.svg` — recursos locales de Bootstrap Icons bajo la licencia MIT existente.
+- `README.md` — resumen de iconos, pasos visibles y nuevo archivo CSS.
+- `CONTEXTO_FFDIGI.md` — arquitectura, alcance BAT y responsive documentados.
+- `design-qa.md` — evidencia y resultado de revisión visual.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Playwright/Chromium: ficha y tres columnas a 1468×884, 1080×768 y 1024×768; apilado correcto a 768×1024 y 390×844.
+- `scrollWidth` no supera el viewport en los cinco tamaños. Los controles permanecen visibles; en desktop y 1024 px caben en una fila.
+- NDBG_080 conserva y muestra sus cinco pasos; NDBG_104 FAN SPEED 1 conserva y muestra sus cuatro pasos personalizados. Paso siguiente actualiza contador y `aria-current`.
+- Los cinco iconos cargan como SVG local y se distinguen en tema claro/oscuro. `prefers-reduced-motion: reduce` desactiva el pulso activo sin ocultar su estado; el foco de teclado y `focus-visible` permanecen disponibles.
+- Consola del navegador: cero errores y cero advertencias. `git diff --check` pasó.
+
+### Resultado, pendientes y riesgos
+
+- Diseño BAT aplicado; MTF, catálogos, pasos, diagramas, importadores, `localStorage` y demás lógica no se alteraron. Sin commit ni push.
+
+
+## 88. 2026-10-20 — Optimizar secuencia y flowchart de detalle BAT
+
+### Solicitud
+
+Aplicar al detalle BAT el acomodo de la referencia visual, marcando en verde los pasos que el técnico confirma como realizados y aprovechando mejor el espacio de las tres tarjetas.
+
+### Análisis
+
+- La lista BAT ya mostraba todos los títulos, pero solo distinguía el paso activo. Al avanzar no conservaba estado de completado.
+- El layout de escritorio cercano al ancho de tableta dejaba Disposition Flow en una fila aparte o mantenía las cards en altura natural, según el breakpoint; las listas de pocos pasos y el diagrama no aprovechaban el alto del panel.
+- El flowchart BAT se genera desde los pasos existentes. La ilustración compartida se tomó como referencia visual, no como fuente para reemplazar o inventar contenido técnico.
+
+### Solución
+
+- Al pulsar «Paso siguiente», el paso actual queda marcado visualmente como completado y el siguiente se activa; «Completar secuencia» confirma el último paso. Los marcadores permanecen al navegar hacia atrás y se reinician al cambiar/cerrar la falla.
+- La ficha de escritorio mantiene tres columnas; Disposition Flow recibe un poco más de ancho. Las filas de la secuencia usan el alto disponible, muestran tarjetas neutras para pendientes y verde/indicador de verificación para completados.
+- El panel de diagrama ocupa el espacio restante; el SVG BAT conserva su contenido, `viewBox` y proporción, sin distorsión ni recorte. Tablet y teléfono mantienen las cards apiladas.
+- No se cambian datos, procedimientos, IDs, listeners, flowchart, MTF ni `localStorage`.
+
+### Archivos modificados
+
+- `index.html` — estado temporal `batDetailCompletedThrough`, render de clases/indicador accesible, contador, barra y confirmación del último paso.
+- `ffdg-bat-catalog.css` — estados de pasos, distribución de filas y proporción responsive del detalle BAT.
+- `README.md` — comportamiento visible y límite de persistencia.
+- `CONTEXTO_FFDIGI.md` — arquitectura y semántica del avance BAT.
+- `design-qa.md` — referencia visual y capturas de la validación.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Playwright/Chromium en 1113×770: NDBG_080 con cinco pasos; el paso 1 se pinta completado al avanzar al 2; barra/contador avanzan; el último se confirma por separado, queda 100 % y deshabilita el botón al mostrar «Secuencia completada».
+- Navegación Anterior conserva los marcadores completados. NDBG_031 (dos pasos) y NDBG_084 (sin pasos) mantienen estado/control acorde; sin procedimientos disponibles permanece el aviso y no aparece un SVG inventado.
+- Escritorio 1113×770 y 1024×768: tres columnas sin overflow horizontal y controles visibles. Tableta 768×1024 y teléfono 390×844: tarjetas apiladas, controles presentes y sin overflow horizontal.
+- `prefers-reduced-motion: reduce`: animación y transición de filas quedan en `0s`; teclado: «Paso siguiente» recibe `:focus-visible`. Consola Chromium: cero errores y cero advertencias.
+- Siete scripts inline clásicos pasaron `vm.Script`; `git diff --check` pasó al cierre de la iteración.
+
+### Resultado, pendientes y riesgos
+
+- Diseño y avance BAT implementados en local. El estado es una confirmación visual de la persona usuaria, no una validación técnica automática. Sin commit ni push.
+
+
+## 86. 2026-10-20 — Unificar separación de detalle MTF con BAT
+
+### Solicitud
+
+Hacer que el detalle MTF conserve la misma presentación y proximidad barra-ficha que BAT, sin alterar lo ya construido.
+
+### Estado previo y análisis
+
+- La comprobación en Chromium mostró BAT con 4 px entre barra y ficha; MTF tenía 0 px (`row-gap: 0`) en detalle.
+- Ambos encabezados ya compartían superficie clara, padding `10px 16px` y botón verde; solo difería la separación vertical.
+
+### Solución
+
+- Se fija `row-gap: 4px` únicamente bajo `mtf-selection-collapsed`, igual que BAT. El margen del encabezado MTF permanece en cero; al regresar al catálogo no cambia su espacio.
+- No se modifican cards, contenido, flujo, medidas, botones ni datos.
+
+### Archivos modificados
+
+- `ffdg-detail-presentation.css` — separación MTF durante el detalle.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- CSS `#mtf-layout.mtf-selection-collapsed`.
+
+### Impacto
+
+La separación entre barra MTF y tabla de identificación coincide con BAT en las tres vistas del catálogo; el estado sin detalle conserva la regla previa.
+
+### Validación
+
+- Playwright comparó ambas fichas en escritorio (1468×884): paneles de 66 px, padding exterior `10px 16px`, botones de 44 px con padding `8px 14px`, fondo verde/texto blanco y separación vertical de 4 px en BAT y MTF.
+- En MTF, la separación medida fue 4 px en escritorio, tableta (768×1024) y teléfono (390×844); `scrollWidth` coincidió con el ancho del viewport en los tres tamaños.
+- «Cambiar Falla» regresó al catálogo y retiró el estado colapsado; se restauró el `row-gap` original de la vista, sin extender el ajuste fuera del detalle.
+- `git diff --check` y verificación estática del selector condicionado pasaron. El servidor local de prueba se detendrá al finalizar.
+
+### Resultado, pendientes y riesgos
+
+- Igualación verificada en Chromium; solo visual y reversible. Sin commit ni push.
+
+
+## 89. 2026-10-20 — Optimizar espacios y flowchart en detalle BAT
+
+### Solicitud
+
+Reducir el tamaño visual de los botones de navegación, aprovechar el espacio vacío de Failure Record con recuadros de identificación mejor distribuidos y dar más presencia al diagrama sin cambiar su información.
+
+### Estado previo y análisis
+
+- Las tres cards BAT ya tenían altura compartida y el SVG se ajustaba al área por su proporción; los metadatos de Failure Record conservaban su altura mínima y dejaban espacio libre al final.
+- Los controles de navegación se mostraban a 38–40 px en escritorio; en teléfono debían conservar un tamaño táctil cómodo.
+- El flujo se genera desde los pasos existentes. El nuevo acabado debía limitarse al marco y presentación SVG, sin añadir nodos ni alterar textos.
+- El árbol tenía modificaciones locales previas y 31 commits locales; el ref local `secundaria/main` apuntaba al mismo HEAD en la inspección inicial. Se preservaron cambios rastreados y no rastreados.
+
+### Causa
+
+Los metadatos no crecían para ocupar el alto sobrante, los controles heredaban dimensiones grandes en escritorio y el marco del flowchart tenía poco contraste frente a la superficie de la card.
+
+### Solución
+
+- Los cinco metadatos de Failure Record crecen de forma uniforme y mantienen altura intrínseca suficiente cuando los valores se envuelven.
+- Los tres controles de navegación BAT miden 34 px en escritorio; en tablet/teléfono conservan al menos 44 px.
+- El marco del stage tiene acento verde y fondo de superficie; nodos y conectores del SVG reciben bordes más definidos. `viewBox`, textos, contenido, datos, IDs y listeners siguen intactos.
+- No se alteraron MTF, barra Cambiar Falla, procedimientos, catálogos ni `localStorage`.
+
+### Archivos modificados
+
+- `ffdg-bat-catalog.css` — distribución vertical de metadatos, compactación responsive de controles y marco/contraste del flowchart BAT.
+- `README.md` — dimensiones y tratamiento visual vigentes.
+- `CONTEXTO_FFDIGI.md` — comportamiento de distribución y límites visuales BAT.
+- `design-qa.md` — evidencia de navegador y validación responsive.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- CSS `#bat-failure-detail .bento-block-1 > .bento-meta-item`.
+- CSS `#bat-detail-controls` y `#bat-disposition-flow svg`.
+
+### Impacto
+
+El detalle BAT ocupa mejor el alto disponible. Las cards mantienen su altura; los recuadros de identificación rellenan el espacio, los botones se ven más compactos en desktop y el diagrama conserva su aspecto y proporción con contraste reforzado.
+
+### Validación
+
+- Playwright/Chromium: NDBG_080 (5 pasos), NDBG_031 (2 pasos) y NDBG_084 (sin pasos); en el caso sin pasos se conserva el aviso y no se crea un SVG.
+- Viewports 1113×770, 1024×768, 768×1024 y 390×844: sin overflow horizontal, cards apiladas en tablet/teléfono y controles visibles. Controles de 34 px en desktop y 44 px en anchos táctiles.
+- `prefers-reduced-motion: reduce` deja la animación activa en `0s`; foco visible mediante teclado. Consola del servidor local correcto: 0 errores, 0 advertencias.
+- `git diff --check` pasó al cierre. No se modificaron scripts ni IDs; los selectores CSS se limitaron al detalle BAT.
+
+### Resultado, pendientes y riesgos
+
+- Refinamiento visual aplicado sin cambiar el SVG técnico ni la lógica. Las etiquetas internas del diagrama siguen siendo pequeñas a escala de tarjeta; el botón existente «Ampliar diagrama» conserva el acceso a la vista ampliada. Sin cambio en MTF.
+
