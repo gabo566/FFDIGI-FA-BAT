@@ -4870,3 +4870,51 @@ Solo cambia el color de las tarjetas del PDF No Boot. La selección de estado, c
 ### Riesgos y pendientes
 
 - Los colores de fondo dependen de que el usuario habilite la impresión de fondos en su navegador.
+
+
+## 92. 2026-10-21 — Compactar recuadros de identificación y pasos BAT
+
+### Solicitud
+
+Reducir un poco los recuadros de Failure Record y los elementos de Troubleshooting Sequence, evitando que se vean demasiado altos y conservando una tabla proporcionada, sin espacios sobrantes.
+
+### Estado previo y análisis
+
+- La vista de escritorio estiraba los cinco metadatos de Failure Record para ocupar toda la altura; la secuencia BAT distribuía sus filas con un mínimo de 54 px y 8 px de separación.
+- Las tres cards compartían altura; el SVG de Disposition Flow se escalaba dentro del stage. Los selectores de datos, procedimientos e IDs no requieren cambios.
+
+### Causa
+
+El alto reservado a la ficha y los mínimos/gaps de metadatos y pasos generaban recuadros visualmente grandes aunque su contenido fuera breve.
+
+### Solución
+
+- Se compactaron los pasos a 46 px mínimos y `5px 8px` de padding; los metadatos BAT usan el mismo mínimo y padding, preservando el crecimiento uniforme dentro de Failure Record.
+- En escritorio la ficha BAT reduce su altura máxima relativa en 24 px; las tres cards siguen compartiendo altura. La secuencia mantiene filas flexibles con mínimo de 48 px y separación de 6 px.
+- MTF, flowcharts, procedimientos, catálogo, datos, listeners y persistencia permanecen intactos. El SVG mantiene `width`/`height` responsivos y proporción nativa.
+
+### Archivos modificados
+
+- `ffdg-bat-catalog.css` — metadatos, filas de secuencia y altura de ficha BAT para escritorio.
+- `CONTEXTO_FFDIGI.md` — dimensiones visuales vigentes de la ficha BAT.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `#bat-failure-detail .bento-meta-item` y `#bat-detail-steps li`.
+- Regla de escritorio `#bat-failure-detail` y grid de secuencia.
+
+### Impacto
+
+Las tarjetas de identificación y pasos se reducen moderadamente; Failure Record y Troubleshooting Sequence conservan el espacio distribuido, las tres cards permanecen alineadas y el diagrama continúa ajustándose al panel.
+
+### Validación
+
+- `git diff --check` pasó.
+- CSS: llaves balanceadas (50 pares) y enlace desde `index.html` confirmado.
+- No se alteraron IDs ni JavaScript; diff restringido a presentación y documentación.
+- La revisión visual posterior no pudo ejecutarse: la política del navegador bloqueó la observación de la URL local `file://`. No se intentó sortear esa restricción.
+
+### Resultado, pendientes y riesgos
+
+- Cambio local aplicado; verificar visualmente en escritorio, tableta y teléfono cuando el navegador permita acceder a la página. Sin commit ni push.

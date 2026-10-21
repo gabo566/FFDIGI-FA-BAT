@@ -50,10 +50,10 @@
   position: relative;
   z-index: 1;
   display: flex;
-  min-height: 48px;
+  min-height: 46px;
   flex-direction: column;
   justify-content: center;
-  padding: 7px 10px !important;
+  padding: 5px 8px !important;
   border-color: transparent !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -61,6 +61,12 @@
   transition: background-color var(--motion-control, 160ms) ease,
     border-color var(--motion-control, 160ms) ease,
     box-shadow var(--motion-control, 160ms) ease;
+}
+
+#bat-failure-detail .bat-detail-grid > .bento-block-1 > .bento-meta-item {
+  min-height: 46px;
+  padding: 5px 8px;
+  box-sizing: border-box;
 }
 
 #bat-failure-detail #bat-detail-steps li.is-active {
@@ -145,7 +151,7 @@
 
 @media screen and (min-width: 1081px) {
   #bat-failure-detail {
-    height: max(420px, calc(100dvh - 260px));
+    height: max(420px, calc(100dvh - 284px));
     min-height: 420px;
     overflow: hidden;
   }
@@ -193,8 +199,8 @@
     min-height: 0;
     overflow-y: auto;
     align-content: stretch;
-    grid-auto-rows: minmax(54px, 1fr);
-    gap: 8px !important;
+    grid-auto-rows: minmax(48px, 1fr);
+    gap: 6px !important;
   }
 
   #bat-failure-detail #bat-disposition-flow {
@@ -282,8 +288,9 @@
 
 @media screen and (min-width: 1081px) {
   #bat-failure-detail .bat-detail-grid > .bento-block-1 > .bento-meta-item {
-    flex: 1 1 48px;
-    min-height: 48px;
+    flex: 1 1 46px;
+    min-height: 46px;
+    padding: 5px 8px;
     align-content: center;
     box-sizing: border-box;
   }
