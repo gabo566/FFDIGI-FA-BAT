@@ -1509,35 +1509,54 @@
     #bat-print-report.bat-executive-report .print-signature-rule { width: 82%; margin: 13px auto 4px; background: #55766b; }
     #bat-print-report.bat-executive-report .print-signature:nth-child(2) .print-signature-rule { background: #49677e; }
 
-    /* No Boot: centrar las fichas, compactar la descripción y recuperar el verde de marca. */
-    #bat-print-report.bat-executive-report .print-head { background: linear-gradient(112deg, #174500 0%, #397b00 58%, #76b900 100%); }
-    #bat-print-report.bat-executive-report .print-brand-kicker,
-    #bat-print-report.bat-executive-report .print-doc-stamp strong { color: #e3ffc2; }
-    #bat-print-report.bat-executive-report .bat-executive-summary { background: linear-gradient(105deg, #245600 0%, #397b00 100%); }
-    #bat-print-report.bat-executive-report .bat-meta-card { align-items: center; text-align: center; border-color: #cce0b2; border-top: 4px solid #76b900; border-left: 1px solid #cce0b2; background: #f1f8e8; }
-    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(2n) { background: #e9f5d9; }
+    /* No Boot: jerarquía visual profunda; la siguiente acción es el foco operativo. */
+    #bat-print-report.bat-executive-report .print-head { background: linear-gradient(112deg, #102b3a 0%, #123f43 58%, #17603f 100%); }
+    #bat-print-report.bat-executive-report .print-brand-kicker { color: #b8d7bf; }
+    #bat-print-report.bat-executive-report .print-doc-stamp { border-color: rgba(225,240,228,.36); background: rgba(255,255,255,.08); }
+    #bat-print-report.bat-executive-report .print-doc-stamp strong { color: #c9e5a6; }
+    #bat-print-report.bat-executive-report .bat-print-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+    #bat-print-report.bat-executive-report .bat-meta-card { align-items: center; text-align: center; border: 1px solid #d7e1e5; border-top: 3px solid #315c68; border-radius: 9px; background: #f2f5f6; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(2n) { border-top-color: #28634f; background: #edf4f0; }
     #bat-print-report.bat-executive-report .bat-meta-card strong,
-    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) strong { width: 100%; color: #356000; text-align: center; }
-    #bat-print-report.bat-executive-report .bat-meta-card.is-description { grid-column: 1 / -1; justify-self: center; width: 58%; min-height: 42px; border: 1px solid #b8d994; border-top: 4px solid #76b900; background: #e6f4d2; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) strong { width: 100%; color: #415762; text-align: center; }
+    #bat-print-report.bat-executive-report .bat-meta-card.is-primary { border-top-color: #23624c; background: #e9f2ec; }
+    #bat-print-report.bat-executive-report .bat-meta-card.is-description { grid-column: 1 / -1; justify-self: center; width: 58%; min-height: 42px; border: 1px solid #cbd9df; border-top: 3px solid #315c68; background: #edf2f5; }
+    #bat-print-report.bat-executive-report .bat-executive-summary { grid-template-columns: minmax(118px, .8fr) minmax(0, 1.45fr) minmax(150px, 1.15fr); gap: 8px; margin: 2px 0 12px; overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+    #bat-print-report.bat-executive-report .bat-executive-summary > div { min-width: 0; padding: 9px 11px; border: 1px solid #d5dfe3; border-radius: 10px; background: #f1f4f5; }
+    #bat-print-report.bat-executive-report .bat-executive-summary > div:last-child { border-right: 1px solid #d5dfe3; }
+    #bat-print-report.bat-executive-report .bat-executive-summary span { margin-bottom: 5px; color: #576a73; font-size: 6.6pt; letter-spacing: .045em; }
+    #bat-print-report.bat-executive-report .bat-executive-status { border-left: 1px solid #d5dfe3 !important; background: #f1f4f5 !important; }
+    #bat-print-report.bat-executive-report .bat-executive-status > span::before { content: none; }
+    #bat-print-report.bat-executive-report .bat-executive-summary[data-state] .bat-executive-status { border-left-color: #d5dfe3 !important; background: #f1f4f5 !important; }
+    #bat-print-report.bat-executive-report .bat-executive-status strong { display: block; color: #34464f; font-size: 10pt; line-height: 1.25; overflow-wrap: anywhere; }
+    #bat-print-report.bat-executive-report .bat-executive-status small { color: #687780; }
+    #bat-print-report.bat-executive-report .bat-executive-copy-card { background: #edf2f5; }
+    #bat-print-report.bat-executive-report .bat-executive-copy-card span { color: #526b78; }
+    #bat-print-report.bat-executive-report .bat-executive-copy-card p { color: #2d414c; font-size: 8.2pt; }
+    #bat-print-report.bat-executive-report .bat-executive-action-card { position: relative; padding: 10px 13px 10px 16px; border: 0; border-left: 4px solid #b6dc69; border-radius: 10px; background: linear-gradient(135deg, #123b31 0%, #176047 100%) !important; box-shadow: 0 3px 8px rgba(16,54,43,.16); }
+    #bat-print-report.bat-executive-report .bat-executive-action-card span { color: #c9e7a0; }
+    #bat-print-report.bat-executive-report .bat-executive-action-card strong { display: block; color: #fff; font-size: 10.5pt; line-height: 1.24; overflow-wrap: anywhere; }
     #bat-print-report.bat-executive-report .print-final-grid > div,
-    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) { border-left-color: #76b900; background: #eff7e7; text-align: center; }
-    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2n) { border-left-color: #4b8700; background: #e7f2d9; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) { border: 1px solid #d7e1e5; border-left: 4px solid #315c68; border-radius: 8px; background: #f1f4f5; text-align: center; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2n) { border-left-color: #28634f; background: #edf4f0; }
     #bat-print-report.bat-executive-report .print-final-grid strong,
-    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) strong { color: #356000; text-align: center; }
-    #bat-print-report.bat-executive-report .bat-print-hardware { border-left-color: #76b900; background: #eaf5dc; text-align: center; }
-    #bat-print-report.bat-executive-report .bat-print-hardware h2 { color: #356000; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) strong { color: #315363; text-align: center; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2n) strong { color: #285842; }
+    #bat-print-report.bat-executive-report .bat-print-hardware { border: 1px solid #cfdbdf; border-left: 4px solid #28634f; border-radius: 9px; background: #edf4f0; text-align: center; }
+    #bat-print-report.bat-executive-report .bat-print-hardware h2 { color: #234f43; }
     #bat-print-report.bat-executive-report .bat-print-hardware-grid { text-align: center; }
-    #bat-print-report.bat-executive-report .bat-print-hardware-grid strong { color: #4b6f29; }
-    #bat-print-report.bat-executive-report .bat-print-hardware-grid span { color: #263c16; }
-    #bat-print-report.bat-executive-report .bat-print-section { border-left-color: #76b900; border-bottom-color: #d5e7c0; color: #2c4e0c; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid strong { color: #526b78; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid span { color: #263e45; }
+    #bat-print-report.bat-executive-report .bat-print-section { border-left-color: #28634f; border-bottom-color: #d5dfe3; color: #173e4d; }
     #bat-print-report.bat-executive-report .bat-print-section::before,
     #bat-print-report.bat-executive-report #bat-print-actions-title::before,
     #bat-print-report.bat-executive-report #bat-print-evidence-section::before,
-    #bat-print-report.bat-executive-report #bat-print-signatures-section::before { background: #4b8700; }
-    #bat-print-report.bat-executive-report .print-signature { border-top-color: #76b900; background: #eff7e7; }
-    #bat-print-report.bat-executive-report .print-signature:nth-child(2) { border-top-color: #4b8700; background: #e7f2d9; }
-    #bat-print-report.bat-executive-report .print-signature-rule,
-    #bat-print-report.bat-executive-report .print-signature:nth-child(2) .print-signature-rule { background: #4b8700; }
+    #bat-print-report.bat-executive-report #bat-print-signatures-section::before { background: #234d59; }
+    #bat-print-report.bat-executive-report #bat-print-actions-title::before { background: #28634f; }
+    #bat-print-report.bat-executive-report .print-signature { border-top-color: #28634f; background: #edf4f0; }
+    #bat-print-report.bat-executive-report .print-signature:nth-child(2) { border-top-color: #315c68; background: #f1f4f5; }
+    #bat-print-report.bat-executive-report .print-signature-rule { background: #28634f; }
+    #bat-print-report.bat-executive-report .print-signature:nth-child(2) .print-signature-rule { background: #315c68; }
 
     .print-section {
       font-weight: bold;

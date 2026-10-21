@@ -4769,3 +4769,55 @@ El nuevo acabado de fichas, descripción y verde se limita al PDF No Boot. BAT g
 
 - Con descripciones de falla excepcionalmente largas, la ficha compacta puede crecer en alto para conservar el texto completo.
 
+
+## 93. 2026-10-21 — Dar jerarquía a la siguiente acción en el PDF No Boot
+
+### Solicitud
+
+Resaltar «Siguiente acción registrada», bajar el énfasis de «Status de diagnóstico» y ordenar las tarjetas con colores profundos y una presentación estética para un reporte importante.
+
+### Objetivo
+
+Facilitar que ingeniería y gerencia distingan de inmediato la acción operativa del contexto de diagnóstico, conservando una composición legible al guardar el reporte como PDF.
+
+### Estado previo y análisis
+
+- La rama local `work` estaba limpia en `260ccfc`, sincronizada con `origin/main`.
+- La franja de estado mezclaba las tres tarjetas en un fondo verde continuo. La siguiente acción tenía fondo claro y compartía el mismo énfasis que el status.
+- La cuadrícula de identificación, las acciones, el bloque condicional de hardware y las firmas ya tenían reglas de impresión propias para No Boot; se mantuvo ese alcance.
+
+### Solución
+
+- Se separaron Estado reportado, Status de diagnóstico y Siguiente acción registrada en tarjetas individuales alineadas en una misma cuadrícula.
+- Status de diagnóstico ahora usa una tarjeta neutral azul grisácea, sin acento de color según el estado.
+- Siguiente acción registrada ahora destaca con fondo verde profundo, texto blanco, acento verde lima y relieve sutil.
+- Se reorganizaron los tonos del encabezado, fichas, causa raíz/intervención/procedimiento, hardware, secciones y firmas en una paleta de azul petróleo, verde oscuro y superficies claras; las fichas mantienen alineación consistente.
+- README y contexto técnico describen la nueva jerarquía visual.
+
+### Archivos modificados
+
+- `index.html` — CSS de impresión del reporte BAT No Boot.
+- `README.md` — descripción del estilo del reporte.
+- `CONTEXTO_FFDIGI.md` — memoria técnica del PDF No Boot.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- Reglas de impresión bajo `#bat-print-report.bat-executive-report`.
+- Sección `#bat-print-executive-summary` y tarjetas de datos y acciones del reporte.
+
+### Impacto
+
+Solo cambia la presentación impresa del reporte No Boot. La captura, estados, selección de siguiente acción, BAT general y MTF conservan su comportamiento.
+
+### Validaciones
+
+- Chromium cargó la aplicación sin errores de JavaScript y generó un PDF A4 de revisión con datos de prueba.
+- Se inspeccionó visualmente la salida rasterizada: tarjetas ordenadas, siguiente acción destacada, status neutral y contenido completo en una página.
+- Los estilos calculados confirmaron el fondo neutral de Status de diagnóstico y el degradado verde con texto blanco de Siguiente acción registrada.
+- `git diff --check` pasó; no se creó `dist` ni se desplegó.
+
+### Riesgos y pendientes
+
+- La longitud de la siguiente acción y la descripción del caso puede variar; se conserva el ajuste de texto y la paginación natural del navegador.
+- La impresión en color depende de la opción de imprimir fondos del navegador.
