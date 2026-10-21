@@ -4821,3 +4821,52 @@ Solo cambia la presentación impresa del reporte No Boot. La captura, estados, s
 
 - La longitud de la siguiente acción y la descripción del caso puede variar; se conserva el ajuste de texto y la paginación natural del navegador.
 - La impresión en color depende de la opción de imprimir fondos del navegador.
+
+## 94. 2026-10-21 — Mantener el verde y sumar acentos al PDF No Boot
+
+### Solicitud
+
+Conservar el verde que ya estaba bien y agregar otros colores a algunas tarjetas, en particular a «Estado reportado».
+
+### Objetivo
+
+Mantener la identidad verde del informe y distinguir visualmente los estados de disposición y algunos bloques técnicos sin volver a una paleta dominada por tonos fríos.
+
+### Estado previo y análisis
+
+- La versión `5998663` había destacado la siguiente acción, pero sustituyó gran parte del verde por azul petróleo y dejó neutral «Estado reportado».
+- `printBatReport` ya asigna `data-state` a la ficha de estado con categorías `resolved`, `pending`, `nvidia`, `repair` y `open`; se puede usar esa clasificación existente para colorear la tarjeta sin modificar el flujo.
+
+### Solución
+
+- Se restauró el verde como base del encabezado, identificación, hardware, títulos de sección y firmas. La tarjeta «Siguiente acción registrada» conserva el degradado verde profundo y el alto contraste.
+- «Estado reportado» ahora recibe fondo, borde y texto según el estado: verde para resuelta, ámbar para validación/pruebas, azul para NVIDIA, naranja para reparación y gris azulado para estado abierto.
+- Causa raíz, intervención y procedimiento aplicado usan acentos morado, turquesa y ámbar, respectivamente. «Status de diagnóstico» continúa neutral.
+- README y contexto técnico describen la paleta actualizada.
+
+### Archivos modificados
+
+- `index.html` — estilos de impresión del reporte BAT No Boot.
+- `README.md` — descripción visual del reporte.
+- `CONTEXTO_FFDIGI.md` — memoria técnica de estilos y jerarquía.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- CSS de impresión `#bat-print-report.bat-executive-report` y tarjeta `.bat-executive-status`.
+- Se mantienen las categorías de `data-state` calculadas por `printBatReport`.
+
+### Impacto
+
+Solo cambia el color de las tarjetas del PDF No Boot. La selección de estado, captura, siguiente acción, validación y reportes BAT/MTF permanecen iguales.
+
+### Validaciones
+
+- Chromium generó un PDF A4 con datos de prueba y se inspeccionó la salida visual.
+- Se comprobaron los colores asignados al estado en las categorías resuelta, pendiente, NVIDIA y reparación.
+- `node --check` pasó para los ocho scripts inline y `git diff --check` pasó.
+- No se creó `dist` ni se desplegó.
+
+### Riesgos y pendientes
+
+- Los colores de fondo dependen de que el usuario habilite la impresión de fondos en su navegador.
