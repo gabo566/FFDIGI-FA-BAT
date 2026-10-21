@@ -1459,6 +1459,56 @@
     #bat-print-report.bat-executive-report .print-signature:nth-child(2) .print-signature-rule { background: #526cb4; }
     #bat-print-report.bat-executive-report .print-footer { margin-top: 4px; padding-top: 3px; font-size: 5.8pt; }
 
+    /* No Boot: paleta profesional neutra, tarjetas alineadas y firmas centradas. */
+    #bat-print-report.bat-executive-report .bat-print-grid { grid-auto-rows: minmax(48px, auto); align-items: stretch; gap: 7px; }
+    #bat-print-report.bat-executive-report .bat-meta-card { display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 7px 9px; border: 1px solid #d9e1e7; border-left: 3px solid #55766b; border-radius: 8px; background: #f2f5f6; box-shadow: none; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(2n) { background: #edf3f1; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(3n) { border-left-color: #49677e; background: #eef2f6; }
+    #bat-print-report.bat-executive-report .bat-meta-card.is-primary,
+    #bat-print-report.bat-executive-report .bat-meta-card.is-description { border-left-color: #2f6b57; background: #eaf2ee; box-shadow: none; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) { border-color: #d9e1e7; border-left: 3px solid #55766b; background: #f1f4f5; box-shadow: none; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(2n) { border-left-color: #49677e; background: #edf2f4; }
+    #bat-print-report.bat-executive-report .bat-meta-card.is-primary,
+    #bat-print-report.bat-executive-report .bat-meta-card.is-description { border-left-color: #2f6b57; background: #eaf2ee; }
+    #bat-print-report.bat-executive-report .bat-meta-card strong { color: #43535d; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) strong { color: #43535d; }
+    #bat-print-report.bat-executive-report .print-head { background: linear-gradient(112deg, #183448 0%, #244c54 100%); box-shadow: none; }
+    #bat-print-report.bat-executive-report .print-brand-kicker,
+    #bat-print-report.bat-executive-report .print-doc-stamp strong { color: #d2e6de; }
+    #bat-print-report.bat-executive-report .bat-executive-summary { background: linear-gradient(105deg, #234b50 0%, #345f61 100%); box-shadow: none; }
+    #bat-print-report.bat-executive-report .bat-executive-status { border-left-color: #b8c99a !important; }
+    #bat-print-report.bat-executive-report .bat-executive-summary[data-state="resolved"] .bat-executive-status { border-left-color: #a9c9a0 !important; }
+    #bat-print-report.bat-executive-report .bat-executive-summary[data-state="pending"] .bat-executive-status,
+    #bat-print-report.bat-executive-report .bat-executive-summary[data-state="nvidia"] .bat-executive-status,
+    #bat-print-report.bat-executive-report .bat-executive-summary[data-state="repair"] .bat-executive-status { border-left-color: #b8c99a !important; background: rgba(255,255,255,.08) !important; }
+    #bat-print-report.bat-executive-report .bat-executive-action-card { background: #e6efeb !important; }
+    #bat-print-report.bat-executive-report .bat-executive-action-card span { color: #49675d; }
+    #bat-print-report.bat-executive-report .bat-executive-action-card strong { color: #243c38; }
+    #bat-print-report.bat-executive-report .bat-print-section { border-left-color: #55766b; border-bottom-color: #d9e1e4; color: #263b46; }
+    #bat-print-report.bat-executive-report .bat-print-section::before,
+    #bat-print-report.bat-executive-report #bat-print-actions-title::before,
+    #bat-print-report.bat-executive-report #bat-print-evidence-section::before,
+    #bat-print-report.bat-executive-report #bat-print-signatures-section::before { background: #49677e; }
+    #bat-print-report.bat-executive-report .print-final-grid { align-items: stretch; }
+    #bat-print-report.bat-executive-report .print-final-grid > div { min-height: 48px; border-left-color: #55766b; background: #eff3f2; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2n) { border-left-color: #49677e; background: #eef2f6; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) { border-left-color: #55766b; background: #eff3f2; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2n) { border-left-color: #49677e; background: #eef2f6; }
+    #bat-print-report.bat-executive-report .print-final-grid strong,
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2) strong,
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(3) strong { color: #43535d; }
+    #bat-print-report.bat-executive-report .bat-print-hardware { display: block; margin: 0 0 9px; padding: 7px 9px; border-left: 3px solid #49677e; border-radius: 0 8px 8px 0; background: #eef2f6; break-inside: avoid; }
+    #bat-print-report.bat-executive-report .bat-print-hardware h2 { margin: 0 0 5px; color: #344d60; font-size: 8pt; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid > div { display: grid; gap: 2px; min-width: 0; overflow-wrap: anywhere; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid strong { color: #61717a; font-size: 6.5pt; text-transform: uppercase; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid span { color: #24343c; font-weight: 700; }
+    #bat-print-report.bat-executive-report .print-signature { display: flex; flex-direction: column; align-items: center; text-align: center; border-top-color: #55766b; background: #eff3f2; }
+    #bat-print-report.bat-executive-report .print-signature-list { display: contents; }
+    #bat-print-report.bat-executive-report .print-signature:nth-child(2) { border-top-color: #49677e; background: #eef2f6; }
+    #bat-print-report.bat-executive-report .print-signature-rule { width: 82%; margin: 13px auto 4px; background: #55766b; }
+    #bat-print-report.bat-executive-report .print-signature:nth-child(2) .print-signature-rule { background: #49677e; }
+
     .print-section {
       font-weight: bold;
       border-bottom: 1px solid #000;
@@ -2207,6 +2257,13 @@
       </div>
     </div>
     <div id="bat-print-meta" class="print-grid bat-print-grid"></div>
+    <section id="bat-print-hardware" class="bat-print-hardware hidden" aria-label="Tarjeta o hardware reemplazado">
+      <h2>Tarjeta o hardware reemplazado</h2>
+      <div class="bat-print-hardware-grid">
+        <div><strong>Número de parte de la tarjeta dañada</strong><span id="bat-print-damaged-part"></span></div>
+        <div><strong>Número de serie de la tarjeta dañada</strong><span id="bat-print-damaged-serial"></span></div>
+      </div>
+    </section>
     <section id="bat-print-executive-summary" class="bat-executive-summary hidden" aria-label="Status de diagnóstico">
       <div class="bat-executive-status">
         <span>Estado reportado</span>
@@ -2262,6 +2319,20 @@
         <label for="bat-no-boot-report-part">Número de parte (P/N) *<select id="bat-no-boot-report-part" class="m3-select" name="part" required></select></label>
         <label for="bat-no-boot-report-employee">Número de empleado *<input id="bat-no-boot-report-employee" class="m3-input" name="employeeId" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required></label>
         <label for="bat-no-boot-report-analyst">Nombre del analista *<input id="bat-no-boot-report-analyst" class="m3-input" name="analyst" autocomplete="name" required></label>
+      </div>
+    </section>
+    <section class="mtf-case-section bat-no-boot-hardware-section" aria-labelledby="bat-no-boot-hardware-heading">
+      <h3 id="bat-no-boot-hardware-heading">Cambio de hardware</h3>
+      <div class="mtf-case-fields">
+        <label for="bat-no-boot-hardware-changed">¿Hubo cambio de tarjeta o hardware? *
+          <select id="bat-no-boot-hardware-changed" class="m3-select" name="hardwareChanged" required>
+            <option value="">Selecciona</option><option value="Sí">Sí</option><option value="No">No</option>
+          </select>
+        </label>
+      </div>
+      <div id="bat-no-boot-hardware-details" class="mtf-case-fields bat-no-boot-hardware-details hidden" aria-live="polite">
+        <label for="bat-no-boot-damaged-part">Número de parte de la tarjeta dañada *<input id="bat-no-boot-damaged-part" class="m3-input" name="damagedPart" autocomplete="off"></label>
+        <label for="bat-no-boot-damaged-serial">Número de serie de la tarjeta dañada *<input id="bat-no-boot-damaged-serial" class="m3-input" name="damagedSerial" autocomplete="off"></label>
       </div>
     </section>
     <div class="mtf-case-fields">
@@ -3621,11 +3692,18 @@
       addMeta("Estación", caseReport ? "BAT" : $("station").value);
       addMeta("Serial del Nodo (S/N)", serial);
       addMeta("Número de Parte (P/N)", caseReport?.part ?? $("part").value.trim());
-      addMeta("Analista FA · No. de empleado", `${diagnostician} · ${employeeId}`);
+      if (isNoBoot) {
+        addMeta("Analista FA", diagnostician);
+        addMeta("Número de empleado", employeeId);
+      } else addMeta("Analista FA · No. de empleado", `${diagnostician} · ${employeeId}`);
       addMeta("Código de falla", failure.code);
       addMeta("Descripción reportada", failure.label, true);
       if (caseReport && !isNoBoot) addMeta("Fecha del reporte", generatedAt.toLocaleString("es-MX"));
       else if (!caseReport) addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
+      const showHardwareDetails = isNoBoot && caseReport?.hardwareChanged === "Sí";
+      $("bat-print-hardware").classList.toggle("hidden", !showHardwareDetails);
+      $("bat-print-damaged-part").textContent = showHardwareDetails ? caseReport.damagedPart : "";
+      $("bat-print-damaged-serial").textContent = showHardwareDetails ? caseReport.damagedSerial : "";
       $("bat-print-continuation").textContent = `${isNoBoot ? "INGRASYS · CONTINUACIÓN DEL INFORME EJECUTIVO" : "INGRASYS · REPORTE DE CALIDAD"}  |  Serial ${serial}  |  Falla ${failure.code}`;
       const hasAnomaly = caseReport ? caseReport.outcome !== "Resuelta" : FFDG.state.history.some(item => item.result === "ANOMALÍA");
       const executiveSummary = $("bat-print-executive-summary");
@@ -3676,7 +3754,7 @@
       grid.className = "print-final-grid";
       const finalFields = [
         ["Causa raíz identificada", rootCause],
-        ["Intervención realizada en el nodo", actions || "No especificada", true],
+        ["Intervención realizada en el nodo", actions || "No especificada", !isNoBoot],
       ];
       if (!isNoBoot) finalFields.push(["Evidencia de causa raíz", rootEvidence || "No registrada"]);
       if (caseReport?.procedureAppliedLabel) finalFields.push(["Procedimiento aplicado según el FFDG de NVIDIA", caseReport.procedureAppliedLabel, true]);
@@ -3690,7 +3768,7 @@
       });
       card.appendChild(grid);
       const signatures = document.createElement("div");
-      signatures.className = "print-signatures";
+      signatures.className = "print-signatures print-signature-list";
       signatures.innerHTML = `
         <div class="print-signature">
           <strong>Diagnóstico realizado por</strong>
@@ -4146,11 +4224,22 @@
         stopped.add(new Option(label, String(index)));
       });
     }
+    function syncNoBootHardwareFields() {
+      const changed = $("bat-no-boot-hardware-changed").value === "Sí";
+      const details = $("bat-no-boot-hardware-details");
+      details.classList.toggle("hidden", !changed);
+      [$("bat-no-boot-damaged-part"), $("bat-no-boot-damaged-serial")].forEach(field => {
+        field.required = changed;
+        field.disabled = !changed;
+        if (!changed) field.value = "";
+      });
+    }
     function openBatNoBootReport() {
       const failure = FFDG.state.batDetailFailure;
       if (failure?.family !== "NOBOOT") return;
       const form = $("bat-no-boot-report-form");
       form.reset();
+      syncNoBootHardwareFields();
       resetNoBootReportEvidence();
       cloneSelectOptions("part", "bat-no-boot-report-part");
       cloneSelectOptions("classification", "bat-no-boot-report-classification");
@@ -4196,6 +4285,9 @@
         nextAction: String(values.get("nextAction") || ""),
         rootCause: selectedRootCause?.textContent || "",
         actions: String(values.get("actions") || "").trim(),
+        hardwareChanged: String(values.get("hardwareChanged") || ""),
+        damagedPart: String(values.get("damagedPart") || "").trim(),
+        damagedSerial: String(values.get("damagedSerial") || "").trim(),
         procedureAppliedLabel,
       };
       FFDG.reports.printBatReport(caseReport);
@@ -4368,6 +4460,7 @@
       FFDG.ui.renderEvidence();
     });
     $("bat-no-boot-report-open").addEventListener("click", openBatNoBootReport);
+    $("bat-no-boot-hardware-changed").addEventListener("change", syncNoBootHardwareFields);
     $("bat-no-boot-report-close").addEventListener("click", () => $("bat-no-boot-report-dialog").close());
     $("bat-no-boot-report-cancel").addEventListener("click", () => $("bat-no-boot-report-dialog").close());
     $("bat-no-boot-report-form").addEventListener("submit", submitBatNoBootReport);

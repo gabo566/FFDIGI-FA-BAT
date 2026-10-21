@@ -4659,3 +4659,59 @@ Las sesiones y capturas dejan de aparecer como archivos sin seguimiento y no se 
 
 - Alcance restringido a artefactos generados de Playwright; no se eliminó ni se excluyó contenido funcional.
 
+
+## 91. 2026-10-21 — Registrar reemplazo de tarjeta y ordenar el PDF No Boot
+
+### Solicitud
+
+Preguntar si se cambió una tarjeta o hardware; si la respuesta es afirmativa, registrar P/N y S/N de la tarjeta dañada e incluirlos en el reporte. Mejorar el tamaño y orden de los recuadros, usar colores profesionales y centrar las firmas.
+
+### Objetivo
+
+Que Ingeniería y Calidad puedan distinguir los reportes con reemplazo físico, identificar la tarjeta retirada y leer el documento con una jerarquía uniforme.
+
+### Estado previo y análisis
+
+- La captura No Boot ya tenía identificación del nodo, diagnóstico, procedimiento y evidencias, pero no preguntaba por reemplazo de tarjeta/hardware.
+- `printBatReport` comparte plantilla entre reportes BAT generales y No Boot. Se aisló la sección condicional y el nuevo tratamiento visual con el modo `bat-executive-report`, que solo se activa en No Boot.
+- Las tarjetas anteriores mezclaban acentos vivos verdes, azules y ámbar, tamaños variables según el contenido y firmas sin alineación centrada.
+- El repositorio estaba en la rama local `work`, en `adc10d0`, con el árbol limpio antes de editar. No se hizo commit ni push.
+
+### Solución
+
+- El formulario pregunta «¿Hubo cambio de tarjeta o hardware?» y ofrece Sí/No. P/N y S/N de la tarjeta dañada aparecen únicamente con Sí y ambos se vuelven obligatorios.
+- Si se cambia a No, los campos se deshabilitan, limpian y ocultan; el PDF no muestra su sección ni valores. El selector de Sí/No es obligatorio.
+- El reporte agrega una sección «Tarjeta o hardware reemplazado» con número de parte y número de serie. Los valores se escriben como texto, no como HTML.
+- Se uniformaron las tarjetas de identificación en una cuadrícula de seis datos con dimensiones consistentes y una descripción en ancho completo. Causa raíz e intervención comparten una fila de dos columnas, y el procedimiento ocupa el ancho completo. Los bloques usan tonos neutros, verde apagado y azul pizarra; se retiraron del modo No Boot los acentos saturados y dispares.
+- Los dos bloques de firma centran título, nombre, metadatos y línea de firma, y distribuyen ambas columnas a lo ancho disponible. El rediseño permanece limitado a la impresión No Boot.
+- Se documentó el comportamiento en el README y el mapa funcional del proyecto.
+
+### Archivos modificados
+
+- `index.html` — campos condicionales, datos en `caseReport`, sección de reemplazo en impresión y CSS limitado a No Boot.
+- `README.md` — descripción del nuevo dato y presentación del PDF.
+- `CONTEXTO_FFDIGI.md` — reglas de captura, omisión e impresión del reemplazo.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `syncNoBootHardwareFields`, `openBatNoBootReport`, `submitBatNoBootReport` y `printBatReport`.
+- Modal `#bat-no-boot-report-dialog`; sección `#bat-print-hardware` y reglas de impresión `#bat-print-report.bat-executive-report`.
+
+### Impacto
+
+El formulario No Boot requiere decidir Sí o No sobre el reemplazo. P/N y S/N son obligatorios solo con Sí. Reportes BAT generales y MTF no reciben esos campos ni el nuevo diseño.
+
+### Validaciones
+
+- `node --check` pasó para los ocho bloques JavaScript inline y `git diff --check` pasó.
+- Chromium verificó el comportamiento Sí (muestra y exige ambos campos) y No (oculta, limpia y deshabilita ambos); se comprobó que el PDF incluyera los dos valores con Sí y omitiera la sección con No. La llamada `window.print()` se interceptó durante esa prueba funcional.
+- El modal se comprobó en móvil (390 px), tableta (768 px) y escritorio (1365 px), sin desbordamiento horizontal. El selector se pudo operar por teclado y se comprobó `prefers-reduced-motion`.
+- Una salida A4 generada con Chromium para el caso Sí ocupó una página; `pdftotext` confirmó la sección, P/N, S/N y firmas. El PDF se rasterizó y revisó visualmente; la firma de ambas columnas está centrada.
+- No se creó `dist`, no se desplegó, y no se hizo commit ni push.
+
+### Riesgos y pendientes
+
+- El P/N y S/N dependen de la captura del analista; no se validan contra un catálogo de hardware.
+- Fotografías y texto largos todavía pueden modificar la paginación A4.
+
