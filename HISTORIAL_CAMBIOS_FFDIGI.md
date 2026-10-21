@@ -4715,3 +4715,57 @@ El formulario No Boot requiere decidir Sí o No sobre el reemplazo. P/N y S/N so
 - El P/N y S/N dependen de la captura del analista; no se validan contra un catálogo de hardware.
 - Fotografías y texto largos todavía pueden modificar la paginación A4.
 
+
+## 92. 2026-10-20 — Centrar fichas y destacar Nvidia Racks en el reporte
+
+### Solicitud
+
+Centra los controles respecto a su contenido, reduce y centra «Descripción reportada», usa verdes llamativos y escribe el título como «Nvidia Racks».
+
+### Objetivo
+
+Mejorar la lectura del reporte PDF No Boot, equilibrar los bloques de datos y dar más presencia a la marca en el encabezado.
+
+### Estado previo y análisis
+
+- El PDF ya tenía seis fichas de datos equilibradas, pero el texto de cada ficha se alineaba a la izquierda. «Descripción reportada» se extendía a todo el ancho del informe.
+- Los controles Anterior, Paso siguiente y Ampliar diagrama del detalle BAT ya están agrupados y centrados en Disposition Flow; se conservaron.
+- El encabezado y las tarjetas del PDF usaban una paleta verde oscura/neutral, y la marca estaba escrita en mayúsculas sostenidas en el título del reporte.
+- HEAD era `e74ebe4` (`origin/main`), rama local `work`; el árbol estaba limpio al inicio de la tarea.
+
+### Solución
+
+- Se centraron los encabezados y valores de las fichas de identificación, los bloques de RCA/intervención/procedimiento, la sección condicional de hardware y las firmas.
+- «Descripción reportada» ahora ocupa un bloque centrado de ancho reducido (58 % de la cuadrícula), con alto compacto.
+- El botón «Realizar reporte de falla» de No Boot deja de ocupar todo el ancho de Failure Record; ahora es compacto, centrado y verde, con foco visible y contraste alto.
+- Se aumentó la presencia de verde NVIDIA en el encabezado, el status, títulos de sección, tarjetas, hardware y firmas, manteniendo contraste de texto.
+- Se cambió el título impreso y el nombre sugerido del PDF a «Nvidia Racks». Se actualizó también el título de página y el encabezado de impresión MTF; el wordmark gráfico oficial conserva su diseño.
+- Se conservó la distribución de los botones de navegación BAT, que ya estaba centrada.
+
+### Archivos modificados
+
+- `index.html` — CSS de impresión No Boot, nombre del reporte y título de página.
+- `README.md` — título de marca y descripción del aspecto del reporte.
+- `CONTEXTO_FFDIGI.md` — nombre visible y características del reporte.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `printBatReport`, elemento `#bat-print-title` y CSS bajo `#bat-print-report.bat-executive-report`.
+- Encabezado del documento y título de impresión MTF.
+
+### Impacto
+
+El nuevo acabado de fichas, descripción y verde se limita al PDF No Boot. BAT general y los controles existentes conservan su comportamiento.
+
+### Validaciones
+
+- Ocho scripts JavaScript inline pasaron `node --check`; `git diff --check` pasó.
+- Chromium abrió la aplicación sin errores; confirmó el título «Nvidia Racks · FFDG · GB200 / GB300», fichas centradas y el título PDF «Reporte de Análisis de Falla Nvidia Racks».
+- Se generó e inspeccionó visualmente un PDF A4 de una página con P/N y S/N de hardware de prueba; `pdftotext` confirmó el título y ambos identificadores.
+- No se creó `dist`, no se desplegó, y no se hizo commit ni push.
+
+### Riesgos y pendientes
+
+- Con descripciones de falla excepcionalmente largas, la ficha compacta puede crecer en alto para conservar el texto completo.
+

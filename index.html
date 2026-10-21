@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NVIDIA RACKS FFDG · GUÍA DE ANÁLISIS DE FALLA GB200 Y GB300</title>
+<title>Nvidia Racks FFDG · GUÍA DE ANÁLISIS DE FALLA GB200 Y GB300</title>
 <style>
   /* ==========================================================================
    MATERIAL DESIGN 3 (M3) DESIGN TOKENS - DUAL PALETTE (LIGHT & DARK)
@@ -1002,9 +1002,9 @@
   .bat-no-boot-evidence-preview img { width:38px; height:34px; object-fit:cover; border-radius:5px; }
   .bat-no-boot-evidence-preview label { grid-column:2; display:grid; gap:3px; color:var(--md-sys-color-on-surface-variant); font-size:10px; }
   .bat-no-boot-evidence-preview input { position:static; width:100%; height:auto; clip-path:none; padding:5px 7px; border:1px solid var(--md-sys-color-outline-variant); border-radius:6px; color:var(--md-sys-color-on-surface); background:var(--md-sys-color-surface-container-lowest); font:inherit; }
-  .bat-no-boot-report-open { display:flex; width:100%; min-height:40px; align-items:center; justify-content:center; gap:8px; margin-top:12px; padding:9px 13px; border:1px solid var(--md-sys-color-primary); border-radius:999px; background:var(--md-sys-color-primary); color:var(--md-sys-color-on-primary); font-size:12px; font-weight:700; line-height:1.2; font-family:inherit; cursor:pointer; }
-  .bat-no-boot-report-open:hover { filter:brightness(.94); }
-  .bat-no-boot-report-open:focus-visible { outline:3px solid var(--md-sys-color-primary); outline-offset:2px; }
+  .bat-no-boot-report-open { display:flex; width:fit-content; max-width:100%; min-height:40px; align-items:center; justify-content:center; gap:8px; margin:12px auto 0; padding:9px 16px; border:1px solid #76b900; border-radius:999px; background:#2f6b00; color:#fff; font-size:12px; font-weight:700; line-height:1.2; font-family:inherit; text-align:center; cursor:pointer; }
+  .bat-no-boot-report-open:hover { background:#397b00; border-color:#8bd500; }
+  .bat-no-boot-report-open:focus-visible { outline:3px solid #76b900; outline-offset:2px; }
   .bat-no-boot-report-dialog .mtf-case-dialog-head h2 { margin:3px 0 0; font-size:19px; }
   .bat-no-boot-step-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
   .bat-no-boot-step-summary label { display:grid; gap:6px; min-width:0; font-size:13px; font-weight:700; }
@@ -1509,6 +1509,36 @@
     #bat-print-report.bat-executive-report .print-signature-rule { width: 82%; margin: 13px auto 4px; background: #55766b; }
     #bat-print-report.bat-executive-report .print-signature:nth-child(2) .print-signature-rule { background: #49677e; }
 
+    /* No Boot: centrar las fichas, compactar la descripción y recuperar el verde de marca. */
+    #bat-print-report.bat-executive-report .print-head { background: linear-gradient(112deg, #174500 0%, #397b00 58%, #76b900 100%); }
+    #bat-print-report.bat-executive-report .print-brand-kicker,
+    #bat-print-report.bat-executive-report .print-doc-stamp strong { color: #e3ffc2; }
+    #bat-print-report.bat-executive-report .bat-executive-summary { background: linear-gradient(105deg, #245600 0%, #397b00 100%); }
+    #bat-print-report.bat-executive-report .bat-meta-card { align-items: center; text-align: center; border-color: #cce0b2; border-top: 4px solid #76b900; border-left: 1px solid #cce0b2; background: #f1f8e8; }
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(2n) { background: #e9f5d9; }
+    #bat-print-report.bat-executive-report .bat-meta-card strong,
+    #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) strong { width: 100%; color: #356000; text-align: center; }
+    #bat-print-report.bat-executive-report .bat-meta-card.is-description { grid-column: 1 / -1; justify-self: center; width: 58%; min-height: 42px; border: 1px solid #b8d994; border-top: 4px solid #76b900; background: #e6f4d2; }
+    #bat-print-report.bat-executive-report .print-final-grid > div,
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) { border-left-color: #76b900; background: #eff7e7; text-align: center; }
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2n) { border-left-color: #4b8700; background: #e7f2d9; }
+    #bat-print-report.bat-executive-report .print-final-grid strong,
+    #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) strong { color: #356000; text-align: center; }
+    #bat-print-report.bat-executive-report .bat-print-hardware { border-left-color: #76b900; background: #eaf5dc; text-align: center; }
+    #bat-print-report.bat-executive-report .bat-print-hardware h2 { color: #356000; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid { text-align: center; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid strong { color: #4b6f29; }
+    #bat-print-report.bat-executive-report .bat-print-hardware-grid span { color: #263c16; }
+    #bat-print-report.bat-executive-report .bat-print-section { border-left-color: #76b900; border-bottom-color: #d5e7c0; color: #2c4e0c; }
+    #bat-print-report.bat-executive-report .bat-print-section::before,
+    #bat-print-report.bat-executive-report #bat-print-actions-title::before,
+    #bat-print-report.bat-executive-report #bat-print-evidence-section::before,
+    #bat-print-report.bat-executive-report #bat-print-signatures-section::before { background: #4b8700; }
+    #bat-print-report.bat-executive-report .print-signature { border-top-color: #76b900; background: #eff7e7; }
+    #bat-print-report.bat-executive-report .print-signature:nth-child(2) { border-top-color: #4b8700; background: #e7f2d9; }
+    #bat-print-report.bat-executive-report .print-signature-rule,
+    #bat-print-report.bat-executive-report .print-signature:nth-child(2) .print-signature-rule { background: #4b8700; }
+
     .print-section {
       font-weight: bold;
       border-bottom: 1px solid #000;
@@ -1685,7 +1715,7 @@
       </svg>
     </div>
     <div>
-      <h1 class="app-brand-title">NVIDIA RACKS
+      <h1 class="app-brand-title">Nvidia Racks
         <span>FFDG</span>
       </h1>
       <p class="app-brand-subtitle">GUÍA DE ANÁLISIS DE FALLA</p>
@@ -2293,7 +2323,7 @@
   <div id="mtf-print-report" class="report-only">
     <div class="print-head">
       <div>
-        <h1 style="margin:0; font-size:15pt;">NVIDIA RACKS FFDG · ANÁLISIS DE FALLA GB200 Y GB300</h1>
+        <h1 style="margin:0; font-size:15pt;">Nvidia Racks FFDG · ANÁLISIS DE FALLA GB200 Y GB300</h1>
         <p style="margin:4px 0 0; font-size:9.5pt; color:#555;">Disposición de Línea MTF (Nivel L10)</p>
       </div>
     </div>
@@ -3676,7 +3706,7 @@
       const rootEvidence = caseReport ? "" : $("root-cause-evidence").value.trim();
       const actions = caseReport?.actions ?? $("action").value.trim();
       $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
-      $("bat-print-title").textContent = isNoBoot ? "Reporte de Análisis de Falla NVIDIA RACKS" : "Reporte de Calidad";
+      $("bat-print-title").textContent = isNoBoot ? "Reporte de Análisis de Falla Nvidia Racks" : "Reporte de Calidad";
       $("bat-print-subtitle").textContent = isNoBoot
         ? "BAT No Boot · Diagnóstico de hardware GB200 / GB300"
         : "Diagnóstico de hardware · GB200 / GB300";
@@ -3820,7 +3850,7 @@
         ? `Reporte para seguimiento técnico y de Calidad · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo requiere validación del proceso aplicable.`
         : `Documento para revisión de Calidad · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
       reportStatus("El reporte está preparado. En la ventana de impresión selecciona “Guardar como PDF”. Si no aparece, el formulario permanecerá abierto para volver a intentarlo.");
-      const printTitle = isNoBoot ? `Reporte_de_Analisis_de_Falla_NVIDIA_RACKS_${serial}` : `Reporte_BAT_${serial}_${failure.code}`;
+      const printTitle = isNoBoot ? `Reporte_de_Analisis_de_Falla_Nvidia_Racks_${serial}` : `Reporte_BAT_${serial}_${failure.code}`;
       openPrintDialog("bat", printTitle, isNoBoot, () => {
         if (caseReport) {
           const dialog = $("bat-no-boot-report-dialog");
@@ -5206,7 +5236,7 @@ ${pill(305, 16, 170, `${String(steps[0].sourceNumber || "1").replace(/[.:]$/, ""
 <circle cx="32" cy="34" r="10" fill="#76B900"/><circle cx="32" cy="34" r="4.2" fill="#000"/>
 <path d="M30 9c8-1 16 2 22 8" stroke="#76B900" stroke-width="4" fill="none" stroke-linecap="round"/>
 <path d="M8 58h48" stroke="#76B900" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></svg>`;
-    document.title = "NVIDIA RACKS FFDG · " + NEW_SUB;
+    document.title = "Nvidia Racks FFDG · " + NEW_SUB;
     const sub = document.querySelector(".app-brand-subtitle");
     if (sub) sub.textContent = "GUÍA DE ANÁLISIS DE FALLA";
     const w = document.querySelector(".nvidia-badge-wrapper");
@@ -6191,7 +6221,7 @@ main{padding-top:4px!important}
     copy.append(eyebrow, title, subtitle);
     brand.replaceChildren(logo, racks, ingrasys, divider, copy);
     brand.dataset.refreshed = "true";
-    document.title = "FFDG · GB200 / GB300";
+    document.title = "Nvidia Racks · FFDG · GB200 / GB300";
     document.querySelectorAll(".header-actions .fault-emblem").forEach(emblem => emblem.parentElement.remove());
   })();</script>
 <script>(() => {
