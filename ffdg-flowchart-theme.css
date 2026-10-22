@@ -1,17 +1,25 @@
 /* Paleta sólida de lectura ejecutiva para diagramas SVG generados.
    Las imágenes fuente del PDF no se seleccionan ni se recolorean. */
 :root {
-  --ffdg-flow-action: #dcebdc;
-  --ffdg-flow-action-border: #7b9c7e;
-  --ffdg-flow-action-text: #28492e;
-  --ffdg-flow-decision: #d6b875;
-  --ffdg-flow-decision-text: #283341;
-  --ffdg-flow-success: #4c775a;
+  --ffdg-flow-action: #c8d5b6;
+  --ffdg-flow-action-border: #829566;
+  --ffdg-flow-action-text: #29371d;
+  --ffdg-flow-decision: #ddc68f;
+  --ffdg-flow-decision-text: #3b321d;
+  --ffdg-flow-success: #486b36;
   --ffdg-flow-success-text: #ffffff;
-  --ffdg-flow-failure: #a85e5e;
+  --ffdg-flow-failure: #995347;
   --ffdg-flow-failure-text: #ffffff;
-  --ffdg-flow-connector: #788797;
-  --ffdg-flow-pass: #4c775a;
+  --ffdg-flow-connector: #69785a;
+  --ffdg-flow-pass: #3f602d;
+  --ffdg-flow-active: #58752e;
+  --ffdg-flow-active-text: #ffffff;
+  --ffdg-flow-active-border: #a4bc70;
+  --ffdg-flow-complete: #3c582b;
+  --ffdg-flow-complete-border: #2e4421;
+  --ffdg-flow-decision-border: #a58d54;
+  --ffdg-flow-success-border: #354f27;
+  --ffdg-flow-failure-border: #783f35;
 }
 
 /* Fondo limpio para que destaquen los nodos, también en el modal ampliado. */
@@ -46,20 +54,20 @@
   fill: var(--ffdg-flow-action-text);
 }
 
-/* BAT: pasos en verde y avance reflejado en el diagrama, ligado al índice real. */
+/* BAT: oliva activo, salvia pendiente y avance ligado al índice real. */
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-pending .fc-n {
-  fill: #dcebdc !important;
-  stroke: #7b9c7e !important;
+  fill: var(--ffdg-flow-action) !important;
+  stroke: var(--ffdg-flow-action-border) !important;
   stroke-width: 2 !important;
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-pending text {
-  fill: #28492e !important;
+  fill: var(--ffdg-flow-action-text) !important;
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-active .fc-n {
-  fill: #4c775a !important;
-  stroke: #a8d69a !important;
+  fill: var(--ffdg-flow-active) !important;
+  stroke: var(--ffdg-flow-active-border) !important;
   stroke-width: 4 !important;
 }
 
@@ -69,20 +77,20 @@
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-complete .fc-n {
-  fill: #356844 !important;
-  stroke: #285638 !important;
+  fill: var(--ffdg-flow-complete) !important;
+  stroke: var(--ffdg-flow-complete-border) !important;
   stroke-width: 2.5 !important;
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.on .fc-n {
-  stroke: #d8e4ec;
+  stroke: var(--ffdg-flow-active-border);
   stroke-width: 2;
   filter: none !important;
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-dm .fc-n {
   fill: var(--ffdg-flow-decision) !important;
-  stroke: #b19350 !important;
+  stroke: var(--ffdg-flow-decision-border) !important;
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-dm text {
@@ -91,7 +99,7 @@
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-ok .fc-n {
   fill: var(--ffdg-flow-success) !important;
-  stroke: #3d664a !important;
+  stroke: var(--ffdg-flow-success-border) !important;
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-ok text,
@@ -101,7 +109,7 @@
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-er .fc-n {
   fill: var(--ffdg-flow-failure) !important;
-  stroke: #944f4f !important;
+  stroke: var(--ffdg-flow-failure-border) !important;
 }
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-p {
@@ -110,6 +118,20 @@
 
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-f {
   fill: var(--ffdg-flow-failure);
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label rect {
+  fill: #ffffff !important;
+  stroke-width: 1.5;
+}
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label-pass rect {
+  stroke: var(--ffdg-flow-pass);
+}
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label-fail rect {
+  stroke: var(--ffdg-flow-failure);
+}
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label text {
+  font-weight: 900;
 }
 
 /* MTF: únicamente diagramas SVG vectoriales; los SVG que envuelven PNG fuente
@@ -138,6 +160,21 @@
   fill: var(--ffdg-flow-failure) !important;
 }
 
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge-label-bg {
+  fill: #ffffff !important;
+  stroke-width: 1.5;
+}
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge.is-pass .mtf-flow-edge-label-bg {
+  stroke: var(--ffdg-flow-pass);
+}
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge.is-fail .mtf-flow-edge-label-bg {
+  stroke: var(--ffdg-flow-failure);
+}
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge-label {
+  fill: var(--ffdg-flow-action-text);
+  font-weight: 900;
+}
+
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node:is(.mtf-flow-node-action, .mtf-flow-node-start) rect {
   fill: var(--ffdg-flow-action) !important;
   stroke: var(--ffdg-flow-action-border) !important;
@@ -148,8 +185,8 @@
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node.is-active rect {
-  fill: #4c775a !important;
-  stroke: #a8d69a !important;
+  fill: var(--ffdg-flow-active) !important;
+  stroke: var(--ffdg-flow-active-border) !important;
   stroke-width: 5 !important;
 }
 
@@ -158,8 +195,8 @@
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node.is-complete rect {
-  fill: #356844 !important;
-  stroke: #285638 !important;
+  fill: var(--ffdg-flow-complete) !important;
+  stroke: var(--ffdg-flow-complete-border) !important;
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node.is-complete text {
@@ -168,7 +205,7 @@
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-decision polygon {
   fill: var(--ffdg-flow-decision) !important;
-  stroke: #b19350 !important;
+  stroke: var(--ffdg-flow-decision-border) !important;
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-decision text {
@@ -177,7 +214,7 @@
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-end rect {
   fill: var(--ffdg-flow-success) !important;
-  stroke: #3d664a !important;
+  stroke: var(--ffdg-flow-success-border) !important;
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-end text {
@@ -186,7 +223,7 @@
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-escalation rect {
   fill: var(--ffdg-flow-failure) !important;
-  stroke: #944f4f !important;
+  stroke: var(--ffdg-flow-failure-border) !important;
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-escalation text {
@@ -205,22 +242,127 @@
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-done rect,
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-active rect {
+  fill: var(--ffdg-flow-active) !important;
   fill: var(--ffdg-flow-success) !important;
-  stroke: #3d664a !important;
+  stroke: var(--ffdg-flow-success-border) !important;
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-active rect {
-  stroke: #a8d69a !important;
+  stroke: var(--ffdg-flow-active-border) !important;
   stroke-width: 4 !important;
 }
 
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node:is(.is-active, .is-done) text {
+  fill: var(--ffdg-flow-active-text) !important;
+}
+
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-done:not(.is-active) rect {
-  fill: #356844 !important;
-  stroke: #285638 !important;
+  fill: var(--ffdg-flow-complete) !important;
+  stroke: var(--ffdg-flow-complete-border) !important;
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-arrow,
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart defs marker path {
   stroke: var(--ffdg-flow-connector) !important;
   fill: var(--ffdg-flow-connector) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-procedure-step-node.mtf-flow-node.mtf-flow-node-escalation rect {
+  fill: var(--ffdg-flow-failure) !important;
+  stroke: var(--ffdg-flow-failure-border) !important;
+}
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-procedure-step-node.mtf-flow-node.mtf-flow-node-escalation text {
+  fill: var(--ffdg-flow-failure-text) !important;
+}
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart defs .mtf-flow-fail-marker path {
+  fill: var(--ffdg-flow-failure) !important;
+  stroke: var(--ffdg-flow-failure) !important;
+}
+
+/* Ajuste al ancho disponible sin deformar nodos ni cambiar conexiones. */
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-layout #mtf-detail #mtf-flowchart-diagram) {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 4px !important;
+}
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-layout #mtf-detail #mtf-flowchart-diagram) > svg {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.on .fc-n {
+  fill: var(--ffdg-flow-active);
+}
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.on text {
+  fill: var(--ffdg-flow-active-text);
+}
+/* Mismo tratamiento en las flechas BAT y sus puntos de unión. */
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg circle[fill="var(--md-sys-color-primary)"] {
+  fill: var(--ffdg-flow-connector);
+}
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg circle[fill="var(--md-sys-color-error)"] {
+  fill: var(--ffdg-flow-failure);
+}
+
+/* Una ventana acotada: la proporción real del dibujo determina su escala.
+   Más pasos aumentan su altura interna y reducen automáticamente la escala. */
+@media screen {
+  :is(#bat-failure-detail #bat-disposition-flow, #mtf-layout #mtf-detail #mtf-flowchart-diagram) {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center;
+    height: clamp(220px, calc(100dvh - 460px), 460px) !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+  }
+  :is(#bat-failure-detail #bat-disposition-flow, #mtf-layout #mtf-detail #mtf-flowchart-diagram) > svg {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0;
+    min-height: 0;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    flex: 1 1 0 !important;
+  }
+  :is(#bat-disposition-flow, #mtf-flowchart-diagram) > :is(.flowchart-source-note, .mtf-generated-flow-note) {
+    flex: 0 0 auto;
+    margin: 0 0 4px;
+  }
+}
+
+@media screen and (min-width: 1081px) {
+  #bat-failure-detail .bat-detail-grid,
+  #mtf-layout #mtf-detail .mtf-detail-horizontal-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+  #mtf-layout #mtf-detail #mtf-disposition-content {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-height: 0;
+  }
+  #mtf-layout #mtf-detail #mtf-flowchart-diagram {
+    height: 0 !important;
+    flex: 1 1 0 !important;
+  }
+}
+
+@media screen {
+  #bat-failure-detail .bat-detail-controls,
+  #mtf-layout #mtf-detail .mtf-detail-controls-right {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    flex-wrap: wrap;
+    min-height: 40px;
+    margin-top: 8px;
+    justify-content: center;
+  }
+  #bat-failure-detail .bat-detail-controls > button,
+  #mtf-layout #mtf-detail .mtf-detail-controls-right > button {
+    flex-shrink: 0;
+  }
 }

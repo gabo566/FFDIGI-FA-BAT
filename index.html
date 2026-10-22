@@ -1002,7 +1002,7 @@
   .bat-no-boot-evidence-preview img { width:38px; height:34px; object-fit:cover; border-radius:5px; }
   .bat-no-boot-evidence-preview label { grid-column:2; display:grid; gap:3px; color:var(--md-sys-color-on-surface-variant); font-size:10px; }
   .bat-no-boot-evidence-preview input { position:static; width:100%; height:auto; clip-path:none; padding:5px 7px; border:1px solid var(--md-sys-color-outline-variant); border-radius:6px; color:var(--md-sys-color-on-surface); background:var(--md-sys-color-surface-container-lowest); font:inherit; }
-  .bat-no-boot-report-open { display:flex; width:fit-content; max-width:100%; min-height:40px; align-items:center; justify-content:center; gap:8px; margin:12px auto 0; padding:9px 16px; border:1px solid #76b900; border-radius:999px; background:#2f6b00; color:#fff; font-size:12px; font-weight:700; line-height:1.2; font-family:inherit; text-align:center; cursor:pointer; }
+  .bat-no-boot-report-open { display:flex; width:90%; max-width:100%; box-sizing:border-box; min-height:40px; align-items:center; justify-content:center; gap:8px; margin:44px auto 0; padding:9px 16px; border:1px solid #76b900; border-radius:999px; background:#2f6b00; color:#fff; font-size:12px; font-weight:700; line-height:1.2; font-family:inherit; text-align:center; cursor:pointer; }
   .bat-no-boot-report-open:hover { background:#397b00; border-color:#8bd500; }
   .bat-no-boot-report-open:focus-visible { outline:3px solid #76b900; outline-offset:2px; }
   .bat-no-boot-report-dialog .mtf-case-dialog-head h2 { margin:3px 0 0; font-size:19px; }
@@ -2283,7 +2283,7 @@
       </div>
       <div class="bat-executive-print-title-band">
         <div>
-          <h1>Reporte de análisis de falla · BAT No Boot</h1>
+          <h1 id="bat-print-family-title">Reporte de análisis de falla · BAT</h1>
           <p>Información consolidada del diagnóstico y resultado final</p>
         </div>
         <span class="bat-executive-print-stamp"><strong>REPORTE BAT</strong><small>DATOS CAPTURADOS</small></span>
@@ -2426,7 +2426,7 @@
 <dialog id="bat-no-boot-report-dialog" class="mtf-case-dialog bat-no-boot-report-dialog" aria-labelledby="bat-no-boot-report-title" aria-describedby="bat-no-boot-report-help">
   <form id="bat-no-boot-report-form" class="mtf-case-form bat-no-boot-report-form">
     <header class="bat-no-boot-report-topbar">
-      <div class="bat-no-boot-report-brand"><img class="bat-no-boot-report-logo" src="./LOGO NVIDIA NEGRO.png" alt="NVIDIA"><strong>FFDIGI-FA-BAT</strong><span aria-hidden="true">│</span><span>No Boot</span></div>
+      <div class="bat-no-boot-report-brand"><img class="bat-no-boot-report-logo" src="./LOGO NVIDIA NEGRO.png" alt="NVIDIA"><strong>FFDIGI-FA-BAT</strong><span aria-hidden="true">│</span><span id="bat-report-family"></span></div>
       <div class="bat-no-boot-report-topbar-action"><h2 id="bat-no-boot-report-title">Realizar reporte de falla</h2><button id="bat-no-boot-report-close" class="flowchart-modal-close" type="button" aria-label="Cerrar reporte">×</button></div>
     </header>
     <p id="bat-no-boot-report-help" class="bat-no-boot-report-help">Captura identificación, diagnóstico, intervención y evidencia. Los datos permanecen en esta sesión; al generar, elige “Guardar como PDF”.</p>
@@ -2439,7 +2439,7 @@
         <div class="bat-no-boot-report-readonly"><span>ID del reporte</span><div id="bat-no-boot-report-summary" class="bat-no-boot-report-summary-value"></div></div>
         <label for="bat-no-boot-report-part">Modelo / SKU *<select id="bat-no-boot-report-part" class="m3-select" name="part" required></select></label>
         <label for="bat-no-boot-report-serial">Número de serie *<input id="bat-no-boot-report-serial" class="m3-input" name="serial" autocomplete="off" required></label>
-        <div class="bat-no-boot-report-readonly"><span>Estación / línea</span><div>BAT · No Boot</div></div>
+        <div class="bat-no-boot-report-readonly"><span>Estación / línea</span><div id="bat-report-station"></div></div>
       </div>
     </section>
     <div class="bat-no-boot-report-columns">
@@ -2576,6 +2576,7 @@
 <script src="./mtf-pdf-flowcharts.js"></script>
 <script src="./mtf-procedure-sequence-flowchart.js"></script>
 <script src="./mtf-pdf-procedure-overrides.js"></script>
+<script src="./ffdg-bat-flowchart.js"></script>
 <script>window.FFDG = window.FFDG || {};
   // 1. DATA REPOSITORY
   window.FFDG.data = (() => {
@@ -2983,7 +2984,7 @@
         layout.classList.toggle("bat-details-mode", Boolean(failure));
         layout.classList.toggle("bat-no-boot-mode", isNoBoot);
         $("closing-card").classList.toggle("bat-no-boot-report", isNoBoot);
-        $("bat-no-boot-report-open").classList.toggle("hidden", !isNoBoot);
+        $("bat-no-boot-report-open").classList.toggle("hidden", !failure);
         $("bat-detail-area").classList.toggle("hidden", !failure);
         $("bat-node-form").classList.add("hidden");
         $("step-card").classList.add("hidden");
@@ -3102,77 +3103,7 @@
       renderBatFlowchart(steps, activeIndex, completedThrough);
     }
     function renderBatFlowchart(steps, activeIndex = 0, completedThrough = -1) {
-      const box = $("bat-disposition-flow");
-      if (!steps.length) {
-        box.innerHTML = `<div class="mtf-no-procedure">No se generó diagrama porque el catálogo no contiene pasos para esta falla.</div>`;
-        return;
-      }
-      const terminalEscalation = steps.find(step => step.isEscalation);
-      const actionSteps = terminalEscalation ? steps.slice(0, steps.indexOf(terminalEscalation)) : steps;
-      const hasActions = actionSteps.length > 0;
-      const displayedSteps = steps;
-      const escapeSvg = value => escapeHtml(String(value || ""));
-      const truncate = (value, limit) => value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
-      const rowCenter = index => 220 + index * 58;
-      const firstCenter = !hasActions && terminalEscalation ? rowCenter(0) + 112 : rowCenter(0);
-      const lastCenter = hasActions ? rowCenter(actionSteps.length - 1) : firstCenter;
-      const validationY = hasActions ? rowCenter(Math.floor((actionSteps.length - 1) / 2)) : firstCenter;
-      const failBusBottom = lastCenter + 48;
-      const escalationY = failBusBottom + 54;
-      const terminalCenter = terminalEscalation ? (hasActions ? lastCenter + 112 : firstCenter) : null;
-      const height = Math.max(escalationY + 48, terminalCenter === null ? 0 : terminalCenter + 48);
-      const pill = (x, y, width, label, className) =>
-        `<g class="fc-g ${className}"><rect class="fc-n" x="${x}" y="${y}" width="${width}" height="36" rx="18"/><text x="${x + width / 2}" y="${y + 22}" font-size="10.5" text-anchor="middle">${escapeSvg(label)}</text></g>`;
-      const junction = (x, y, color = "var(--md-sys-color-primary)") => `<circle cx="${x}" cy="${y}" r="5" fill="${color}" stroke="var(--md-sys-color-surface)" stroke-width="2"/>`;
-      let svg = `<svg viewBox="0 0 1170 ${height}" width="100%" role="img" aria-label="Diagrama BAT con todos los pasos conectados a un BAT station validation compartido; Pass continúa MTF y Fail avanza al siguiente paso o escala al final" style="display:block">
-        <defs><marker id="bat-fc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-ar" d="M0 1.2L9 5 0 8.8z"/></marker><marker id="bat-fc-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-arr" d="M0 1.2L9 5 0 8.8z"/></marker></defs>
-        ${pill(320, 18, 210, "Run the BAT station script", "on")}
-        <path class="fc-l" d="M425 54V82" marker-end="url(#bat-fc-arrow)"/>
-        <g class="fc-g fc-dm"><polygon class="fc-n" points="425,84 525,118 425,152 325,118"/><text x="425" y="114" font-size="10.5" text-anchor="middle">Passes after an</text><text x="425" y="128" font-size="10.5" text-anchor="middle">AC cycle</text></g>
-        <path class="fc-l" d="M525 118H860"/><text class="fc-p" x="685" y="108">Pass</text>
-        ${pill(900, 100, 230, "Proceed with MTF testing", "fc-ok")}
-        <path class="fc-l" d="M325 118H105V${firstCenter}H151" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="282" y="108">Fail</text>
-        ${hasActions ? `<path class="fc-l" d="M860 ${validationY}V118H892" marker-end="url(#bat-fc-arrow)"/>` : ""}`;
-      displayedSteps.forEach((step, index) => {
-        const center = step.isEscalation ? terminalCenter : rowCenter(index);
-        const label = truncate(`Paso ${index + 1} de ${steps.length}: ${step.title || "Paso de diagnóstico"}`, 48);
-        const stepState = index <= completedThrough
-          ? "is-complete"
-          : index === activeIndex
-            ? "is-active"
-            : "is-pending";
-        svg += step.isEscalation
-          ? `${pill(180, center - 18, 280, step.title, "fc-er")}`
-          : `<g class="fc-g fc-step ${stepState}"><rect class="fc-n" x="150" y="${center - 19}" width="410" height="38" rx="10"/><text x="355" y="${center + 4}" font-size="9.5" text-anchor="middle">${escapeSvg(label)}</text></g>
-            <path class="fc-l" d="M560 ${center}H620"/>
-            ${junction(620, center)}`;
-      });
-      if (actionSteps.length > 1) svg += `<path class="fc-l" d="M620 ${firstCenter}V${lastCenter}"/>`;
-      if (hasActions) svg += `<path class="fc-l" d="M620 ${validationY}H647" marker-end="url(#bat-fc-arrow)"/>
-        <g class="fc-g fc-dm"><polygon class="fc-n" points="740,${validationY - 35} 825,${validationY} 740,${validationY + 35} 655,${validationY}"/><text x="740" y="${validationY - 3}" font-size="9.5" text-anchor="middle">BAT station</text><text x="740" y="${validationY + 11}" font-size="9.5" text-anchor="middle">validation</text></g>
-        <text class="fc-p" x="831" y="${validationY - 8}">Pass</text>
-        <path class="fc-l" d="M825 ${validationY}H860"/>
-        ${junction(860, 118)}${junction(860, validationY)}`;
-      if (hasActions && actionSteps.length > 1) {
-        svg += `<path class="fc-l fc-lr" d="M740 ${validationY + 35}V${failBusBottom}H105"/><text class="fc-f" x="750" y="${validationY + 52}">Fail</text>${junction(105, failBusBottom, "var(--md-sys-color-error)")}
-          <path class="fc-l fc-lr" d="M105 ${failBusBottom}V${rowCenter(1)}"/>`;
-        for (let index = 1; index < actionSteps.length; index++) {
-          const center = rowCenter(index);
-          svg += `${junction(105, center, "var(--md-sys-color-error)")}<path class="fc-l fc-lr" d="M105 ${center}H151" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${center - 7}">Paso ${index} fail → paso ${index + 1}</text>`;
-        }
-        if (terminalEscalation) {
-          svg += `<path class="fc-l fc-lr" d="M105 ${failBusBottom}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${terminalCenter - 25}">Paso ${actionSteps.length} fail → escalar</text>`;
-        } else {
-          svg += `<path class="fc-l fc-lr" d="M105 ${failBusBottom}V${escalationY}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${escalationY - 8}">Paso ${steps.length} fail → escalar</text>${pill(180, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
-        }
-      } else if (hasActions && terminalEscalation) {
-        svg += `<path class="fc-l fc-lr" d="M740 ${validationY + 35}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="750" y="${validationY + 52}">Fail</text>`;
-      } else if (hasActions) {
-        svg += `<path class="fc-l fc-lr" d="M740 ${validationY + 35}V${escalationY}" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="750" y="${validationY + 52}">Fail</text>${pill(540, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
-      } else if (!terminalEscalation) {
-        svg += `${pill(180, escalationY, 220, "Move to Secondary Level FA", "fc-er")}`;
-      }
-      box.innerHTML = svg + "</svg>";
+      FFDG.renderBatDiagnosticFlowchart($("bat-disposition-flow"), steps, activeIndex, completedThrough);
     }
     function advanceBatDetail() {
       const failure = FFDG.state.batDetailFailure;
@@ -3382,9 +3313,7 @@
         return;
       }
       const flowchartGraph = source.flowchartGraph || window.FFDG_MTF_PDF_FLOWCHART_GRAPHS?.[source.id] || null;
-      if (flowchartGraph?.flowchartImage
-        && Number(flowchartGraph.flowchartImageWidth) > 0
-        && Number(flowchartGraph.flowchartImageHeight) > 0
+      if (flowchartGraph
         && renderMtfPdfDecisionFlowchart(container, flowchartGraph, Math.max(0, FFDG.state.mtfIndex || 0))) return;
       const steps = getActiveSteps(source);
       if (!steps.length) {
@@ -3822,7 +3751,8 @@
     }
     function printBatReport(caseReport = null) {
       const failure = caseReport ? FFDG.state.batDetailFailure : FFDG.state.activeFailure;
-      const isNoBoot = failure?.family === "NOBOOT";
+      // The existing executive layout also serves reports from any BAT detail.
+      const isNoBoot = Boolean(caseReport) || failure?.family === "NOBOOT";
       const classification = caseReport?.classification ?? $("classification").value;
       const rootCause = caseReport?.rootCause ?? $("root-cause").value;
       const nextAction = caseReport?.nextAction ?? $("next-action").value;
@@ -3844,7 +3774,7 @@
         if (!caseReport) (!rootCause ? $("root-cause") : $("next-action")).focus();
         return;
       }
-      if (!failure || (!caseReport && !FFDG.state.history.length) || (caseReport && !isNoBoot)) {
+      if (!failure || (!caseReport && !FFDG.state.history.length)) {
         reportStatus("Completa la información del reporte para la falla seleccionada antes de imprimir.", true);
         return;
       }
@@ -3862,11 +3792,12 @@
       $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
       $("bat-print-title").textContent = isNoBoot ? "Reporte de Análisis de Falla Nvidia Racks" : "Reporte de Calidad";
       $("bat-print-subtitle").textContent = isNoBoot
-        ? "BAT No Boot · Diagnóstico de hardware GB200 / GB300"
+        ? `BAT · ${failure.familyLabel || failure.family} · Diagnóstico de hardware GB200 / GB300`
         : "Diagnóstico de hardware · GB200 / GB300";
       $("bat-print-summary-title").textContent = isNoBoot ? "Status de diagnóstico" : "Resumen para Calidad";
       $("bat-print-stamp").textContent = isNoBoot ? "Hora de generación" : "Control de Calidad";
       $("bat-print-type").textContent = isNoBoot ? "Fecha y hora local" : "Reporte de diagnóstico BAT";
+      $("bat-print-family-title").textContent = `Reporte de análisis de falla · BAT · ${failure.familyLabel || failure.family}`;
       $("bat-print-actions-title").lastElementChild.textContent = isNoBoot ? "Análisis y diagnóstico" : "Causa raíz y acciones reportadas";
       $("bat-print-evidence-section").lastElementChild.textContent = isNoBoot ? "Evidencia fotográfica" : "Evidencia de soporte";
       $("print-date").textContent = generatedAt.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" });
@@ -3879,7 +3810,7 @@
       meta.replaceChildren();
       if (isNoBoot) {
         addMeta("ID del reporte / falla de origen", `${failure.code} · ${failure.label}`);
-        addMeta("Estación / línea", "BAT · No Boot");
+        addMeta("Estación / línea", `BAT · ${failure.familyLabel || failure.family}`);
         addMeta("Modelo / SKU", caseReport?.part ?? $("part").value.trim());
         addMeta("Número de serie", serial);
         addMeta("Analista", diagnostician);
@@ -4526,7 +4457,7 @@
     }
     function openBatNoBootReport() {
       const failure = FFDG.state.batDetailFailure;
-      if (failure?.family !== "NOBOOT") return;
+      if (!failure) return;
       const form = $("bat-no-boot-report-form");
       form.reset();
       syncNoBootHardwareFields();
@@ -4538,6 +4469,8 @@
       cloneSelectOptions("retest", "bat-no-boot-report-retest");
       populateNoBootStepOptions(failure);
       $("bat-no-boot-report-summary").textContent = `BAT · ${failure.code} · ${failure.label}`;
+      $("bat-report-family").textContent = failure.familyLabel || failure.family;
+      $("bat-report-station").textContent = `BAT · ${failure.familyLabel || failure.family}`;
       $("bat-no-boot-report-status").textContent = "";
       $("bat-no-boot-report-form").querySelectorAll("[aria-invalid='true']").forEach(field => field.removeAttribute("aria-invalid"));
       FFDG.state.activeFailure = failure;
@@ -4547,6 +4480,7 @@
     function submitBatNoBootReport(event) {
       event.preventDefault();
       const form = $("bat-no-boot-report-form");
+      if (!form.reportValidity()) return;
       const values = new FormData(form);
       const outcome = String(values.get("outcome") || "");
       const retest = String(values.get("retest") || "");
@@ -5462,7 +5396,7 @@ ${pill(305, 16, 170, `${String(steps[0].sourceNumber || "1").replace(/[.:]$/, ""
         return;
       }
       const graph = f.flowchartGraph || (window.FFDG_MTF_PDF_FLOWCHART_GRAPHS || {})[f.id];
-      if (graph?.flowchartImage && Number(graph.flowchartImageWidth) > 0 && Number(graph.flowchartImageHeight) > 0
+      if (graph
         && window.FFDG.renderMtfPdfVectorFlowchart?.(box, graph, Math.max(0, FFDG.state.mtfIndex || 0))) return;
       const steps = FFDG.ui.getActiveSteps(f);
       if (!steps.length) {
@@ -7469,4 +7403,5 @@ main{padding-top:4px!important}
 <link rel="stylesheet" href="./ffdg-detail-presentation.css">
 <link rel="stylesheet" href="./ffdg-bat-catalog.css">
 <link rel="stylesheet" href="./ffdg-flowchart-theme.css">
+<script src="./ffdg-flowchart-fit.js" defer></script>
 <link rel="stylesheet" href="./ffdg-report-print.css">

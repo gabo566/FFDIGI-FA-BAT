@@ -268,17 +268,19 @@
     const baseCanvasWidth = Math.max(1500, (columnCount - 1) * 240 + 240);
     const baseLeft = 120, baseRight = baseCanvasWidth - 120;
     const baseColumnGap = columnCount > 1 ? (baseRight - baseLeft) / (columnCount - 1) : 0;
-    const nodeWidth = Math.max(150, Math.min(320, baseColumnGap ? baseColumnGap * 0.92 : 315));
+    const nodeWidth = 480;
     const minimumConnectorGap = 58;
     const columnGap = columnCount > 1
       ? Math.max(baseColumnGap, nodeWidth + 16 + minimumConnectorGap)
       : 0;
+    const horizontalPadding = (nodeWidth + 16) / 2 + 48;
     const canvasWidth = columnCount > 1
-      ? Math.max(baseCanvasWidth, (columnCount - 1) * columnGap + 240)
+      ? Math.max(baseCanvasWidth, (columnCount - 1) * columnGap + horizontalPadding * 2)
       : baseCanvasWidth;
-    const left = 120;
+    const left = horizontalPadding;
     const columnForRank = rank => rank;
-    const fontSize = 26;
+    const fontSize = 16;
+    const lineHeight = 22;
     const wrapText = (value, limit) => {
       const words = String(value || "").split(/\s+/).filter(Boolean);
       const lines = [];
@@ -292,17 +294,17 @@
       return lines.length ? lines : [""];
     };
 
-    const previousNodeWidth = Math.max(150, Math.min(300, baseColumnGap ? baseColumnGap * 0.9 : 288));
     const terminalNodeIds = new Set(rawEdges.map(edge => edge.from));
     const laidOut = positioned.map(node => {
       const col = columnForRank(groupIndex(node.axisX, xGroups));
       const lane = groupIndex(node.axisY, yGroups);
       const isEscalationTerminal = !terminalNodeIds.has(node.id) && /secondary-level|escalat/i.test(node.text);
       const width = isEscalationTerminal
-        ? previousNodeWidth
-        : node.sourceType === "decision" ? Math.min(nodeWidth + 16, 336) : nodeWidth;
-      const lines = wrapText(node.text, Math.max(10, Math.floor((width - 28) / 14)));
-      const height = Math.max(node.sourceType === "decision" ? 126 : 94, lines.length * 33 + (node.sourceType === "decision" ? 52 : 34));
+        ? nodeWidth
+        : node.sourceType === "decision" ? 310 : nodeWidth;
+      const textWidth = node.sourceType === "decision" ? width * 0.6 : width - 40;
+      const lines = wrapText(node.text, Math.max(10, Math.floor(textWidth / (fontSize * 0.56))));
+      const height = Math.max(node.sourceType === "decision" ? 120 : 72, lines.length * lineHeight + (node.sourceType === "decision" ? 56 : 28));
       return {
         ...node,
         x: xGroups.length > 1 ? left + col * columnGap : canvasWidth / 2,
@@ -321,7 +323,7 @@
     laneHeights.forEach((height, index) => {
       const safeHeight = Math.max(height, 100);
       laneCenters[index] = laneCursor + safeHeight / 2;
-      laneCursor += safeHeight + (index < laneHeights.length - 1 ? 30 : 70);
+      laneCursor += safeHeight + (index < laneHeights.length - 1 ? 28 : 70);
     });
     laidOut.forEach(node => { node.y = laneCenters[node.lane]; });
     const diagramHeight = Math.max(500, laneCursor);
@@ -373,11 +375,10 @@
           + '" fill="' + fill + '" stroke="' + stroke + '" stroke-width="3"/>';
       } else {
         shape = '<rect x="' + (node.x - node.width / 2) + '" y="' + (node.y - node.height / 2)
-          + '" width="' + node.width + '" height="' + node.height + '" rx="' + (node.type === "start" || node.type === "end" ? 34 : 18)
+          + '" width="' + node.width + '" height="' + node.height + '" rx="' + (node.type === "start" || node.type === "end" ? 24 : 10)
           + '" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (node.active ? 4 : 2.5) + '"/>';
       }
-      const lineHeight = 31;
-      const startY = node.y - ((node.lines.length - 1) * lineHeight) / 2 + 8;
+      const startY = node.y - ((node.lines.length - 1) * lineHeight) / 2 + 5;
       const text = node.lines.map((line, index) => '<tspan x="' + node.x + '" y="' + (startY + index * lineHeight) + '">' + escape(line) + "</tspan>").join("");
       const escalationClass = node.type === "end" && /secondary-level|escalat/i.test(node.text) ? " mtf-flow-node-escalation" : "";
       const activeClass = node.active ? " is-active" : "";
@@ -409,7 +410,7 @@
       }
       const normalizedLabel = String(edge.label || "").trim();
       const resultClass = /^pass\b/i.test(normalizedLabel) ? " is-pass" : /^fail\b/i.test(normalizedLabel) ? " is-fail" : "";
-      const label = edge.label ? '<text x="' + labelX + '" y="' + labelY + '" text-anchor="middle" font-size="23" font-weight="800" fill="var(--md-sys-color-on-surface-variant)" stroke="var(--md-sys-color-surface)" stroke-width="9" paint-order="stroke">' + escape(edge.label) + "</text>" : "";
+      const label = edge.label ? '<text x="' + labelX + '" y="' + labelY + '" text-anchor="middle" font-size="14" font-weight="800" fill="var(--md-sys-color-on-surface-variant)" stroke="var(--md-sys-color-surface)" stroke-width="5" paint-order="stroke">' + escape(edge.label) + "</text>" : "";
       return '<g class="mtf-flow-edge' + resultClass + '"><path d="' + path + '" fill="none" stroke="var(--md-sys-color-primary)" stroke-width="3" marker-end="url(#' + markerId + ')"/>' + label + "</g>";
     }).join("");
 
