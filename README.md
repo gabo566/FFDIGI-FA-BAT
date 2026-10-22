@@ -45,7 +45,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 
 - Tema claro y oscuro.
 - Microinteracciones refinadas para botones, tarjetas, pasos, cambios BAT/MTF, paneles, referencias y diálogos. La mayoría usa 120–180 ms; paneles y modales llegan como máximo a 220 ms.
-- La capa de movimiento completa, incluidos tokens de tiempo/curvas y reglas compartidas BAT/MTF, está aislada en `ffdg-motion.css`.
+- La capa de movimiento completa, incluidos tokens de tiempo/curvas y reglas compartidas BAT/MTF, está aislada en `src/css/shared/ffdg-motion.css`.
 - Búsqueda y filtros siguen actualizando sin debounce ni temporizadores; cuando el navegador ofrece View Transitions se usa una transición corta en el área de resultados, con actualización directa como fallback.
 - Las animaciones nuevas respetan `prefers-reduced-motion`; BAT y MTF resaltan el paso activo en verde con pulso sutil.
 - El título de la falla se resalta con tokens de error y contraste adaptado al tema; el nombre/código permanece centrado.
@@ -85,9 +85,9 @@ Para detener el servidor local, vuelve a la terminal y presiona `Ctrl+C`. Este s
 ## Tecnologías y dependencias locales
 
 - **HTML, CSS y JavaScript** para la interfaz y la lógica de aplicación.
-- **SheetJS** empaquetado como `xlsx.full.min.js`, acompañado por `SHEETJS-LICENSE.txt`, para leer workbooks Excel en los flujos que lo invocan.
+- **SheetJS** empaquetado en `vendor/sheetjs/`, acompañado por su licencia, para leer workbooks Excel en los flujos que lo invocan.
 - **PDF.js** bajo `vendor/pdfjs/` para procesar PDF BAT localmente.
-- Imágenes, flowcharts y referencias dentro de `assets/` y en la raíz.
+- Imágenes, flowcharts y referencias organizados dentro de `assets/`.
 
 No se requiere `npm install` ni hay un paso de build definido por el proyecto. No agregues una dependencia externa o una ruta CDN sin revisar el impacto y las reglas del repositorio.
 
@@ -95,30 +95,22 @@ No se requiere `npm install` ni hay un paso de build definido por el proyecto. N
 
 | Ruta | Propósito |
 | --- | --- |
-| `index.html` | Entrada versionada de la aplicación. Contiene la estructura principal, estilos base, datos, estado, renderizado, eventos, importadores, diálogos y plantillas de impresión; enlaza las capas CSS locales al final para conservar la cascada. |
-| `ffdg-motion.css` | Microinteracciones y transiciones compartidas BAT/MTF, incluidos estados de tarjetas/controles, entradas, diálogos, View Transitions y movimiento reducido. |
-| `ffdg-detail-presentation.css` | Acabado visual compartido de las fichas BAT/MTF; se carga después de movimiento y no contiene datos ni lógica. |
-| `ffdg-bat-catalog.css` | Presentación exclusiva BAT: iconos locales, estados visuales de pasos activos/completados, distribución de espacio en escritorio y columnas responsive. |
-| `ffdg-report-print.css` | Presentación de impresión del reporte ejecutivo No Boot; aislada del modal y de los reportes BAT generales. |
-| `assets/ui-icons/` | Iconos SVG locales de Bootstrap Icons usados en datos, secuencia, referencias y acciones; no requiere CDN. Incluye licencia. |
-| `bat-pdf-seed.js` | Datos iniciales/semilla de procedimientos BAT. |
-| `mtf-pdf-additions.js` | Registros MTF adicionales derivados de la documentación fuente. |
-| `mtf-pdf-procedure-overrides.js` | Ajustes de procedimientos MTF asociados a identidades y páginas verificadas. |
-| `mtf-pdf-flowcharts.js` | Datos y lógica complementaria para flowcharts MTF. |
-| `mtf-pdf-reference-map.js` | Mapa de referencias visuales MTF y asociaciones con sus registros. |
-| `pdf-reference-gallery.js` | Componente reutilizable para presentar galerías de referencias. |
-| `mtf-procedure-sequence-flowchart.js` | Presentación lineal de pasos MTF cuando no se dispone de un flowchart fuente aplicable. No agrega ramas ni resultados al procedimiento. |
-| `assets/mtf-flowcharts/` | Flowcharts MTF en sus variantes de imagen disponibles. |
-| `assets/mtf-reference-images/` | Imágenes de referencia vinculadas con registros MTF. |
-| `assets/reference-images/` | Otras capturas de páginas y referencias visuales. |
-| `vendor/pdfjs/` | Archivos locales de PDF.js y su licencia. |
-| `xlsx.full.min.js`, `SHEETJS-LICENSE.txt` | Distribución local de SheetJS y su licencia. |
-| `gb300-board-topology.png` | Imagen de topología GB300 usada por la interfaz. |
-| `CONTEXTO_FFDIGI.md` | Memoria técnica: arquitectura, decisiones, flujos, límites y puntos de impacto. |
-| `HISTORIAL_CAMBIOS_FFDIGI.md` | Solicitudes y registro de cambios relevantes del proyecto. |
+| `index.html` | Entrada versionada de GitHub Pages; conserva el markup y carga los estilos y scripts locales en orden. |
+| `src/js/app/ffdg-app-core.js` | Lógica de interfaz BAT/MTF extraída del HTML; los catálogos base ya viven en `src/js/data/app-catalog.js`. Sigue siendo un bloque grande para separar gradualmente, una función a la vez. |
+| `src/js/bat/`, `src/js/mtf/`, `src/js/shared/` | Scripts organizados por flujo; el código compartido queda separado de BAT y MTF. |
+| `src/js/data/` | Catálogo base, semilla BAT, adiciones, mapas y overrides MTF organizados por función y flujo. |
+| `src/css/shared/`, `src/css/bat/`, `src/css/mtf/` | Estilos agrupados por ámbito; los enlaces conservan el orden de cascada existente. |
+| `assets/brand/`, `assets/topology/`, `assets/icons/` | Logotipos, topología e iconos SVG locales con sus licencias. |
+| `assets/flowcharts/mtf/` | Flowcharts MTF originales y sus variantes de imagen hi-res. |
+| `assets/reference-images/mtf/` | Imágenes de referencia asociadas a fallas MTF. |
+| `vendor/pdfjs/`, `vendor/sheetjs/` | Dependencias locales y sus licencias; no dependen de CDN. |
+| `docs/CONTEXTO_FFDIGI.md` | Memoria técnica: arquitectura, decisiones, flujos, límites y puntos de impacto. |
+| `docs/HISTORIAL_CAMBIOS_FFDIGI.md` | Solicitudes y registro de cambios relevantes del proyecto. |
+| `docs/design-qa.md` | Criterios y notas de revisión visual. |
 | `AGENTS.md` | Reglas obligatorias para investigar, modificar, validar y documentar este repositorio. |
+| `ffdg_bat.html` | Copia local ignorada por Git; se conserva por compatibilidad, no es entrada canónica ni fuente de cambios. |
 
-Los scripts y recursos se cargan en un orden definido desde `index.html`. Antes de moverlos o cambiar su orden, revisa quién consume sus datos y funciones.
+Los scripts y recursos se cargan en un orden definido desde `index.html`. Antes de moverlos o cambiar su orden, revisa quién consume sus datos y funciones. Las capturas locales de Playwright se quedan en `output/playwright/`, ignoradas por Git.
 
 ## Datos y almacenamiento
 
@@ -144,12 +136,12 @@ No incluyas datos sensibles en un reporte salvo que el flujo operativo de tu org
 
 Antes de modificar el proyecto:
 
-1. Lee `AGENTS.md`, `CONTEXTO_FFDIGI.md` e `HISTORIAL_CAMBIOS_FFDIGI.md`.
+1. Lee `AGENTS.md`, `docs/CONTEXTO_FFDIGI.md` y `docs/HISTORIAL_CAMBIOS_FFDIGI.md`.
 2. Confirma la rama y los cambios presentes; conserva cualquier trabajo existente.
 3. Localiza el código y todos sus consumidores. Mantén BAT y MTF separados salvo que el cambio requiera explícitamente afectar a ambos.
-4. Haz el cambio acotado, valida el comportamiento afectado y registra el resultado en `HISTORIAL_CAMBIOS_FFDIGI.md`.
+4. Haz el cambio acotado, valida el comportamiento afectado y registra el resultado en `docs/HISTORIAL_CAMBIOS_FFDIGI.md`.
 5. Actualiza este `README.md` con cada modificación del proyecto para que siempre describa el comportamiento, los archivos y las instrucciones vigentes. Comprueba que sigue correcto incluso cuando el cambio no requiera editar su contenido.
-6. Actualiza `CONTEXTO_FFDIGI.md` cuando cambie la arquitectura, el comportamiento, las dependencias o el estado documentado.
+6. Actualiza `docs/CONTEXTO_FFDIGI.md` cuando cambie la arquitectura, el comportamiento, las dependencias o el estado documentado.
 
 El repositorio no tiene una suite automatizada de pruebas configurada según la documentación técnica actual. Una revisión estática no equivale a una prueba de la aplicación en navegador; describe con precisión qué validación se realizó.
 
@@ -160,6 +152,7 @@ El proyecto se ejecuta como una página estática y actualmente no define un pro
 ## Documentación del proyecto
 
 - Este archivo: descripción general y guía de uso/desarrollo.
-- [`CONTEXTO_FFDIGI.md`](CONTEXTO_FFDIGI.md): contexto técnico y mapa de impacto.
-- [`HISTORIAL_CAMBIOS_FFDIGI.md`](HISTORIAL_CAMBIOS_FFDIGI.md): trazabilidad de solicitudes y cambios.
+- [`docs/CONTEXTO_FFDIGI.md`](docs/CONTEXTO_FFDIGI.md): contexto técnico y mapa de impacto.
+- [`docs/HISTORIAL_CAMBIOS_FFDIGI.md`](docs/HISTORIAL_CAMBIOS_FFDIGI.md): trazabilidad de solicitudes y cambios.
+- [`docs/design-qa.md`](docs/design-qa.md): criterios y notas de revisión visual.
 - [`AGENTS.md`](AGENTS.md): reglas de trabajo para futuras modificaciones.

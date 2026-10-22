@@ -1,6 +1,6 @@
 # CONTEXTO_FFDIGI.md — Memoria técnica del proyecto
 
-> Corte de auditoría: 2026-10-21. Describe el contenido observado **dentro de esta raíz Git** y su árbol de trabajo; separa archivos versionados de los cambios locales. Si el código cambia, vuelve a comprobar cada dato antes de usarlo.
+> Corte de auditoría: 2026-10-22. Describe el contenido observado **dentro de esta raíz Git** y su árbol de trabajo; separa archivos versionados de los cambios locales. Si el código cambia, vuelve a comprobar cada dato antes de usarlo.
 
 ## 1. Identidad y alcance
 
@@ -15,57 +15,51 @@
 
 ### Raíz efectiva
 
-La raíz Git confirmada es este directorio (`pagina ffdg`). La página de entrada versionada es `index.html`. No hay framework de frontend ni sistema de build requerido por esa entrada: HTML, CSS y JavaScript se ejecutan en el navegador, con módulos y recursos locales.
+La raíz Git confirmada es este directorio (`pagina ffdg`). `index.html` sigue como entrada versionada de GitHub Pages. El proyecto no requiere framework ni build: HTML, CSS y JavaScript se ejecutan en el navegador con recursos locales.
 
 ### Archivos principales
 
 | Ruta dentro del proyecto | Responsabilidad comprobada |
 | --- | --- |
-| `index.html` | Entrada principal. Contiene estructura BAT/MTF, estilos base y responsive, catálogo BAT base, 113 registros MTF base, estado/funciones `window.FFDG`, formularios, modales, importadores, diagramas SVG y plantillas de impresión. En MTF, `renderFlowchart` y el observer tardío `drawFlow` conservan diagramas fuente y, solo si no hay uno verificado, muestran una secuencia lineal basada en los pasos existentes, sin decisiones/resultados añadidos. `drawFlowLegacy` es código histórico dormido; no reactivarlo. |
-| `ffdg-motion.css` | Hoja local cargada después de los estilos inline para mantener separados los tokens de tiempo/curvas, microinteracciones, transiciones BAT/MTF, View Transitions y reglas `prefers-reduced-motion`; incluye el override de altura del stage MTF. |
-| `ffdg-detail-presentation.css` | Capa visual posterior a `ffdg-motion.css`, compartida por los detalles BAT/MTF; define cards, metadatos con iconos, estado del paso y marcos, sin datos de fallas. |
-| `ffdg-bat-catalog.css` | Presentación exclusiva BAT: iconos locales decorativos por familia, pasos con estados activo/completado, uso del espacio en escritorio y apilado responsive. |
-| `ffdg-flowchart-theme.css` | Paleta sólida azul marino/ámbar/verde/rojo para diagramas SVG generados BAT y MTF; excluye imágenes rasterizadas de origen PDF. |
-| `ffdg-report-print.css` | Presentación de impresión exclusiva del reporte ejecutivo BAT No Boot; no modifica el modal ni el reporte BAT normal. |
-| `assets/ui-icons/` | Recursos SVG locales de Bootstrap Icons con licencia MIT; decorativos y cargados sin CDN. |
-| `bat-pdf-seed.js` | Semilla de 25 procedimientos/casos BAT. Se carga antes de inicializar los controles y se combina con el catálogo BAT base si no existe catálogo guardado válido. |
-| `mtf-pdf-additions.js` | Datos MTF derivados del manual: 175 adiciones en el estado auditado, IDs de reversión y asociaciones de flowcharts ya definidas para casos anteriores. |
-| `mtf-pdf-reference-map.js` | En el árbol actual de trabajo, asocia imágenes/páginas/indicaciones de referencia MTF y define enriquecimiento de registros. **No estaba rastreado por Git al corte**. |
-| `mtf-pdf-flowcharts.js` | En el árbol actual de trabajo, mantiene/renderiza modelos vectoriales alternos de flowcharts. **No estaba rastreado por Git al corte**. La imagen PDF tiene prioridad cuando el registro trae `flowchartImage`. |
-| `mtf-procedure-sequence-flowchart.js` | Genera SVG lineal para fallas MTF sin flowchart fuente verificado, usando únicamente los títulos y el orden de sus pasos activos; no crea rombos, Pass/Fail ni resultados. **Sin seguimiento Git al corte de 2026-10-11**. |
-| `mtf-pdf-procedure-overrides.js` | Correcciones MTF ancladas por estación, código, descripción y páginas verificadas de `ffdg.pdf`; complementa pasos incompletos y asigna la imagen original cuando está disponible. Se aplica al merge del catálogo inicial, restaurado e importado. |
-| `pdf-reference-gallery.js` | En el árbol actual de trabajo, crea el modal reutilizable para galerías MTF y expone sus funciones globales. **No estaba rastreado por Git al corte**. |
-| `assets/mtf-flowcharts/` | Figuras flowchart MTF: 99 PNG fuente (98 del catálogo/additions y AST-01 p. 63) más 99 exportaciones hi-res 400 ppp. Las alternativas conservan los originales; el mapa modal enlaza por nombre de archivo. |
-| `assets/mtf-reference-images/` | 12 imágenes de referencia MTF observadas; rastreadas al corte. |
-| `assets/reference-images/` | Imágenes asociadas a referencias; 31 presentes, 30 rastreadas al corte. |
-| `gb300-board-topology.png` | Esquema de topología GB300 mostrado en el panel MTF y ampliado en modal. |
-| `ingrasys-logo.png`, `ingrasys-logo-dark.png`, `LOGO NVIDIA NEGRO.png` | Recursos gráficos de marca referenciados por la interfaz/impresión según el modo correspondiente. |
-| `xlsx.full.min.js`, `SHEETJS-LICENSE.txt` | Distribución local de SheetJS usada para leer Excel; no se carga desde CDN. |
-| `vendor/pdfjs/pdf.min.mjs`, `vendor/pdfjs/pdf.worker.min.mjs` | PDF.js local, importado bajo demanda para extraer texto de PDF BAT. |
-| `vendor/pdfjs/LICENSE` | Licencia del PDF.js vendorizado. |
-| `HISTORIAL_CAMBIOS_FFDIGI.md` | Bitácora cronológica. No sustituye este documento. |
-| `AGENTS.md` | Reglas obligatorias de trabajo para agentes. |
-| `CONTEXTO_FFDIGI.md` | Esta memoria técnica actual. |
+| `index.html` | Entrada HTML; conserva markup, controles, modales y plantillas. Sus bloques de estilo/scripts inline se extrajeron a `src/` preservando sus posiciones de carga. |
+| `src/js/data/app-catalog.js` | Catálogos base BAT/MTF y `window.FFDG.data`; se carga antes de los módulos que consumen esos datos. |
+| `src/js/app/ffdg-app-core.js` | Núcleo BAT/MTF extraído del HTML: estado, renderizadores, importación, reportes y eventos. Sigue siendo un archivo grande; modularizarlo después, una función a la vez, con pruebas de regresión. |
+| `src/js/bat/` | Render BAT, importador PDF, board y vista de componentes BAT. |
+| `src/js/mtf/` | Flowcharts SVG MTF, secuencia de pasos y modal de topología. |
+| `src/js/shared/` | Galería, modal de diagramas, marca, mejora M3 y ajuste visual compartido de flowcharts. |
+| `src/js/data/bat/` | Semilla de 25 procedimientos/casos BAT. |
+| `src/js/data/mtf/` | Adiciones, mapa de referencias, overrides y asociaciones MTF. El mapa resuelve `document.currentScript.src` hasta la raíz del sitio para evitar rutas rotas tras el movimiento. |
+| `src/css/shared/` | Estilos base extraídos, movimiento, presentación, paleta de flowcharts, marca y densidad compartida. |
+| `src/css/bat/` | Catálogo BAT y estilo de impresión No Boot. |
+| `src/css/mtf/` | Ajustes de selección y resultados MTF. |
+| `assets/icons/` | Iconos SVG locales de Bootstrap Icons con licencia MIT. |
+| `assets/flowcharts/mtf/` | 198 imágenes MTF: fuentes PNG y alternativas hi-res 400 ppp; se movieron sin cambiar contenido. |
+| `assets/reference-images/mtf/` | 43 imágenes de referencia MTF previamente ubicadas en dos carpetas; las asociaciones ahora usan esta ruta unificada. |
+| `assets/brand/`, `assets/topology/` | Logotipos y topología GB300. |
+| `vendor/pdfjs/`, `vendor/sheetjs/` | Dependencias locales y licencias; el importador BAT carga PDF.js desde el módulo `src/js/bat/`. |
+| `docs/CONTEXTO_FFDIGI.md` | Memoria técnica actual. |
+| `docs/HISTORIAL_CAMBIOS_FFDIGI.md` | Bitácora cronológica del proyecto. |
+| `docs/design-qa.md` | Criterios y notas de revisión visual. |
+| `AGENTS.md`, `README.md` | Instrucciones de trabajo y guía del proyecto; permanecen en la raíz. |
 
 ### Archivos locales que no son fuente canónica
 
-- `ffdg_bat.html` existe en el directorio, pero `.gitignore` lo excluye. Es una copia local con rutas antiguas, entre ellas una referencia a `node_modules/xlsx`; no asumir que coincide con `index.html` ni usarla como fuente versionada.
-- `package.json` y `package-lock.json` están excluidos por `.gitignore`; el manifiesto presente al corte solo contiene una prueba placeholder y una dependencia `xlsx`. No hay `node_modules` ni una suite de pruebas FFDIGI configurada en este árbol.
-- La página principal carga `xlsx.full.min.js` directamente desde el proyecto. No inferir que el manifiesto local ignorado sea necesario para ejecutarla.
-- Los manuales/workbooks fuente no aparecen dentro de este árbol auditado. El código contiene datos y referencias derivadas y ofrece importar archivos locales del usuario; una copia limpia no tiene por sí sola los documentos fuente para revalidar todo el contenido.
+- `ffdg_bat.html` permanece en la raíz, pero `.gitignore` lo excluye. Se conservaron sus datos/markup y solo se actualizaron las rutas locales de SheetJS y el logotipo que cambiaron de ubicación; no es fuente versionada ni necesariamente coincide con `index.html`.
+- `package.json` y `package-lock.json` están excluidos por `.gitignore`; el manifiesto local tiene una prueba placeholder y una dependencia `xlsx`. No hay suite FFDIGI configurada.
+- `output/playwright/` y `.playwright-cli/` contienen capturas/sesiones locales y siguen ignorados por Git.
+- Los manuales/workbooks fuente no aparecen dentro de este árbol auditado. Los datos derivados no permiten revalidar por sí solos el contenido contra una nueva edición.
 
 ### Dependencias y orden de carga de `index.html`
 
-1. Carga SheetJS desde `./xlsx.full.min.js`.
-2. Carga `mtf-pdf-additions.js`, `mtf-pdf-reference-map.js`, `pdf-reference-gallery.js`, `mtf-pdf-flowcharts.js` y `mtf-procedure-sequence-flowchart.js` antes del bloque inline que arma `window.FFDG.data`.
-3. El bloque principal define datos, estado, UI y reportes.
-4. Carga `bat-pdf-seed.js`; el importador BAT es un script de módulo que importa localmente PDF.js y su worker cuando el usuario selecciona un PDF.
-5. Scripts inline adicionales enlazan el tablero BAT, el tema, notificaciones, marca y modales.
-6. `ffdg-motion.css` se enlaza después de todos los bloques de estilo inline y define sus propios tokens de movimiento; los estilos previos resuelven esas variables una vez cargada la hoja, conservando el orden y la prioridad de la cascada.
-7. `ffdg-detail-presentation.css` se carga después de la hoja de movimiento y unifica la presentación de las fichas BAT/MTF. Los iconos son recursos locales, decorativos y con `alt` vacío/`aria-hidden`; no se agregan dependencias de red.
-8. `ffdg-bat-catalog.css` se carga al final para aplicar iconografía, estados de la secuencia BAT y presentación responsive; no contiene catálogo, procedimientos ni listeners.
+1. SheetJS se carga desde `./vendor/sheetjs/xlsx.full.min.js`.
+2. Los scripts de datos MTF y módulos compartidos se cargan antes de `src/js/data/app-catalog.js`; este define `window.FFDG.data`.
+3. `src/js/app/ffdg-app-core.js` se carga después del catálogo base y antes del seed BAT, conservando el orden original de inicialización.
+4. `src/js/data/bat/bat-pdf-seed.js` se carga antes del importador; `src/js/bat/bat-pdf-importer.js` conserva `type="module"` y resuelve PDF.js con `../../../vendor/pdfjs/` desde su propia ruta.
+5. Los scripts de board, diálogos, marca y diagramas permanecen en el mismo orden que sus bloques inline originales.
+6. Las hojas CSS extraídas reemplazan sus bloques inline en el mismo punto de `index.html`; los enlaces al final conservan la cascada anterior. En CSS, los recursos del repo usan rutas relativas desde `src/css/`.
+7. Los scripts externos conservan carga clásica parser-blocking salvo el importador `type="module"` y el ajuste `defer` de flowcharts.
 
-La mayor parte de estilos y funciones sigue dentro del HTML; movimiento compartido y acabado visual MTF se mantienen en hojas CSS locales separadas. No se detectó una API de FFDIGI ni una llamada `fetch` de la página; las referencias HTTP halladas pertenecen a instrucciones/comandos de diagnóstico o namespaces SVG, no a recursos CDN configurados.
+Los estilos y scripts ya no están incrustados en el HTML; el núcleo de aplicación permanece concentrado en un módulo grande a separar gradualmente. No se detectó API de FFDIGI ni llamadas `fetch` configuradas para recursos remotos.
 
 ## 3. Flujo general de usuario
 
@@ -95,7 +89,7 @@ La mayor parte de estilos y funciones sigue dentro del HTML; movimiento comparti
 - En escritorio amplio, las tres cards BAT conservan altura compartida; la ficha usa `max(420px, calc(100dvh - 284px))`. Los metadatos parten de 50 px y no se estiran para rellenar la card, aunque crecen si el texto ocupa más líneas. Los pasos parten de 50 px, conservan altura natural con 6 px de separación y pueden desplazarse dentro de la secuencia si exceden el espacio; el detalle activo puede crecer para mostrar su contenido sin recortes. Disposition Flow mantiene algo más de ancho. El stage del flowchart conserva el SVG en su proporción nativa, con fondo blanco, marco visible y nodos ligeramente más anchos; no cambia el contenido ni las conexiones. Anterior, Paso siguiente y Ampliar diagrama permanecen dentro del panel y al fondo; los controles miden 34 px en escritorio y al menos 44 px en tableta/teléfono. «Cambiar falla» regresa al catálogo. En tablet/teléfono las cards se apilan y mantienen los controles después del diagrama.
 - En el detalle del tablero, `getBatDetailSteps` muestra `failure.steps` para adiciones `customProcedure`; el diagnóstico guiado legacy que inicia el formulario No Boot asigna siempre `FFDG.data.flows.NOBOOT` a `FFDG.state.steps`, aun si la falla tiene pasos propios. El modal de reporte usa `getBatDetailSteps`, igual que la tabla visible, para generar opciones de detención/Pass; no usa el historial del diagnóstico ni inventa registros. La diferencia entre el flujo guiado legacy y el procedimiento particular del detalle queda como pendiente de alineación, pero no altera la fuente de pasos usada por el modal. Las adiciones NDBG_092 y NDBG_122 definen tres pasos propios cada una; las ocho fallas Fan (NDBG_104–106 y NDBG_117–121) definen cuatro pasos personalizados por velocidad. Las adiciones administradas se restauran sobre un catálogo BAT guardado y sincronizan procedimientos propios cuando cambia la versión de esos pasos, sin reemplazar los demás registros; las que declaran `insertAfterCode` respetan esa posición al reinsertarse. El estado del diagnóstico (paso, respuestas, hora, notas y evidencias) vive en `FFDG.state` durante la sesión.
 - El importador PDF local usa PDF.js. Busca páginas que contengan encabezado de error NDBG, estación BAT, descripción y FA Steps; extrae el texto, fusiona por código/etiqueta y persiste el catálogo con clave `ffdg-bat-catalog-v1`.
-- El flowchart BAT se genera como SVG a partir de los pasos. La implementación vigente dibuja una validación compartida de estación, conexiones Pass/Fail, secuencia de acciones y escalación terminal cuando los datos tienen pasos. `ffdg-flowchart-theme.css` aplica tonos ejecutivos suavizados: azul pizarra a acciones, ámbar claro a decisiones, verde salvia a Pass y rojo apagado a Fail/escalación. Las cajas de paso miden 410×38 px; rombos naranjas y salida verde son más anchos. El lienzo horizontal se redistribuye para conservar los tramos horizontales entre pasos y carriles; alturas, coordenadas verticales y secuencia no cambian. No cambia ramas ni etiquetas. No sustituir el diagrama BAT existente al modificar exclusivamente MTF.
+- El flowchart BAT se genera como SVG a partir de los pasos. La implementación vigente dibuja una validación compartida de estación, conexiones Pass/Fail, secuencia de acciones y escalación terminal cuando los datos tienen pasos. `src/css/shared/ffdg-flowchart-theme.css` aplica tonos ejecutivos suavizados: azul pizarra a acciones, ámbar claro a decisiones, verde salvia a Pass y rojo apagado a Fail/escalación. Las cajas de paso miden 410×38 px; rombos naranjas y salida verde son más anchos. El lienzo horizontal se redistribuye para conservar los tramos horizontales entre pasos y carriles; alturas, coordenadas verticales y secuencia no cambian. No cambia ramas ni etiquetas. No sustituir el diagrama BAT existente al modificar exclusivamente MTF.
 
 ### Formulario y reporte BAT
 
@@ -149,22 +143,22 @@ La mayor parte de estilos y funciones sigue dentro del HTML; movimiento comparti
 
 | Tipo de dato/comportamiento | Fuente con autoridad en este árbol | Observación |
 | --- | --- | --- |
-| UI y comportamiento actual | `index.html` + hojas `ffdg-*.css` + `assets/ui-icons/` | Entrada versionada, movimiento/presentación compartidos y paleta de SVG generados BAT/MTF; los recursos locales aportan iconos decorativos. Revisar también módulos cargados y estado Git. |
-| Catálogo BAT base y flujo No Boot | `index.html` | `FFDG.data.failureCatalog` y `FFDG.data.flows`. |
-| Seed BAT del manual | `bat-pdf-seed.js` | Se fusiona solo al iniciar sin un catálogo local válido. |
-| Importación/merge BAT | Script de módulo inline de `index.html` | PDF.js procesa el archivo elegido por el usuario; no asume conexión a un manual instalado. |
-| Catálogo MTF base y overlays verificados | `index.html` + `mtf-pdf-procedure-overrides.js` | 113 registros inline; 55 identidades tenían overlay inequívoco al corte del 2026-10-10. |
-| Casos MTF PDF adicionales | `mtf-pdf-additions.js` | Contiene 175 adiciones en el snapshot auditado; confirmar estado del archivo antes de distribuir. |
+| UI y comportamiento actual | `index.html` + `src/css/` + `src/js/` + `assets/icons/` | Entrada versionada, capas visuales locales y recursos decorativos; revisar orden de carga y estado Git. |
+| Catálogo BAT base y flujo No Boot | `src/js/data/app-catalog.js` | `FFDG.data.failureCatalog` y `FFDG.data.flows`. |
+| Seed BAT del manual | `src/js/data/bat/bat-pdf-seed.js` | Se fusiona solo al iniciar sin un catálogo local válido. |
+| Importación/merge BAT | `src/js/bat/bat-pdf-importer.js` + núcleo | PDF.js procesa el archivo elegido por el usuario; no asume conexión a un manual instalado. |
+| Catálogo MTF base y overlays verificados | `src/js/data/app-catalog.js` + `src/js/data/mtf/mtf-pdf-procedure-overrides.js` | 113 registros base; 55 identidades tenían overlay inequívoco al corte del 2026-10-10. |
+| Casos MTF PDF adicionales | `src/js/data/mtf/mtf-pdf-additions.js` | Contiene 175 adiciones en el snapshot auditado. |
 | Procedimientos cargados por Excel | Workbook seleccionado por el usuario + parser de `index.html` | Tab No identifica hoja maestra/detalle; el importado se mantiene local. |
-| Flowcharts MTF fuente | `mtf-pdf-additions.js`, mapa de referencias y PNG de `assets/mtf-flowcharts/` | La imagen asociada a identidad/página prevalece; el módulo vectorial es fallback, no sustituto documental. |
-| Secuencia visual MTF cuando falta flowchart fuente | Pasos activos del registro + `mtf-procedure-sequence-flowchart.js` | Representación secundaria lineal; no certifica estructura o decisiones del PDF y no sustituye una imagen/grafo fuente existente. |
-| Imágenes de referencia MTF | `mtf-pdf-reference-map.js` + `assets/mtf-reference-images/` y `assets/reference-images/` | Mapa y parte de los PNG estaban sin seguimiento al corte. El árbol de trabajo actual no equivale al checkout limpio. |
-| Topología GB300 | `gb300-board-topology.png` + modal/markup en `index.html` | Recurso visual; no reemplaza el procedimiento de una falla. |
+| Flowcharts MTF fuente | `src/js/data/mtf/` + `assets/flowcharts/mtf/` | La imagen asociada a identidad/página prevalece; el módulo vectorial es fallback, no sustituto documental. |
+| Secuencia visual MTF cuando falta flowchart fuente | Pasos activos del registro + `src/js/mtf/mtf-procedure-sequence-flowchart.js` | Representación secundaria lineal; no certifica estructura o decisiones del PDF y no sustituye una imagen/grafo fuente existente. |
+| Imágenes de referencia MTF | `src/js/data/mtf/mtf-pdf-reference-map.js` + `assets/reference-images/mtf/` | El helper normaliza rutas heredadas de catálogos locales a la nueva carpeta. |
+| Topología GB300 | `assets/topology/gb300-board-topology.png` + markup de `index.html` | Recurso visual; no reemplaza el procedimiento de una falla. |
 | Reporte BAT/MTF | `index.html` | Plantillas HTML y CSS de impresión; el motor final es `window.print()`. |
 | Tema | `localStorage` (`ffdg-theme`) | Preferencia por navegador, no sincronizada entre usuarios. |
 | Catálogos importados | `localStorage` (claves versionadas BAT/MTF) | Estado local por navegador; puede estar ausente, antiguo, bloqueado o lleno. |
 | Registro diagnóstico BAT/evidencia y avance visual de pasos BAT | `FFDG.state` en memoria | No es almacenamiento persistente. El avance visual se reinicia al cambiar/cerrar la falla y no confirma Pass/Fail por sí mismo. |
-| Dependencias de Excel/PDF | Archivos locales `xlsx.full.min.js` y `vendor/pdfjs/` | Evitar convertirlos en CDNs sin autorización y análisis de impacto. |
+| Dependencias de Excel/PDF | `vendor/sheetjs/` y `vendor/pdfjs/` | Evitar convertirlas en CDNs sin autorización y análisis de impacto. |
 
 Los manuales/workbooks fuente no están incluidos en el árbol observado; por eso, los datos extraídos solo pueden reauditarse contra una fuente si esta se incorpora/autorizase para la tarea. No afirmar que un dato se verificó contra el documento fuente cuando solo se comprobó el catálogo.
 
@@ -186,23 +180,23 @@ Los manuales/workbooks fuente no están incluidos en el árbol observado; por es
 
 | Función / archivo | Entrada → salida/efecto | Llamador/dependencias | Riesgo al modificar |
 | --- | --- | --- | --- |
-| `window.FFDG.data` / `index.html` | Catálogos inline + globals MTF → `failureCatalog`, `mtfFaults`, `flows`, merge helper | Inicialización, UI, importadores | Cambia la fuente que alimenta ambas áreas; puede perder adiciones/enriquecimiento u ocultar fallas. |
-| `mergeMtfPdfAdditions` / `index.html` | Casos base/importados + metadatos de adiciones → catálogo combinado con flowcharts/referencias | Inicio, importación Excel, restauración | Riesgo de duplicar, reemplazar mal casos del mismo ID o asociar PDF incorrecto. Mantener reglas de reversión/enriquecimiento. |
-| `renderMtfList`, `filterStation` / `index.html` | Búsqueda, estación, catálogo → tarjetas/contador/filtros | Eventos de búsqueda y chips | Puede dejar fallas inaccesibles o romper selección, teclado y conteos. |
-| `FFDG.ui.runMotionTransition` / `index.html` | Callback de actualización → transición nativa del área de resultados cuando se soporta | Búsqueda BAT/MTF y filtros MTF | No introducir debounce, timers ni pérdida de estado; bajo movimiento reducido o sin API, actualizar directamente. |
-| `FFDG.data.applyMtfPdfProcedureOverride` / `index.html` | Registro MTF → copia con pasos/páginas/flowchart de overrides cuya identidad coincide | Fusión del catálogo y `renderFlowchart` | Se expone en el objeto de datos para que la capa UI no dependa del cierre léxico privado que lo define. |
-| `renderMtfDetail`, `getActiveSteps` / `index.html` | Falla, índice y variante → metadatos, pasos, referencias, acciones y controles | Selección de caso, siguiente/anterior, variante | Riesgo de mezclar casos, perder paso/variante o renderizar contenido no asociado. |
-| `renderFlowchart`, `drawFlow` / `index.html` | Falla seleccionada + fuente/steps activos → imagen/grafo PDF o SVG lineal secundario | `renderMtfDetail`, observer de `mtf-step` | Prioridad de fuente obligatoria; el fallback solo enumera pasos y no puede crear ramas. |
-| `renderMtfProcedureStepFlowchart` / `mtf-procedure-sequence-flowchart.js` | Lista de pasos e índice activo → SVG de cajas y flechas consecutivas | `renderFlowchart`, `drawFlow` | Debe preservar todos los títulos y el orden; no representar decisiones, resultados ni ramas ausentes. |
-| `FFDG_MTF_ENRICH_REFERENCES` / `mtf-pdf-reference-map.js` | Caso + catálogo → caso con referencias según mapa/relaciones | `mergeMtfPdfAdditions` | Asociación cruzada puede mostrar la imagen de otra falla; validar id, estación, descripción y página. |
-| `FFDG_OPEN_REFERENCE_GALLERY` / `pdf-reference-gallery.js` | Título, refs, botón y clave → modal accesible | Botón de imágenes de referencia | Afecta teclado, restauración de foco, navegación y carga de imágenes. |
-| `getBatDetailSteps`, `renderBatSelection` / `index.html` | Falla + paso → procedimiento, datos y DOM BAT | Selector/board y navegación | Puede romper pasos terminales, No Boot, diagrama o progreso. |
-| `renderBatFlowchart` / `index.html` | Lista BAT de pasos + índice → SVG de acciones, retest, ramas y escalación | `renderBatSelection` | Regresión afecta diagramas BAT que el usuario pidió conservar; no editar por cambios MTF. |
-| `readWorksheetCatalog`, `parseDetailWorksheet` / `index.html` | Workbook SheetJS → registros maestros, hojas por Tab No, pasos, variantes y metadatos | `loadExcelFile` | Puede romper asociación de hojas, variantes o conservar duplicados. |
-| `persistCatalog`, `restoreCatalog`, `loadExcelFile` / `index.html` | Catálogo/archivo → `localStorage`, estado y rerender | Input Excel e inicialización | Riesgo de perder datos del navegador o cargar esquema incompatible. |
-| `parseBatPage`, `mergeProcedures`, `importPdf` / `index.html` | Texto PDF por página → procedimientos NDBG combinados | Input PDF BAT; PDF.js | Falsas fusiones por código/etiqueta o pérdida de pasos; preservar selección y catálogo guardado. |
-| `printBatReport`, `printMtfReport`, `openMtfCaseReport`, `submitMtfCaseReport`, `openPrintDialog` / `index.html` | Estado/captura por caso → DOM de impresión y diálogo del navegador | Botones PDF; caso piloto MTF limitado a FLA-04 | Reportes incompletos, identidad equivocada, pérdida de imágenes o contenido de pantalla; validar impresión real y mantener las firmas de Calidad sin persona preasignada. |
-| `openDiagram`, `prepareDiagramTarget` / `index.html` | SVG/imagen activa → modal ampliado y foco restaurado | MutationObserver, botones, teclado | Romper teclado, foco, ampliación o diálogos compartidos BAT/MTF. |
+| `window.FFDG.data` / `src/js/data/app-catalog.js` | Catálogos + globals MTF → `failureCatalog`, `mtfFaults`, `flows`, merge helper | `src/js/app/ffdg-app-core.js`, UI e importadores | Cambia la fuente que alimenta ambas áreas; puede perder adiciones/enriquecimiento u ocultar fallas. |
+| `mergeMtfPdfAdditions` / `src/js/app/ffdg-app-core.js` | Casos base/importados + metadatos de adiciones → catálogo combinado con flowcharts/referencias | Inicio, importación Excel, restauración | Riesgo de duplicar, reemplazar mal casos del mismo ID o asociar PDF incorrecto. Mantener reglas de reversión/enriquecimiento. |
+| `renderMtfList`, `filterStation` / `src/js/app/ffdg-app-core.js` | Búsqueda, estación, catálogo → tarjetas/contador/filtros | Eventos de búsqueda y chips | Puede dejar fallas inaccesibles o romper selección, teclado y conteos. |
+| `FFDG.ui.runMotionTransition` / `src/js/app/ffdg-app-core.js` | Callback de actualización → transición nativa del área de resultados cuando se soporta | Búsqueda BAT/MTF y filtros MTF | No introducir debounce, timers ni pérdida de estado; bajo movimiento reducido o sin API, actualizar directamente. |
+| `FFDG.data.applyMtfPdfProcedureOverride` / `src/js/app/ffdg-app-core.js` | Registro MTF → copia con pasos/páginas/flowchart de overrides cuya identidad coincide | Fusión del catálogo y `renderFlowchart` | Se expone en el objeto de datos para que la capa UI no dependa del cierre léxico privado que lo define. |
+| `renderMtfDetail`, `getActiveSteps` / `src/js/app/ffdg-app-core.js` | Falla, índice y variante → metadatos, pasos, referencias, acciones y controles | Selección de caso, siguiente/anterior, variante | Riesgo de mezclar casos, perder paso/variante o renderizar contenido no asociado. |
+| `renderFlowchart`, `drawFlow` / `src/js/app/ffdg-app-core.js`, `src/js/shared/m3-upgrade.js` | Falla seleccionada + fuente/steps activos → imagen/grafo PDF o SVG lineal secundario | `renderMtfDetail`, observer de `mtf-step` | Prioridad de fuente obligatoria; el fallback solo enumera pasos y no puede crear ramas. |
+| `renderMtfProcedureStepFlowchart` / `src/js/mtf/mtf-procedure-sequence-flowchart.js` | Lista de pasos e índice activo → SVG de cajas y flechas consecutivas | `renderFlowchart`, `drawFlow` | Debe preservar todos los títulos y el orden; no representar decisiones, resultados ni ramas ausentes. |
+| `FFDG_MTF_ENRICH_REFERENCES` / `src/js/data/mtf/mtf-pdf-reference-map.js` | Caso + catálogo → caso con referencias según mapa/relaciones | `mergeMtfPdfAdditions` | Asociación cruzada puede mostrar la imagen de otra falla; validar id, estación, descripción y página. |
+| `FFDG_OPEN_REFERENCE_GALLERY` / `src/js/shared/pdf-reference-gallery.js` | Título, refs, botón y clave → modal accesible | Botón de imágenes de referencia | Afecta teclado, restauración de foco, navegación y carga de imágenes. |
+| `getBatDetailSteps`, `renderBatSelection` / `src/js/app/ffdg-app-core.js` | Falla + paso → procedimiento, datos y DOM BAT | Selector/board y navegación | Puede romper pasos terminales, No Boot, diagrama o progreso. |
+| `renderBatFlowchart` / `src/js/app/ffdg-app-core.js` | Lista BAT de pasos + índice → SVG de acciones, retest, ramas y escalación | `renderBatSelection`, `src/js/bat/ffdg-bat-flowchart.js` | Regresión afecta diagramas BAT que el usuario pidió conservar; no editar por cambios MTF. |
+| `readWorksheetCatalog`, `parseDetailWorksheet` / `src/js/app/ffdg-app-core.js` | Workbook SheetJS → registros maestros, hojas por Tab No, pasos, variantes y metadatos | `loadExcelFile` | Puede romper asociación de hojas, variantes o conservar duplicados. |
+| `persistCatalog`, `restoreCatalog`, `loadExcelFile` / `src/js/app/ffdg-app-core.js` | Catálogo/archivo → `localStorage`, estado y rerender | Input Excel e inicialización | Riesgo de perder datos del navegador o cargar esquema incompatible. |
+| `parseBatPage`, `mergeProcedures`, `importPdf` / `src/js/bat/bat-pdf-importer.js` | Texto PDF por página → procedimientos NDBG combinados | Input PDF BAT; PDF.js | Falsas fusiones por código/etiqueta o pérdida de pasos; preservar selección y catálogo guardado. |
+| `printBatReport`, `printMtfReport`, `openMtfCaseReport`, `submitMtfCaseReport`, `openPrintDialog` / `src/js/app/ffdg-app-core.js` | Estado/captura por caso → DOM de impresión y diálogo del navegador | Botones PDF; caso piloto MTF limitado a FLA-04 | Reportes incompletos, identidad equivocada, pérdida de imágenes o contenido de pantalla; validar impresión real y mantener las firmas de Calidad sin persona preasignada. |
+| `openDiagram`, `prepareDiagramTarget` / `src/js/shared/flowchart-modal.js` | SVG/imagen activa → modal ampliado y foco restaurado | MutationObserver, botones, teclado | Romper teclado, foco, ampliación o diálogos compartidos BAT/MTF. |
 
 ## 9. Decisiones técnicas y comportamientos que deben conservarse
 
@@ -234,18 +228,18 @@ Los manuales/workbooks fuente no están incluidos en el árbol observado; por es
 
 | Problema | Área / impacto | Estado |
 | --- | --- | --- |
-| `index.html` referencia tres módulos MTF y recursos PNG que estaban sin seguimiento, y el propio HTML tenía cambios locales. Un checkout limpio puede carecer de la galería/mapa y de la figura nueva que sí existen en este árbol. | Integridad de despliegue MTF; alto | Pendiente de incluir/versionar según decisión del usuario. No publicar asumiendo que el árbol local equivale al repositorio remoto. |
+| Los recursos versionados cambiaron de ubicación durante la reorganización. Catálogos de navegador pueden conservar las rutas MTF anteriores. | Carga de recursos; medio | El mapa MTF normaliza rutas heredadas; se validaron rutas en servidor HTTP para carga inicial, referencias y diagramas el 2026-10-22. |
 | Algunas fallas MTF no tienen flowchart fuente; antes el panel solo mostraba un aviso aunque el caso tuviera pasos. | Consulta de procedimientos; medio | Corregido el 2026-10-11: secuencia secundaria desde pasos, rotulada como derivada y sin decisiones; las fuentes verificadas conservan prioridad. |
 | `renderFlowchart` usaba helpers declarados dentro del cierre de datos como si fueran variables locales de la capa UI; en especial detenía el render con `ReferenceError`, tanto antes de insertar diagramas fuente como al buscar grafos derivados. | Render de diagramas MTF; medio | Corregido el 2026-10-18: helper expuesto como `FFDG.data.applyMtfPdfProcedureOverride` y mapa de grafos consultado desde `window.FFDG_MTF_PDF_FLOWCHART_GRAPHS`. Chromium comprobó el diagrama fuente FLA-04 y el fallback SVG generado FLA-10. |
-| Las reglas MTF de escritorio imponían `height: 0 !important` al stage de Disposition Flow; un selector posterior de menor especificidad no podía reemplazarlo y el SVG quedaba colapsado. | Presentación de diagramas MTF; medio | Corregido el 2026-10-18 en `ffdg-motion.css` con un override de igual especificidad cargado al final; comprobado con imágenes fuente y fallback generado en escritorio, tableta y teléfono. |
-| `ffdg_bat.html` está ignorado y no es idéntico a la entrada versionada; usa una ruta de SheetJS bajo `node_modules`, carpeta que no existe aquí. | Copia local antigua; medio | No canónico; no editar como sustituto de `index.html`. |
+| Las reglas MTF de escritorio imponían `height: 0 !important` al stage de Disposition Flow; un selector posterior de menor especificidad no podía reemplazarlo y el SVG quedaba colapsado. | Presentación de diagramas MTF; medio | Corregido el 2026-10-18 en `src/css/shared/ffdg-motion.css` con un override de igual especificidad cargado al final; comprobado entonces con imágenes fuente y fallback generado en escritorio, tableta y teléfono. |
+| `ffdg_bat.html` está ignorado y no es idéntico a la entrada versionada. | Copia local antigua; medio | Rutas locales de SheetJS/logotipo actualizadas por la mudanza; no canónico ni sustituto de `index.html`. |
 | Los manuales y el workbook de origen no están dentro del árbol. No es posible reproducir una auditoría completa desde un clon sin que el usuario aporte la fuente correspondiente. | Procedimientos/imágenes; medio | Limitación de fuente; conservar la trazabilidad disponible en datos y bitácora. |
 | No hay pruebas automatizadas FFDIGI configuradas; el `package.json` local ignorado solo tiene un test placeholder y no existe `node_modules`. | Validación/regresión; medio | Confirmado; validar manual/estáticamente hasta que se acuerde una suite. |
 
 ## 12. Deuda técnica (no corregida en la creación de esta memoria)
 
-- `index.html` supera 5,000 líneas y mezcla markup, estilos, catálogos, estado, importación, rendering, impresión y listeners.
-- Hay estilos/scripts añadidos en bloques inline posteriores; las reglas pueden superponerse y hacen más difícil saber cuál gobierna una vista.
+- `index.html` sigue siendo extenso por el markup. Los estilos y scripts inline se extrajeron a carpetas por responsabilidad.
+- `src/js/app/ffdg-app-core.js` todavía concentra catálogo, estado, importación, renderizado, impresión y listeners; dividirlo gradualmente, función por función y comprobando consumidores.
 - Los namespaces `window.FFDG` y `window.FFDG_MTF_*` acoplan bloques; orden de carga es relevante.
 - Catálogos grandes y mapas derivados del PDF son mantenidos como literales estáticos; cambios exigen validar duplicados, páginas e identidad.
 - La copia `ffdg_bat.html` y el manifiesto local ignorados pueden generar deriva respecto a la entrada rastreada.
@@ -259,8 +253,8 @@ No se refactorizó ni cambió comportamiento durante la auditoría inicial.
 ### Pendiente confirmado
 
 - Alinear, en una tarea posterior con análisis de impacto, los pasos No Boot mostrados para entradas `customProcedure` con el procedimiento que realmente ejecuta el formulario; actualmente el detalle puede mostrar pasos particulares, mientras que el diagnóstico guiado usa `flows.NOBOOT`.
-- Resolver el estado Git de los módulos de mapa/galería/flowcharts MTF y dos PNG locales pendientes antes de depender de ellos fuera de este árbol de trabajo.
-- Ejecutar prueba visual/interactiva en navegador para carga inicial, Excel importado/restaurado, galería/modal y flowcharts en móvil/tableta/escritorio antes de afirmar que este snapshot quedó validado end-to-end.
+- Confirmar la reorganización en el remoto solo cuando se solicite publicación; este cambio local aún no se ha subido.
+- Completar pruebas responsive en móvil/tableta y la restauración de catálogos MTF antiguos desde `localStorage`; la validación del 2026-10-22 cubrió las entradas BAT/MTF, FLA-07, la galería de referencias, los diagramas y controles en navegador de escritorio, pero no esos escenarios adicionales.
 - Si se aporta otra versión del PDF, reauditar asociaciones de imágenes contra estación, código, descripción y página; el manual fuente no está versionado dentro de este árbol.
 
 ### Posible mejora, no requisito confirmado
@@ -275,6 +269,6 @@ No se refactorizó ni cambió comportamiento durante la auditoría inicial.
 
 ## 14. Estado de Git observado durante la auditoría
 
-- Rama: `develop`; tracking indicado: `origin/develop`; HEAD observado: `371a42b`; árbol `ahead 3`.
-- Al iniciar esta documentación había modificación local en `HISTORIAL_CAMBIOS_FFDIGI.md` y `index.html), más archivos MTF nuevos sin seguimiento: `mtf-pdf-flowcharts.js`, `mtf-pdf-reference-map.js`, `pdf-reference-gallery.js`, `assets/mtf-flowcharts/mtf-flow-109.png` y `assets/reference-images/ffdg-page-110-ref-31.png`.
-- No se hizo commit ni push. La documentación describe el árbol de trabajo presente y marca lo no rastreado; no equivale a contenido confirmado en el remoto.
+- Rama `develop`; HEAD previo a la reorganización: `ce180b2`; estado observado al iniciar: `ahead 40` respecto a `origin/develop`.
+- El remoto `secundaria` apunta a Gabo (`gabo566/FFDIGI-FA-BAT`), rama `main`; al inicio coincidía con ese HEAD.
+- La reorganización queda en el árbol local sin commit ni push; no equivale a publicación remota. El árbol continúa en `develop`, 40 commits locales por delante de `origin/develop`, más los cambios de esta reorganización.

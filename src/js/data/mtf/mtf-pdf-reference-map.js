@@ -1,7 +1,7 @@
 (() => {
-  const assetBase = new URL("./", document.currentScript.src);
+  const assetBase = new URL("../../../../", document.currentScript.src);
   const image = (sourcePage, file, caption, instructions) => ({
-    src: new URL(`./assets/reference-images/${file}`, assetBase).href,
+    src: new URL(`./assets/reference-images/mtf/${file}`, assetBase).href,
     sourcePage,
     caption,
     instructions,
@@ -173,9 +173,13 @@
       (Math.min(name.length, sourceName.length) >= 32 && (name.startsWith(sourceName) || sourceName.startsWith(name)))));
   };
   const resolveAsset = src => {
-    const path = String(src || "").match(/(?:^|\/)assets\/(?:reference-images|mtf-reference-images|mtf-flowcharts)\/[^?#]+/);
+    const path = String(src || "").match(/(?:^|\/)assets\/(?:reference-images(?:\/mtf)?|mtf-reference-images|flowcharts\/mtf|mtf-flowcharts)\/[^?#]+/);
     if (!path) return new URL(src, assetBase).href;
-    const relative = `./${path[0].replace(/^\//, "")}`;
+    const relativePath = path[0].replace(/^\//, "")
+      .replace(/^assets\/mtf-flowcharts\//, "assets/flowcharts/mtf/")
+      .replace(/^assets\/mtf-reference-images\//, "assets/reference-images/mtf/")
+      .replace(/^assets\/reference-images\/(?!mtf\/)/, "assets/reference-images/mtf/");
+    const relative = `./${relativePath}`;
     return new URL(relative, assetBase).href;
   };
   const sourceFlowcharts = [
@@ -189,7 +193,7 @@
   flowchartFiles.add("mtf-flow-109.png");
   window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES = Object.fromEntries([...flowchartFiles].map(file => [
     file,
-    new URL(`./assets/mtf-flowcharts/${file.slice(0, -4)}-400dpi.png`, assetBase).href,
+    new URL(`./assets/flowcharts/mtf/${file.slice(0, -4)}-400dpi.png`, assetBase).href,
   ]));
   window.FFDG_MTF_PDF_REFERENCE_ASSET_URL = resolveAsset;
   window.FFDG_MTF_ENRICH_REFERENCES = (item, catalog) => {
@@ -200,7 +204,7 @@
       || [];
     const pages = new Set(mapped.map(reference => reference.sourcePage));
     const references = (item.referenceImages || []).filter(reference =>
-      !(pages.has(reference.sourcePage) && /\/mtf-reference-images\//.test(reference.src || ""))
+      !(pages.has(reference.sourcePage) && /\/(?:mtf-reference-images|reference-images\/mtf)\//.test(reference.src || ""))
     ).map(reference => ({ ...reference, src: resolveAsset(reference.src) }));
     references.push(...mapped);
     const steps = [...(item.steps || []), ...(source?.steps || [])];

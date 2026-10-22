@@ -6,8 +6,8 @@ Aplica únicamente al repositorio `C:\Users\Jair Iván\Documents\FFDIGI FA BAT\p
 
 1. Leer completos, en este orden:
    - `AGENTS.md`
-   - `CONTEXTO_FFDIGI.md`
-   - `HISTORIAL_CAMBIOS_FFDIGI.md`
+   - `docs/CONTEXTO_FFDIGI.md`
+   - `docs/HISTORIAL_CAMBIOS_FFDIGI.md`
 2. Inspeccionar `git status --short --branch`. Preservar cambios modificados, no rastreados e ignorados; no sobrescribir ni descartar trabajo local.
 3. Localizar la implementación y todos sus consumidores. Comparar documentación, código actual y estado Git; el código observado demuestra el comportamiento, no necesariamente la intención.
 4. Si hay discrepancia o falta una fuente necesaria, investigar y dejarla explícita. No inventar datos, rutas, pasos, asociaciones, etiquetas ni requisitos.
@@ -27,7 +27,7 @@ Aplica únicamente al repositorio `C:\Users\Jair Iván\Documents\FFDIGI FA BAT\p
 - Validar sintaxis afectada, rutas/archivos referenciados, importación/restauración si aplica, modales e impresión cuando aplique.
 - Para cambios visuales, comprobar móvil, tableta y escritorio, más teclado y movimiento reducido para controles interactivos.
 - Informar solo pruebas realmente ejecutadas; no confundir revisión estática con prueba en navegador.
-- Después de cada cambio relevante, actualizar `HISTORIAL_CAMBIOS_FFDIGI.md`. Actualizar `CONTEXTO_FFDIGI.md` si cambia arquitectura, comportamiento, dependencias, fuentes de verdad, decisiones o estado.
+- Después de cada cambio relevante, actualizar `docs/HISTORIAL_CAMBIOS_FFDIGI.md`. Actualizar `docs/CONTEXTO_FFDIGI.md` si cambia arquitectura, comportamiento, dependencias, fuentes de verdad, decisiones o estado.
 - La entrada de historial registra: fecha, solicitud, objetivo, estado previo, análisis, causa, solución, archivos, funciones/secciones, impacto, validaciones, resultado, pendientes y riesgos.
 - Antes de operar Git, revisar rama, tracking, remoto y archivos locales. Nunca usar operaciones destructivas para “limpiar” el árbol sin autorización expresa.
 

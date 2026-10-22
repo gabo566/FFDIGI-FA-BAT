@@ -579,7 +579,7 @@
   width: 20px;
   height: 20px;
   justify-self: center;
-  background: center / contain no-repeat url("./assets/ui-icons/images.svg");
+  background: center / contain no-repeat url("../../../assets/icons/images.svg");
   filter: brightness(0) saturate(100%) invert(67%) sepia(48%) saturate(1302%) hue-rotate(184deg) brightness(103%) contrast(101%);
 }
 

@@ -155,7 +155,7 @@
     code: "023002036_13892839",
     description: "MST ADDED X BUT DIAG EXPECT Y, PORT MISSING CONNECTION"
   }, {
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-109.png",
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-109.png",
     flowchartImageWidth: 1527,
     flowchartImageHeight: 1854
   });

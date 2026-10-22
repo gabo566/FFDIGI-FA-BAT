@@ -2,7 +2,7 @@
 window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   {
     station: "FLA", codeContains: "020023006000571", nameContains: "eid2023missing", sourcePdfPages: [23, 24],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-004.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-004.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Update Bianca_1 FPGA.", detail: "Update firmware on Bianca_1 FPGA using the I2C recovery method from the BMC." },
@@ -13,7 +13,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020039006000613", nameContains: "frufieldboardserialmismatch", sourcePdfPages: [44],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-018.png", flowchartImageWidth: 1036, flowchartImageHeight: 343,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-018.png", flowchartImageWidth: 1036, flowchartImageHeight: 343,
     steps: [
       { title: "Re-program Cx7 FRUID.", detail: "" },
       { title: "Move to Secondary-Level FA.", detail: "" },
@@ -21,7 +21,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "0200230366d69786378", nameContains: "9009x86e00sxspa", sourcePdfPages: [43],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-017.png", flowchartImageWidth: 1036, flowchartImageHeight: 348,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-017.png", flowchartImageWidth: 1036, flowchartImageHeight: 348,
     steps: [
       { title: "Replace CX8 with the correct part number 900-9X86E-00CX-SP0.", detail: "" },
       { title: "Move to Secondary-Level FA.", detail: "" },
@@ -29,7 +29,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "AST", codeContains: "0230010060000001000000000140", nameContains: "nvlinkstatusontray", sourcePdfPages: [45],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-019.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-019.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "Using a camera, visually inspect the tray NVLink RAF connectors for damage or contamination.", detail: "" },
       { title: "Based on the NVLink RAF connector inspection:", detail: "If no issues are found, move the tray to a different MTF slot.\nIf an issue is found, replace the suspect Bianca(s)." },
@@ -41,7 +41,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "AST", codeContains: "023002036135870", nameContains: "expected4cbconlydetected3", sourcePdfPages: [45],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-019.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-019.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "Using a camera, visually inspect the tray NVLink RAF connectors for damage or contamination.", detail: "" },
       { title: "Based on the NVLink RAF connector inspection:", detail: "If no issues are found, move the tray to a different MTF slot.\nIf an issue is found, replace the suspect Bianca(s)." },
@@ -53,7 +53,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540180060150001020000043016", nameContains: "userabortedthescript", sourcePdfPages: [85, 86],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-045.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-045.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Inspect for damage.", detail: "Remove the compute tray from the MTF. Check for visible damage on the compute tray and backplane." },
@@ -64,7 +64,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540180060150001000000000140", nameContains: "foundxexceededthreshold", sourcePdfPages: [127, 128],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-067.png", flowchartImageWidth: 1036, flowchartImageHeight: 1200,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-067.png", flowchartImageWidth: 1036, flowchartImageHeight: 1200,
     steps: [
       { title: "Visually inspect the tray NVLink RAF connector(s).", detail: "Using a camera, visually inspect the tray NVLink RAF connector(s) for damage and/or contamination.\nIf an issue is found, proceed to Step 3.\nIf no issue is found, move the tray to a different MTF slot. If the retest passes, continue to the next station. If the retest fails, proceed to Step 3." },
       { title: "Visually inspect the NVLink loopback CBC in the MTF slot.", detail: "Using a camera, visually inspect the NVLink loopback CBC in the MTF slot for damage and/or contamination.\nIf an issue is found on the slot CBC, remove the MTF slot from usage until the CBC can be replaced.\nIf no issue is found, no action is needed and the MTF slot can remain in use." },
@@ -74,7 +74,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "AST", codeContains: "0230010060480000000000000110", nameContains: "gpu000906000pcispeed", sourcePdfPages: [52],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-023.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-023.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "After the system boots to the OS, run this command from the DUT OS to check the GPU link speed:\nsudo lspci -vv -s 00xx:06:00.0 | grep LnkSta" },
       { title: "Remove the CX8 board and inspect the connector pins for damage, dust, or debris.", detail: "" },
@@ -86,7 +86,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540180060150000000000000006", nameContains: "tegrathermalzoneskt0tjmaxmc", sourcePdfPages: [122],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-064.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-064.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "Use the TAS.txt log to identify which GPU is exceeding the temperature limit.", detail: "" },
       { title: "Inspect the QD alignment and confirm that the QD pins are not stuck and that liquid coolant is flowing properly.", detail: "" },
@@ -99,7 +99,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540180060150000000000000006", nameContains: "gpux00xx06000errormlegpuavg", sourcePdfPages: [122],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-064.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-064.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "Use the TAS.txt log to identify which GPU is exceeding the temperature limit.", detail: "" },
       { title: "Inspect the QD alignment and confirm that the QD pins are not stuck and that liquid coolant is flowing properly.", detail: "" },
@@ -112,7 +112,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540180060150000000000000006", nameContains: "mlx5xerrormlx5xexceedsfailurespec", sourcePdfPages: [121],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-063.png", flowchartImageWidth: 1036, flowchartImageHeight: 272,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-063.png", flowchartImageWidth: 1036, flowchartImageHeight: 272,
     steps: [
       { title: "Identify the affected Bianca and validate the temperature-sensor reading.", detail: "Read the mlx5_X number in the error description and use the MLX mapping table to determine whether the failure is on the Primary/Left or Secondary/Right Bianca. Run the following command, replacing X with the affected device's RDMA number:\nsudo mget_temp -d mlx5_X" },
       { title: "Inspect the coldplate assembly on the affected component.", detail: "Check the coldplate alignment and flatness. Inspect for physical damage. Confirm that the screws are installed and properly secured." },
@@ -122,7 +122,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLB", codeContains: "0580180064", nameContains: "commandsudoosupdateshfails", sourcePdfPages: [153, 154],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-083.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-083.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run the run_cable_check script." },
       { title: "Re-seat the SSD.", detail: "Use the cable debug guide to identify the relevant SSD. Re-seat the SSD." },
@@ -136,7 +136,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLB", codeContains: "0580120367a13", nameContains: "pleasecheckdevice001607000incorrectspeedwidth", sourcePdfPages: [149, 150, 151],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run run_cable_check script." },
       { title: "Re-seat SSD.", detail: "Use the cable debug guide to identify the relevant SSD.\nUse the M.2 validation commands below to detect online SSDs and understand their health.\nRe-seat the SSD.\n\nsudo nvme list\nsudo nvme smart-log /dev/nvme0n1" },
@@ -162,7 +162,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLB", codeContains: "0580120367a13", nameContains: "pleasecheckdevicexmissing", sourcePdfPages: [149, 150, 151],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run run_cable_check script." },
       { title: "Re-seat SSD.", detail: "Use the cable debug guide to identify the relevant SSD.\nUse the M.2 validation commands below to detect online SSDs and understand their health.\nRe-seat the SSD.\n\nsudo nvme list\nsudo nvme smart-log /dev/nvme0n1" },
@@ -177,7 +177,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLB", codeContains: "0580120367a13", nameContains: "pleasecheckdevice00xx07000incorrectwidthreceived1expected4", sourcePdfPages: [152],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-082.png", flowchartImageWidth: 1036, flowchartImageHeight: 345,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-082.png", flowchartImageWidth: 1036, flowchartImageHeight: 345,
     steps: [
       { title: "Clean and reseat the left IPEX cables and board/riser.", detail: "" },
       { title: "Reseat the SSD at BDF 0006:07:00.0.", detail: "" },
@@ -188,7 +188,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLC", codeContains: "0730110364", nameContains: "nodevicefoundmatchingtheexpecteddrivecountof8", sourcePdfPages: [149, 150, 151],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run run_cable_check script." },
       { title: "Re-seat SSD.", detail: "Use the cable debug guide to identify the relevant SSD.\nUse the M.2 validation commands below to detect online SSDs and understand their health.\nRe-seat the SSD.\n\nsudo nvme list\nsudo nvme smart-log /dev/nvme0n1" },
@@ -203,7 +203,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLC", codeContains: "0730270374", nameContains: "commandsudotmpssdflashsh8tmpfails", sourcePdfPages: [149, 150, 151],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run run_cable_check script." },
       { title: "Re-seat SSD.", detail: "Use the cable debug guide to identify the relevant SSD.\nUse the M.2 validation commands below to detect online SSDs and understand their health.\nRe-seat the SSD.\n\nsudo nvme list\nsudo nvme smart-log /dev/nvme0n1" },
@@ -218,7 +218,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FCT", codeContains: "0280010060290540000000000011", nameContains: "00xx09000invalidlinkwidthexpectedx4foundx2", sourcePdfPages: [149, 150, 151],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run run_cable_check script." },
       { title: "Re-seat SSD.", detail: "Use the cable debug guide to identify the relevant SSD.\nUse the M.2 validation commands below to detect online SSDs and understand their health.\nRe-seat the SSD.\n\nsudo nvme list\nsudo nvme smart-log /dev/nvme0n1" },
@@ -233,7 +233,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FCT", codeContains: "0280010060160000000000000003", nameContains: "000607000failedfailednvmedrive", sourcePdfPages: [149, 150, 151],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-081.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run run_cable_check script." },
       { title: "Re-seat SSD.", detail: "Use the cable debug guide to identify the relevant SSD. Use the M.2 validation commands below to detect online SSDs and understand their health. Re-seat the SSD.\nsudo nvme list\nsudo nvme smart-log /dev/nvme0n1" },
@@ -258,7 +258,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "020000610139", nameContains: "acceptabletemperaturelimitsexceededorthethermalsensor", sourcePdfPages: [119, 120],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-062.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-062.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "Perform a visual inspection to check for damage to the coldplate sensors.", detail: "" },
       { title: "Remove and inspect the cold plate.", detail: "Remove the cold plate according to the applicable SOP. Check whether any plastic protective covers were left on the cold plate. Verify that TIM was applied to all required locations. Check the failing mods.log BDF to identify the affected Bianca. Both Biancas may require inspection and TIM replacement." },
@@ -269,7 +269,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540010060000000000000000083", nameContains: "tegracputelemetrytjmaxisoverthreshold99000", sourcePdfPages: [102],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-052.png", flowchartImageWidth: 1036, flowchartImageHeight: 368,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-052.png", flowchartImageWidth: 1036, flowchartImageHeight: 368,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Remove, reapply TIM, bake using liquid heating method.", detail: "Re-apply TIM according to the TIM locations shown in the assembly guide. Bake using the liquid heating method." },
@@ -278,7 +278,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540010060170000000000000009", nameContains: "devicemlx50isnotinvalidhwstatenegotiationfailure", sourcePdfPages: [103, 104],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-053.png", flowchartImageWidth: 1036, flowchartImageHeight: 1227,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-053.png", flowchartImageWidth: 1036, flowchartImageHeight: 1227,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Inspect and re-seat the OSFP loopback cable and both ends of the OSFP sideband cable.", detail: "Ensure that the OSFP loopback cable is fully seated. For mlx5_0 or mlx5_1, service the primary-side CX7 I/O board and OSFP board. For mlx5_4 or mlx5_5, service the secondary-side CX7 I/O board and OSFP board. Remove BlueField3 to access the OSFP board connection." },
@@ -291,7 +291,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "0540010060170000000000000009", nameContains: "devicemlx54isnotinvalidhwstatebadunsupported", sourcePdfPages: [103, 104],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-053.png", flowchartImageWidth: 1036, flowchartImageHeight: 1227,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-053.png", flowchartImageWidth: 1036, flowchartImageHeight: 1227,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Inspect and re-seat the OSFP loopback cable and both ends of the OSFP sideband cable.", detail: "Ensure that the OSFP loopback cable is fully seated. For mlx5_0 or mlx5_1, service the primary-side CX7 I/O board and OSFP board. For mlx5_4 or mlx5_5, service the secondary-side CX7 I/O board and OSFP board. Remove BlueField3 to access the OSFP board connection." },
@@ -304,7 +304,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "054001037na", nameContains: "mlx52mlx53stateisnotactive", sourcePdfPages: [112],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-058.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-058.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Re-seat OSFP loopback cable.", detail: "For mlx5_2 or mlx5_3, this refers to the left-hand BlueField3 (primary). For mlx5_6 or mlx5_7, this refers to the right-hand BlueField3 (secondary). Re-seat the OSFP loopback cable to ensure it is fully seated." },
@@ -314,7 +314,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "05401800601500010", nameContains: "gpux00xx06000temperatureabovespecifiedlimit", sourcePdfPages: [124, 125],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-065.png", flowchartImageWidth: 1036, flowchartImageHeight: 1101,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-065.png", flowchartImageWidth: 1036, flowchartImageHeight: 1101,
     steps: [
       { title: "AC Cycle.", detail: "Use the failing GPU's PCI BDF to identify the correct left- or right-side assembly." },
       { title: "Inspect the cold plate associated with the failing GPU.", detail: "Check the cold plate for damage to the sensor pads. Use TAS.txt log to verify which GPU is exceeding the temperature limits." },
@@ -327,7 +327,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "05401800601500010", nameContains: "gpux00xx06000acceptabletemperaturelimits", sourcePdfPages: [124, 125],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-065.png", flowchartImageWidth: 1036, flowchartImageHeight: 1101,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-065.png", flowchartImageWidth: 1036, flowchartImageHeight: 1101,
     steps: [
       { title: "AC Cycle.", detail: "Use the failing GPU's PCI BDF to identify the correct left- or right-side assembly." },
       { title: "Inspect the cold plate associated with the failing GPU.", detail: "Check the cold plate for damage to the sensor pads. Use TAS.txt log to verify which GPU is exceeding the temperature limits." },
@@ -340,7 +340,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "IOT", codeContains: "0330270060000002000000000152", nameContains: "dpunetworkdiagfailedwithexitcode5", sourcePdfPages: [87, 88, 89, 90],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-046.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-046.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Re-seat the OSFP loopback cable.", detail: "Check Onediag_IB_CABLES/lbStressCables/output.txt. If mlx5_2 or mlx5_3 indicates State: Down, it refers to the left-side BF3 (Primary). If mlx5_6 or mlx5_7 indicates State: Down, it refers to the right-side BF3 (Secondary). Re-seat the cable fully." },
@@ -354,7 +354,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "IOT", codeContains: "0330270060170080000000000003", nameContains: "bandwidthbelowthreshold", sourcePdfPages: [95, 96, 97],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-049.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-049.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run the run_cable_check script." },
       { title: "Re-seat the OSFP loopback cable.", detail: "Re-seat the cable to ensure it is fully seated." },
@@ -367,7 +367,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "IOT", codeContains: "0330270060170000000000000007", nameContains: "serveratmlx50000003000failedwithexitcode1", sourcePdfPages: [93, 94],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-048.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-048.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Re-seat the CX7 I/O board end of the OSFP sideband cable.", detail: "For mlx5_0 or mlx5_1, service the primary-side cable. For mlx5_4 or mlx5_5, service the secondary-side cable. Inspect and re-seat the CX7 I/O board end." },
@@ -379,7 +379,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FCT", codeContains: "0280010060000000000000000009", nameContains: "coreerrormsgdevtpm0doesnotexist", sourcePdfPages: [65],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-031.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-031.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Re-seat/replace TPM.", detail: "" },
@@ -388,7 +388,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FCT", codeContains: "0280010060190000000000000037", nameContains: "failedtosetfanxxxspeeds", sourcePdfPages: [67, 68],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-033.png", flowchartImageWidth: 1036, flowchartImageHeight: 501,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-033.png", flowchartImageWidth: 1036, flowchartImageHeight: 501,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Inspect and re-seat or replace fan cable connections.", detail: "Check that the fan connections match the applicable 1U or 2U configuration table. Inspect the connectors for bent or damaged pins. Re-seat or replace the affected fan cables." },
@@ -397,7 +397,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FCT", codeContains: "0280010060190000000000000012", nameContains: "failedtosetfanxxxspeeds", sourcePdfPages: [67, 68],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-033.png", flowchartImageWidth: 1036, flowchartImageHeight: 501,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-033.png", flowchartImageWidth: 1036, flowchartImageHeight: 501,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Inspect and re-seat or replace fan cable connections.", detail: "Check that the fan connections match the applicable 1U or 2U configuration table. Inspect the connectors for bent or damaged pins. Re-seat or replace the affected fan cables." },
@@ -406,7 +406,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "AST", codeContains: "0230010060190000000000000012", nameContains: "failedtosetfan", sourcePdfPages: [67, 68],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-033.png", flowchartImageWidth: 1036, flowchartImageHeight: 501,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-033.png", flowchartImageWidth: 1036, flowchartImageHeight: 501,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Inspect and re-seat or replace fan cable connections.", detail: "Check that the fan connections match the applicable 1U or 2U configuration table. Inspect the connectors for bent or damaged pins. Re-seat or replace the affected fan cables." },
@@ -415,7 +415,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLB", codeContains: "0580180144", nameContains: "commandtarxxxtgzfails", sourcePdfPages: [155],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-084.png", flowchartImageWidth: 1036, flowchartImageHeight: 351,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-084.png", flowchartImageWidth: 1036, flowchartImageHeight: 351,
     steps: [
       { title: "Reseat in the same MTF slot.", detail: "" },
       { title: "Move to Secondary-Level FA.", detail: "" },
@@ -423,7 +423,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020023006300", nameContains: "loopcounteraccyclecountflashandactivatefwexceeded", sourcePdfPages: [34, 35],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-012.png", flowchartImageWidth: 1036, flowchartImageHeight: 1184,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-012.png", flowchartImageWidth: 1036, flowchartImageHeight: 1184,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Confirm the correct E1.S backplane version and BMC NVPN are in use.", detail: "" },
@@ -438,7 +438,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020023006", nameContains: "mismatchesfoundinlogcomparisongethmc", sourcePdfPages: [19, 20],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-002.png", flowchartImageWidth: 1036, flowchartImageHeight: 1182,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-002.png", flowchartImageWidth: 1036, flowchartImageHeight: 1182,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Re-seat and inspect the BMC board, HMC board, and all associated cables.", detail: "" },
@@ -449,7 +449,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020023006508", nameContains: "systemfailedtopoweron", sourcePdfPages: [38, 39],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-014.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-014.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run the run_cable_check script." },
       { title: "Reseat Clink and B2B cable.", detail: "See the Cable debug guide sheet for the cable location." },
@@ -464,7 +464,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020023014000590", nameContains: "maxretriesof6reachederrorduringhoststate", sourcePdfPages: [40, 41],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-015.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-015.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run run_cable_check script." },
       { title: "Re-flash FPGA firmware.", detail: "Re-flash the FPGA firmware on the primary and secondary Bianca boards." },
@@ -479,7 +479,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020023014na", nameContains: "resetbmcdefaultsbmcreadytimeout", sourcePdfPages: [42],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-016.png", flowchartImageWidth: 1036, flowchartImageHeight: 444,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-016.png", flowchartImageWidth: 1036, flowchartImageHeight: 444,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Re-seat HMC.", detail: "" },
@@ -489,7 +489,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020023006000564", nameContains: "verifyfwfailedfwcpld0", sourcePdfPages: [21, 22],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-003.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-003.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run the run_cable_check script. Confirm whether it fails due to a JTAG, HMC I2C, or BMC I2C issue." },
       { title: "Re-seat or replace the associated cables.", detail: "Use the cable debug guide to identify the relevant cables." },
@@ -502,7 +502,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLA", codeContains: "020023006571", nameContains: "verifyfwfailedhgxfwbmc0notfound", sourcePdfPages: [16, 18],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-001.png", flowchartImageWidth: 1036, flowchartImageHeight: 1105,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-001.png", flowchartImageWidth: 1036, flowchartImageHeight: 1105,
     steps: [
       { title: "Check the interposer state.", detail: "Display all HGXs and confirm that every installed HGX is detected. Use the documented BMC inventory command with approved credentials. If an HGX is missing, install a Golden Interposer; if all HGXs are detected, replace the Interposer." },
       { title: "Re-seat all HMC and BMC cables.", detail: "" },
@@ -513,7 +513,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FLB", codeContains: "03bda29a8cdd761a", nameContains: "lookforcomputetraybluefield3leftbmcipaddress", sourcePdfPages: [99, 100, 101],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-051.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-051.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "Run the BAT script." },
       { title: "Reset the BF3 settings.", detail: "Access the BMC host and run:\nsudo mst start\nsudo mlxconfig -d /dev/mst/mt41692_pciconf0 -y s INTERNAL_CPU_MODEL=1 INTERNAL_CPU_OFFLOAD_ENGINE=0\nsudo mst restart\nRun diagnostics starting at FLA. See IMAGE_028." },
@@ -534,7 +534,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FCT", codeContains: "028163006na", nameContains: "sshoperationxxxxxsftpfail", sourcePdfPages: [82],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-042.png", flowchartImageWidth: 1036, flowchartImageHeight: 283,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-042.png", flowchartImageWidth: 1036, flowchartImageHeight: 283,
     steps: [
       { title: "Check the Host RJ45 cable.", detail: "Ensure that the cable is securely connected." },
       { title: "Retest FCT in the same MTF slot up to three times.", detail: "" },
@@ -543,7 +543,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FCT", codeContains: "028001036135870", nameContains: "expected4cbconlydetected3", sourcePdfPages: [45, 46],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-019.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-019.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "Using a camera, visually inspect the tray NVLink RAF connectors for damage or contamination.", detail: "" },
       { title: "Based on the NVLink RAF connector inspection:", detail: "If no issues are found, move the tray to a different MTF slot. If an issue is found, replace the suspect Bianca(s)." },
@@ -555,7 +555,7 @@ window.FFDG_MTF_PDF_PROCEDURE_OVERRIDES = [
   },
   {
     station: "FTS", codeContains: "054001036135719", nameContains: "cx8portfailed", sourcePdfPages: [110, 111],
-    flowchartImage: "./assets/mtf-flowcharts/mtf-flow-057.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
+    flowchartImage: "./assets/flowcharts/mtf/mtf-flow-057.png", flowchartImageWidth: 1036, flowchartImageHeight: 1307,
     steps: [
       { title: "AC cycle.", detail: "" },
       { title: "Re-seat OSFP loopback cable.", detail: "Re-seat the cable to ensure it is fully seated." },

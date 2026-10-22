@@ -1,0 +1,374 @@
+
+  #mtf-layout.mtf-split:not(.mtf-detail-open) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-items: start;
+  }
+  #mtf-layout.mtf-split:not(.mtf-detail-open) .mtf-row-2 {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  #mtf-layout.mtf-split:not(.mtf-detail-open) #mtf-fault-list {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  #mtf-layout.mtf-split:not(.mtf-detail-open) .mtf-item-card {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+  }
+  #mtf-layout.v-board #mtf-board.mtf-board-centered {
+    display: flex !important;
+    width: 100%;
+    box-sizing: border-box;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+  }
+  #mtf-layout.v-board #mtf-board.mtf-board-centered > .bd-col {
+    flex: 0 1 240px;
+    width: min(100%, 240px);
+    min-width: min(180px, 100%);
+    max-width: 240px;
+  }
+  @media (max-width: 600px) {
+    #mtf-layout.v-board #mtf-board.mtf-board-centered { gap: 8px; }
+    #mtf-layout.v-board #mtf-board.mtf-board-centered > .bd-col { flex-basis: 160px; }
+  }
+  @media screen and (min-width: 1081px) {
+    html:has(#mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail:not(.hidden)),
+    body:has(#mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail:not(.hidden)) { overflow-y: auto !important; }
+    main:has(#mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail:not(.hidden)) { padding-bottom: 0 !important; }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-row-3 {
+      grid-column: 1 / -1;
+      height: calc(100dvh - 260px) !important;
+      min-height: 430px !important;
+      max-height: calc(100dvh - 230px) !important;
+      overflow: hidden !important;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid { height: 100%; min-height: 0; }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 10px;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-1,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-2 {
+      display: flex;
+      flex-direction: column;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .bento-block-heading,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-variants,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-path,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-topology-open,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-reference-images,
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-controls { flex: 0 0 auto; }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-step {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      display: flex;
+      flex-direction: column;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-disposition-content {
+      display: flex;
+      flex: 1 1 auto;
+      min-height: 0;
+      flex-direction: column;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-flowchart-diagram {
+      flex: 1 1 0%;
+      height: 0 !important;
+      min-height: 0;
+      max-height: none !important;
+      overflow: hidden !important;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-flowchart-diagram > svg {
+      flex: 1 1 auto;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100%;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-controls-right {
+      flex: 0 0 auto;
+      flex-wrap: nowrap;
+      justify-content: center;
+      margin-top: 8px;
+      padding-top: 0;
+    }
+  }
+  @media (max-width: 1080px) {
+    .topology-reference-launch { align-items: flex-start; flex-direction: column; }
+    #mtf-layout.mtf-detail-viewport { scroll-margin-top: 8px; }
+    #mtf-layout #mtf-detail #mtf-flowchart-diagram {
+      flex: 0 1 auto;
+      height: clamp(220px, 40vh, 360px) !important;
+      min-height: 220px !important;
+      max-height: min(48vh, 420px) !important;
+      overflow: hidden !important;
+    }
+    #mtf-layout #mtf-detail #mtf-flowchart-diagram > svg {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100%;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+  }
+  /* Acabado profesional exclusivo de las fichas de diagnóstico BAT y MTF. */
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-1,
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-2,
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-3 {
+    background: var(--md-sys-color-surface-container-lowest);
+    border: 2px solid var(--md-sys-color-outline);
+    border-top: 4px solid var(--md-sys-color-primary);
+    border-radius: 16px;
+    box-shadow: 0 3px 12px color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-heading {
+    min-height: 88px;
+    margin: 0 0 5px;
+    border: 1px solid color-mix(in srgb, var(--md-sys-color-on-primary) 20%, transparent);
+    border-bottom: 3px solid var(--md-sys-color-primary-container);
+    border-radius: 12px;
+    background: var(--md-sys-color-primary);
+    box-shadow: 0 2px 5px color-mix(in srgb, var(--md-sys-color-on-surface) 14%, transparent);
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-title {
+    letter-spacing: -0.015em;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-subtitle {
+    opacity: 0.9;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-meta-item {
+    justify-content: center;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-left: 3px solid var(--md-sys-color-primary);
+    border-radius: 9px;
+    background: var(--md-sys-color-surface-container-low);
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-meta-label {
+    color: var(--md-sys-color-primary);
+    letter-spacing: 0.075em;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-title, #mtf-detail-title) {
+    padding: 6px 8px;
+    border: 1px solid #5f0000;
+    border-left: 4px solid #470000;
+    border-radius: 9px;
+    background: #8b0000;
+    color: #ffffff !important;
+    box-shadow: 0 1px 7px rgba(95, 0, 0, .42);
+  }
+
+  #bat-failure-detail #bat-detail-title {
+    text-align: center;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) :is(#bat-detail-code, #mtf-code) {
+    font-family: ui-monospace, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.015em;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .m3-step-kicker {
+    padding: 5px 8px;
+    border-left: 3px solid var(--md-sys-color-primary);
+    border-radius: 4px 8px 8px 4px;
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    text-align: center;
+  }
+
+  #bat-failure-detail .bat-detail-sequence li {
+    border-color: #8b0000;
+    border-radius: 10px;
+    background: var(--md-sys-color-surface-container-low);
+    box-shadow: 0 1px 5px rgba(139, 0, 0, .24);
+    animation: ffdig-active-step-red-glow 1.8s ease-in-out infinite;
+  }
+
+  #bat-failure-detail .bat-detail-sequence li strong span:first-child {
+    min-width: 20px;
+    height: 20px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #8b0000;
+    color: #ffffff;
+  }
+
+  #mtf-detail .m3-step-pill {
+    border: 1px solid var(--md-sys-color-outline-variant);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+  }
+
+  #mtf-detail .m3-step-pill.active {
+    border-color: #5f0000;
+    background: #8b0000;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, .45);
+    animation: ffdig-active-step-red-glow 1.8s ease-in-out infinite;
+  }
+
+  @keyframes ffdig-active-step-red-glow {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(139, 0, 0, .38), 0 0 6px rgba(139, 0, 0, .3); }
+    50% { box-shadow: 0 0 0 3px rgba(139, 0, 0, .58), 0 0 16px rgba(139, 0, 0, .62); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #bat-failure-detail .bat-detail-sequence li,
+    #mtf-detail .m3-step-pill.active { animation: none; }
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .mtf-quality-heading {
+    padding: 4px 8px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 8px;
+    background: var(--md-sys-color-surface-container-low);
+  }
+
+  #bat-failure-detail #bat-disposition-flow,
+  #mtf-detail #mtf-flowchart-diagram {
+    border-color: var(--md-sys-color-outline-variant) !important;
+    border-radius: 10px !important;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-sys-color-on-surface) 3%, transparent);
+  }
+
+  /* En escritorio, fija la navegación al fondo de Disposition Flow sin redimensionar las otras tarjetas. */
+  @media screen and (min-width: 1081px) {
+    #bat-failure-detail .bat-detail-grid > .bento-block-3 .bat-detail-controls {
+      margin-top: auto;
+      padding-top: 8px;
+      justify-content: center;
+    }
+  }
+
+  /* MTF: evitar que el badge tape el criterio y dar ancho útil a los controles del flowchart. */
+  #mtf-detail .mtf-quality-heading { gap: 8px; min-width: 0; }
+  #mtf-detail .mtf-quality-heading > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+  #mtf-detail .mtf-quality-heading #mtf-flowchart-tag {
+    position: static;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+  @media screen and (min-width: 1281px) {
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-detail-horizontal-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+  @media screen and (min-width: 1081px) {
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail .mtf-detail-controls-right {
+      flex-wrap: wrap;
+      width: 100%;
+      min-width: 0;
+      justify-content: center;
+    }
+    #mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail .mtf-detail-controls-right > button {
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 100%;
+      white-space: normal;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  /* MTF: marco uniforme para fallas con diagramas fuente, generados o sin diagrama. */
+  @media screen and (min-width: 1081px) {
+    #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > .bento-block-3 {
+      display: flex !important;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+    #mtf-layout.mtf-detail-open #mtf-disposition-content {
+      display: grid !important;
+      grid-template-rows: auto auto minmax(0, 1fr) !important;
+      flex: 1 1 auto;
+      min-width: 0;
+      min-height: 0;
+      gap: 6px;
+    }
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > .mtf-quality-heading,
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > #mtf-action-text,
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > #mtf-outcome {
+      min-width: 0;
+      margin-block: 0 !important;
+    }
+    #mtf-layout.mtf-detail-open #mtf-disposition-content > .mtf-quality-heading {
+      min-height: 32px;
+      box-sizing: border-box;
+      align-self: stretch;
+    }
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      min-height: 0;
+      height: auto !important;
+      max-height: none !important;
+      overflow: auto !important;
+      box-sizing: border-box;
+    }
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram > svg,
+    #mtf-layout.mtf-detail-open #mtf-flowchart-diagram > img {
+      display: block;
+      flex: 0 1 auto;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+    #mtf-layout.mtf-detail-open .mtf-detail-controls-right {
+      flex: 0 0 auto;
+      align-items: stretch;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      margin-top: 8px;
+      padding-top: 0;
+    }
+  }
+

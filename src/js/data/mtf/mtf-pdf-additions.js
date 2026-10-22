@@ -1,202 +1,202 @@
 window.FFDG_MTF_PDF_REVERT_IDS = ["AST-01", "AST-02", "AST-04", "AST-05", "AST-06", "AST-07", "AST-08", "AST-09", "FCT-01", "FCT-02", "FCT-10", "FCT-11", "FCT-13", "FLA-02", "FLA-03", "FLA-04", "FLA-05", "FLA-07", "FLA-08", "FLA-11", "FLA-12", "FLA-14", "FLA-16", "FLA-17", "FLA-18", "FLA-20", "FLA-21", "FLB-02", "FLB-06", "FLB-07", "FLB-08", "FLB-09", "FLB-13", "FLC-01", "FLC-02", "FTS-01", "FTS-02", "FTS-04", "FTS-08", "FTS-09", "FTS-10", "FTS-12", "IOT-01", "IOT-02", "IOT-03", "NVL-03", "PRET-01", "PRET-02", "PRET-03", "PRET-04", "PRET-05", "PRET-06", "PRET-07", "PRET-08", "RIN-01", "RIN-02", "RIN-03", "RIN-04", "RIN-05", "RIN-06", "RIN-07", "RIN-14", "RIN-15"];
 window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
   "FLA-07": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-004.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-004.png",
     "width": 1036,
     "height": 967,
     "sourcePage": 24,
     "referenceImages": []
   },
   "FLA-17": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-005.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-005.png",
     "width": 1036,
     "height": 280,
     "sourcePage": 25,
     "referenceImages": []
   },
   "FLA-18": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-005.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-005.png",
     "width": 1036,
     "height": 280,
     "sourcePage": 25,
     "referenceImages": []
   },
   "FLA-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-006.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-006.png",
     "width": 1036,
     "height": 474,
     "sourcePage": 26,
     "referenceImages": []
   },
   "FLA-04": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-007.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-007.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 28,
     "referenceImages": []
   },
   "FLA-20": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-009.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-009.png",
     "width": 1036,
     "height": 316,
     "sourcePage": 30,
     "referenceImages": []
   },
   "FLA-03": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-010.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-010.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 32,
     "referenceImages": []
   },
   "FLA-05": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-012.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-012.png",
     "width": 1036,
     "height": 1184,
     "sourcePage": 35,
     "referenceImages": []
   },
   "FLA-08": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-014.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-014.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 39,
     "referenceImages": []
   },
   "FLA-11": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-015.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-015.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 41,
     "referenceImages": []
   },
   "FLA-12": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-016.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-016.png",
     "width": 1036,
     "height": 444,
     "sourcePage": 42,
     "referenceImages": []
   },
   "FLA-14": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-017.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-017.png",
     "width": 1036,
     "height": 348,
     "sourcePage": 43,
     "referenceImages": []
   },
   "AST-04": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-019.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-019.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 46,
     "referenceImages": []
   },
   "FTS-10": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-067.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-067.png",
     "width": 1036,
     "height": 1200,
     "sourcePage": 128,
     "referenceImages": []
   },
   "AST-08": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-028.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-028.png",
     "width": 1036,
     "height": 268,
     "sourcePage": 61,
     "referenceImages": []
   },
   "AST-09": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-020.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-020.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 48,
     "referenceImages": []
   },
   "RIN-01": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "width": 1036,
     "height": 422,
     "sourcePage": 50,
     "referenceImages": []
   },
   "RIN-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "width": 1036,
     "height": 422,
     "sourcePage": 50,
     "referenceImages": []
   },
   "RIN-03": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "width": 1036,
     "height": 422,
     "sourcePage": 50,
     "referenceImages": []
   },
   "RIN-04": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "width": 1036,
     "height": 422,
     "sourcePage": 50,
     "referenceImages": []
   },
   "RIN-05": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "width": 1036,
     "height": 422,
     "sourcePage": 50,
     "referenceImages": []
   },
   "RIN-06": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "width": 1036,
     "height": 422,
     "sourcePage": 50,
     "referenceImages": []
   },
   "RIN-07": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "width": 1036,
     "height": 422,
     "sourcePage": 50,
     "referenceImages": []
   },
   "AST-06": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-025.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-025.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 57,
     "referenceImages": []
   },
   "AST-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-027.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-027.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 60,
     "referenceImages": []
   },
   "FCT-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-031.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-031.png",
     "width": 1036,
     "height": 553,
     "sourcePage": 65,
     "referenceImages": []
   },
   "FCT-11": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-036.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-036.png",
     "width": 1036,
     "height": 357,
     "sourcePage": 72,
     "referenceImages": []
   },
   "FCT-13": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-040.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-040.png",
     "width": 1036,
     "height": 1105,
     "sourcePage": 80,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-040-079.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-040-079.png",
         "width": 790,
         "height": 443,
         "caption": "IMAGE_033",
@@ -205,41 +205,41 @@ window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
     ]
   },
   "FCT-01": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-042.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-042.png",
     "width": 1036,
     "height": 283,
     "sourcePage": 82,
     "referenceImages": []
   },
   "AST-05": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-043.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-043.png",
     "width": 1036,
     "height": 333,
     "sourcePage": 83,
     "referenceImages": []
   },
   "FTS-09": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-045.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-045.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 86,
     "referenceImages": []
   },
   "IOT-01": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-046.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-046.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 90,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-046-088.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-046-088.png",
         "width": 787,
         "height": 775,
         "caption": "IMAGE_31 · IMAGE_32 · IMAGE_30",
         "sourcePage": 88
       },
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-046-089.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-046-089.png",
         "width": 1051,
         "height": 568,
         "caption": "IMAGE_32",
@@ -248,27 +248,27 @@ window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
     ]
   },
   "IOT-03": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-048.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-048.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 94,
     "referenceImages": []
   },
   "IOT-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-049.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-049.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 97,
     "referenceImages": []
   },
   "FLB-06": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-051.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-051.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 101,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-051-100.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-051-100.png",
         "width": 1051,
         "height": 863,
         "caption": "IMAGE_028 · IMAGE_029",
@@ -277,27 +277,27 @@ window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
     ]
   },
   "FTS-04": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-052.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-052.png",
     "width": 1036,
     "height": 368,
     "sourcePage": 102,
     "referenceImages": []
   },
   "RIN-14": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-054.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-054.png",
     "width": 1036,
     "height": 1126,
     "sourcePage": 106,
     "referenceImages": []
   },
   "RIN-15": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-055.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-055.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 108,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-055-107.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-055-107.png",
         "width": 972,
         "height": 401,
         "caption": "IMAGE_034",
@@ -306,111 +306,111 @@ window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
     ]
   },
   "FTS-01": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-057.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-057.png",
     "width": 1036,
     "height": 981,
     "sourcePage": 111,
     "referenceImages": []
   },
   "FTS-08": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-058.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-058.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 113,
     "referenceImages": []
   },
   "FTS-12": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-064.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-064.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 123,
     "referenceImages": []
   },
   "FTS-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-068.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-068.png",
     "width": 1036,
     "height": 1210,
     "sourcePage": 130,
     "referenceImages": []
   },
   "FLB-08": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 151,
     "referenceImages": []
   },
   "FLC-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 151,
     "referenceImages": []
   },
   "FCT-10": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 151,
     "referenceImages": []
   },
   "FLC-01": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 151,
     "referenceImages": []
   },
   "FLB-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-083.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-083.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 154,
     "referenceImages": []
   },
   "FLB-09": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-092.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-092.png",
     "width": 1036,
     "height": 1307,
     "sourcePage": 168,
     "referenceImages": []
   },
   "NVL-03": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-094.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-094.png",
     "width": 1036,
     "height": 345,
     "sourcePage": 171,
     "referenceImages": []
   },
   "FLA-21": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-096.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-096.png",
     "width": 1036,
     "height": 1007,
     "sourcePage": 174,
     "referenceImages": []
   },
   "FLB-07": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-100.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-100.png",
     "width": 1036,
     "height": 1082,
     "sourcePage": 180,
     "referenceImages": []
   },
   "PRET-08": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-101.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-101.png",
     "width": 1036,
     "height": 369,
     "sourcePage": 181,
     "referenceImages": []
   },
   "PRET-04": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-102.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-102.png",
     "width": 1036,
     "height": 1284,
     "sourcePage": 184,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-102-183.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-102-183.png",
         "width": 840,
         "height": 724,
         "caption": "IMAGE_027",
@@ -419,42 +419,42 @@ window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
     ]
   },
   "PRET-02": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-103.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-103.png",
     "width": 1036,
     "height": 324,
     "sourcePage": 185,
     "referenceImages": []
   },
   "PRET-01": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-107.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-107.png",
     "width": 1036,
     "height": 1163,
     "sourcePage": 191,
     "referenceImages": []
   },
   "PRET-03": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-107.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-107.png",
     "width": 1036,
     "height": 1163,
     "sourcePage": 191,
     "referenceImages": []
   },
   "PRET-06": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-108.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-108.png",
     "width": 1036,
     "height": 1058,
     "sourcePage": 194,
     "referenceImages": []
   },
   "PRET-05": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-108.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-108.png",
     "width": 1036,
     "height": 1058,
     "sourcePage": 194,
     "referenceImages": []
   },
   "PRET-07": {
-    "src": "./assets/mtf-flowcharts/mtf-flow-108.png",
+    "src": "./assets/flowcharts/mtf/mtf-flow-108.png",
     "width": 1036,
     "height": 1058,
     "sourcePage": 194,
@@ -463,7 +463,7 @@ window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
   "AST-07": {
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-024-055.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-024-055.png",
         "width": 1072,
         "height": 926,
         "caption": "IMAGE_015 · IMAGE_016 · IMAGE_017 · IMAGE_018",
@@ -480,7 +480,7 @@ window.FFDG_MTF_PDF_EXISTING_FLOWCHARTS = {
   "FLA-16": {
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-095-172.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-095-172.png",
         "width": 998,
         "height": 633,
         "caption": "IMAGE_026",
@@ -516,13 +516,13 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-001.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-001.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1105,
     "sourcePdfPage": 18,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-001-017.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-001-017.png",
         "width": 1084,
         "height": 441,
         "caption": "IMAGE_024 · IMAGE_025",
@@ -561,7 +561,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-002.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-002.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1182,
     "sourcePdfPage": 20,
@@ -598,7 +598,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-002.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-002.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1182,
     "sourcePdfPage": 20,
@@ -643,7 +643,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-003.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-003.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 22,
@@ -676,7 +676,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-008.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-008.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 342,
     "sourcePdfPage": 29,
@@ -709,7 +709,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-011.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-011.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 321,
     "sourcePdfPage": 33,
@@ -738,7 +738,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-013.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-013.png",
     "flowchartImageWidth": 1083,
     "flowchartImageHeight": 680,
     "sourcePdfPage": 37,
@@ -767,7 +767,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-013.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-013.png",
     "flowchartImageWidth": 1083,
     "flowchartImageHeight": 680,
     "sourcePdfPage": 37,
@@ -792,7 +792,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-018.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-018.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 343,
     "sourcePdfPage": 44,
@@ -833,7 +833,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-019.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-019.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 46,
@@ -874,7 +874,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-019.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-019.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 46,
@@ -915,7 +915,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-019.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-019.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 46,
@@ -956,7 +956,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-019.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-019.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 46,
@@ -997,7 +997,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-019.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-019.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 46,
@@ -1038,7 +1038,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-019.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-019.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 46,
@@ -1063,7 +1063,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1088,7 +1088,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1113,7 +1113,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1138,7 +1138,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1163,7 +1163,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1188,7 +1188,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1213,7 +1213,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1238,7 +1238,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1263,7 +1263,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1288,7 +1288,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1313,7 +1313,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1338,7 +1338,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1363,7 +1363,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1388,7 +1388,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1413,7 +1413,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1438,7 +1438,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1463,7 +1463,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1488,7 +1488,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1513,7 +1513,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1538,7 +1538,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1563,7 +1563,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1588,7 +1588,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1613,7 +1613,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1638,7 +1638,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1663,7 +1663,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1688,7 +1688,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1713,7 +1713,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1738,7 +1738,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1763,7 +1763,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-021.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-021.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 422,
     "sourcePdfPage": 50,
@@ -1792,7 +1792,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-022.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-022.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 337,
     "sourcePdfPage": 51,
@@ -1833,7 +1833,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-023.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-023.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 53,
@@ -1862,7 +1862,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-026.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-026.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 368,
     "sourcePdfPage": 58,
@@ -1895,7 +1895,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-030.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-030.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 288,
     "sourcePdfPage": 64,
@@ -2074,7 +2074,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "Configuration table:"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-033.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-033.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 501,
     "sourcePdfPage": 68,
@@ -2103,7 +2103,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "Configuration table:"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-033.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-033.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 501,
     "sourcePdfPage": 68,
@@ -2136,7 +2136,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-034.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-034.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 318,
     "sourcePdfPage": 69,
@@ -2173,7 +2173,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-035.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-035.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1147,
     "sourcePdfPage": 71,
@@ -2202,7 +2202,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-037.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-037.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 325,
     "sourcePdfPage": 73,
@@ -2231,7 +2231,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-037.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-037.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 325,
     "sourcePdfPage": 73,
@@ -2260,13 +2260,13 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-038.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-038.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 76,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-038-075.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-038-075.png",
         "width": 913,
         "height": 1110,
         "caption": "IMAGE_011 · IMAGE_012",
@@ -2297,13 +2297,13 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-038.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-038.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 76,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-038-075.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-038-075.png",
         "width": 913,
         "height": 1110,
         "caption": "IMAGE_011 · IMAGE_012",
@@ -2334,13 +2334,13 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-038.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-038.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 76,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-038-075.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-038-075.png",
         "width": 913,
         "height": 1110,
         "caption": "IMAGE_011 · IMAGE_012",
@@ -2371,13 +2371,13 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-038.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-038.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 76,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-038-075.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-038-075.png",
         "width": 913,
         "height": 1110,
         "caption": "IMAGE_011 · IMAGE_012",
@@ -2412,7 +2412,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-039.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-039.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 966,
     "sourcePdfPage": 78,
@@ -2437,7 +2437,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-041.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-041.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 342,
     "sourcePdfPage": 81,
@@ -2462,7 +2462,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-041.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-041.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 342,
     "sourcePdfPage": 81,
@@ -2491,7 +2491,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-042.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-042.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 283,
     "sourcePdfPage": 82,
@@ -2520,7 +2520,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-042.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-042.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 283,
     "sourcePdfPage": 82,
@@ -2545,7 +2545,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-044.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-044.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 385,
     "sourcePdfPage": 84,
@@ -2570,7 +2570,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-044.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-044.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 385,
     "sourcePdfPage": 84,
@@ -2607,7 +2607,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-045.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-045.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 86,
@@ -2644,7 +2644,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-045.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-045.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 86,
@@ -2681,7 +2681,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-045.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-045.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 86,
@@ -2718,7 +2718,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-045.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-045.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 86,
@@ -2755,7 +2755,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-045.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-045.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 86,
@@ -2804,20 +2804,20 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-046.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-046.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 90,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-046-088.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-046-088.png",
         "width": 787,
         "height": 775,
         "caption": "IMAGE_31 · IMAGE_32 · IMAGE_30",
         "sourcePage": 88
       },
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-046-089.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-046-089.png",
         "width": 1051,
         "height": 568,
         "caption": "IMAGE_32",
@@ -2852,7 +2852,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "Reference Tables\nGB200 with Cx7, mlx port mapping (0000 and 2000 models)\nComponent          Left side of tray   Right side of tray\nCx7                mlx5_0, mlx5_1      mlx5_4, mlx5_5\nBF3                mlx5_2, mlx5_3      mlx5_6, mlx5_7\nGB200 with Cx8, mlx port mapping (3000 and 3100 models)\nComponent          Left side of tray   Right side of tray\nCx8                mlx5_0, mlx5_1      mlx5_2, mlx5_3\nBF3                                    mlx5_4, mlx5_5\nGB300 with Cx8, mlx port mapping (3000 model)\nComponent          Left side of tray                        Right side of tray\nCx8                mlx5_0, mlx5_1, mlx5_2, mlx5_3           mlx5_4, mlx5_5, mlx5_6, mlx5_7\nBF3                                                         mlx5_8, mlx5_9"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-047.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-047.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 938,
     "sourcePdfPage": 92,
@@ -2881,7 +2881,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-050.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-050.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 355,
     "sourcePdfPage": 98,
@@ -2926,13 +2926,13 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-051.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-051.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 101,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-051-100.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-051-100.png",
         "width": 1051,
         "height": 863,
         "caption": "IMAGE_028 · IMAGE_029",
@@ -2963,7 +2963,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-052.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-052.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 368,
     "sourcePdfPage": 102,
@@ -3008,7 +3008,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3053,7 +3053,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3098,7 +3098,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3143,7 +3143,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3188,7 +3188,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3233,7 +3233,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3278,7 +3278,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3323,7 +3323,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-053.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-053.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1227,
     "sourcePdfPage": 104,
@@ -3397,7 +3397,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "Reference table\nGB200 with Cx8, mlx port mapping (3000 and 3100 models)\nComponent          Left side of tray   Right side of tray\nCx8                mlx5_0, mlx5_1      mlx5_2, mlx5_3\nBF3                —                   mlx5_4, mlx5_5\nGB300 with Cx8, mlx port mapping (3000 model)\nComponent          Left side of tray                        Right side of tray\nCx8                mlx5_0, mlx5_1, mlx5_2, mlx5_3           mlx5_4, mlx5_5, mlx5_6, mlx5_7\nBF3                —                                        mlx5_8, mlx5_9"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-057.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-057.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 981,
     "sourcePdfPage": 111,
@@ -3434,7 +3434,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-059.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-059.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 985,
     "sourcePdfPage": 115,
@@ -3459,7 +3459,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-060.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-060.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 320,
     "sourcePdfPage": 116,
@@ -3484,7 +3484,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-060.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-060.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 320,
     "sourcePdfPage": 116,
@@ -3509,7 +3509,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-060.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-060.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 320,
     "sourcePdfPage": 116,
@@ -3534,7 +3534,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-060.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-060.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 320,
     "sourcePdfPage": 116,
@@ -3559,7 +3559,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-060.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-060.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 320,
     "sourcePdfPage": 116,
@@ -3592,7 +3592,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-061.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-061.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 975,
     "sourcePdfPage": 118,
@@ -3629,7 +3629,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-062.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-062.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 120,
@@ -3662,7 +3662,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-063.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-063.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 272,
     "sourcePdfPage": 121,
@@ -3707,7 +3707,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "If no TIM issues are found, move to Secondary-Level FA.\nIf a TIM issue is found, redo the TIM, return the system to the L10 test flow, and run FTS again.\nEnsure the system goes through the TIM BAKE station properly."
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-064.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-064.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 123,
@@ -3752,7 +3752,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-065.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-065.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1101,
     "sourcePdfPage": 125,
@@ -3797,7 +3797,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-065.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-065.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1101,
     "sourcePdfPage": 125,
@@ -3826,7 +3826,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-066.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-066.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 363,
     "sourcePdfPage": 126,
@@ -3855,7 +3855,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-066.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-066.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 363,
     "sourcePdfPage": 126,
@@ -3896,7 +3896,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-069.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-069.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1062,
     "sourcePdfPage": 132,
@@ -3937,7 +3937,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-069.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-069.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1062,
     "sourcePdfPage": 132,
@@ -3970,7 +3970,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-070.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-070.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 337,
     "sourcePdfPage": 133,
@@ -4003,7 +4003,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-070.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-070.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 337,
     "sourcePdfPage": 133,
@@ -4036,7 +4036,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-070.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-070.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 337,
     "sourcePdfPage": 133,
@@ -4069,7 +4069,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-070.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-070.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 337,
     "sourcePdfPage": 133,
@@ -4098,7 +4098,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-071.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-071.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 381,
     "sourcePdfPage": 135,
@@ -4135,7 +4135,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-072.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-072.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 341,
     "sourcePdfPage": 136,
@@ -4172,7 +4172,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-072.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-072.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 341,
     "sourcePdfPage": 136,
@@ -4217,7 +4217,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-073.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-073.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1236,
     "sourcePdfPage": 138,
@@ -4262,7 +4262,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-073.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-073.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1236,
     "sourcePdfPage": 138,
@@ -4311,7 +4311,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-074.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-074.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 831,
     "sourcePdfPage": 140,
@@ -4350,7 +4350,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
     "sourcePdfPage": null,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-075-142.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-075-142.png",
         "width": 790,
         "height": 404,
         "caption": "IMAGE_035",
@@ -4391,7 +4391,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
     "sourcePdfPage": null,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-075-142.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-075-142.png",
         "width": 790,
         "height": 404,
         "caption": "IMAGE_035",
@@ -4432,7 +4432,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
     "sourcePdfPage": null,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-075-142.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-075-142.png",
         "width": 790,
         "height": 404,
         "caption": "IMAGE_035",
@@ -4459,7 +4459,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-076.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-076.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 409,
     "sourcePdfPage": 143,
@@ -4484,7 +4484,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-076.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-076.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 409,
     "sourcePdfPage": 143,
@@ -4517,7 +4517,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-077.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-077.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 344,
     "sourcePdfPage": 144,
@@ -4546,7 +4546,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-078.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-078.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 357,
     "sourcePdfPage": 145,
@@ -4579,7 +4579,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-079.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-079.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 364,
     "sourcePdfPage": 146,
@@ -4632,7 +4632,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -4685,7 +4685,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -4738,7 +4738,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -4791,7 +4791,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -4844,7 +4844,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -4897,7 +4897,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -4950,7 +4950,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5003,7 +5003,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5056,7 +5056,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5109,7 +5109,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5162,7 +5162,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5215,7 +5215,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5268,7 +5268,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5321,7 +5321,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": "M.2 SSD Validation Commands\nDisplay detected SSDs and their folder locations\nsudo nvme list\nCheck SSD status (temperature, health, and endurance)\nsudo nvme smart-log /dev/nvme0n1"
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-081.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-081.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 151,
@@ -5358,7 +5358,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-082.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-082.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 345,
     "sourcePdfPage": 152,
@@ -5395,7 +5395,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-082.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-082.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 345,
     "sourcePdfPage": 152,
@@ -5432,7 +5432,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-082.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-082.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 345,
     "sourcePdfPage": 152,
@@ -5469,7 +5469,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-082.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-082.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 345,
     "sourcePdfPage": 152,
@@ -5518,7 +5518,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-083.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-083.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 154,
@@ -5567,7 +5567,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-083.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-083.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 154,
@@ -5592,7 +5592,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-084.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-084.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 351,
     "sourcePdfPage": 155,
@@ -5629,7 +5629,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-085.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-085.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 335,
     "sourcePdfPage": 156,
@@ -5654,7 +5654,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-086.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-086.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 409,
     "sourcePdfPage": 157,
@@ -5747,7 +5747,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
     "sourcePdfPage": null,
     "referenceImages": [
       {
-        "src": "./assets/mtf-reference-images/mtf-reference-088-161.png",
+        "src": "./assets/reference-images/mtf/mtf-reference-088-161.png",
         "width": 959,
         "height": 428,
         "caption": "FFDG PDF · página 161",
@@ -6048,7 +6048,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-090.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-090.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 362,
     "sourcePdfPage": 165,
@@ -6073,7 +6073,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-091.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-091.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 395,
     "sourcePdfPage": 166,
@@ -6106,7 +6106,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-093.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-093.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 170,
@@ -6139,7 +6139,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-093.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-093.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 170,
@@ -6172,7 +6172,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-093.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-093.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1307,
     "sourcePdfPage": 170,
@@ -6209,7 +6209,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-096.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-096.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1007,
     "sourcePdfPage": 174,
@@ -6242,7 +6242,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-097.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-097.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 340,
     "sourcePdfPage": 175,
@@ -6275,7 +6275,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-098.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-098.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 321,
     "sourcePdfPage": 176,
@@ -6320,7 +6320,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-099.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-099.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 753,
     "sourcePdfPage": 178,
@@ -6365,7 +6365,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-099.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-099.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 753,
     "sourcePdfPage": 178,
@@ -6406,7 +6406,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-100.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-100.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 1082,
     "sourcePdfPage": 180,
@@ -6439,7 +6439,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-101.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-101.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 369,
     "sourcePdfPage": 181,
@@ -6472,7 +6472,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-103.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-103.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 324,
     "sourcePdfPage": 185,
@@ -6509,7 +6509,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-104.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-104.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 373,
     "sourcePdfPage": 186,
@@ -6546,7 +6546,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-104.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-104.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 373,
     "sourcePdfPage": 186,
@@ -6571,7 +6571,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-105.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-105.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 319,
     "sourcePdfPage": 187,
@@ -6600,7 +6600,7 @@ window.FFDG_MTF_PDF_ADDITIONS = [
         "detail": ""
       }
     ],
-    "flowchartImage": "./assets/mtf-flowcharts/mtf-flow-106.png",
+    "flowchartImage": "./assets/flowcharts/mtf/mtf-flow-106.png",
     "flowchartImageWidth": 1036,
     "flowchartImageHeight": 326,
     "sourcePdfPage": 188,

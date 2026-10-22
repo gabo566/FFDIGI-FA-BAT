@@ -5648,3 +5648,49 @@ Revisar la fidelidad del PDF frente a la referencia, corregir que las evidencias
 
 - La ruta de datos ahora exige imagen decodificada antes de considerarla lista; el cambio apunta al problema confirmado de carrera con la impresión.
 - La fidelidad final de evidencias, centrado y alineación requiere inspeccionar el PDF generado. La subida a GitHub queda pendiente de esa validación visual.
+
+## 2026-10-22 — Ordenar carpetas y extraer recursos de la página
+
+### Solicitud
+
+Organizar el proyecto estático en carpetas claras, manteniendo `index.html` como entrada de GitHub Pages, conservando la copia local BAT y sin añadir framework ni bundler.
+
+### Estado previo y análisis
+
+- Los estilos y ocho bloques de JavaScript estaban incrustados en `index.html`; otros módulos y recursos gráficos estaban dispersos en la raíz o en carpetas por origen, no por responsabilidad.
+- La página depende del orden de carga de scripts globales, de rutas relativas para imágenes y de funciones de PDF.js/SheetJS. Cambiar ubicaciones sin actualizar consumidores podía romper catálogos, galerías, diagramas o importación.
+- `ffdg_bat.html`, `package.json`, `package-lock.json`, capturas locales y metadatos Windows estaban ignorados/locales; se preservaron y no se trataron como fuentes canónicas ni como archivos prescindibles.
+
+### Solución
+
+- Se movieron los estilos a `src/css/shared`, `src/css/bat` y `src/css/mtf`, conservando el orden y los puntos de carga de las hojas.
+- Se extrajeron los bloques inline de `index.html` a módulos bajo `src/js/`. Los catálogos base ahora viven en `src/js/data/app-catalog.js`; el núcleo de interfaz permanece en `src/js/app/ffdg-app-core.js` para una separación posterior gradual.
+- Se ordenaron imágenes de marca, topología, iconos, flowcharts MTF y 43 referencias MTF bajo `assets/`. Los 263 recursos visuales/de vendor movidos conservaron su contenido (comparación de hash de Git normalizado). Se dejó `assets/reference-images/bat/` reservado, sin imágenes BAT nuevas.
+- PDF.js y SheetJS permanecen locales dentro de `vendor/` con sus licencias. Se actualizaron rutas en ambas páginas HTML, CSS, JavaScript y módulos; el mapa MTF además normaliza alias antiguos de recursos guardados en navegador.
+- Se actualizaron `README.md`, `AGENTS.md` y `docs/CONTEXTO_FFDIGI.md` para reflejar arquitectura, entradas, rutas y deuda restante. La copia local `ffdg_bat.html` solo recibió actualización de rutas necesarias; `index.html` continúa como fuente canónica.
+
+### Archivos y áreas modificadas
+
+- `index.html` — enlaces CSS/JS locales sustituyen los ocho bloques inline; conserva markup y orden de carga.
+- `src/css/` — cuatro hojas extraídas y los estilos existentes reubicados por ámbito.
+- `src/js/` — ocho scripts extraídos, catálogo base separado y módulos existentes reubicados por responsabilidad.
+- `assets/` y `vendor/` — recursos organizados en carpetas temáticas con licencias locales.
+- `docs/CONTEXTO_FFDIGI.md`, `docs/design-qa.md` — reubicados bajo `docs/`; se actualizó el contexto técnico.
+- `README.md`, `AGENTS.md` — instrucciones y estructura actualizadas.
+- `ffdg_bat.html` — copia local ignorada; solo rutas de recursos reubicados.
+
+### Validación
+
+- Node verificó sintaxis de 18 scripts JavaScript más SheetJS; el importador ES module también se parseó como módulo.
+- Un control estático comprobó 65 referencias HTML/CSS/import y 292 rutas literales de recursos en JavaScript; no encontró archivos faltantes.
+- El servidor HTTP local y el navegador de escritorio cargaron ambas entradas. BAT NDBG_080 mostró pasos, SVG y controles; MTF FLA-07 mostró su flowchart; la galería abrió una referencia. No hubo imágenes rotas ni errores en consola.
+- `ffdg_bat.html` se sirvió con HTTP 200 y sus recursos consultados cargaron sin error. No se afirmó prueba del flujo Excel importado/restaurado.
+- `git diff --check` terminó sin errores de whitespace; Git mostró solo su aviso normal de conversión LF/CRLF para `index.html`.
+- No se ejecutó build: el proyecto es estático y no define proceso de compilación. No se hizo commit ni push.
+
+### Resultado, pendientes y riesgos
+
+- La raíz conserva las entradas y archivos de guía/configuración. Los estilos, scripts, datos, recursos, vendors y documentación tienen ahora ubicaciones por propósito.
+- `src/js/app/ffdg-app-core.js` aún es grande; su división adicional queda para una tarea separada con pruebas de regresión.
+- La prueba final fue de escritorio. Quedan pendientes restauración de catálogos MTF antiguos desde `localStorage` y validación móvil/tableta.
+- La reorganización permanece local en `develop`, actualmente 40 commits por delante de `origin/develop`; no se publicó.
