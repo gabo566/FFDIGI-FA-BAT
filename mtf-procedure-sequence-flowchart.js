@@ -36,7 +36,7 @@
     if (!container || !Array.isArray(steps) || !steps.length) return false;
 
     const width = 760;
-    const nodeWidth = 672;
+    const nodeWidth = 730;
     const left = (width - nodeWidth) / 2;
     const center = width / 2;
     const gap = 24;

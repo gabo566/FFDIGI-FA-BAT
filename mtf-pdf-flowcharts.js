@@ -265,9 +265,18 @@
     };
 
     const columnCount = xGroups.length;
-    const canvasWidth = Math.max(1500, (columnCount - 1) * 240 + 240);
-    const left = 120, right = canvasWidth - 120;
-    const columnGap = columnCount > 1 ? (right - left) / (columnCount - 1) : 0;
+    const baseCanvasWidth = Math.max(1500, (columnCount - 1) * 240 + 240);
+    const baseLeft = 120, baseRight = baseCanvasWidth - 120;
+    const baseColumnGap = columnCount > 1 ? (baseRight - baseLeft) / (columnCount - 1) : 0;
+    const nodeWidth = Math.max(150, Math.min(320, baseColumnGap ? baseColumnGap * 0.92 : 315));
+    const minimumConnectorGap = 58;
+    const columnGap = columnCount > 1
+      ? Math.max(baseColumnGap, nodeWidth + 16 + minimumConnectorGap)
+      : 0;
+    const canvasWidth = columnCount > 1
+      ? Math.max(baseCanvasWidth, (columnCount - 1) * columnGap + 240)
+      : baseCanvasWidth;
+    const left = 120;
     const columnForRank = rank => rank;
     const fontSize = 26;
     const wrapText = (value, limit) => {
@@ -283,11 +292,15 @@
       return lines.length ? lines : [""];
     };
 
-    const nodeWidth = Math.max(132, Math.min(232, columnGap ? columnGap * 0.76 : 230));
+    const previousNodeWidth = Math.max(150, Math.min(300, baseColumnGap ? baseColumnGap * 0.9 : 288));
+    const terminalNodeIds = new Set(rawEdges.map(edge => edge.from));
     const laidOut = positioned.map(node => {
       const col = columnForRank(groupIndex(node.axisX, xGroups));
       const lane = groupIndex(node.axisY, yGroups);
-      const width = node.sourceType === "decision" ? Math.min(nodeWidth + 32, 272) : nodeWidth;
+      const isEscalationTerminal = !terminalNodeIds.has(node.id) && /secondary-level|escalat/i.test(node.text);
+      const width = isEscalationTerminal
+        ? previousNodeWidth
+        : node.sourceType === "decision" ? Math.min(nodeWidth + 16, 336) : nodeWidth;
       const lines = wrapText(node.text, Math.max(10, Math.floor((width - 28) / 14)));
       const height = Math.max(node.sourceType === "decision" ? 126 : 94, lines.length * 33 + (node.sourceType === "decision" ? 52 : 34));
       return {
@@ -321,8 +334,10 @@
       outgoingCount.set(edge.from, (outgoingCount.get(edge.from) || 0) + 1);
     });
     const actionNodes = finalNodes.filter(node => node.type !== "decision" && (outgoingCount.get(node.id) || 0) > 0);
+    const safeActiveIndex = Math.max(0, Math.min(actionNodes.length - 1, Number(activeIndex) || 0));
     actionNodes.forEach((node, index) => {
-      if (index === Math.max(0, Math.min(actionNodes.length - 1, Number(activeIndex) || 0))) node.active = true;
+      if (index < safeActiveIndex) node.completed = true;
+      if (index === safeActiveIndex) node.active = true;
     });
     finalNodes.forEach(node => {
       if (node.type === "decision") return;
@@ -364,7 +379,10 @@
       const lineHeight = 31;
       const startY = node.y - ((node.lines.length - 1) * lineHeight) / 2 + 8;
       const text = node.lines.map((line, index) => '<tspan x="' + node.x + '" y="' + (startY + index * lineHeight) + '">' + escape(line) + "</tspan>").join("");
-      return '<g class="mtf-flow-node mtf-flow-node-' + node.type + '">' + shape
+      const escalationClass = node.type === "end" && /secondary-level|escalat/i.test(node.text) ? " mtf-flow-node-escalation" : "";
+      const activeClass = node.active ? " is-active" : "";
+      const completedClass = node.completed ? " is-complete" : "";
+      return '<g class="mtf-flow-node mtf-flow-node-' + node.type + escalationClass + activeClass + completedClass + '">' + shape
         + '<text text-anchor="middle" font-size="' + fontSize + '" font-weight="700" fill="var(--md-sys-color-on-surface)">' + text + "</text></g>";
     };
 
@@ -389,8 +407,10 @@
         labelX = (sx + ex) / 2;
         labelY = loopY - 8;
       }
+      const normalizedLabel = String(edge.label || "").trim();
+      const resultClass = /^pass\b/i.test(normalizedLabel) ? " is-pass" : /^fail\b/i.test(normalizedLabel) ? " is-fail" : "";
       const label = edge.label ? '<text x="' + labelX + '" y="' + labelY + '" text-anchor="middle" font-size="23" font-weight="800" fill="var(--md-sys-color-on-surface-variant)" stroke="var(--md-sys-color-surface)" stroke-width="9" paint-order="stroke">' + escape(edge.label) + "</text>" : "";
-      return '<g class="mtf-flow-edge"><path d="' + path + '" fill="none" stroke="var(--md-sys-color-primary)" stroke-width="3" marker-end="url(#' + markerId + ')"/>' + label + "</g>";
+      return '<g class="mtf-flow-edge' + resultClass + '"><path d="' + path + '" fill="none" stroke="var(--md-sys-color-primary)" stroke-width="3" marker-end="url(#' + markerId + ')"/>' + label + "</g>";
     }).join("");
 
     const description = rawNodes.map(node => node.text).join(". ");

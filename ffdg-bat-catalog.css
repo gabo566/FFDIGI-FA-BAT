@@ -50,7 +50,7 @@
   position: relative;
   z-index: 1;
   display: flex;
-  min-height: 46px;
+  min-height: 50px;
   flex-direction: column;
   justify-content: center;
   padding: 5px 8px !important;
@@ -64,7 +64,7 @@
 }
 
 #bat-failure-detail .bat-detail-grid > .bento-block-1 > .bento-meta-item {
-  min-height: 46px;
+  min-height: 50px;
   padding: 5px 8px;
   box-sizing: border-box;
 }
@@ -149,6 +149,802 @@
   line-height: 1;
 }
 
+/* No Boot: ayuda contextual junto al número, sin añadir altura a cada paso. */
+#step-question.bat-no-boot-question {
+  font-size: 16px !important;
+}
+
+#bat-failure-detail #bat-detail-steps .bat-detail-step-help {
+  display: inline-grid;
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #2f6b00;
+  border-radius: 50%;
+  background: #2f6b00;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color var(--motion-control, 160ms) ease, border-color var(--motion-control, 160ms) ease;
+}
+
+#bat-failure-detail #bat-detail-steps .bat-detail-step-help-icon {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: #e7ffb3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+#bat-failure-detail #bat-detail-steps .bat-detail-step-help:hover {
+  border-color: #245400;
+  background: #245400;
+}
+
+#bat-failure-detail #bat-detail-steps .bat-detail-step-help:focus-visible {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 3px;
+}
+
+.bat-no-boot-suggestion-dialog {
+  width: min(580px, calc(100% - 24px));
+  max-height: min(84dvh, 760px);
+}
+
+.bat-no-boot-suggestion-dialog .mtf-case-form {
+  gap: 12px;
+}
+
+.bat-no-boot-suggestion-copy {
+  margin: 0;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.bat-no-boot-suggestion-fail {
+  border-left: 4px solid var(--md-sys-color-error);
+}
+
+/* Captura No Boot: composición ejecutiva basada en la referencia seleccionada. */
+.bat-no-boot-report-dialog {
+  width: min(1120px, calc(100% - 28px));
+  max-width: 1120px;
+  max-height: min(94dvh, 980px);
+  overflow: hidden;
+  border-color: #263b55;
+  border-radius: 14px;
+  color: #edf3fa;
+  background: #0c1115;
+}
+
+.bat-no-boot-report-dialog::backdrop {
+  background: rgba(3, 7, 10, .78);
+}
+
+.bat-no-boot-report-form {
+  display: grid;
+  max-height: min(94dvh, 980px);
+  gap: 6px;
+  padding: 14px 16px 0;
+  overflow: auto;
+  color: #edf3fa;
+  background: #0c1115;
+  scrollbar-color: #405368 #11191e;
+}
+
+.bat-no-boot-report-topbar,
+.bat-no-boot-report-brand,
+.bat-no-boot-report-topbar-action {
+  display: flex;
+  align-items: center;
+}
+
+.bat-no-boot-report-topbar {
+  position: sticky;
+  z-index: 2;
+  top: -14px;
+  justify-content: space-between;
+  gap: 16px;
+  margin: -14px -16px 0;
+  padding: 12px 18px;
+  border-bottom: 1px solid #25323a;
+  color: #f7fafc;
+  background: #080c0f;
+}
+
+.bat-no-boot-report-brand,
+.bat-no-boot-report-topbar-action {
+  min-width: 0;
+  gap: 12px;
+}
+
+.bat-no-boot-report-logo {
+  width: 156px;
+  height: 48px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.bat-no-boot-report-brand strong {
+  color: #f4f7fa;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.bat-no-boot-report-brand span:last-child {
+  color: #bdc9d5;
+  font-size: 13px;
+}
+
+.bat-no-boot-report-topbar-action > h2 {
+  margin: 0;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #76b900;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.bat-no-boot-report-dialog .flowchart-modal-close {
+  flex: 0 0 auto;
+  color: #dce5ed;
+  background: transparent;
+}
+
+.bat-no-boot-report-dialog .flowchart-modal-close:hover {
+  color: #fff;
+  background: #24313a;
+}
+
+.bat-no-boot-report-help {
+  margin: 0;
+  color: #9eacb8;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.bat-no-boot-report-panel {
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #2b3942;
+  border-radius: 8px;
+  color: #edf3fa;
+  background: #11191e;
+}
+
+.bat-no-boot-report-panel-heading {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.bat-no-boot-report-panel-heading > img {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(54%) sepia(87%) saturate(533%) hue-rotate(39deg) brightness(102%) contrast(101%);
+}
+
+.bat-no-boot-report-panel-heading h2 {
+  margin: 0;
+  color: #f2f6fa;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.bat-no-boot-report-panel-heading p {
+  margin: 3px 0 0;
+  color: #9eacb8;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.bat-no-boot-report-identity {
+  display: grid;
+  grid-template-columns: minmax(190px, .75fr) minmax(0, 2.25fr);
+  align-items: center;
+  gap: 14px;
+  border-color: #1e3d68;
+  background: #0d1d32;
+}
+
+.bat-no-boot-report-identity .bat-no-boot-report-panel-heading {
+  margin: 0;
+}
+
+.bat-no-boot-report-identity .bat-no-boot-report-panel-heading > img,
+.bat-no-boot-report-evidence .bat-no-boot-report-panel-heading > img {
+  filter: brightness(0) saturate(100%) invert(67%) sepia(48%) saturate(1302%) hue-rotate(184deg) brightness(103%) contrast(101%);
+}
+
+.bat-no-boot-report-identity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+  gap: 10px;
+}
+
+.bat-no-boot-report-form label,
+.bat-no-boot-report-readonly {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+  color: #c2cfdb;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.bat-no-boot-report-readonly > span {
+  color: #9eb3ca;
+  font-size: 9px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.bat-no-boot-report-readonly > div {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 7px 9px;
+  border: 1px solid #39516a;
+  border-radius: 6px;
+  color: #e7edf3;
+  background: #101d2c;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+.bat-no-boot-report-summary-value {
+  font-weight: 750;
+}
+
+.bat-no-boot-report-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 8px;
+}
+
+.bat-no-boot-report-column {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 6px;
+}
+
+.bat-no-boot-report-fields {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 6px 8px;
+}
+
+.bat-no-boot-report-fields > label {
+  width: 100%;
+  align-self: start;
+}
+
+.bat-no-boot-report-fields > label > .m3-input,
+.bat-no-boot-report-fields > label > .m3-select,
+.bat-no-boot-report-fields > label > .m3-textarea {
+  width: 100%;
+  max-width: 100%;
+}
+
+#bat-no-boot-report-root-cause,
+#bat-no-boot-report-actions {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+.bat-no-boot-report-hardware {
+  display: grid;
+  grid-template-columns: minmax(95px, .65fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 6px 8px;
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid #2b3942;
+}
+
+.bat-no-boot-report-hardware h3 {
+  align-self: center;
+  margin: 0;
+  color: #d9e3ec;
+  font-size: 11px;
+}
+
+.bat-no-boot-hardware-details {
+  grid-column: 1 / -1;
+}
+
+.bat-no-boot-report-form .m3-input,
+.bat-no-boot-report-form .m3-select,
+.bat-no-boot-report-form .m3-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  border: 1px solid #405368;
+  border-radius: 6px;
+  color: #f0f4f8;
+  background: #101820;
+  font-size: 11px;
+}
+
+.bat-no-boot-report-form .m3-input::placeholder,
+.bat-no-boot-report-form .m3-textarea::placeholder {
+  color: #92a0ad;
+}
+
+.bat-no-boot-report-form .m3-input:focus-visible,
+.bat-no-boot-report-form .m3-select:focus-visible,
+.bat-no-boot-report-form .m3-textarea:focus-visible {
+  border-color: #78aef0;
+  outline: 2px solid #78aef0;
+  outline-offset: 1px;
+}
+
+.bat-no-boot-report-form .m3-textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.bat-no-boot-report-form select option {
+  color: #f0f4f8;
+  background: #101820;
+}
+
+.bat-no-boot-report-evidence {
+  border-color: #1e3d68;
+  background: #0d1d32;
+}
+
+#bat-no-boot-report-dialog #bat-no-boot-evidence {
+  display: block;
+  margin: 0;
+}
+
+.bat-no-boot-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.bat-no-boot-evidence-card {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #315079;
+  border-radius: 7px;
+  background: #0e1b2b;
+}
+
+.bat-no-boot-evidence-card h3 {
+  margin: 0 0 4px;
+  color: #e6edf5;
+  font-size: 11px;
+}
+
+.bat-no-boot-evidence-card p {
+  margin: 0 0 8px;
+  color: #9eafc2;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.bat-no-boot-evidence-card input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.bat-no-boot-evidence-button {
+  display: grid;
+  width: 100%;
+  min-height: 72px;
+  place-content: center;
+  gap: 5px;
+  padding: 8px;
+  border: 1px dashed #536b85;
+  border-radius: 6px;
+  color: #d4dfeb;
+  background: #0d1928;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bat-no-boot-evidence-button::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  justify-self: center;
+  background: center / contain no-repeat url("./assets/ui-icons/images.svg");
+  filter: brightness(0) saturate(100%) invert(67%) sepia(48%) saturate(1302%) hue-rotate(184deg) brightness(103%) contrast(101%);
+}
+
+.bat-no-boot-evidence-button:hover {
+  border-color: #85b9f5;
+  background: #12233a;
+}
+
+.bat-no-boot-evidence-button:focus-visible,
+.bat-no-boot-report-actions button:focus-visible {
+  outline: 2px solid #91c1fa;
+  outline-offset: 2px;
+}
+
+.bat-no-boot-evidence-preview {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.bat-no-boot-evidence-preview figure {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid #315079;
+  border-radius: 6px;
+  color: #e6edf5;
+  background: #111d2b;
+  font-size: 10px;
+}
+
+.bat-no-boot-evidence-preview img {
+  width: 40px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.bat-no-boot-evidence-preview label {
+  grid-column: 2;
+  display: grid;
+  gap: 3px;
+  color: #bdc9d5;
+  font-size: 9px;
+}
+
+.bat-no-boot-evidence-preview input {
+  position: static;
+  width: 100%;
+  height: auto;
+  clip-path: none;
+  padding: 5px 7px;
+  border: 1px solid #405368;
+  border-radius: 5px;
+  color: #f0f4f8;
+  background: #101820;
+  font: inherit;
+}
+
+.bat-no-boot-report-status {
+  min-height: 0;
+  margin: 0;
+  color: #c1ccd7;
+  font-size: 11px;
+}
+
+.bat-no-boot-report-actions {
+  position: sticky;
+  z-index: 2;
+  bottom: -1px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 -16px;
+  padding: 10px 16px;
+  border-top: 1px solid #26343c;
+  background: #0c1115;
+}
+
+.bat-no-boot-report-actions > button {
+  min-height: 38px;
+}
+
+.bat-no-boot-report-actions > button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-color: #76b900;
+  color: #fff;
+  background: #2f6b00;
+}
+
+.bat-no-boot-report-actions > button[type="submit"] img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+.bat-no-boot-report-actions > button[type="submit"]:hover {
+  background: #397b00;
+}
+
+/* El reporte acompaña el tema global: el modo día conserva superficies blancas. */
+[data-theme="light"] .bat-no-boot-report-dialog {
+  border-color: #d8dfd6;
+  color: #1d271f;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-no-boot-report-dialog::backdrop {
+  background: rgba(20, 28, 22, .46);
+}
+
+[data-theme="light"] .bat-no-boot-report-form {
+  color: #1d271f;
+  background: #fff;
+  scrollbar-color: #c7d0c5 #f3f5f1;
+}
+
+[data-theme="light"] .bat-no-boot-report-topbar {
+  border-color: #e0e5df;
+  color: #1d271f;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-no-boot-report-logo {
+  filter: invert(1);
+}
+
+[data-theme="light"] .bat-no-boot-report-brand strong,
+[data-theme="light"] .bat-no-boot-report-panel-heading h2 {
+  color: #17231a;
+}
+
+[data-theme="light"] .bat-no-boot-report-brand span:last-child,
+[data-theme="light"] .bat-no-boot-report-help,
+[data-theme="light"] .bat-no-boot-report-panel-heading p {
+  color: #59665b;
+}
+
+[data-theme="light"] .bat-no-boot-report-topbar-action > h2 {
+  color: #1d271f;
+}
+
+[data-theme="light"] .bat-no-boot-report-dialog .flowchart-modal-close {
+  color: #3e4b40;
+}
+
+[data-theme="light"] .bat-no-boot-report-dialog .flowchart-modal-close:hover {
+  color: #1d271f;
+  background: #edf2e9;
+}
+
+[data-theme="light"] .bat-no-boot-report-panel {
+  border-color: #d7ded4;
+  color: #1d271f;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-no-boot-report-identity,
+[data-theme="light"] .bat-no-boot-report-evidence {
+  border-color: #d7e0d2;
+  background: #f7f9f5;
+}
+
+[data-theme="light"] .bat-no-boot-report-identity .bat-no-boot-report-panel-heading > img,
+[data-theme="light"] .bat-no-boot-report-evidence .bat-no-boot-report-panel-heading > img {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(53%) saturate(1250%) hue-rotate(52deg) brightness(91%) contrast(102%);
+}
+
+[data-theme="light"] .bat-no-boot-report-form label,
+[data-theme="light"] .bat-no-boot-report-readonly {
+  color: #38473a;
+}
+
+[data-theme="light"] .bat-no-boot-report-readonly > span {
+  color: #4f6950;
+}
+
+[data-theme="light"] .bat-no-boot-report-readonly > div {
+  border-color: #d5ddd1;
+  color: #1d271f;
+  background: #f7f9f5;
+}
+
+[data-theme="light"] .bat-no-boot-report-hardware {
+  border-color: #dce3d9;
+}
+
+[data-theme="light"] .bat-no-boot-report-hardware h3 {
+  color: #344638;
+}
+
+[data-theme="light"] .bat-no-boot-report-form .m3-input,
+[data-theme="light"] .bat-no-boot-report-form .m3-select,
+[data-theme="light"] .bat-no-boot-report-form .m3-textarea,
+[data-theme="light"] .bat-no-boot-evidence-preview input {
+  border-color: #c8d2c5;
+  color: #1d271f;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-no-boot-report-form .m3-input::placeholder,
+[data-theme="light"] .bat-no-boot-report-form .m3-textarea::placeholder {
+  color: #778278;
+}
+
+[data-theme="light"] .bat-no-boot-report-form .m3-input:focus-visible,
+[data-theme="light"] .bat-no-boot-report-form .m3-select:focus-visible,
+[data-theme="light"] .bat-no-boot-report-form .m3-textarea:focus-visible {
+  border-color: #4a8a12;
+  outline-color: #4a8a12;
+}
+
+[data-theme="light"] .bat-no-boot-report-form select option {
+  color: #1d271f;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-no-boot-evidence-card {
+  border-color: #d5ddd1;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-no-boot-evidence-card h3,
+[data-theme="light"] .bat-no-boot-evidence-preview figure {
+  color: #263329;
+}
+
+[data-theme="light"] .bat-no-boot-evidence-card p,
+[data-theme="light"] .bat-no-boot-evidence-preview label {
+  color: #5d695f;
+}
+
+[data-theme="light"] .bat-no-boot-evidence-button {
+  border-color: #aebda8;
+  color: #2f6b00;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-no-boot-evidence-button::before {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(53%) saturate(1250%) hue-rotate(52deg) brightness(91%) contrast(102%);
+}
+
+[data-theme="light"] .bat-no-boot-evidence-button:hover {
+  border-color: #76a64b;
+  background: #f2f7ed;
+}
+
+[data-theme="light"] .bat-no-boot-evidence-preview figure {
+  border-color: #d5ddd1;
+  background: #f7f9f5;
+}
+
+[data-theme="light"] .bat-no-boot-report-status {
+  color: #47564a;
+}
+
+[data-theme="light"] .bat-no-boot-report-actions {
+  border-color: #dce3d9;
+  background: #fff;
+}
+
+@media (max-width: 980px) {
+  .bat-no-boot-report-identity {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bat-no-boot-report-identity-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .bat-no-boot-suggestion-dialog {
+    max-height: calc(100dvh - 24px);
+  }
+
+  .bat-no-boot-report-dialog {
+    width: calc(100% - 16px);
+    max-height: calc(100dvh - 16px);
+    border-radius: 10px;
+  }
+
+  .bat-no-boot-report-form {
+    max-height: calc(100dvh - 16px);
+    gap: 8px;
+    padding: 10px 10px 0;
+  }
+
+  .bat-no-boot-report-topbar {
+    top: -10px;
+    margin: -10px -10px 0;
+    padding: 9px 10px;
+    flex-wrap: wrap;
+  }
+
+  .bat-no-boot-report-brand {
+    flex: 1 1 100%;
+  }
+
+  .bat-no-boot-report-topbar-action {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .bat-no-boot-report-brand,
+  .bat-no-boot-report-topbar-action {
+    gap: 7px;
+  }
+
+  .bat-no-boot-report-logo {
+    width: 92px;
+    height: 30px;
+  }
+
+  .bat-no-boot-report-brand strong {
+    font-size: 12px;
+  }
+
+  .bat-no-boot-report-brand span:last-child,
+  .bat-no-boot-report-topbar-action > h2 {
+    font-size: 10px;
+  }
+
+  .bat-no-boot-report-columns,
+  .bat-no-boot-report-fields,
+  .bat-no-boot-report-identity-grid,
+  .bat-no-boot-evidence-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bat-no-boot-report-panel {
+    padding: 10px;
+  }
+
+  .bat-no-boot-report-panel-heading > img {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+  }
+
+  .bat-no-boot-report-hardware {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bat-no-boot-hardware-details {
+    grid-column: 1;
+  }
+
+  .bat-no-boot-report-actions {
+    margin-inline: -10px;
+    padding-inline: 10px;
+  }
+
+  .bat-no-boot-report-actions > button {
+    flex: 1 1 0;
+    padding-inline: 9px;
+  }
+}
+
 @media screen and (min-width: 1081px) {
   #bat-failure-detail {
     height: max(420px, calc(100dvh - 284px));
@@ -198,8 +994,8 @@
     flex: 1 1 0;
     min-height: 0;
     overflow-y: auto;
-    align-content: stretch;
-    grid-auto-rows: minmax(48px, 1fr);
+    align-content: start;
+    grid-auto-rows: max-content;
     gap: 6px !important;
   }
 
@@ -288,8 +1084,8 @@
 
 @media screen and (min-width: 1081px) {
   #bat-failure-detail .bat-detail-grid > .bento-block-1 > .bento-meta-item {
-    flex: 1 1 46px;
-    min-height: 46px;
+    flex: 0 0 auto;
+    min-height: 50px;
     padding: 5px 8px;
     align-content: center;
     box-sizing: border-box;

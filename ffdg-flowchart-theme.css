@@ -1,0 +1,226 @@
+/* Paleta sólida de lectura ejecutiva para diagramas SVG generados.
+   Las imágenes fuente del PDF no se seleccionan ni se recolorean. */
+:root {
+  --ffdg-flow-action: #dcebdc;
+  --ffdg-flow-action-border: #7b9c7e;
+  --ffdg-flow-action-text: #28492e;
+  --ffdg-flow-decision: #d6b875;
+  --ffdg-flow-decision-text: #283341;
+  --ffdg-flow-success: #4c775a;
+  --ffdg-flow-success-text: #ffffff;
+  --ffdg-flow-failure: #a85e5e;
+  --ffdg-flow-failure-text: #ffffff;
+  --ffdg-flow-connector: #788797;
+  --ffdg-flow-pass: #4c775a;
+}
+
+/* Fondo limpio para que destaquen los nodos, también en el modal ampliado. */
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-layout #mtf-detail #mtf-flowchart-diagram, #mtf-flowchart-modal-content) {
+  background: #ffffff !important;
+}
+
+/* BAT: se conserva íntegro el SVG y solo se colorean sus clases existentes. */
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-l {
+  stroke: var(--ffdg-flow-connector);
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-lr {
+  stroke: var(--ffdg-flow-failure);
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-ar {
+  fill: var(--ffdg-flow-connector);
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-arr {
+  fill: var(--ffdg-flow-failure);
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g .fc-n {
+  fill: var(--ffdg-flow-action);
+  stroke: var(--ffdg-flow-action-border);
+  stroke-width: 1.7;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g text {
+  fill: var(--ffdg-flow-action-text);
+}
+
+/* BAT: pasos en verde y avance reflejado en el diagrama, ligado al índice real. */
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-pending .fc-n {
+  fill: #dcebdc !important;
+  stroke: #7b9c7e !important;
+  stroke-width: 2 !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-pending text {
+  fill: #28492e !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-active .fc-n {
+  fill: #4c775a !important;
+  stroke: #a8d69a !important;
+  stroke-width: 4 !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-active text,
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-complete text {
+  fill: #ffffff !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.fc-step.is-complete .fc-n {
+  fill: #356844 !important;
+  stroke: #285638 !important;
+  stroke-width: 2.5 !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-g.on .fc-n {
+  stroke: #d8e4ec;
+  stroke-width: 2;
+  filter: none !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-dm .fc-n {
+  fill: var(--ffdg-flow-decision) !important;
+  stroke: #b19350 !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-dm text {
+  fill: var(--ffdg-flow-decision-text) !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-ok .fc-n {
+  fill: var(--ffdg-flow-success) !important;
+  stroke: #3d664a !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-ok text,
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-er text {
+  fill: #ffffff !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-er .fc-n {
+  fill: var(--ffdg-flow-failure) !important;
+  stroke: #944f4f !important;
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-p {
+  fill: var(--ffdg-flow-pass);
+}
+
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-f {
+  fill: var(--ffdg-flow-failure);
+}
+
+/* MTF: únicamente diagramas SVG vectoriales; los SVG que envuelven PNG fuente
+   usan .mtf-pdf-flowchart-source y quedan deliberadamente fuera del tema. */
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg defs marker path {
+  fill: var(--ffdg-flow-connector) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-edge path {
+  stroke: var(--ffdg-flow-connector) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-edge.is-pass path {
+  stroke: var(--ffdg-flow-pass) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-edge.is-fail path {
+  stroke: var(--ffdg-flow-failure) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-edge.is-pass text {
+  fill: var(--ffdg-flow-pass) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-edge.is-fail text {
+  fill: var(--ffdg-flow-failure) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node:is(.mtf-flow-node-action, .mtf-flow-node-start) rect {
+  fill: var(--ffdg-flow-action) !important;
+  stroke: var(--ffdg-flow-action-border) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node:is(.mtf-flow-node-action, .mtf-flow-node-start) text {
+  fill: var(--ffdg-flow-action-text) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node.is-active rect {
+  fill: #4c775a !important;
+  stroke: #a8d69a !important;
+  stroke-width: 5 !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node.is-active text {
+  fill: var(--ffdg-flow-success-text) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node.is-complete rect {
+  fill: #356844 !important;
+  stroke: #285638 !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node.is-complete text {
+  fill: #ffffff !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-decision polygon {
+  fill: var(--ffdg-flow-decision) !important;
+  stroke: #b19350 !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-decision text {
+  fill: var(--ffdg-flow-decision-text) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-end rect {
+  fill: var(--ffdg-flow-success) !important;
+  stroke: #3d664a !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-end text {
+  fill: var(--ffdg-flow-success-text) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-escalation rect {
+  fill: var(--ffdg-flow-failure) !important;
+  stroke: #944f4f !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node-escalation text {
+  fill: var(--ffdg-flow-failure-text) !important;
+}
+
+/* Fallback MTF basado solo en pasos: no se agregan nodos ni decisiones. */
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node rect {
+  fill: var(--ffdg-flow-action) !important;
+  stroke: var(--ffdg-flow-action-border) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node text {
+  fill: var(--ffdg-flow-action-text) !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-done rect,
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-active rect {
+  fill: var(--ffdg-flow-success) !important;
+  stroke: #3d664a !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-active rect {
+  stroke: #a8d69a !important;
+  stroke-width: 4 !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-node.is-done:not(.is-active) rect {
+  fill: #356844 !important;
+  stroke: #285638 !important;
+}
+
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart .mtf-procedure-step-arrow,
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-procedure-step-flowchart defs marker path {
+  stroke: var(--ffdg-flow-connector) !important;
+  fill: var(--ffdg-flow-connector) !important;
+}

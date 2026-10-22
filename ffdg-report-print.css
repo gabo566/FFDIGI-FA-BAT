@@ -1,0 +1,900 @@
+/* Reporte ejecutivo BAT No Boot: capa exclusiva de impresión. */
+@media print {
+  #bat-print-report:not(.bat-executive-report) .bat-print-section-number {
+    display: none !important;
+  }
+
+  #bat-print-report.bat-executive-report {
+    color: #18364f !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    line-height: 1.25;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #bat-print-report.bat-executive-report .print-head,
+  #bat-print-report.bat-executive-report #bat-print-summary-title,
+  #bat-print-report.bat-executive-report #bat-print-verdict,
+  #bat-print-report.bat-executive-report #bat-print-continuation {
+    display: none !important;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-header:not(.hidden) {
+    display: grid !important;
+    gap: 2mm;
+    margin: 0 0 2mm;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-brand-row {
+    display: flex;
+    min-height: 12mm;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5mm;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-brands {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 3mm;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-nvidia-logo {
+    display: block;
+    width: 43mm;
+    max-height: 13mm;
+    object-fit: contain;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-ingrasys-logo {
+    display: block;
+    width: 35mm;
+    max-height: 12mm;
+    object-fit: contain;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-brand-divider {
+    width: 0;
+    height: 11mm;
+    border-left: .35mm solid #9aaab8;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-date {
+    display: grid;
+    gap: 1mm;
+    color: #18364f;
+    text-align: right;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-date span {
+    color: #526b7e;
+    font-size: 6.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-date strong {
+    font-size: 9pt;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-date small {
+    margin-top: .5mm;
+    color: #526b7e;
+    font-size: 6pt;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report #bat-print-executive-time {
+    color: #17364f;
+    font-size: 7pt;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4mm;
+    min-height: 17mm;
+    padding: 3mm 4mm;
+    border-left: 2mm solid #76b900;
+    border-radius: 1.5mm;
+    color: #fff !important;
+    background: #18364f !important;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band h1 {
+    margin: 0;
+    color: #fff !important;
+    font-size: 15pt;
+    font-weight: 800;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band p {
+    margin: 1.5mm 0 0;
+    color: #d8e4ed !important;
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band > span {
+    flex: 0 0 auto;
+    color: #cde7a7 !important;
+    font-size: 7pt;
+    font-weight: 800;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-section {
+    display: flex;
+    min-height: 7mm;
+    align-items: center;
+    gap: 2mm;
+    margin: 2mm 0 1.5mm;
+    padding: 1mm 2mm;
+    border: 0;
+    border-radius: 1mm;
+    color: #fff !important;
+    background: #18364f !important;
+    font-size: 8.5pt;
+    font-weight: 800;
+    line-height: 1.15;
+    break-inside: avoid;
+    break-after: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-section::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-section-number {
+    display: inline-grid;
+    width: 6mm;
+    height: 6mm;
+    flex: 0 0 6mm;
+    place-items: center;
+    border-radius: 1mm;
+    color: #fff !important;
+    background: #76b900 !important;
+    font-size: 8pt;
+    font-weight: 900;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-grid {
+    grid-template-columns: 1.45fr .9fr 1.15fr 1fr 1.15fr .9fr;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    border: .3mm solid #9eafbd;
+    border-radius: 1mm;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .bat-meta-card,
+  #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) {
+    display: flex;
+    min-width: 0;
+    min-height: 15mm;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5mm 1.7mm;
+    border: 0;
+    border-right: .25mm solid #c4d0da;
+    border-radius: 0;
+    color: #17334a;
+    background: #fff !important;
+    box-shadow: none;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  #bat-print-report.bat-executive-report .bat-meta-card:last-child {
+    border-right: 0;
+  }
+
+  #bat-print-report.bat-executive-report .bat-meta-card strong,
+  #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) strong {
+    width: auto;
+    margin: 0 0 1mm;
+    color: #526b7e !important;
+    font-size: 5.7pt;
+    font-weight: 800;
+    line-height: 1.15;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-meta-card {
+    font-size: 7pt;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    overflow: hidden;
+    border: .3mm solid #9eafbd;
+    border-radius: 1mm;
+    background: #fff !important;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary > div {
+    min-width: 0;
+    padding: 2mm 2.5mm;
+    border: 0;
+    border-right: .25mm solid #c4d0da;
+    border-radius: 0;
+    color: #18364f;
+    background: #fff !important;
+    overflow-wrap: anywhere;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary > div:nth-child(3) {
+    border-right: 0;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary span {
+    display: block;
+    margin: 0 0 1mm;
+    color: #526b7e !important;
+    font-size: 5.8pt;
+    font-weight: 800;
+    letter-spacing: .02em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary strong {
+    display: block;
+    color: #18364f !important;
+    font-size: 8.5pt;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-classification-card {
+    grid-column: 1 / -1;
+    padding: 1.8mm 2.5mm !important;
+    border-top: .25mm solid #b9d3a0 !important;
+    border-right: 0 !important;
+    background: #edf5e7 !important;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-classification-card strong {
+    font-size: 9pt;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary[data-state="resolved"] .bat-executive-status { background: #eaf4e5 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-summary[data-state="pending"] .bat-executive-status { background: #fff3d7 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-summary[data-state="nvidia"] .bat-executive-status { background: #eaf0f8 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-summary[data-state="repair"] .bat-executive-status { background: #fff0e8 !important; }
+
+  #bat-print-report.bat-executive-report .bat-executive-context:not(.hidden) {
+    display: block !important;
+    margin: 1mm 0 0;
+    color: #526b7e;
+    font-size: 6.4pt;
+    line-height: 1.2;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-procedure:not(.hidden) {
+    display: block !important;
+    margin: 0;
+    padding: 2mm 2.5mm;
+    border: .3mm solid #9eafbd;
+    border-left: 1.2mm solid #76b900;
+    border-radius: 1mm;
+    color: #18364f;
+    background: #fff !important;
+    font-size: 8pt;
+    font-weight: 700;
+    line-height: 1.25;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report #bat-print-final {
+    margin: 1mm 0 0 !important;
+  }
+
+  #bat-print-report.bat-executive-report .print-final-card {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  #bat-print-report.bat-executive-report .print-final-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5mm;
+    margin: 0;
+  }
+
+  #bat-print-report.bat-executive-report .print-final-grid > div {
+    min-width: 0;
+    min-height: 12mm;
+    padding: 2mm 2.5mm;
+    border: .3mm solid #c4d0da;
+    border-left: 1mm solid #76b900;
+    border-radius: 1mm;
+    color: #18364f;
+    background: #fff !important;
+    font-size: 7pt;
+    text-align: left;
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .print-final-grid strong,
+  #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(n) strong {
+    display: block;
+    margin: 0 0 1mm;
+    color: #526b7e !important;
+    font-size: 5.8pt;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware:not(.hidden) {
+    display: block !important;
+    margin: 1.5mm 0 0;
+    padding: 1.8mm 2.5mm;
+    border: .3mm solid #b9d3a0;
+    border-left: 1mm solid #76b900;
+    border-radius: 1mm;
+    color: #18364f;
+    background: #f8fbf5 !important;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware h2 {
+    display: none;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware-state {
+    display: flex;
+    justify-content: space-between;
+    gap: 4mm;
+    font-size: 7pt;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware-state strong,
+  #bat-print-report.bat-executive-report .bat-print-hardware-grid strong {
+    color: #526b7e;
+    font-size: 5.8pt;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware-state span,
+  #bat-print-report.bat-executive-report .bat-print-hardware-grid span {
+    color: #18364f;
+    font-weight: 800;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware-grid:not(.hidden) {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2mm;
+    margin-top: 1.5mm;
+    padding-top: 1.5mm;
+    border-top: .25mm solid #d8e4d0;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware-grid > div {
+    display: grid;
+    gap: 1mm;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #bat-print-report.bat-executive-report .gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 2mm;
+    min-height: 41mm;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  #bat-print-report.bat-executive-report .gallery-grid figure {
+    margin: 0;
+    overflow: hidden;
+    border: .3mm solid #c4d0da;
+    border-radius: 1mm;
+    background: #fff !important;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .gallery-grid img {
+    display: block;
+    width: 100%;
+    height: 32mm;
+    object-fit: contain;
+    background: #fff !important;
+  }
+
+  #bat-print-report.bat-executive-report .gallery-grid figcaption {
+    padding: 1mm 1.5mm;
+    border-top: .25mm solid #d9e1e7;
+    color: #526b7e;
+    font-size: 5.8pt;
+    overflow-wrap: anywhere;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-evidence-empty:not(.hidden) {
+    display: block !important;
+    margin: 0;
+    padding: 4mm;
+    border: .3mm dashed #9eafbd;
+    border-radius: 1mm;
+    color: #526b7e;
+    text-align: center;
+    font-size: 7pt;
+  }
+
+  #bat-print-report.bat-executive-report .print-signatures {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3mm;
+    margin: 0;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .print-signature {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2mm 2.5mm;
+    border: .3mm solid #c4d0da;
+    border-top: 1mm solid #18364f;
+    border-radius: 1mm;
+    color: #18364f;
+    background: #fff !important;
+    font-size: 6.5pt;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  #bat-print-report.bat-executive-report .print-signature-rule {
+    width: 100%;
+    height: .25mm;
+    margin: 6mm 0 1mm;
+    background: #18364f !important;
+  }
+
+  #bat-print-report.bat-executive-report .print-signature-meta {
+    color: #526b7e;
+    font-size: 5.8pt;
+  }
+
+  #bat-print-report.bat-executive-report .print-footer {
+    margin-top: 1.5mm;
+    padding-top: 1mm;
+    border-top: .25mm solid #9eafbd;
+    color: #526b7e;
+    font-size: 5.8pt;
+    text-align: center;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-section,
+  #bat-print-report.bat-executive-report .bat-print-grid,
+  #bat-print-report.bat-executive-report .bat-executive-summary,
+  #bat-print-report.bat-executive-report .bat-print-procedure,
+  #bat-print-report.bat-executive-report #bat-print-final,
+  #bat-print-report.bat-executive-report .bat-print-hardware,
+  #bat-print-report.bat-executive-report #print-evidence-list,
+  #bat-print-report.bat-executive-report #bat-print-signatures {
+    break-inside: avoid;
+  }
+}
+
+@page bat-executive {
+  size: A4 portrait;
+  margin: 5mm;
+}
+
+@media print {
+  #bat-print-report.bat-executive-report {
+    page: bat-executive;
+    box-sizing: border-box;
+    display: flex !important;
+    min-height: 287mm;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #122d43 !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    line-height: 1.22;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-header:not(.hidden) {
+    gap: 2mm;
+    margin: 0 0 1.5mm;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-brand-row { min-height: 15mm; }
+  #bat-print-report.bat-executive-report .bat-print-nvidia-mark { position: relative; display: block; width: 52mm; height: 10mm; flex: 0 0 52mm; overflow: hidden; }
+  #bat-print-report.bat-executive-report .bat-print-nvidia-mark img { position: absolute; top: -14.9mm; left: -9.34mm; display: block; width: 70.91mm; height: 39.95mm; max-width: none; max-height: none; object-fit: fill; }
+  #bat-print-report.bat-executive-report .bat-print-nvidia-wordmark { filter: brightness(0); }
+  #bat-print-report.bat-executive-report .bat-print-nvidia-eye { clip-path: inset(0 67.7% 0 0); filter: brightness(0) saturate(100%) invert(57%) sepia(77%) saturate(529%) hue-rotate(40deg) brightness(95%) contrast(102%); }
+  #bat-print-report.bat-executive-report .bat-print-ingrasys-logo { width: 36mm; max-height: 12mm; object-fit: contain; }
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band { min-height: 17mm; padding: 2.6mm 3mm; border-left: 0; background: linear-gradient(90deg, #0e2d45 0%, #143c59 100%) !important; text-align: center; }
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band > div:first-child { flex: 1 1 auto; padding-right: 4mm; border-right: .35mm solid rgba(255,255,255,.8); }
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band h1 { font-size: 14.5pt; }
+  #bat-print-report.bat-executive-report .bat-executive-print-date strong { text-transform: uppercase; }
+  #bat-print-report.bat-executive-report .bat-executive-print-date::after {
+    width: 24mm;
+    justify-self: end;
+    border-bottom: 1mm solid #4caf12;
+    content: "";
+  }
+  #bat-print-report.bat-executive-report .bat-executive-print-stamp {
+    display: grid;
+    min-width: 32mm;
+    gap: .6mm;
+    justify-items: center;
+    padding: 1mm 1.5mm;
+    border: .3mm solid #9aafbf;
+    border-radius: .8mm;
+    color: #17364f !important;
+    background: #fff !important;
+  }
+  #bat-print-report.bat-executive-report .bat-executive-print-stamp strong { color: #17364f !important; font-size: 7.2pt; }
+  #bat-print-report.bat-executive-report .bat-executive-print-stamp small { color: #536779; font-size: 5.4pt; font-weight: 700; }
+
+  #bat-print-report.bat-executive-report .bat-print-section {
+    min-height: 8.4mm;
+    gap: 1.6mm;
+    margin: 1.8mm 0 1mm;
+    padding: .7mm 1.5mm;
+    border-radius: .8mm;
+    background: #123b58 !important;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-section-number {
+    width: 7.2mm;
+    height: 7.2mm;
+    flex-basis: 7.2mm;
+    border-radius: .7mm;
+    background: #49ad12 !important;
+    font-size: 8pt;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-section > span:last-child {
+    flex: 1 1 auto;
+    padding-right: 6mm;
+    text-align: center;
+  }
+
+  #bat-print-report.bat-executive-report #bat-print-identity-section { margin-top: 1.5mm; }
+  #bat-print-report.bat-executive-report .bat-print-grid {
+    grid-template-columns: 1.25fr 1fr 1.1fr 1fr 1.1fr .95fr;
+    grid-auto-rows: minmax(17mm, auto);
+    gap: 0;
+    margin: 0;
+    border-color: #9cabb7;
+    border-radius: .8mm;
+  }
+
+  #bat-print-report.bat-executive-report .bat-meta-card,
+  #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) {
+    min-height: 17mm;
+    padding: 1.5mm 1.6mm;
+    border: 0;
+    border-right: .25mm solid #b9c5ce;
+    border-radius: 0;
+    background: #fff !important;
+    text-align: left;
+  }
+
+  #bat-print-report.bat-executive-report .bat-meta-card:nth-child(n) strong {
+    width: auto;
+    margin-bottom: .7mm;
+    color: #536779 !important;
+    font-size: 5.8pt;
+    text-align: left;
+  }
+
+  #bat-print-report.bat-executive-report .bat-meta-card { font-size: 6.8pt; }
+  #bat-print-report.bat-executive-report .bat-meta-card:last-child { border-right: 0; }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    border: .3mm solid #a8b6c0;
+    border-radius: .8mm;
+    background: #fff !important;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary > div {
+    display: grid;
+    min-height: 17mm;
+    grid-template-columns: 9mm minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-content: center;
+    align-items: center;
+    column-gap: 1.3mm;
+    padding: 1.7mm 2mm;
+    border-right: .25mm solid #bdc8d0;
+    border-radius: 0;
+    background: #fff !important;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary > div > img {
+    display: block;
+    width: 7.2mm;
+    height: 7.2mm;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(16%) sepia(29%) saturate(1793%) hue-rotate(162deg) brightness(92%) contrast(92%);
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary > div > span {
+    grid-column: 2;
+    margin: 0 0 .7mm;
+    color: #536779 !important;
+    font-size: 5.9pt;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-summary > div > strong {
+    grid-column: 2;
+    color: #17364f !important;
+    font-size: 7.7pt;
+    line-height: 1.18;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-classification-card {
+    min-height: 15mm !important;
+    grid-column: 1 / -1;
+    grid-template-columns: 9mm minmax(0, 1fr) !important;
+    grid-template-rows: auto 1fr !important;
+    border-top: .25mm solid #c9d8c1 !important;
+    border-right: 0 !important;
+    background: #eaf4e6 !important;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-classification-card > img { filter: brightness(0) saturate(100%) invert(35%) sepia(94%) saturate(637%) hue-rotate(48deg) brightness(91%) contrast(101%); }
+  #bat-print-report.bat-executive-report .bat-executive-status { border-left: 0 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-status strong,
+  #bat-print-report.bat-executive-report .bat-executive-copy-card strong,
+  #bat-print-report.bat-executive-report .bat-executive-action-card strong {
+    width: fit-content;
+    max-width: 100%;
+    padding: .8mm 3mm;
+    border-radius: .8mm;
+    color: #17364f !important;
+    background: #edf1f5 !important;
+    font-size: 7.2pt;
+  }
+  #bat-print-report.bat-executive-report .bat-executive-status strong { background: #ffe17a !important; }
+  #bat-print-report.bat-executive-report .bat-executive-summary[data-state="resolved"] .bat-executive-status strong { color: #205126 !important; background: #dcefd4 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-summary[data-state="nvidia"] .bat-executive-status strong { color: #244c78 !important; background: #e1ebf6 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-summary[data-state="repair"] .bat-executive-status strong { color: #7c421e !important; background: #fae6d8 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-action-card strong { background: #e2f1d8 !important; }
+  #bat-print-report.bat-executive-report .bat-executive-classification-card > img { width: 7mm; height: 7mm; }
+  #bat-print-report.bat-executive-report .bat-executive-classification-card > strong { font-size: 9pt; }
+  #bat-print-report.bat-executive-report .bat-executive-action-card { border-left: 0; box-shadow: none; }
+  #bat-print-report.bat-executive-report .bat-executive-context { display: none !important; }
+
+  #bat-print-report.bat-executive-report .bat-print-procedure:not(.hidden) {
+    display: grid !important;
+    min-height: 14.5mm;
+    grid-template-columns: 9mm minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5mm;
+    padding: 1.5mm 2.5mm;
+    border-left-width: .8mm;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-procedure-number {
+    display: grid;
+    width: 8mm;
+    height: 8mm;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #49ad12 !important;
+    font-size: 8pt;
+    font-weight: 800;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-procedure > div { min-width: 0; }
+  #bat-print-report.bat-executive-report .bat-print-procedure-prefix { color: #17364f; font-weight: 800; }
+  #bat-print-report.bat-executive-report .bat-print-procedure-text { color: #17364f; }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-stamp {
+    min-width: 32mm;
+    padding: 1mm 1.5mm;
+  }
+  #bat-print-report.bat-executive-report .bat-executive-print-stamp strong { font-size: 7.2pt; }
+  #bat-print-report.bat-executive-report .bat-executive-print-stamp small { font-size: 5.4pt; }
+
+  #bat-print-report.bat-executive-report .bat-executive-status strong { text-transform: uppercase; }
+  #bat-print-report.bat-executive-report .bat-executive-copy-card strong,
+  #bat-print-report.bat-executive-report .bat-executive-action-card strong { text-transform: uppercase; }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware-title { text-transform: uppercase; }
+
+  #bat-print-report.bat-executive-report #print-evidence-list {
+    border: .3mm solid #9cabb7;
+    border-radius: .8mm;
+    background: #fff;
+    overflow: hidden;
+  }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card { border: 0; border-radius: 0; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card.is-before { border-right: .3mm solid #bdc8d0; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card h3 { font-weight: 800; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-placeholder { border-style: solid; background: #f5f8fb; }
+
+  #bat-print-report.bat-executive-report #bat-print-signatures {
+    display: block;
+    border: .3mm solid #9cabb7;
+    border-radius: .8mm;
+    background: #fff;
+  }
+  #bat-print-report.bat-executive-report .print-signature { border: 0; border-radius: 0; background: #fff !important; }
+  #bat-print-report.bat-executive-report .print-signature:first-child { border-right: .3mm solid #bdc8d0; }
+  #bat-print-report.bat-executive-report #bat-print-signatures > .print-signature-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 0;
+    min-height: 24mm;
+  }
+  #bat-print-report.bat-executive-report #bat-print-signatures .print-signature {
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
+    align-content: stretch;
+    min-height: 24mm;
+    box-sizing: border-box;
+  }
+  #bat-print-report.bat-executive-report .print-signature-fields { align-self: end; width: 100%; margin-top: 0; }
+
+  #bat-print-report.bat-executive-report .bat-executive-print-title-band > span { color: #fff !important; }
+
+  #bat-print-report.bat-executive-report #bat-print-final { margin: 0 !important; }
+  #bat-print-report.bat-executive-report .print-final-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    border: .3mm solid #a8b6c0;
+    border-radius: .8mm;
+    overflow: hidden;
+  }
+
+  #bat-print-report.bat-executive-report .print-final-grid > div {
+    display: grid;
+    min-height: 19mm;
+    grid-template-columns: 8mm minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-content: center;
+    align-items: center;
+    column-gap: 1mm;
+    padding: 1.6mm 1.8mm;
+    border: 0 !important;
+    border-right: .25mm solid #bdc8d0 !important;
+    border-radius: 0;
+    background: #fff !important;
+    text-align: left;
+  }
+
+  #bat-print-report.bat-executive-report .print-final-grid > div:last-child { border-right: 0 !important; }
+  #bat-print-report.bat-executive-report .print-final-grid > div > img { width: 6mm; height: 6mm; grid-column: 1; grid-row: 1 / span 2; object-fit: contain; }
+  #bat-print-report.bat-executive-report .print-final-grid > div:first-child > img { filter: brightness(0) saturate(100%) invert(16%) sepia(29%) saturate(1793%) hue-rotate(162deg) brightness(92%) contrast(92%); }
+  #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(2) > img { filter: brightness(0) saturate(100%) invert(16%) sepia(29%) saturate(1793%) hue-rotate(162deg) brightness(92%) contrast(92%); }
+  #bat-print-report.bat-executive-report .print-final-grid > div:nth-child(3) > img { filter: brightness(0) saturate(100%) invert(16%) sepia(29%) saturate(1793%) hue-rotate(162deg) brightness(92%) contrast(92%); }
+  #bat-print-report.bat-executive-report .print-final-grid > div > strong { grid-column: 2; margin: 0 0 .7mm; color: #536779 !important; font-size: 5.9pt; text-align: left; }
+  #bat-print-report.bat-executive-report .print-final-grid > div { font-size: 7.2pt; }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware:not(.hidden) {
+    min-height: 22mm;
+    margin: 1.5mm 0 0;
+    padding: 1.5mm 2mm;
+    border: .3mm solid #abd283;
+    border-radius: .8mm;
+    background: #eef7e8 !important;
+    text-align: left;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware h2 {
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+    margin: 0 0 1mm;
+    color: #285c18;
+    font-size: 7pt;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-executive-report .bat-print-hardware h2 img { width: 5mm; height: 5mm; filter: brightness(0) saturate(100%) invert(35%) sepia(94%) saturate(637%) hue-rotate(48deg) brightness(91%) contrast(101%); }
+  #bat-print-report.bat-executive-report .bat-print-hardware-state { display: none; }
+  #bat-print-report.bat-executive-report .bat-print-hardware-grid:not(.hidden) { margin-top: 0; padding-top: 0; border: 0; }
+  #bat-print-report.bat-executive-report .bat-print-hardware-grid > div { padding: 1mm 1.5mm; border: .25mm solid #cbd9c2; border-radius: .6mm; background: #fff; }
+  #bat-print-report.bat-executive-report .bat-print-hardware-grid strong { color: #536779; font-size: 5.4pt; }
+
+  #bat-print-report.bat-executive-report .gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 2mm;
+    margin: 0 !important;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card {
+    display: flex;
+    min-width: 0;
+    min-height: 40mm;
+    height: 40mm;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: 1.5mm 2mm;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card h3 {
+    display: flex;
+    min-height: 6mm;
+    align-items: center;
+    gap: 1.5mm;
+    margin: 0 0 1mm;
+    color: #17364f;
+    font-size: 6.5pt;
+    text-transform: uppercase;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card h3 img { width: 4.5mm; height: 4.5mm; filter: brightness(0) saturate(100%) invert(16%) sepia(29%) saturate(1793%) hue-rotate(162deg) brightness(92%) contrast(92%); }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-items { display: grid !important; min-height: 0; flex: 1 1 auto; grid-template-rows: minmax(0, 1fr); align-content: stretch; gap: 1mm; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card figure { display: grid; width: 100%; height: 100%; min-height: 27mm; grid-template-rows: minmax(20mm, 1fr) auto; margin: 0; border: .25mm solid #c3cfda; border-radius: .8mm; overflow: hidden; box-sizing: border-box; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card figure img { display: block; width: 100%; height: 100%; min-height: 20mm; object-fit: contain; background: #f5f8fb !important; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-card figure figcaption { padding: 1mm; border-top: .2mm solid #d8e1e8; color: #536779; font-size: 5.5pt; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-placeholder { display: grid; width: 100%; min-height: 27mm; height: 100%; flex: 1 1 auto; align-content: center; justify-items: center; gap: 1mm; border: .25mm solid #aebdca; border-radius: .8mm; color: #405b72; background: #f5f8fb; text-align: center; box-sizing: border-box; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-placeholder img { width: 9mm; height: 9mm; opacity: .72; filter: brightness(0) saturate(100%) invert(46%) sepia(17%) saturate(702%) hue-rotate(163deg) brightness(90%) contrast(89%); }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-placeholder span { font-size: 7pt; font-weight: 700; text-transform: uppercase; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-placeholder small { color: #728392; font-size: 5.8pt; }
+  #bat-print-report.bat-executive-report .bat-executive-evidence-additional { grid-column: 1 / -1; }
+
+  #bat-print-report.bat-executive-report #bat-print-signatures-section { margin-top: 1.8mm; }
+  #bat-print-report.bat-executive-report .print-signatures { gap: 3mm; margin: 0; }
+  #bat-print-report.bat-executive-report .print-signature {
+    align-items: flex-start;
+    min-height: 22mm;
+    padding: 1.5mm 2mm;
+    border: 0;
+    border-radius: 0;
+    background: #fff !important;
+    font-size: 6pt;
+    text-align: left;
+  }
+
+  #bat-print-report.bat-executive-report .print-signature:nth-child(2) { border: 0; background: #fff !important; }
+  #bat-print-report.bat-executive-report .print-signature-fields { display: grid; grid-template-columns: 2fr .9fr; gap: 3mm; margin-top: auto; }
+  #bat-print-report.bat-executive-report .print-signature-fields > div { min-width: 0; color: #536779; font-size: 5.4pt; text-align: center; }
+  #bat-print-report.bat-executive-report .print-signature-rule { width: 100%; margin: 3.5mm auto .8mm; background: #94a6b5 !important; }
+  #bat-print-report.bat-executive-report .print-signature-fields strong { display: block; color: #17364f; font-size: 5.2pt; }
+  #bat-print-report.bat-executive-report .print-footer { margin-top: 0; padding-top: 1.5mm; font-size: 5.4pt; }
+}

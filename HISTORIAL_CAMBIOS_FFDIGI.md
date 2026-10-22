@@ -4023,6 +4023,312 @@ El usuario pidió revertir el ajuste de la barra «Cambiar Falla», ocultamiento
 - Validación pendiente; no se ejecutó navegador en esta reversión.
 - Sin commit ni push.
 
+## 2026-10-21 — Ensanchar nodos y aclarar el fondo de diagramas
+
+### Solicitud
+
+Hacer un poco más anchos los recuadros internos del flowchart y quitar el fondo gris, conservando el diseño ya elegido.
+
+### Estado previo y análisis
+
+- BAT usa rectángulos SVG con geometría fija; MTF vectorial calcula anchos en el renderizador. Los conectores usan esas dimensiones para calcular sus extremos.
+- Las imágenes fuente MTF son assets PDF y no deben editarse. No se requiere tocar catálogos, decisiones, pasos ni datos.
+
+### Causa
+
+Los nodos generados se percibían estrechos frente al área disponible y el stage conservaba un tono gris/neutral.
+
+### Solución
+
+- Aumentar cerca de 8 % el ancho de acciones BAT, manteniendo centrado el texto y actualizando el punto de conexión para conservar la unión con sus flechas.
+- Aumentar moderadamente los anchos responsivos de acciones/decisiones en SVG MTF; el cálculo existente ajusta los conectores a la nueva geometría.
+- Cambiar a blanco el fondo del stage BAT/MTF y del modal; la paleta de nodos no cambia.
+- Preservar el tamaño/encuadre y los colores de imágenes PDF fuente.
+
+### Archivos modificados
+
+- `index.html` — ancho/posición del nodo de acción BAT y punto de salida de la conexión.
+- `mtf-pdf-flowcharts.js` — límites de ancho para nodos y rombos del SVG MTF.
+- `ffdg-flowchart-theme.css` — fondo blanco para los stages generados y ampliados.
+- `CONTEXTO_FFDIGI.md` — presentación actualizada de los diagramas.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderBatFlowchart` solo ajusta ancho y conexión de las cajas de acción; no cambia ramas ni etiquetas.
+- `renderMtfPdfVectorFlowchart` mantiene layout y conexiones automáticos; solo amplía límites de ancho.
+- Reglas de superficie `#bat-disposition-flow`, `#mtf-flowchart-diagram` y modal.
+
+### Impacto
+
+Los nodos ganan espacio horizontal para legibilidad, con área de diagrama blanca. Se conservan proporciones, paleta, pasos, nodos de decisión, conexiones y fuentes PDF.
+
+### Validaciones
+
+- `node --check mtf-pdf-flowcharts.js` pasó; también se parsearon correctamente los 7 bloques inline de `index.html`.
+- Comprobaciones estáticas confirmaron la nueva geometría BAT, el aumento de límites de ancho MTF y el fondo blanco con la exclusión de imágenes fuente.
+- CSS nuevo: 36 llaves de apertura y 36 de cierre; `git diff --check` pasó.
+- No se ejecutó inspección visual/responsive: el navegador integrado bloquea el acceso a `file://`; no se usó una ruta alternativa.
+
+### Resultado, pendientes y riesgos
+
+- Cambio local, no desplegado. Verificar en la página en escritorio/tableta/teléfono cuando el navegador permita abrirla. Sin commit ni push.
+
+## 2026-10-21 — Aumentar un poco más el ancho de nodos de flowcharts
+
+### Solicitud
+
+Los recuadros del flowchart todavía se percibían estrechos; hacerlos un poco más anchos para que el diagrama se vea más robusto.
+
+### Estado previo y análisis
+
+- El ajuste anterior ensanchó BAT de 280 a 302 px y MTF a 246 px máximos; el usuario indicó que aún se veían delgados.
+- BAT usa coordenadas fijas para conectores de entrada/salida; MTF calcula el ruteo según el ancho de cada nodo.
+- El área blanca, la paleta elegida y los PNG fuente PDF ya están definidos y deben conservarse.
+
+### Causa
+
+El aumento anterior no daba suficiente presencia horizontal a los nodos en el diagrama.
+
+### Solución
+
+- Aumentar los nodos de acción BAT a 330 px, conservarlos centrados y ajustar los extremos de conectores al nuevo borde.
+- Ampliar los límites responsivos MTF: acciones hasta 270 px, rombos hasta 300 px; el router calcula sus conexiones usando esas dimensiones.
+- No cambiar el fondo, la paleta ni imágenes originales PDF.
+
+### Archivos modificados
+
+- `index.html` — anchura/posición de nodos BAT y alineación de flechas de entrada/salida.
+- `mtf-pdf-flowcharts.js` — límites de anchura de nodos/decisiones MTF.
+- `CONTEXTO_FFDIGI.md` — dimensiones relativas vigentes.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderBatFlowchart` cambia solo geometría y puntos de conexión.
+- `renderMtfPdfVectorFlowchart` cambia límites de ancho; las conexiones se adaptan mediante el layout existente.
+
+### Impacto
+
+Los pasos ocupan más espacio horizontal y se perciben más sólidos; texto y rutas técnicas permanecen iguales. No afecta imágenes de diagramas PDF.
+
+### Validaciones
+
+- Los 7 scripts inline de `index.html` se parsearon; `node --check mtf-pdf-flowcharts.js` pasó.
+- Comprobaciones estáticas confirmaron los 330 px centrados en BAT, la alineación de entrada/salida de flechas y los límites ampliados MTF.
+- `git diff --check` pasó; CSS existente mantiene 36 llaves balanceadas.
+- No se pudo realizar revisión visual en navegador local (`file://` bloqueado); no se usó alternativa.
+
+### Resultado, pendientes y riesgos
+
+- Ajuste local; falta confirmar visualmente que los nuevos anchos se vean proporcionados en distintos viewports. Sin commit ni push.
+
+## 2026-10-21 — Ampliar nodos y suavizar paleta de flowcharts
+
+### Solicitud
+
+Ampliar un poco más los recuadros del flowchart y sustituir colores muy fuertes por tonos más suaves.
+
+### Estado previo y análisis
+
+- Los nodos BAT medían 330 px; MTF usaba 270 px como máximo y decisiones hasta 300 px.
+- La paleta usaba azul marino, ámbar, verde y rojo saturados. Los PNG fuente no reciben el tema CSS.
+- BAT necesita alinear puntos fijos de conexión; MTF calcula conexiones a partir de cada ancho.
+
+### Causa
+
+La solicitud anterior de robustecer el diagrama requería más espacio para los textos; además, los tonos saturados daban demasiado peso visual.
+
+### Solución
+
+- BAT amplía sus cajas a 350 px, mantiene centrado el texto y reajusta las puntas de entrada/salida.
+- MTF usa hasta 288 px para acciones y 320 px para decisiones, con un factor por columna mayor y ancho compatible con el espaciado.
+- La paleta pasa a azul pizarra `#425e76`, ámbar suave `#d6b875`, verde salvia `#4c775a` y rojo apagado `#a85e5e`; se conserva contraste alto para el texto.
+- Fondo blanco y diagramas PDF fuente siguen intactos.
+
+### Archivos modificados
+
+- `index.html` — geometría BAT y puntos de conexión.
+- `mtf-pdf-flowcharts.js` — límites/relación de ancho de nodos MTF.
+- `ffdg-flowchart-theme.css` — tonos nuevos y bordes suavizados.
+- `CONTEXTO_FFDIGI.md` — dimensiones y paleta vigentes.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderBatFlowchart` y `renderMtfPdfVectorFlowchart`; solo geometría de cajas/conectores y clases CSS existentes.
+
+### Impacto
+
+Mayor presencia horizontal, con tonos menos intensos; procedimientos, texto, ramas, pasos, imágenes fuente y listeners no cambian.
+
+### Validaciones
+
+- Los 7 bloques inline de `index.html` se parsearon; `node --check mtf-pdf-flowcharts.js` pasó.
+- Geometrías/anclas BAT y límites relativos MTF comprobados estáticamente.
+- Contraste texto/fondo calculado: 6.79:1 azul, 6.69:1 ámbar, 5.13:1 verde y 4.74:1 rojo.
+- `git diff --check` pasó; CSS con 36 llaves balanceadas.
+- Revisión visual pendiente: el navegador no permite abrir el `file://` local; no se usará una alternativa para sortearlo.
+
+### Resultado, pendientes y riesgos
+
+- Cambio local; el contraste fue comprobado, pero proporciones desktop/tableta/teléfono quedan pendientes de inspección visual. Sin commit ni push.
+
+## 2026-10-21 — Hacer flowcharts más anchos y menos altos
+
+### Solicitud
+
+Reducir la sensación de diagramas alargados: ampliar las cajas y comprimir un poco su altura/espacio vertical.
+
+### Estado previo y análisis
+
+- BAT tenía cajas de acción de 350×38 px, filas cada 58 px y rombo de validación de 70 px.
+- MTF vectorial calculaba cajas altas y separaba carriles 30 px; su fallback lineal usaba cajas de 672 px, 58 px de padding vertical y 24 px de separación.
+- Los conectores BAT usan coordenadas fijas; MTF calcula automáticamente los extremos a partir del tamaño de los nodos. Las imágenes MTF originales no deben cambiar.
+
+### Causa
+
+La geometría previa todavía era visualmente vertical y angosta en comparación con el espacio horizontal de Disposition Flow.
+
+### Solución
+
+- BAT pasa a cajas de 370×34 px, fila cada 52 px y rombo de validación algo más compacto; los anclajes se mantienen sobre las orillas.
+- MTF vectorial ensancha nodos hasta 300 px y decisiones hasta 330 px, con alturas/padding más compactos y carriles separados por 24 px.
+- La secuencia derivada MTF pasa a 710 px de ancho, reduce 10 px la altura base por caja y baja separación a 18 px.
+- Se conservan colores suaves, textos, conexiones, rutas y diagramas fuente PDF.
+
+### Archivos modificados
+
+- `index.html` — ancho/alto de cajas BAT, separación de filas, tamaño del rombo y anclajes.
+- `mtf-pdf-flowcharts.js` — anchos/alturas de nodos y espaciado vertical.
+- `mtf-procedure-sequence-flowchart.js` — ancho y compactación de cajas derivadas.
+- `CONTEXTO_FFDIGI.md` — dimensiones actuales.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderBatFlowchart` conserva rutas/etiquetas y alinea conexiones con la nueva geometría.
+- `renderMtfPdfVectorFlowchart` y `renderMtfProcedureStepFlowchart` ajustan geometría de presentación, no datos.
+
+### Impacto
+
+Diagramas generados más anchos y menos altos; topología, pasos, textos y etiquetas Pass/Fail quedan iguales. Imágenes PDF de origen no se modifican.
+
+### Validaciones
+
+- Los 7 scripts inline de `index.html` se parsearon; `node --check` pasó para ambos renderizadores MTF.
+- Prueba de SVG vectorial MTF con 8 columnas y decisiones confirmó que los nodos no se montan; el fallback genera cajas de 710×68 px para títulos de una línea.
+- Comprobación estática BAT confirmó caja 370×34 px, filas cada 52 px y conexión de salida desde su borde; `git diff --check` pasó.
+- CSS existente conserva 36 pares de llaves.
+- Verificación visual desktop/tableta/teléfono pendiente: el navegador local `file://` no se puede inspeccionar y no se usó método alternativo.
+- El navegador local `file://` no está disponible para inspección; no se usará otro método para sortearlo.
+
+### Resultado, pendientes y riesgos
+
+- Cambio local, no publicado. Falta confirmar a simple vista que los nuevos tamaños se ven proporcionados en fallas cortas y largas.
+- Sin commit ni push.
+
+## 2026-10-21 — Corregir el ajuste de bloques sin acortar líneas
+
+### Solicitud
+
+Conservar las líneas y el espacio vertical tal como estaban; ensanchar solamente los recuadros donde van los pasos.
+
+### Estado previo y análisis
+
+- El ajuste anterior redujo alturas y gaps, acortando conectores del fallback MTF; también había reducido la distancia vertical BAT.
+- La geometría SVG debe mantener los mismos carriles y la misma altura de cajas; solo se amplía el área horizontal del texto.
+
+### Causa
+
+Se compactaron cajas y separaciones cuando la necesidad real era más ancho para el contenido de cada paso.
+
+### Solución
+
+- Restaurar altura de nodos, separación entre filas/carriles y posiciones de rombos y rutas a sus valores anteriores.
+- Mantener cajas BAT solo 10 px más anchas (360×38), centradas; conservar los extremos originales de las líneas.
+- Mantener ancho ampliado MTF (SVG vectorial y secuencia derivada), con altura y espacios previos restaurados; las conexiones mantienen su recorrido vertical original y el vectorial ajusta extremos a los bordes de nodo.
+- No cambiar color, textos, datos ni PNG de origen.
+
+### Archivos modificados
+
+- `index.html` — ancho de cajas BAT; restauradas separaciones/rutas previas.
+- `mtf-pdf-flowcharts.js` — restauradas alturas y separaciones; conserva ancho ampliado.
+- `mtf-procedure-sequence-flowchart.js` — restaurada altura/gap/texto vertical; conserva cajas de 710 px.
+- `CONTEXTO_FFDIGI.md` — refleja el alcance correcto.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de corrección.
+
+### Funciones o secciones afectadas
+
+- `renderBatFlowchart`, `renderMtfPdfVectorFlowchart` y `renderMtfProcedureStepFlowchart`.
+
+### Impacto
+
+Las cajas son las únicas superficies ampliadas; la geometría vertical, proporciones de altura y recorrido de conectores se conservan.
+
+### Validaciones
+
+- Los 7 scripts inline de `index.html` se parsearon; `node --check` pasó para ambos renderizadores.
+- Comprobaciones estáticas confirmaron caja BAT de 360×38 px con línea de salida de 25 px y fila de 58 px; alturas y gaps MTF restaurados.
+- `git diff --check` pasó.
+- Sin prueba visual por restricción del navegador local `file://`.
+
+### Resultado, pendientes y riesgos
+
+- Corrección local, no publicada. Sin commit ni push.
+
+## 2026-10-21 — Ensanchar solo cajas azules, naranjas y verdes
+
+### Solicitud
+
+Ampliar un poco la anchura de los recuadros de pasos azules, decisiones naranjas y resultados verdes, sin aumentar su altura ni acortar el espacio vertical de sus líneas.
+
+### Estado previo y análisis
+
+- BAT tenía nodos de paso azules de 360 px, dos rombos naranjas y una salida verde; MTF vectorial/derivado también tiene nodos azules, decisiones y estados verdes.
+- La altura de las cajas, distancia entre filas/carriles y líneas verticales ya estaban restauradas; se debían conservar.
+- Las imágenes MTF fuente PDF no son nodos editables y deben permanecer intactas.
+
+### Causa
+
+El ajuste previo había modificado altura/separaciones, mientras que la necesidad era solo más anchura en las cajas coloreadas.
+
+### Solución
+
+- BAT amplía cajas azules a 410×38 px, rombos naranjas y salida verde; conserva alturas y redistribuye el lienzo horizontal para mantener los tramos de conexión.
+- MTF vectorial aumenta límites de ancho de nodos azules/verdes y decisiones naranjas; redistribuye las columnas para reservar 58 unidades entre nodos y mantiene el ancho de terminales rojos.
+- La secuencia derivada aumenta ancho de 710 a 730 px.
+- Se mantienen alturas, separaciones y rutas verticales; los conectores horizontales BAT conservan su longitud de referencia y siguen anclados al borde de cada caja.
+- No se cambian las cajas rojas, colores, texto, datos ni imágenes fuente.
+
+### Archivos modificados
+
+- `index.html` — ancho BAT de cajas/rombos/salida y anclajes horizontales.
+- `mtf-pdf-flowcharts.js` — límites de ancho vectorial.
+- `mtf-procedure-sequence-flowchart.js` — ancho de cajas derivadas.
+- `CONTEXTO_FFDIGI.md` — dimensiones vigentes.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderBatFlowchart`, `renderMtfPdfVectorFlowchart` y `renderMtfProcedureStepFlowchart`; solo ancho y anclajes de caja.
+
+### Impacto
+
+Más anchura útil para los pasos; altura y separación vertical no cambian. Las rutas del flujo siguen conectadas y el contenido técnico permanece igual.
+
+### Validaciones
+
+- `node --check` pasó en ambos renderizadores MTF; siete scripts inline de `index.html` pasaron parseo.
+- Prueba aislada MTF confirmó cajas azules/verdes más anchas, rombos anchos, espacios de conexión preservados, alturas intactas y terminal rojo conservando su ancho previo.
+- Comprobación estática BAT confirmó cajas 410×38, rombos más anchos con la misma extensión vertical, salida verde ampliada y conectores conservando sus longitudes; la secuencia derivada mantiene altura y separación.
+- `git diff --check` pasó.
+- No se ejecutó inspección visual responsive; el navegador integrado no permite abrir esta página local `file://` y no se usó una alternativa.
+
+### Resultado, pendientes y riesgos
+
+- Cambio local, sin commit ni push; validar visualmente el ancho cuando la página pueda abrirse en navegador.
+
 ## 74. 2026-10-19 — Ocultar controles MTF durante el detalle
 
 ### Solicitud
@@ -4918,3 +5224,427 @@ Las tarjetas de identificación y pasos se reducen moderadamente; Failure Record
 ### Resultado, pendientes y riesgos
 
 - Cambio local aplicado; verificar visualmente en escritorio, tableta y teléfono cuando el navegador permita acceder a la página. Sin commit ni push.
+
+## 2026-10-21 — Tamaño uniforme de ficha y pasos BAT
+
+### Solicitud
+
+Usar como referencia la altura compacta del recuadro «Estación» en todas las fallas BAT y reducir proporcionalmente las tarjetas de pasos que se estiran demasiado.
+
+### Estado previo y análisis
+
+- Failure Record aplica una misma estructura a las fallas BAT; en escritorio los metadatos crecían para llenar el alto disponible.
+- Troubleshooting Sequence repartía el alto de la card entre las filas; por eso una falla de tres pasos mostraba cada paso excesivamente alto.
+- Móvil y tableta ya conservan filas naturales y tarjetas apiladas. Datos, procedimientos, IDs y listeners no requieren cambios.
+
+### Causa
+
+Las reglas `flex: 1` de los metadatos y `grid-auto-rows: minmax(48px, 1fr)` de la secuencia expandían elementos cortos para ocupar espacio sobrante.
+
+### Solución
+
+- Metadatos BAT con mínimo de 50 px y sin crecimiento flex para rellenar Failure Record; textos largos pueden ampliar su propia fila.
+- Pasos BAT con mínimo de 50 px y altura basada en el contenido (`max-content`), inicio alineado y separación de 6 px. El listado conserva scroll interno en escritorio y no recorta descripciones extendidas.
+- Se mantiene la altura general de la ficha, sus tres columnas y el flowchart. No se modifican BAT logic, datos, procedimientos ni MTF.
+
+### Archivos modificados
+
+- `ffdg-bat-catalog.css` — altura de metadatos y filas naturales de la secuencia, solo dentro de Failure Record BAT.
+- `CONTEXTO_FFDIGI.md` — descripción de dimensiones y comportamiento actualizado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — registro de solicitud, causa, solución e intervalo de validación.
+
+### Funciones o secciones afectadas
+
+- `#bat-failure-detail .bento-meta-item`.
+- `#bat-failure-detail #bat-detail-steps` y sus elementos `li`.
+
+### Impacto
+
+Los recuadros cortos dejan de estirarse con el alto del panel. Fichas con valores largos o instrucciones extendidas conservan su contenido y pueden crecer/usar scroll sin alterar las demás columnas.
+
+### Validación
+
+- `git diff --check` pasó; llaves CSS balanceadas (50 pares).
+- El diff solo toca CSS y documentación; `index.html`, scripts, IDs, listeners y datos no cambiaron.
+- No se ejecutó prueba visual: el navegador integrado bloquea el acceso a la página local `file://` por política. No se usó una ruta alternativa para sortearlo.
+
+### Resultado, pendientes y riesgos
+
+- Cambio visual aplicado solo en BAT; no se hizo commit ni push. Confirmar en escritorio, tableta y teléfono cuando el navegador permita acceso local.
+
+## 2026-10-21 — Paleta ejecutiva para diagramas generados
+
+### Solicitud
+
+Aplicar la primera propuesta visual elegida: diagrama con colores sólidos, sobrios y adecuados para una presentación gerencial.
+
+### Estado previo y análisis
+
+- BAT genera su SVG con clases existentes para acciones, decisiones, Pass, Fail y terminales.
+- MTF puede mostrar imágenes fuente del PDF, SVG vectoriales del modelo fuente o una secuencia derivada lineal basada en sus pasos.
+- La vista de imagen fuente debe conservarse fiel al documento; no se deben crear ni cambiar rutas, resultados o procedimientos.
+
+### Causa
+
+Los diagramas SVG generados heredaban colores del tema claro/oscuro, mientras que no existía una paleta sólida compartida que separara acciones, decisiones y resultados.
+
+### Solución
+
+- Se añadió una hoja CSS independiente con azul marino para acciones, ámbar para decisiones, verde para Pass/completado y rojo para Fail/escalación, con texto de contraste alto.
+- Se aplicó solo a SVG generados BAT/MTF. Los PNG fuente PDF, incluidos los SVG contenedores que muestran esos PNG, quedan fuera de los selectores.
+- En la salida MTF se añadieron clases visuales para reconocer nodos terminales de escalación, estados activos y etiquetas literales Pass/Fail ya presentes; no se alteró el grafo ni el texto fuente.
+
+### Archivos modificados
+
+- `ffdg-flowchart-theme.css` — nueva hoja de estilo, acotada a diagramas vectoriales generados.
+- `index.html` — inclusión de la hoja CSS local al final de la cascada.
+- `mtf-pdf-flowcharts.js` — clases de presentación derivadas de propiedades/etiquetas existentes.
+- `CONTEXTO_FFDIGI.md` — fuente y alcance visual de los SVG.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- `renderBatFlowchart` permanece sin cambios; se estilizan sus clases SVG existentes.
+- `renderMtfPdfVectorFlowchart` solo expone clases CSS para estado activo, escalación y resultados ya rotulados.
+- `renderMtfProcedureStepFlowchart` conserva estructura y pasos; la hoja presenta sus estados existentes.
+
+### Impacto
+
+Los diagramas SVG generados tienen contraste uniforme, codificación visual Pass/Fail y tratamiento destacado de decisiones. Las imágenes fuente PDF, datos, procedimientos, IDs funcionales y listeners se conservan.
+
+### Validaciones
+
+- `node --check mtf-pdf-flowcharts.js` pasó.
+- Prueba aislada del generador MTF confirmó clases de tipo, activo, escalación, Pass y Fail en un SVG de ejemplo; no altera ni guarda registros reales.
+- `git diff --check` pasó; la hoja nueva tiene 33 llaves de apertura y 33 de cierre.
+- Se comprobó por selectores que la paleta cubre el detalle y el modal ampliado, pero excluye `.mtf-pdf-flowchart-source` (imagen del PDF).
+- La inspección visual desktop/tableta/teléfono y el cálculo real de contraste quedan pendientes: el navegador integrado bloquea el `file://` local y no se usó un servidor o navegador alternativo para eludirlo.
+- No se intentó abrir una URL local `file://` en navegador debido a la restricción vigente; no se afirma validación visual.
+
+### Resultado, pendientes y riesgos
+
+- Cambio visual local, no desplegado. Las imágenes originales MTF conservan sus colores PDF; por tanto, no todas las fallas fuente tendrán exactamente la misma paleta.
+- Sin commit ni push.
+
+## 2026-10-21 — Reorganizar captura gerencial del reporte No Boot
+
+### Solicitud
+
+Aplicar al modal «Realizar reporte de falla» la estructura visual del boceto seleccionado: encabezado FFDIGI-FA-BAT, banda de identificación, paneles agrupados en dos columnas, evidencias antes/después y acciones al pie; conservar colores formales oscuros con azul y verde.
+
+### Estado previo y análisis
+
+- El formulario BAT No Boot usaba el estilo compartido claro de los reportes y distribuía campos en secciones consecutivas.
+- `openBatNoBootReport`, `submitBatNoBootReport`, los selectores dinámicos, el cambio condicional de hardware, las evidencias y `printBatReport` consumen los IDs/names existentes.
+- El boceto no muestra algunos campos actuales (empleado, analista y cambio de hardware); se deben conservar y ubicar en Identidad del nodo y analista, sin inventar o eliminar datos.
+
+### Causa
+
+La presentación del modal no seguía la jerarquía ejecutiva elegida; la estructura visual no agrupaba identificación, procedimiento, resultados y evidencia como el boceto.
+
+### Solución
+
+- Se reorganizó solo el markup del diálogo No Boot: encabezado de marca, identificación superior y filas de paneles para resumen, identidad, procedimiento/retest, RCA/intervención y siguiente acción.
+- Se conservaron los IDs funcionales, nombres de formulario, opciones, validaciones y controles; P/N/SN de hardware dañado siguen condicionados a responder «Sí».
+- Se añadieron estilos acotados al modal en `ffdg-bat-catalog.css`: superficies oscuras, paneles azul marino, acentos verdes, iconos SVG locales, evidencias pareadas, estados de foco, pie sticky y apilado responsive.
+- La plantilla de impresión y su comportamiento no se modificaron.
+
+### Archivos modificados
+
+- `index.html` — estructura del formulario `#bat-no-boot-report-dialog`, sin cambiar la lógica de captura/impresión.
+- `ffdg-bat-catalog.css` — estilos scoped de la presentación del modal No Boot.
+- `CONTEXTO_FFDIGI.md` — descripción de la composición visual actual del formulario.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Funciones o secciones afectadas
+
+- Modal `#bat-no-boot-report-dialog` y formulario `#bat-no-boot-report-form`.
+- `openBatNoBootReport`, `submitBatNoBootReport`, `syncNoBootHardwareFields` y `printBatReport` permanecen sin cambios funcionales.
+
+### Impacto
+
+La captura se acerca al boceto gerencial con campos agrupados y evidencia en paralelo. No afecta BAT general, MTF, catálogos, estado local ni estructura del PDF.
+
+### Validación
+
+- Ocho scripts inline parseados; 233 IDs únicos.
+- Se verificaron 19 IDs funcionales del formulario, asociación label/control, rutas de iconos SVG y balance de llaves CSS.
+- `git diff --check` pasó.
+- No se ejecutó comprobación visual o interacción real en navegador; la vista local `file://` está bloqueada por la política del navegador. Responsive quedó revisado estáticamente, no visualmente.
+
+### Resultado, pendientes y riesgos
+
+- Cambio local aplicado, sin commit ni push. Confirmar visualmente apertura, scroll, campos condicionales y evidencias en escritorio, tableta y teléfono cuando el navegador permita acceso local.
+- El reporte PDF conserva su diseño anterior; este cambio corresponde a la captura/modal del formulario.
+
+## 2026-10-21 — Ajustar tema y espacios del reporte No Boot
+
+### Solicitud
+
+Mostrar blanco el formulario en modo día, adaptarlo al modo noche, agregar la marca NVIDIA y compactar resumen, procedimiento, hardware e intervención para reducir espacios vacíos.
+
+### Análisis y solución
+
+- El diálogo tenía paleta oscura fija aunque la aplicación ya expone el tema en `html[data-theme]`.
+- El CSS Grid estiraba los campos cortos a la altura del textarea y la sección de hardware reservaba una fila independiente para su título y selector.
+- Se añadió el logo NVIDIA local al encabezado y se aplica inversión solo en modo día para mantenerlo legible en ambos temas.
+- El modo día usa superficies blancas y grises muy claras; el modo noche conserva la paleta oscura existente.
+- Se redujeron separaciones/paddings, se compactó título y selector de hardware en una fila de escritorio, se limitó el alto mínimo del textarea y se alinean los campos al inicio para evitar estiramientos. En móvil, hardware y detalles vuelven a una columna.
+- No se modificaron lógica, IDs, valores, validaciones, evidencias ni plantilla de impresión.
+
+### Archivos modificados
+
+- `index.html` — marca NVIDIA local en el encabezado del diálogo.
+- `ffdg-bat-catalog.css` — tema claro acotado, compactación de grupos y ajuste responsive.
+- `CONTEXTO_FFDIGI.md` — comportamiento visual actual del reporte No Boot.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Se revisaron los selectores del tema global y la existencia/ruta del logo local.
+- Siete scripts inline no-módulo parseados; 235 IDs sin duplicados; llaves CSS balanceadas; logo NVIDIA disponible; `git diff --check` correcto.
+- Responsive revisado estáticamente. La revisión visual real en navegador queda pendiente; el acceso local `file://` permanece bloqueado en esta sesión.
+
+## 2026-10-21 — Ajustar proporción y compactación del reporte No Boot
+
+### Solicitud
+
+Aumentar el logo NVIDIA, igualar el ancho del campo de intervención al de causa raíz (RCA) y reducir espacios sin aprovechar.
+
+### Solución
+
+- Se amplió el logo en escritorio y móvil, manteniendo el filtro de modo día/noche ya aplicado.
+- Se fijó explícitamente el ancho de los controles al 100 % de su columna; RCA e intervención comparten dos columnas iguales en escritorio y pasan a una columna en móvil.
+- Se redujeron un poco más las separaciones de formulario, paneles y campos; el textarea conserva resize vertical, sin expansión horizontal, y su altura mínima baja a 60 px.
+- No se alteraron IDs, lógica, validaciones, datos, opciones ni generación/estructura del PDF.
+
+### Archivos modificados
+
+- `ffdg-bat-catalog.css` — tamaño del logo y ajuste de columnas/espaciado responsive.
+- `CONTEXTO_FFDIGI.md` — proporción actual de los campos del reporte.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Siete scripts inline no-módulo parseados; 235 IDs sin duplicados; llaves CSS balanceadas; logo NVIDIA disponible; columnas iguales verificadas estáticamente; `git diff --check` correcto.
+- No se pudo realizar revisión visual real en navegador; el acceso local `file://` no está disponible en esta sesión.
+
+## 2026-10-21 — Ampliar marca y optimizar columnas del reporte No Boot
+
+### Solicitud
+
+Hacer más visible el logo NVIDIA y los iconos, evitar que intervención se perciba más ancha que RCA y aprovechar espacios vacíos.
+
+### Solución
+
+- Se aumentó el logo local del encabezado a 156×48 px en escritorio y 92×30 px en móvil; en teléfono el encabezado se divide en dos líneas para conservar el ancho útil.
+- Se aumentaron los iconos de encabezado de panel a 34 px (30 px en móvil).
+- Se reagruparon los paneles en dos columnas verticales independientes: resumen, procedimiento e intervención a la izquierda; identidad, retest y siguiente acción a la derecha. Así cada columna fluye sin dejar huecos por diferencias de altura de filas.
+- RCA e intervención permanecen en dos tracks iguales y ambos controles tienen el mismo ancho de columna; textarea solo permite resize vertical.
+- Se conservaron todos los IDs, contenidos, condiciones, validaciones, lógica y plantilla PDF.
+
+### Archivos modificados
+
+- `index.html` — agrupación de paneles en columnas, sin cambiar los controles funcionales.
+- `ffdg-bat-catalog.css` — tamaño de marca/iconos, columnas compactas y responsive.
+- `CONTEXTO_FFDIGI.md` — comportamiento de presentación actualizado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Siete scripts inline no-módulo parseados; 235 IDs sin duplicados; referencias ARIA existentes; llaves CSS balanceadas; logo local existe; anchos iguales de RCA/intervención verificados estáticamente; `git diff --check` correcto.
+- No se pudo realizar revisión visual real en navegador; el acceso local `file://` no está disponible en esta sesión.
+
+## 2026-10-21 — Aplicar diseño ejecutivo azul marino al PDF No Boot
+
+### Solicitud
+
+Aplicar al reporte PDF el boceto aprobado: encabezado de marcas, barras azul marino, acentos NVIDIA verdes y seis áreas ordenadas para gerencia.
+
+### Estado previo y análisis
+
+- El modal ya captura identificación, estado, retest, clasificación, procedimiento, causa raíz, intervención, hardware y evidencias; esos valores se conservan en la sesión y alimentan `printBatReport`.
+- La plantilla imprimible reutiliza `#bat-print-report` para BAT normal y No Boot; estilos compartidos no debían alterar el reporte BAT normal ni MTF.
+- El árbol ya tenía modificaciones locales en `index.html`, hojas de estilo y documentación; se preservaron y se limitaron los cambios a la plantilla, el binding de sus campos y una hoja de impresión nueva.
+
+### Causa
+
+La plantilla No Boot mostraba el estilo ejecutivo anterior y no agrupaba visualmente clasificación, resultado de retest, procedimiento y hardware en la jerarquía del boceto seleccionado.
+
+### Solución
+
+- Se creó una cabecera imprimible No Boot con los logotipos NVIDIA e Ingrasys locales, fecha de emisión y banda azul marino.
+- Se organizó el reporte en seis secciones: identificación, estado y resultado, procedimiento, análisis/diagnóstico, evidencia y firmas. La fila de identificación consolida seis campos ya existentes; no crea folios ni datos nuevos.
+- El resumen imprime estado, retest, acción siguiente y clasificación; mantiene la síntesis declarada y muestra el procedimiento aplicado como sección propia.
+- La respuesta Sí/No sobre cambio de hardware siempre aparece; P/N y S/N solo se muestran cuando se seleccionó Sí. Las imágenes adjuntas mantienen sus nombres; sin adjuntos, se presenta un mensaje explícito.
+- El estilo nuevo queda aislado en `ffdg-report-print.css` y se limita a `@media print` con `.bat-executive-report`; no cambia el modal, la lógica de captura, el reporte BAT normal, diagramas, catálogos ni MTF.
+
+### Archivos modificados
+
+- `index.html` — estructura del reporte de impresión No Boot, binding de fecha/retest/clasificación/procedimiento/hardware/evidencia y carga de hoja CSS.
+- `ffdg-report-print.css` — estilos de impresión azul marino/verde, rejillas, tarjetas, evidencia, firmas y estados.
+- `README.md` — comportamiento y estilo actual del PDF No Boot; registro de hoja de impresión.
+- `CONTEXTO_FFDIGI.md` — fuente de estilo imprimible y mapeo de contenido actualizado.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — esta entrada.
+
+### Validación
+
+- `git diff --check` pasó.
+- 244 IDs HTML comprobados; no hay duplicados. Los siete scripts inline clásicos parsean; scripts externos, vacíos y módulos fueron excluidos de ese chequeo.
+- Llaves CSS balanceadas (60/60); las rutas de los dos logotipos existen.
+- La inspección visual del PDF no se pudo ejecutar: el navegador bloqueó la URL `file://` por política. No se intentó sortear esa restricción.
+
+### Resultado, pendientes y riesgos
+
+- La plantilla y sus bindings están implementados; falta abrir el reporte desde la aplicación y confirmar tamaño, paginación y fidelidad de color en su diálogo de impresión.
+- No se garantiza una sola hoja: depende del largo de textos/imágenes y del motor de impresión.
+- No se ejecutó commit ni push.
+
+## 2026-10-21 — Ajustar fidelidad visual del PDF No Boot
+
+### Solicitud
+
+Igualar mejor el PDF al boceto ejecutivo: usar la hoja A4 completa, iconos, bandas azul marino/verdes, tamaños y composición de secciones.
+
+### Solución
+
+- Se asignó una página A4 exclusiva para el PDF ejecutivo No Boot con margen de 4 mm y altura mínima de impresión para aprovechar la hoja sin afectar reportes BAT normales ni MTF.
+- Se añadieron iconos locales en estado/retest/acción/clasificación, procedimiento, análisis RCA/intervención/cambio de hardware y evidencia.
+- Se reorganizó el estado en tres columnas con clasificación de ancho completo; el análisis ahora alinea RCA, intervención y estado de cambio de hardware.
+- Se prepararon paneles Antes/Después permanentes: muestran evidencia real adjunta o un marcador explícito cuando no hay imagen. No se incorporaron imágenes ni datos demostrativos.
+- Los datos P/N y S/N se imprimen cuando el cambio fue «Sí»; si fue «No» o no aplica, la salida muestra «No aplica» y preserva la respuesta registrada en el análisis.
+
+### Archivos modificados
+
+- `index.html` — estructura de iconos y paneles de evidencia; enlaces de los valores capturados a la impresión.
+- `ffdg-report-print.css` — página A4, dimensiones, rejillas, iconos, colores y paneles de evidencia exclusivos del No Boot.
+- `README.md` — descripción actualizada de la impresión.
+- `CONTEXTO_FFDIGI.md` — comportamiento y alcance imprimible actualizados.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Siete scripts inline clásicos parseados; 245 IDs estáticos sin duplicados; llaves de `ffdg-report-print.css` balanceadas; logotipos e iconos locales presentes; `git diff --check` correcto.
+- No se realizó prueba visual del diálogo de impresión; la navegación local `file://` fue bloqueada por política previamente y no se intentó eludirla.
+- No se hizo commit ni push.
+
+## 2026-10-21 — Reconstruir proporciones del PDF No Boot según nueva referencia
+
+### Solicitud
+
+Reproducir la nueva imagen como PDF final, respetando proporciones, tamaños, iconos, colores y uso de toda la hoja.
+
+### Estado previo y análisis
+
+- La hoja A4 ya estaba asignada con márgenes compactos, seis secciones y paneles de evidencia Antes/Después.
+- La comparación con la nueva referencia mostraba badges e iconos pequeños, encabezado y filas demasiado comprimidos, además de una distribución de firmas distinta.
+- Se conservaron nombres de campo y datos reales; el sello no afirma que el reporte sea demostrativo ni agrega valores de ejemplo.
+
+### Solución
+
+- Se ampliaron el logo NVIDIA, la barra de título, las barras numeradas, las celdas de identificación y los iconos de resultado para seguir las proporciones del boceto.
+- Estado, retest y acción ahora usan tratamientos compactos tipo etiqueta; clasificación mantiene su franja verde de ancho completo.
+- Procedimiento y análisis conservan iconografía local y tres columnas iguales; el bloque de hardware queda en banda verde con P/N/S/N real o «No aplica».
+- Evidencia se rotula «EVIDENCIA · ANTES / DESPUÉS»; el espacio vacío muestra icono y ausencia explícita, nunca fotos ficticias.
+- Firmas muestran áreas independientes de nombre/firma y fecha. Se oculta únicamente la síntesis redundante de impresión que no aparece en la referencia; su información principal ya está representada en estado, RCA y acción.
+- El estilo se limita a la página imprimible ejecutiva No Boot; el reporte BAT normal, MTF, datos, procedimiento y captura del formulario no cambian.
+
+### Archivos modificados
+
+- `index.html` — encabezados de evidencias y campos imprimibles de firma.
+- `ffdg-report-print.css` — proporciones de página, logos, secciones, datos, resultados, iconos, hardware, evidencia y firmas.
+- `CONTEXTO_FFDIGI.md` — composición visual imprimible actualizada.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Siete scripts inline clásicos parseados; 245 IDs estáticos sin duplicados; llaves CSS balanceadas; 30 referencias de iconos en `index.html` más los dos logotipos comprobados en disco; `git diff --check` correcto.
+- No se pudo abrir el diálogo de impresión ni comparar captura renderizada; el navegador bloqueó `file://` previamente y no se usó ruta alterna.
+- Sin commit ni push.
+
+## 2026-10-21 — Afinar iconos, marca y detalles del PDF No Boot
+
+### Solicitud
+
+Replicar con mayor fidelidad la última referencia: logotipos y fecha en encabezado, títulos, numeración, iconos, proporciones de campos, evidencia y firmas.
+
+### Solución
+
+- Se recompuso el lockup NVIDIA verde/negro desde el wordmark local, se mantuvo el logo local de Ingrasys y la fecha dinámica del reporte.
+- Se ajustó el sello visual al contexto de datos capturados, conservando su lugar y proporción sin declarar el reporte real como demostrativo.
+- Se incorporaron iconos locales de retest, clasificación, RCA e intervención; el procedimiento muestra su número en un círculo verde.
+- Se alinearon etiquetas de hardware y evidencia, conservando datos reales. La ausencia de evidencia se marca explícitamente.
+
+### Archivos modificados
+
+- `index.html` — marca, sello, iconografía y presentación de procedimiento/hardware en la plantilla No Boot.
+- `ffdg-report-print.css` — lockup, etiquetas, iconos y alineación de la hoja A4.
+- `assets/ui-icons/arrow-repeat.svg`, `assets/ui-icons/bar-chart-line-fill.svg`, `assets/ui-icons/gear.svg`, `assets/ui-icons/wrench.svg` — iconos locales añadidos.
+- `README.md` y `CONTEXTO_FFDIGI.md` — descripción vigente de la composición de impresión.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Validación estática de scripts, IDs, CSS y recursos locales; `git diff --check` sin errores.
+- Sin verificación visual: la página `file://` no pudo inspeccionarse en el navegador de esta sesión; no se intentó eludir la restricción.
+- Sin commit ni push.
+
+## 2026-10-21 — Completar fecha, evidencia e iconos del PDF No Boot
+
+### Solicitud
+
+Alinear el resultado con la referencia: mostrar fecha y hora, hacer visibles las zonas fotográficas, corregir alineación de firmas e iconos y centrar títulos.
+
+### Solución
+
+- El encabezado ahora muestra fecha de emisión y hora local generadas al imprimir.
+- Se fijó la cuadrícula de evidencia Antes/Después en dos columnas y se aseguraron alturas explícitas para imágenes y marcadores sin evidencia.
+- Se rehízo la cuadrícula de firmas para alinear ambos bloques y sus renglones de nombre/fecha.
+- El icono de llave inglesa se ubicó en «Cambio de hardware»; «Intervención realizada» conserva solo el texto, como en la referencia. Se centraron el título principal, los títulos de sección y los encabezados de evidencia.
+
+### Archivos modificados
+
+- `index.html` — hora dinámica y asociación de iconos en diagnóstico.
+- `ffdg-report-print.css` — centrado, evidencia y alineación de firmas.
+- `README.md`, `CONTEXTO_FFDIGI.md` y `HISTORIAL_CAMBIOS_FFDIGI.md` — comportamiento documentado.
+
+### Validación
+
+- Se ejecutaron validaciones estáticas de scripts, IDs, recursos, balance CSS y `git diff --check`.
+- No se pudo comparar un PDF renderizado en navegador; la vista local `file://` no está disponible para inspección visual en esta sesión.
+- Sin commit ni push.
+
+## 2026-10-21 — Corregir preparación de evidencia antes del PDF No Boot
+
+### Solicitud
+
+Revisar la fidelidad del PDF frente a la referencia, corregir que las evidencias adjuntas no aparezcan y comprobar alineación, centrado y estética antes de publicar.
+
+### Estado previo y análisis
+
+- El lector de archivos resolvía al terminar `FileReader`, marcaba la evidencia como lista y permitía abrir la impresión sin esperar la decodificación de la imagen.
+- El generador creaba otro elemento `<img>` y llamaba `window.print()` inmediatamente, por lo que el navegador podía imprimir antes de tener la foto decodificada.
+- Las reglas actuales del reporte ya establecen dos paneles de evidencia Antes/Después, imágenes contenidas sin recorte y una cuadrícula de dos firmas; no se pudo comprobar su resultado visual en navegador durante esta sesión.
+
+### Solución
+
+- La preparación de cada archivo ahora espera `HTMLImageElement.decode()` (con fallback `load/error`) antes de quitar el estado de carga.
+- La vista previa usa una copia de la imagen decodificada y la impresión consume el elemento ya preparado, conservando datos y captions existentes.
+- No se modificaron el contenido técnico, los campos, los IDs ni las opciones de impresión.
+
+### Archivos modificados
+
+- `index.html` — lectura/decodificación de evidencia y creación de imágenes para impresión.
+- `CONTEXTO_FFDIGI.md` — documenta la espera de decodificación para el PDF No Boot.
+- `HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- Pendiente ejecutar verificación estática de scripts, IDs, recursos, CSS y `git diff --check`.
+- No se pudo abrir el diálogo ni renderizar/revisar el PDF; la página local `file://` está bloqueada para inspección visual por la política del navegador. No se usó una ruta alternativa.
+- No se hizo commit ni push; queda pendiente la comparación visual y, tras aprobarla, publicar al remoto solicitado.
+
+### Resultado, pendientes y riesgos
+
+- La ruta de datos ahora exige imagen decodificada antes de considerarla lista; el cambio apunta al problema confirmado de carrera con la impresión.
+- La fidelidad final de evidencias, centrado y alineación requiere inspeccionar el PDF generado. La subida a GitHub queda pendiente de esa validación visual.

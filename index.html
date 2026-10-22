@@ -1923,6 +1923,26 @@
             Anterior</button>
         </div>
       </div>
+      <dialog id="bat-no-boot-suggestion-dialog" class="mtf-case-dialog bat-no-boot-suggestion-dialog" aria-labelledby="bat-no-boot-suggestion-title" aria-describedby="bat-no-boot-suggestion-step">
+        <div class="mtf-case-form">
+          <header class="mtf-case-dialog-head">
+            <div><span class="flowchart-modal-kicker">GUÍA BAT · NO BOOT</span><h2 id="bat-no-boot-suggestion-title">Sugerencia de diagnóstico</h2></div>
+            <button id="bat-no-boot-suggestion-close" class="flowchart-modal-close" type="button" aria-label="Cerrar sugerencia" autofocus>×</button>
+          </header>
+          <p id="bat-no-boot-suggestion-step" class="mtf-case-note"></p>
+          <section id="bat-no-boot-suggestion-detail-section" class="mtf-case-section" aria-labelledby="bat-no-boot-suggestion-detail-heading">
+            <h3 id="bat-no-boot-suggestion-detail-heading">Orientación de diagnóstico</h3>
+            <p id="bat-no-boot-suggestion-detail" class="bat-no-boot-suggestion-copy"></p>
+          </section>
+          <section id="bat-no-boot-suggestion-fail-section" class="mtf-case-section bat-no-boot-suggestion-fail" aria-labelledby="bat-no-boot-suggestion-fail-heading" hidden>
+            <h3 id="bat-no-boot-suggestion-fail-heading">Si no pasa</h3>
+            <p id="bat-no-boot-suggestion-fail" class="bat-no-boot-suggestion-copy"></p>
+          </section>
+          <div class="mtf-case-actions">
+            <button class="m3-btn m3-btn-filled" type="button" id="bat-no-boot-suggestion-done">Entendido</button>
+          </div>
+        </div>
+      </dialog>
       <div id="bat-history-card" class="m3-card hidden">
         <div class="m3-card-header">
           <h2 class="m3-card-title">2. Historial de Validaciones Realizadas</h2>
@@ -2244,6 +2264,31 @@
   </dialog>
   <!-- REPORTES PARA PDF CON LOGO NVIDIA -->
   <div id="bat-print-report" class="report-only">
+    <header id="bat-executive-print-header" class="bat-executive-print-header hidden">
+      <div class="bat-executive-print-brand-row">
+        <div class="bat-executive-print-brands">
+          <span class="bat-print-nvidia-mark">
+            <img class="bat-print-nvidia-wordmark" src="./LOGO NVIDIA NEGRO.png" alt="NVIDIA">
+            <img class="bat-print-nvidia-eye" src="./LOGO NVIDIA NEGRO.png" alt="" aria-hidden="true">
+          </span>
+          <span class="bat-print-brand-divider" aria-hidden="true"></span>
+          <img class="bat-print-ingrasys-logo" src="./ingrasys-logo.png" alt="Ingrasys">
+        </div>
+        <div class="bat-executive-print-date">
+          <span>Fecha de emisión</span>
+          <strong id="bat-print-executive-date"></strong>
+          <small>Hora de generación</small>
+          <strong id="bat-print-executive-time"></strong>
+        </div>
+      </div>
+      <div class="bat-executive-print-title-band">
+        <div>
+          <h1>Reporte de análisis de falla · BAT No Boot</h1>
+          <p>Información consolidada del diagnóstico y resultado final</p>
+        </div>
+        <span class="bat-executive-print-stamp"><strong>REPORTE BAT</strong><small>DATOS CAPTURADOS</small></span>
+      </div>
+    </header>
     <div class="print-head">
       <div class="print-brand-primary">
         <img class="ingrasys-print-logo" src="./ingrasys-logo.png" alt="Ingrasys">
@@ -2312,37 +2357,54 @@
       </div>
       </div>
     </div>
+    <div id="bat-print-identity-section" class="print-section bat-print-section hidden"><span class="bat-print-section-number" aria-hidden="true">1</span><span>Identificación del caso</span></div>
     <div id="bat-print-meta" class="print-grid bat-print-grid"></div>
-    <section id="bat-print-hardware" class="bat-print-hardware hidden" aria-label="Tarjeta o hardware reemplazado">
-      <h2>Tarjeta o hardware reemplazado</h2>
-      <div class="bat-print-hardware-grid">
-        <div><strong>Número de parte de la tarjeta dañada</strong><span id="bat-print-damaged-part"></span></div>
-        <div><strong>Número de serie de la tarjeta dañada</strong><span id="bat-print-damaged-serial"></span></div>
-      </div>
-    </section>
+    <div id="bat-print-status-section" class="print-section bat-print-section hidden"><span class="bat-print-section-number" aria-hidden="true">2</span><span>Estado y resultado del análisis</span></div>
     <section id="bat-print-executive-summary" class="bat-executive-summary hidden" aria-label="Status de diagnóstico">
       <div class="bat-executive-status">
-        <span>Estado reportado</span>
+        <img src="./assets/ui-icons/file-earmark-text.svg" alt="" aria-hidden="true">
+        <span>Estado del reporte</span>
         <strong id="bat-print-executive-status"></strong>
-        <small>Información declarada por el analista</small>
       </div>
       <div class="bat-executive-copy-card">
-        <span>Status de diagnóstico</span>
-        <p id="bat-print-executive-copy"></p>
+        <img src="./assets/ui-icons/arrow-repeat.svg" alt="" aria-hidden="true">
+        <span>Resultado del retest</span>
+        <strong id="bat-print-executive-retest"></strong>
       </div>
       <div class="bat-executive-action-card">
-        <span>Siguiente acción registrada</span>
+        <img src="./assets/ui-icons/bar-chart-line-fill.svg" alt="" aria-hidden="true">
+        <span>Siguiente acción</span>
         <strong id="bat-print-executive-action"></strong>
       </div>
+      <div class="bat-executive-classification-card">
+        <img src="./assets/ui-icons/bar-chart-line-fill.svg" alt="" aria-hidden="true">
+        <span>Clasificación final</span>
+        <strong id="bat-print-executive-classification"></strong>
+      </div>
     </section>
+    <p id="bat-print-executive-copy" class="bat-executive-context hidden"></p>
+    <div id="bat-print-procedure-section" class="print-section bat-print-section hidden"><span class="bat-print-section-number" aria-hidden="true">3</span><span>Procedimiento aplicado</span></div>
+    <div id="bat-print-procedure" class="bat-print-procedure hidden">
+      <span id="bat-print-procedure-number" class="bat-print-procedure-number"></span>
+      <div><strong id="bat-print-procedure-prefix" class="bat-print-procedure-prefix"></strong><span id="bat-print-procedure-text" class="bat-print-procedure-text"></span></div>
+    </div>
     <div id="bat-print-summary-title" class="print-section bat-print-section">Resumen para Calidad</div>
     <div id="bat-print-verdict"></div>
     <div id="bat-print-continuation" class="bat-report-continuation"></div>
-    <div id="bat-print-actions-title" class="print-section bat-print-section">Causa raíz y acciones reportadas</div>
+    <div id="bat-print-actions-title" class="print-section bat-print-section"><span class="bat-print-section-number" aria-hidden="true">4</span><span>Análisis y diagnóstico</span></div>
     <div id="bat-print-final" style="margin-top:8px;"></div>
-    <div id="bat-print-evidence-section" class="print-section bat-print-section">Evidencia de soporte</div>
+    <section id="bat-print-hardware" class="bat-print-hardware hidden" aria-label="Cambio de hardware">
+      <h2><img src="./assets/ui-icons/cpu.svg" alt="" aria-hidden="true"><span id="bat-print-hardware-title" class="bat-print-hardware-title">Tarjeta o hardware registrado</span></h2>
+      <div class="bat-print-hardware-state"><strong>¿Hubo cambio de tarjeta o hardware?</strong><span id="bat-print-hardware-status"></span></div>
+      <div id="bat-print-hardware-details" class="bat-print-hardware-grid">
+        <div><strong>Número de parte (P/N)</strong><span id="bat-print-damaged-part"></span></div>
+        <div><strong>Número de serie (S/N)</strong><span id="bat-print-damaged-serial"></span></div>
+      </div>
+    </section>
+    <div id="bat-print-evidence-section" class="print-section bat-print-section"><span class="bat-print-section-number" aria-hidden="true">5</span><span>Evidencia fotográfica</span></div>
     <div id="print-evidence-list" class="gallery-grid" style="margin-top:10px;"></div>
-    <div id="bat-print-signatures-section" class="print-section bat-print-section">Firmas de diagnóstico y revisión</div>
+    <p id="bat-print-evidence-empty" class="bat-print-evidence-empty hidden">No se adjuntó evidencia fotográfica a este reporte.</p>
+    <div id="bat-print-signatures-section" class="print-section bat-print-section"><span class="bat-print-section-number" aria-hidden="true">6</span><span>Firmas</span></div>
     <div id="bat-print-signatures" class="print-signatures"></div>
     <div id="print-quality-note" class="print-footer"></div>
   </div>
@@ -2362,66 +2424,90 @@
   <div id="mtf-case-print-report" class="report-only"></div>
 </main>
 <dialog id="bat-no-boot-report-dialog" class="mtf-case-dialog bat-no-boot-report-dialog" aria-labelledby="bat-no-boot-report-title" aria-describedby="bat-no-boot-report-help">
-  <form id="bat-no-boot-report-form" class="mtf-case-form">
-    <header class="mtf-case-dialog-head">
-      <div><span class="flowchart-modal-kicker">REPORTE BAT · NO BOOT</span><h2 id="bat-no-boot-report-title">Reporte de falla</h2></div>
-      <button id="bat-no-boot-report-close" class="flowchart-modal-close" type="button" aria-label="Cerrar reporte">×</button>
+  <form id="bat-no-boot-report-form" class="mtf-case-form bat-no-boot-report-form">
+    <header class="bat-no-boot-report-topbar">
+      <div class="bat-no-boot-report-brand"><img class="bat-no-boot-report-logo" src="./LOGO NVIDIA NEGRO.png" alt="NVIDIA"><strong>FFDIGI-FA-BAT</strong><span aria-hidden="true">│</span><span>No Boot</span></div>
+      <div class="bat-no-boot-report-topbar-action"><h2 id="bat-no-boot-report-title">Realizar reporte de falla</h2><button id="bat-no-boot-report-close" class="flowchart-modal-close" type="button" aria-label="Cerrar reporte">×</button></div>
     </header>
-    <p id="bat-no-boot-report-help" class="mtf-case-note">Registra la intervención del nodo, el punto de detención y el resultado. Datos e imágenes se conservan solo en esta sesión; al imprimir, elige “Guardar como PDF”.</p>
-    <section class="mtf-case-section" aria-labelledby="bat-no-boot-summary-heading"><h3 id="bat-no-boot-summary-heading">Falla seleccionada</h3><div id="bat-no-boot-report-summary" class="mtf-case-fault-summary"></div></section>
-    <section class="mtf-case-section" aria-labelledby="bat-no-boot-identity-heading"><h3 id="bat-no-boot-identity-heading">Identificación del nodo y analista</h3>
-      <div class="mtf-case-fields">
-        <label for="bat-no-boot-report-serial">Serial del nodo (S/N) *<input id="bat-no-boot-report-serial" class="m3-input" name="serial" autocomplete="off" required></label>
-        <label for="bat-no-boot-report-part">Número de parte (P/N) *<select id="bat-no-boot-report-part" class="m3-select" name="part" required></select></label>
-        <label for="bat-no-boot-report-employee">Número de empleado *<input id="bat-no-boot-report-employee" class="m3-input" name="employeeId" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required></label>
-        <label for="bat-no-boot-report-analyst">Nombre del analista *<input id="bat-no-boot-report-analyst" class="m3-input" name="analyst" autocomplete="name" required></label>
+    <p id="bat-no-boot-report-help" class="bat-no-boot-report-help">Captura identificación, diagnóstico, intervención y evidencia. Los datos permanecen en esta sesión; al generar, elige “Guardar como PDF”.</p>
+    <section class="bat-no-boot-report-panel bat-no-boot-report-identity" aria-labelledby="bat-no-boot-identity-heading">
+      <div class="bat-no-boot-report-panel-heading">
+        <img src="./assets/ui-icons/file-earmark-text.svg" alt="" aria-hidden="true">
+        <div><h2 id="bat-no-boot-identity-heading">Identificación del caso</h2><p>Información del nodo y del reporte de falla.</p></div>
+      </div>
+      <div class="bat-no-boot-report-identity-grid">
+        <div class="bat-no-boot-report-readonly"><span>ID del reporte</span><div id="bat-no-boot-report-summary" class="bat-no-boot-report-summary-value"></div></div>
+        <label for="bat-no-boot-report-part">Modelo / SKU *<select id="bat-no-boot-report-part" class="m3-select" name="part" required></select></label>
+        <label for="bat-no-boot-report-serial">Número de serie *<input id="bat-no-boot-report-serial" class="m3-input" name="serial" autocomplete="off" required></label>
+        <div class="bat-no-boot-report-readonly"><span>Estación / línea</span><div>BAT · No Boot</div></div>
       </div>
     </section>
-    <section class="mtf-case-section bat-no-boot-hardware-section" aria-labelledby="bat-no-boot-hardware-heading">
-      <h3 id="bat-no-boot-hardware-heading">Cambio de hardware</h3>
-      <div class="mtf-case-fields">
-        <label for="bat-no-boot-hardware-changed">¿Hubo cambio de tarjeta o hardware? *
-          <select id="bat-no-boot-hardware-changed" class="m3-select" name="hardwareChanged" required>
-            <option value="">Selecciona</option><option value="Sí">Sí</option><option value="No">No</option>
-          </select>
-        </label>
+    <div class="bat-no-boot-report-columns">
+      <div class="bat-no-boot-report-column">
+        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-summary-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/ui-icons/exclamation-triangle-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-summary-heading">Resumen de la falla</h2><p>Estado actual informado para el caso.</p></div></div>
+          <label for="bat-no-boot-report-outcome">Estado reportado *<select id="bat-no-boot-report-outcome" class="m3-select" name="outcome" aria-describedby="bat-no-boot-report-status" required><option value="">Selecciona</option><option value="Resuelta">Resuelta</option><option value="En validación">En validación</option><option value="NVIDIA">NVIDIA</option><option value="Reparación">Reparación</option><option value="Pruebas">Pruebas</option></select></label>
+        </section>
+        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-procedure-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/ui-icons/diagram-3.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-procedure-heading">Procedimiento aplicado / paso donde se detuvo</h2><p>Selecciona el procedimiento aplicado según el FFDG.</p></div></div>
+          <label for="bat-no-boot-stopped-step">Procedimiento aplicado según el FFDG de NVIDIA *<select id="bat-no-boot-stopped-step" class="m3-select" name="stoppedStep" aria-describedby="bat-no-boot-report-status" required></select></label>
+        </section>
+        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-action-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/ui-icons/gear-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-action-heading">Causa raíz / intervención realizada</h2><p>Resume la causa identificada y las acciones realizadas.</p></div></div>
+          <div class="bat-no-boot-report-fields">
+            <label for="bat-no-boot-report-root-cause">Causa raíz (RCA) *<select id="bat-no-boot-report-root-cause" class="m3-select" name="rootCause" required></select></label>
+            <label for="bat-no-boot-report-actions">Intervención / acciones realizadas *<textarea id="bat-no-boot-report-actions" class="m3-textarea" name="actions" rows="3" required></textarea></label>
+          </div>
+        </section>
       </div>
-      <div id="bat-no-boot-hardware-details" class="mtf-case-fields bat-no-boot-hardware-details hidden" aria-live="polite">
-        <label for="bat-no-boot-damaged-part">Número de parte de la tarjeta dañada *<input id="bat-no-boot-damaged-part" class="m3-input" name="damagedPart" autocomplete="off"></label>
-        <label for="bat-no-boot-damaged-serial">Número de serie de la tarjeta dañada *<input id="bat-no-boot-damaged-serial" class="m3-input" name="damagedSerial" autocomplete="off"></label>
+      <div class="bat-no-boot-report-column">
+        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-node-heading">
+        <div class="bat-no-boot-report-panel-heading"><img src="./assets/ui-icons/hdd-rack.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-node-heading">Identidad del nodo y analista</h2><p>Responsables y trazabilidad de hardware.</p></div></div>
+        <div class="bat-no-boot-report-fields">
+          <label for="bat-no-boot-report-employee">Número de empleado *<input id="bat-no-boot-report-employee" class="m3-input" name="employeeId" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required></label>
+          <label for="bat-no-boot-report-analyst">Analista responsable *<input id="bat-no-boot-report-analyst" class="m3-input" name="analyst" autocomplete="name" required></label>
+        </div>
+        <section class="bat-no-boot-report-hardware bat-no-boot-hardware-section" aria-labelledby="bat-no-boot-hardware-heading">
+          <h3 id="bat-no-boot-hardware-heading">Cambio de hardware</h3>
+          <label for="bat-no-boot-hardware-changed">¿Hubo cambio de tarjeta o hardware? *<select id="bat-no-boot-hardware-changed" class="m3-select" name="hardwareChanged" required><option value="">Selecciona</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
+          <div id="bat-no-boot-hardware-details" class="bat-no-boot-report-fields bat-no-boot-hardware-details hidden" aria-live="polite">
+            <label for="bat-no-boot-damaged-part">Número de parte de la tarjeta dañada *<input id="bat-no-boot-damaged-part" class="m3-input" name="damagedPart" autocomplete="off"></label>
+            <label for="bat-no-boot-damaged-serial">Número de serie de la tarjeta dañada *<input id="bat-no-boot-damaged-serial" class="m3-input" name="damagedSerial" autocomplete="off"></label>
+          </div>
+        </section>
+        </section>
+        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-result-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/ui-icons/gear-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-result-heading">Resultado del retest / clasificación final</h2><p>Registra la salida de las pruebas y su clasificación.</p></div></div>
+          <div class="bat-no-boot-report-fields">
+            <label for="bat-no-boot-report-retest">Resultado del retest *<select id="bat-no-boot-report-retest" class="m3-select" name="retest" aria-describedby="bat-no-boot-report-status" required></select></label>
+            <label for="bat-no-boot-report-classification">Clasificación final *<select id="bat-no-boot-report-classification" class="m3-select" name="classification" required></select></label>
+          </div>
+        </section>
+        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-next-action-heading">
+        <div class="bat-no-boot-report-panel-heading"><img src="./assets/ui-icons/power.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-next-action-heading">Siguiente acción</h2><p>Define la continuidad del caso.</p></div></div>
+        <label for="bat-no-boot-report-next-action">Siguiente acción *<select id="bat-no-boot-report-next-action" class="m3-select" name="nextAction" required></select></label>
+        </section>
+      </div>
+    </div>
+    <section id="bat-no-boot-evidence" class="bat-no-boot-report-panel bat-no-boot-evidence" aria-labelledby="bat-no-boot-evidence-heading">
+      <div class="bat-no-boot-report-panel-heading"><img src="./assets/ui-icons/images.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-evidence-heading">Evidencia fotográfica</h2><p>Compara la condición inicial y el resultado de la intervención.</p></div></div>
+      <div class="bat-no-boot-evidence-grid">
+        <article class="bat-no-boot-evidence-card">
+          <h3>Antes de aplicar acciones</h3><p>Condición inicial observada en el nodo.</p>
+          <input id="bat-no-boot-evidence-before" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia antes de aplicar acciones">
+          <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-before">＋ Evidencia antes</button>
+          <div id="bat-no-boot-evidence-before-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
+        </article>
+        <article class="bat-no-boot-evidence-card">
+          <h3>Después de aplicar acciones</h3><p>Intervención realizada y resultado del retest.</p>
+          <input id="bat-no-boot-evidence-after" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia después de aplicar acciones">
+          <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-after">＋ Evidencia después</button>
+          <div id="bat-no-boot-evidence-after-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
+        </article>
       </div>
     </section>
-    <div class="mtf-case-fields">
-      <label for="bat-no-boot-report-outcome">Estado reportado *<select id="bat-no-boot-report-outcome" class="m3-select" name="outcome" aria-describedby="bat-no-boot-report-status" required><option value="">Selecciona</option><option value="Resuelta">Resuelta</option><option value="En validación">En validación</option><option value="NVIDIA">NVIDIA</option><option value="Reparación">Reparación</option><option value="Pruebas">Pruebas</option></select></label>
-      <label for="bat-no-boot-report-retest">Resultado del retest *<select id="bat-no-boot-report-retest" class="m3-select" name="retest" aria-describedby="bat-no-boot-report-status" required></select></label>
-    </div>
-    <div class="bat-no-boot-step-summary">
-      <label class="full-span" for="bat-no-boot-stopped-step">Procedimiento aplicado según el FFDG de NVIDIA *<select id="bat-no-boot-stopped-step" class="m3-select" name="stoppedStep" aria-describedby="bat-no-boot-report-status" required></select></label>
-    </div>
-    <div class="mtf-case-fields">
-      <label for="bat-no-boot-report-classification">Clasificación final *<select id="bat-no-boot-report-classification" class="m3-select" name="classification" required></select></label>
-      <label for="bat-no-boot-report-next-action">Siguiente acción *<select id="bat-no-boot-report-next-action" class="m3-select" name="nextAction" required></select></label>
-      <label for="bat-no-boot-report-root-cause">Causa raíz (RCA) *<select id="bat-no-boot-report-root-cause" class="m3-select" name="rootCause" required></select></label>
-    </div>
-    <div class="mtf-case-fields mtf-case-action-fields">
-      <label for="bat-no-boot-report-actions">Intervención / acciones realizadas *<textarea id="bat-no-boot-report-actions" class="m3-textarea" name="actions" rows="4" required></textarea></label>
-    </div>
-    <section id="bat-no-boot-evidence" class="bat-no-boot-evidence" aria-label="Evidencia antes y después de la intervención">
-      <article class="bat-no-boot-evidence-card">
-        <h3>Antes de aplicar acciones</h3><p>Condición inicial observada en el nodo.</p>
-        <input id="bat-no-boot-evidence-before" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia antes de aplicar acciones">
-        <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-before">＋ Evidencia antes</button>
-        <div id="bat-no-boot-evidence-before-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
-      </article>
-      <article class="bat-no-boot-evidence-card">
-        <h3>Después de aplicar acciones</h3><p>Intervención realizada y resultado del retest.</p>
-        <input id="bat-no-boot-evidence-after" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia después de aplicar acciones">
-        <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-after">＋ Evidencia después</button>
-        <div id="bat-no-boot-evidence-after-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
-      </article>
-    </section>
-    <p id="bat-no-boot-report-status" class="mtf-case-note" role="status" aria-live="polite"></p>
-    <footer class="mtf-case-actions"><button id="bat-no-boot-report-cancel" class="m3-btn m3-btn-tonal" type="button">Cancelar</button><button class="m3-btn m3-btn-filled" type="submit">Generar reporte · PDF</button></footer>
+    <p id="bat-no-boot-report-status" class="bat-no-boot-report-status" role="status" aria-live="polite"></p>
+    <footer class="bat-no-boot-report-actions"><button id="bat-no-boot-report-cancel" class="m3-btn m3-btn-tonal" type="button">Cancelar</button><button class="m3-btn m3-btn-filled" type="submit"><img src="./assets/ui-icons/file-earmark-text.svg" alt="" aria-hidden="true">Generar reporte · PDF</button></footer>
   </form>
 </dialog>
 <dialog id="mtf-case-report-dialog" class="mtf-case-dialog" aria-labelledby="mtf-case-dialog-title" aria-describedby="mtf-case-dialog-help">
@@ -2820,7 +2906,12 @@
       const pdfProcedure = Boolean(FFDG.state.activeFailure.pdfImported && FFDG.state.activeFailure.family !== "NOBOOT");
       $("yes-btn").textContent = pdfProcedure ? "✓ Paso Completado" : "✓ SÍ · Pasa Verificación";
       $("no-btn").textContent = pdfProcedure ? "✕ No se pudo completar" : "✕ NO · Presenta Anomalía";
-      $("step-question").innerHTML = `<strong>${escapeHtml(step.q)}</strong>${step.detail ? `<span class="bat-step-detail">${escapeHtml(step.detail).replace(/\n/g, "<br>")}</span>` : ""}`;
+      const isNoBootStep = FFDG.state.activeFailure?.family === "NOBOOT";
+      const stepQuestion = isNoBootStep
+        ? `<strong>${escapeHtml(step.q)}</strong>`
+        : `<strong>${escapeHtml(step.q)}</strong>${step.detail ? `<span class="bat-step-detail">${escapeHtml(step.detail).replace(/\n/g, "<br>")}</span>` : ""}`;
+      $("step-question").classList.toggle("bat-no-boot-question", isNoBootStep);
+      $("step-question").innerHTML = stepQuestion;
       $("step-note").value = "";
       $("progress-bar").style.width = `${(current / total) * 100}%`;
       $("bat-prev-btn").disabled = FFDG.state.index === 0;
@@ -2951,16 +3042,45 @@
         icon.src = "./assets/ui-icons/file-earmark-text.svg";
         icon.alt = "";
         icon.setAttribute("aria-hidden", "true");
-        heading.append(icon, number, title);
+        heading.append(icon, number);
+        if (isNoBoot) {
+          const suggestion = document.createElement("button");
+          suggestion.className = "bat-detail-step-help";
+          suggestion.type = "button";
+          suggestion.setAttribute("aria-haspopup", "dialog");
+          suggestion.setAttribute("aria-controls", "bat-no-boot-suggestion-dialog");
+          suggestion.setAttribute("aria-label", `Abrir sugerencia de diagnóstico para el paso ${step.sourceNumber}`);
+          suggestion.title = "¿Tienes dudas? Ver sugerencia de diagnóstico";
+          const ideaIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          ideaIcon.setAttribute("viewBox", "0 0 24 24");
+          ideaIcon.setAttribute("aria-hidden", "true");
+          ideaIcon.setAttribute("focusable", "false");
+          ideaIcon.classList.add("bat-detail-step-help-icon");
+          const bulb = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          bulb.setAttribute("d", "M9.5 18h5M10 21h4m-5.2-5.1A7 7 0 1 1 15.2 15.9c-.8.7-1.2 1.4-1.2 2.1h-4c0-.7-.4-1.4-1.2-2.1ZM12 2v1M4.9 4.9l.7.7M2 12h1m16-7.1-.7.7M21 12h1");
+          ideaIcon.appendChild(bulb);
+          suggestion.appendChild(ideaIcon);
+          suggestion.addEventListener("click", () => {
+            const hasActionableFailureGuidance = step.fail && !step.fail.includes("No se pudo completar este paso");
+            $("bat-no-boot-suggestion-step").textContent = `Paso ${step.sourceNumber} · ${step.title}`;
+            $("bat-no-boot-suggestion-detail").textContent = step.detail || "No hay una sugerencia adicional documentada para este paso.";
+            $("bat-no-boot-suggestion-detail-section").hidden = false;
+            $("bat-no-boot-suggestion-fail").textContent = hasActionableFailureGuidance ? step.fail : "";
+            $("bat-no-boot-suggestion-fail-section").hidden = !hasActionableFailureGuidance;
+            $("bat-no-boot-suggestion-dialog").showModal();
+          });
+          heading.appendChild(suggestion);
+        }
+        heading.appendChild(title);
         if (isComplete) heading.appendChild(status);
         item.appendChild(heading);
-        if (isActive && step.detail) {
+        if (!isNoBoot && isActive && step.detail) {
           const description = document.createElement("span");
           description.className = "bat-detail-step-detail";
           description.textContent = step.detail;
           item.appendChild(description);
         }
-        if (isActive && step.fail && !step.fail.includes("No se pudo completar este paso")) {
+        if (!isNoBoot && isActive && step.fail && !step.fail.includes("No se pudo completar este paso")) {
           const failureGuidance = document.createElement("span");
           failureGuidance.className = "bat-detail-step-detail";
           failureGuidance.textContent = `Si no pasa: ${step.fail}`;
@@ -2979,9 +3099,9 @@
             ? "Completar secuencia"
             : "Paso siguiente →";
       $("bat-detail-prev").disabled = !steps.length || activeIndex === 0;
-      renderBatFlowchart(steps, activeIndex);
+      renderBatFlowchart(steps, activeIndex, completedThrough);
     }
-    function renderBatFlowchart(steps, activeIndex = 0) {
+    function renderBatFlowchart(steps, activeIndex = 0, completedThrough = -1) {
       const box = $("bat-disposition-flow");
       if (!steps.length) {
         box.innerHTML = `<div class="mtf-no-procedure">No se generó diagrama porque el catálogo no contiene pasos para esta falla.</div>`;
@@ -3004,46 +3124,51 @@
       const pill = (x, y, width, label, className) =>
         `<g class="fc-g ${className}"><rect class="fc-n" x="${x}" y="${y}" width="${width}" height="36" rx="18"/><text x="${x + width / 2}" y="${y + 22}" font-size="10.5" text-anchor="middle">${escapeSvg(label)}</text></g>`;
       const junction = (x, y, color = "var(--md-sys-color-primary)") => `<circle cx="${x}" cy="${y}" r="5" fill="${color}" stroke="var(--md-sys-color-surface)" stroke-width="2"/>`;
-      let svg = `<svg viewBox="0 0 1000 ${height}" width="100%" role="img" aria-label="Diagrama BAT con todos los pasos conectados a un BAT station validation compartido; Pass continúa MTF y Fail avanza al siguiente paso o escala al final" style="display:block">
+      let svg = `<svg viewBox="0 0 1170 ${height}" width="100%" role="img" aria-label="Diagrama BAT con todos los pasos conectados a un BAT station validation compartido; Pass continúa MTF y Fail avanza al siguiente paso o escala al final" style="display:block">
         <defs><marker id="bat-fc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-ar" d="M0 1.2L9 5 0 8.8z"/></marker><marker id="bat-fc-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-arr" d="M0 1.2L9 5 0 8.8z"/></marker></defs>
-        ${pill(310, 18, 210, "Run the BAT station script", "on")}
-        <path class="fc-l" d="M415 54V82" marker-end="url(#bat-fc-arrow)"/>
-        <g class="fc-g fc-dm"><polygon class="fc-n" points="415,84 500,118 415,152 330,118"/><text x="415" y="114" font-size="10.5" text-anchor="middle">Passes after an</text><text x="415" y="128" font-size="10.5" text-anchor="middle">AC cycle</text></g>
-        <path class="fc-l" d="M500 118H740"/><text class="fc-p" x="568" y="108">Pass</text>
-        ${pill(780, 100, 200, "Proceed with MTF testing", "fc-ok")}
-        <path class="fc-l" d="M330 118H120V${firstCenter}H172" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="282" y="108">Fail</text>
-        ${hasActions ? `<path class="fc-l" d="M740 ${validationY}V118H772" marker-end="url(#bat-fc-arrow)"/>` : ""}`;
+        ${pill(320, 18, 210, "Run the BAT station script", "on")}
+        <path class="fc-l" d="M425 54V82" marker-end="url(#bat-fc-arrow)"/>
+        <g class="fc-g fc-dm"><polygon class="fc-n" points="425,84 525,118 425,152 325,118"/><text x="425" y="114" font-size="10.5" text-anchor="middle">Passes after an</text><text x="425" y="128" font-size="10.5" text-anchor="middle">AC cycle</text></g>
+        <path class="fc-l" d="M525 118H860"/><text class="fc-p" x="685" y="108">Pass</text>
+        ${pill(900, 100, 230, "Proceed with MTF testing", "fc-ok")}
+        <path class="fc-l" d="M325 118H105V${firstCenter}H151" marker-end="url(#bat-fc-arrow)"/><text class="fc-f" x="282" y="108">Fail</text>
+        ${hasActions ? `<path class="fc-l" d="M860 ${validationY}V118H892" marker-end="url(#bat-fc-arrow)"/>` : ""}`;
       displayedSteps.forEach((step, index) => {
         const center = step.isEscalation ? terminalCenter : rowCenter(index);
         const label = truncate(`Paso ${index + 1} de ${steps.length}: ${step.title || "Paso de diagnóstico"}`, 48);
+        const stepState = index <= completedThrough
+          ? "is-complete"
+          : index === activeIndex
+            ? "is-active"
+            : "is-pending";
         svg += step.isEscalation
           ? `${pill(180, center - 18, 280, step.title, "fc-er")}`
-          : `<g class="fc-g"><rect class="fc-n" x="180" y="${center - 19}" width="280" height="38" rx="10"/><text x="320" y="${center + 4}" font-size="9.5" text-anchor="middle">${escapeSvg(label)}</text></g>
-            <path class="fc-l" d="M460 ${center}H520"/>
-            ${junction(520, center)}`;
+          : `<g class="fc-g fc-step ${stepState}"><rect class="fc-n" x="150" y="${center - 19}" width="410" height="38" rx="10"/><text x="355" y="${center + 4}" font-size="9.5" text-anchor="middle">${escapeSvg(label)}</text></g>
+            <path class="fc-l" d="M560 ${center}H620"/>
+            ${junction(620, center)}`;
       });
-      if (actionSteps.length > 1) svg += `<path class="fc-l" d="M520 ${firstCenter}V${lastCenter}"/>`;
-      if (hasActions) svg += `<path class="fc-l" d="M520 ${validationY}H552" marker-end="url(#bat-fc-arrow)"/>
-        <g class="fc-g fc-dm"><polygon class="fc-n" points="630,${validationY - 35} 700,${validationY} 630,${validationY + 35} 560,${validationY}"/><text x="630" y="${validationY - 3}" font-size="9.5" text-anchor="middle">BAT station</text><text x="630" y="${validationY + 11}" font-size="9.5" text-anchor="middle">validation</text></g>
-        <text class="fc-p" x="706" y="${validationY - 8}">Pass</text>
-        <path class="fc-l" d="M700 ${validationY}H740"/>
-        ${junction(740, 118)}${junction(740, validationY)}`;
+      if (actionSteps.length > 1) svg += `<path class="fc-l" d="M620 ${firstCenter}V${lastCenter}"/>`;
+      if (hasActions) svg += `<path class="fc-l" d="M620 ${validationY}H647" marker-end="url(#bat-fc-arrow)"/>
+        <g class="fc-g fc-dm"><polygon class="fc-n" points="740,${validationY - 35} 825,${validationY} 740,${validationY + 35} 655,${validationY}"/><text x="740" y="${validationY - 3}" font-size="9.5" text-anchor="middle">BAT station</text><text x="740" y="${validationY + 11}" font-size="9.5" text-anchor="middle">validation</text></g>
+        <text class="fc-p" x="831" y="${validationY - 8}">Pass</text>
+        <path class="fc-l" d="M825 ${validationY}H860"/>
+        ${junction(860, 118)}${junction(860, validationY)}`;
       if (hasActions && actionSteps.length > 1) {
-        svg += `<path class="fc-l fc-lr" d="M630 ${validationY + 35}V${failBusBottom}H120"/><text class="fc-f" x="640" y="${validationY + 52}">Fail</text>${junction(120, failBusBottom, "var(--md-sys-color-error)")}
-          <path class="fc-l fc-lr" d="M120 ${failBusBottom}V${rowCenter(1)}"/>`;
+        svg += `<path class="fc-l fc-lr" d="M740 ${validationY + 35}V${failBusBottom}H105"/><text class="fc-f" x="750" y="${validationY + 52}">Fail</text>${junction(105, failBusBottom, "var(--md-sys-color-error)")}
+          <path class="fc-l fc-lr" d="M105 ${failBusBottom}V${rowCenter(1)}"/>`;
         for (let index = 1; index < actionSteps.length; index++) {
           const center = rowCenter(index);
-          svg += `${junction(120, center, "var(--md-sys-color-error)")}<path class="fc-l fc-lr" d="M120 ${center}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${center - 7}">Paso ${index} fail → paso ${index + 1}</text>`;
+          svg += `${junction(105, center, "var(--md-sys-color-error)")}<path class="fc-l fc-lr" d="M105 ${center}H151" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${center - 7}">Paso ${index} fail → paso ${index + 1}</text>`;
         }
         if (terminalEscalation) {
-          svg += `<path class="fc-l fc-lr" d="M120 ${failBusBottom}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${terminalCenter - 25}">Paso ${actionSteps.length} fail → escalar</text>`;
+          svg += `<path class="fc-l fc-lr" d="M105 ${failBusBottom}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${terminalCenter - 25}">Paso ${actionSteps.length} fail → escalar</text>`;
         } else {
-          svg += `<path class="fc-l fc-lr" d="M120 ${failBusBottom}V${escalationY}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${escalationY - 8}">Paso ${steps.length} fail → escalar</text>${pill(180, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
+          svg += `<path class="fc-l fc-lr" d="M105 ${failBusBottom}V${escalationY}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="8" y="${escalationY - 8}">Paso ${steps.length} fail → escalar</text>${pill(180, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
         }
       } else if (hasActions && terminalEscalation) {
-        svg += `<path class="fc-l fc-lr" d="M630 ${validationY + 35}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="640" y="${validationY + 52}">Fail</text>`;
+        svg += `<path class="fc-l fc-lr" d="M740 ${validationY + 35}V${terminalCenter}H172" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="750" y="${validationY + 52}">Fail</text>`;
       } else if (hasActions) {
-        svg += `<path class="fc-l fc-lr" d="M630 ${validationY + 35}V${escalationY}" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="640" y="${validationY + 52}">Fail</text>${pill(540, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
+        svg += `<path class="fc-l fc-lr" d="M740 ${validationY + 35}V${escalationY}" marker-end="url(#bat-fc-arrow-red)"/><text class="fc-f" x="750" y="${validationY + 52}">Fail</text>${pill(540, escalationY, 180, "Move to Secondary Level FA", "fc-er")}`;
       } else if (!terminalEscalation) {
         svg += `${pill(180, escalationY, 220, "Move to Secondary Level FA", "fc-er")}`;
       }
@@ -3067,6 +3192,10 @@
       const failure = FFDG.state.batDetailFailure;
       if (!failure || FFDG.state.batDetailIndex <= 0) return;
       FFDG.state.batDetailIndex -= 1;
+      FFDG.state.batDetailCompletedThrough = Math.min(
+        Number.isInteger(FFDG.state.batDetailCompletedThrough) ? FFDG.state.batDetailCompletedThrough : -1,
+        FFDG.state.batDetailIndex - 1
+      );
       renderBatSelection(failure, true);
     }
     function finish(recommendation, passed) {
@@ -3728,7 +3857,6 @@
       const retest = caseReport?.retest ?? $("retest").value;
       const diagnostician = caseReport?.analyst ?? $("technician").value.trim();
       const employeeId = caseReport?.employeeId ?? $("employee-id").value.trim();
-      const reportDate = generatedAt.toLocaleDateString("es-MX");
       const rootEvidence = caseReport ? "" : $("root-cause-evidence").value.trim();
       const actions = caseReport?.actions ?? $("action").value.trim();
       $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
@@ -3739,40 +3867,66 @@
       $("bat-print-summary-title").textContent = isNoBoot ? "Status de diagnóstico" : "Resumen para Calidad";
       $("bat-print-stamp").textContent = isNoBoot ? "Hora de generación" : "Control de Calidad";
       $("bat-print-type").textContent = isNoBoot ? "Fecha y hora local" : "Reporte de diagnóstico BAT";
-      $("bat-print-actions-title").textContent = isNoBoot ? "Análisis de causa raíz y plan de acción" : "Causa raíz y acciones reportadas";
-      $("bat-print-evidence-section").textContent = isNoBoot ? "Evidencia fotográfica del evento" : "Evidencia de soporte";
+      $("bat-print-actions-title").lastElementChild.textContent = isNoBoot ? "Análisis y diagnóstico" : "Causa raíz y acciones reportadas";
+      $("bat-print-evidence-section").lastElementChild.textContent = isNoBoot ? "Evidencia fotográfica" : "Evidencia de soporte";
       $("print-date").textContent = generatedAt.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" });
+      $("bat-print-executive-date").textContent = generatedAt.toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" });
+      $("bat-print-executive-time").textContent = generatedAt.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit", hour12: false });
+      $("bat-executive-print-header").classList.toggle("hidden", !isNoBoot);
+      $("bat-print-identity-section").classList.toggle("hidden", !isNoBoot);
+      $("bat-print-status-section").classList.toggle("hidden", !isNoBoot);
       const meta = $("bat-print-meta");
       meta.replaceChildren();
-      if (!isNoBoot) addMeta("Folio de sesión local", `BAT-${serial}-${generatedAt.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`);
-      addMeta("Estación", caseReport ? "BAT" : $("station").value);
-      addMeta("Serial del Nodo (S/N)", serial);
-      addMeta("Número de Parte (P/N)", caseReport?.part ?? $("part").value.trim());
       if (isNoBoot) {
-        addMeta("Analista FA", diagnostician);
+        addMeta("ID del reporte / falla de origen", `${failure.code} · ${failure.label}`);
+        addMeta("Estación / línea", "BAT · No Boot");
+        addMeta("Modelo / SKU", caseReport?.part ?? $("part").value.trim());
+        addMeta("Número de serie", serial);
+        addMeta("Analista", diagnostician);
         addMeta("Número de empleado", employeeId);
-      } else addMeta("Analista FA · No. de empleado", `${diagnostician} · ${employeeId}`);
-      addMeta("Código de falla", failure.code);
-      addMeta("Descripción reportada", failure.label, true);
-      if (caseReport && !isNoBoot) addMeta("Fecha del reporte", generatedAt.toLocaleString("es-MX"));
-      else if (!caseReport) addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
-      const showHardwareDetails = isNoBoot && caseReport?.hardwareChanged === "Sí";
-      $("bat-print-hardware").classList.toggle("hidden", !showHardwareDetails);
-      $("bat-print-damaged-part").textContent = showHardwareDetails ? caseReport.damagedPart : "";
-      $("bat-print-damaged-serial").textContent = showHardwareDetails ? caseReport.damagedSerial : "";
+      } else {
+        addMeta("Folio de sesión local", `BAT-${serial}-${generatedAt.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`);
+        addMeta("Estación", $("station").value);
+        addMeta("Serial del Nodo (S/N)", serial);
+        addMeta("Número de Parte (P/N)", $("part").value.trim());
+        addMeta("Analista FA · No. de empleado", `${diagnostician} · ${employeeId}`);
+        addMeta("Código de falla", failure.code);
+        addMeta("Descripción reportada", failure.label, true);
+        if (!caseReport) addMeta("Periodo de diagnóstico", `${formattedDate(FFDG.state.diagStartedAt)} · ${formattedDate(FFDG.state.diagFinishedAt)}`);
+      }
+      const showHardwareDetails = isNoBoot;
+      $("bat-print-hardware").classList.toggle("hidden", !isNoBoot);
+      $("bat-print-hardware-status").textContent = isNoBoot ? caseReport?.hardwareChanged || "No registrado" : "";
+      $("bat-print-hardware-title").textContent = caseReport?.hardwareChanged === "Sí"
+        ? "Tarjeta o hardware reemplazado"
+        : "Cambio de hardware";
+      $("bat-print-hardware-details").classList.toggle("hidden", !showHardwareDetails);
+      $("bat-print-damaged-part").textContent = showHardwareDetails && caseReport?.hardwareChanged === "Sí" ? caseReport.damagedPart || "No registrado" : "No aplica";
+      $("bat-print-damaged-serial").textContent = showHardwareDetails && caseReport?.hardwareChanged === "Sí" ? caseReport.damagedSerial || "No registrado" : "No aplica";
+      const procedureApplied = isNoBoot ? caseReport?.procedureAppliedLabel || "" : "";
+      $("bat-print-procedure-section").classList.toggle("hidden", !procedureApplied);
+      $("bat-print-procedure").classList.toggle("hidden", !procedureApplied);
+      const procedureMatch = procedureApplied.match(/^Paso\s+(.+?)\s*·\s*(.*)$/i);
+      const procedureNumber = procedureMatch?.[1] || "";
+      $("bat-print-procedure-number").textContent = procedureNumber;
+      $("bat-print-procedure-prefix").textContent = procedureNumber ? `Paso ${procedureNumber} · ` : "";
+      $("bat-print-procedure-text").textContent = procedureMatch?.[2] || procedureApplied;
       $("bat-print-continuation").textContent = `${isNoBoot ? "INGRASYS · CONTINUACIÓN DEL INFORME EJECUTIVO" : "INGRASYS · REPORTE DE CALIDAD"}  |  Serial ${serial}  |  Falla ${failure.code}`;
       const hasAnomaly = caseReport ? caseReport.outcome !== "Resuelta" : FFDG.state.history.some(item => item.result === "ANOMALÍA");
       const executiveSummary = $("bat-print-executive-summary");
       executiveSummary.classList.toggle("hidden", !isNoBoot);
+      $("bat-print-executive-copy").classList.toggle("hidden", !isNoBoot);
       if (isNoBoot) {
         const reportedOutcome = caseReport?.outcome || (hasAnomaly ? "Anomalía registrada" : "Falla no reproducida");
         const statusState = { "Resuelta": "resolved", "En validación": "pending", "Pruebas": "pending", "NVIDIA": "nvidia", "Reparación": "repair" };
         const resultState = statusState[reportedOutcome] || "open";
         executiveSummary.dataset.state = resultState;
         $("bat-print-executive-status").textContent = reportedOutcome;
+        $("bat-print-executive-retest").textContent = retest || "No registrado";
         $("bat-print-executive-copy").textContent =
-          `Falla ${failure.code} · ${failure.label} · Nodo ${serial}. Retest: ${retest || "No registrado"}. Causa raíz registrada: ${rootCause}.`;
+          `Falla ${failure.code} · ${failure.label} · Nodo ${serial}. Causa raíz registrada: ${rootCause}.`;
         $("bat-print-executive-action").textContent = nextAction;
+        $("bat-print-executive-classification").textContent = classification || "No registrada";
       }
       const final = $("bat-print-final");
       final.replaceChildren();
@@ -3809,16 +3963,24 @@
       const grid = document.createElement("div");
       grid.className = "print-final-grid";
       const finalFields = [
-        ["Causa raíz identificada", rootCause],
-        ["Intervención realizada en el nodo", actions || "No especificada", !isNoBoot],
+        ["Causa raíz", rootCause, false, "./assets/ui-icons/gear.svg"],
+        ["Intervención realizada", actions || "No especificada", !isNoBoot],
       ];
+      if (isNoBoot) finalFields.push(["Cambio de hardware", caseReport?.hardwareChanged || "No registrado", false, "./assets/ui-icons/wrench.svg"]);
       if (!isNoBoot) finalFields.push(["Evidencia de causa raíz", rootEvidence || "No registrada"]);
-      if (caseReport?.procedureAppliedLabel) finalFields.push(["Procedimiento aplicado según el FFDG de NVIDIA", caseReport.procedureAppliedLabel, true]);
-      finalFields.forEach(([label, value, wide]) => {
+      if (caseReport?.procedureAppliedLabel && !isNoBoot) finalFields.push(["Procedimiento aplicado según el FFDG de NVIDIA", caseReport.procedureAppliedLabel, true]);
+      finalFields.forEach(([label, value, wide, iconPath]) => {
         const field = document.createElement("div");
         if (wide) field.className = "wide";
+        if (iconPath) {
+          const icon = document.createElement("img");
+          icon.src = iconPath;
+          icon.alt = "";
+          icon.setAttribute("aria-hidden", "true");
+          field.appendChild(icon);
+        }
         const heading = document.createElement("strong");
-        heading.textContent = `${label}: `;
+        heading.textContent = label;
         field.append(heading, document.createTextNode(value));
         grid.appendChild(field);
       });
@@ -3829,51 +3991,105 @@
         <div class="print-signature">
           <strong>Diagnóstico realizado por</strong>
           <span class="print-signature-name">${safe(diagnostician || "No registrado")}</span>
-          <span class="print-signature-meta">Número de empleado: ${safe(employeeId || "No registrado")}</span>
-          <div class="print-signature-rule" aria-hidden="true"></div>
-          <span class="print-signature-meta">Firma · Fecha: ${safe(reportDate)}</span>
+          <span class="print-signature-meta">Empleado ${safe(employeeId || "No registrado")}</span>
+          <div class="print-signature-fields">
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Nombre y firma</span></div>
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Fecha</span></div>
+          </div>
         </div>
         <div class="print-signature">
           <strong>Revisión de Calidad</strong>
           <span class="print-signature-name">Claudia Itzel Almaza Lopez</span>
           <span class="print-signature-meta">Responsable de revisión de Calidad</span>
-          <div class="print-signature-rule" aria-hidden="true"></div>
-          <span class="print-signature-meta">Firma · Fecha: ${safe(reportDate)}</span>
+          <div class="print-signature-fields">
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Nombre y firma</span></div>
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Fecha</span></div>
+          </div>
         </div>`;
       $("bat-print-signatures").replaceChildren(signatures);
       final.appendChild(card);
       const evidence = $("print-evidence-list");
       const evidenceItems = FFDG.state.evidence.map(item => ({ name: item.name, src: item.url, label: item.name }));
+      const noBootStages = {
+        before: FFDG.state.noBootReportEvidence?.before || [],
+        after: FFDG.state.noBootReportEvidence?.after || [],
+      };
       if (isNoBoot) {
-        [
-          ["before", "Antes de aplicar acciones"],
-          ["after", "Después de aplicar acciones"]
-        ].forEach(([stage, stageLabel]) => {
-          (FFDG.state.noBootReportEvidence?.[stage] || []).forEach(item => {
-            evidenceItems.push({ name: item.name, src: item.dataUrl, label: `${stageLabel} · ${item.caption || item.name}` });
-          });
-        });
+        Object.entries(noBootStages).forEach(([stage, items]) => items.forEach(item => {
+          evidenceItems.push({ name: item.name, src: item.dataUrl, label: `${stage === "before" ? "Antes" : "Después"} · ${item.caption || item.name}`, stage });
+        }));
       }
       evidence.replaceChildren();
-      evidenceItems.forEach(item => {
+      $("bat-print-evidence-empty").classList.add("hidden");
+      const appendEvidenceImage = (container, item) => {
         const figure = document.createElement("figure");
-        const image = document.createElement("img");
-        image.src = item.src;
+        const image = item.decodedImage || document.createElement("img");
+        if (!item.decodedImage) image.src = item.src;
         image.alt = item.label;
         const caption = document.createElement("figcaption");
         caption.textContent = item.label;
         figure.append(image, caption);
-        evidence.appendChild(figure);
-      });
-      if (!evidenceItems.length) {
+        container.appendChild(figure);
+      };
+      if (isNoBoot) {
+        [
+          ["before", "EVIDENCIA · ANTES", "Evidencia antes de la intervención"],
+          ["after", "EVIDENCIA · DESPUÉS", "Evidencia después de la intervención"],
+        ].forEach(([stage, title, emptyLabel]) => {
+          const panel = document.createElement("section");
+          panel.className = `bat-executive-evidence-card is-${stage}`;
+          const heading = document.createElement("h3");
+          const icon = document.createElement("img");
+          icon.src = "./assets/ui-icons/images.svg";
+          icon.alt = "";
+          icon.setAttribute("aria-hidden", "true");
+          heading.append(icon, document.createTextNode(title));
+          const content = document.createElement("div");
+          content.className = "bat-executive-evidence-items";
+          const stageItems = noBootStages[stage];
+          if (stageItems.length) stageItems.forEach(item => appendEvidenceImage(content, { ...item, label: item.caption || item.name }));
+          else {
+            const placeholder = document.createElement("div");
+            placeholder.className = "bat-executive-evidence-placeholder";
+            const placeholderIcon = document.createElement("img");
+            placeholderIcon.src = "./assets/ui-icons/images.svg";
+            placeholderIcon.alt = "";
+            placeholderIcon.setAttribute("aria-hidden", "true");
+            const message = document.createElement("span");
+            message.textContent = emptyLabel;
+            const detail = document.createElement("small");
+            detail.textContent = "Sin evidencia adjunta";
+            placeholder.append(placeholderIcon, message, detail);
+            content.appendChild(placeholder);
+          }
+          panel.append(heading, content);
+          evidence.appendChild(panel);
+        });
+        const additionalEvidence = evidenceItems.filter(item => !item.stage);
+        if (additionalEvidence.length) {
+          const additionalPanel = document.createElement("section");
+          additionalPanel.className = "bat-executive-evidence-card bat-executive-evidence-additional";
+          const heading = document.createElement("h3");
+          const icon = document.createElement("img");
+          icon.src = "./assets/ui-icons/images.svg";
+          icon.alt = "";
+          icon.setAttribute("aria-hidden", "true");
+          heading.append(icon, document.createTextNode("Evidencia adicional"));
+          additionalPanel.appendChild(heading);
+          additionalEvidence.forEach(item => appendEvidenceImage(additionalPanel, item));
+          evidence.appendChild(additionalPanel);
+        }
+      } else evidenceItems.forEach(item => appendEvidenceImage(evidence, item));
+      if (!evidenceItems.length && !isNoBoot) {
         evidence.classList.add("hidden");
-        $("bat-print-evidence-section").classList.add("hidden");
+        $("bat-print-evidence-section").classList.toggle("hidden", !isNoBoot);
+        $("bat-print-evidence-empty").classList.toggle("hidden", !isNoBoot);
       } else {
         evidence.classList.remove("hidden");
         $("bat-print-evidence-section").classList.remove("hidden");
       }
       $("print-quality-note").textContent = isNoBoot
-        ? `Reporte para seguimiento técnico y de Calidad · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo requiere validación del proceso aplicable.`
+        ? "Resultado declarado por el analista; sujeto a validación del proceso aplicable."
         : `Documento para revisión de Calidad · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
       reportStatus("El reporte está preparado. En la ventana de impresión selecciona “Guardar como PDF”. Si no aparece, el formulario permanecerá abierto para volver a intentarlo.");
       const printTitle = isNoBoot ? `Reporte_de_Analisis_de_Falla_Nvidia_Racks_${serial}` : `Reporte_BAT_${serial}_${failure.code}`;
@@ -4258,7 +4474,25 @@
     function readBatReportImage(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => resolve({ name: file.name, dataUrl: reader.result });
+        reader.onload = async () => {
+          const decodedImage = new Image();
+          decodedImage.alt = file.name;
+          try {
+            if (typeof decodedImage.decode === "function") {
+              decodedImage.src = reader.result;
+              await decodedImage.decode();
+            } else {
+              await new Promise((imageResolve, imageReject) => {
+                decodedImage.onload = imageResolve;
+                decodedImage.onerror = () => imageReject(new Error(`No se pudo decodificar la imagen ${file.name}.`));
+                decodedImage.src = reader.result;
+              });
+            }
+            resolve({ name: file.name, dataUrl: reader.result, decodedImage });
+          } catch {
+            reject(new Error(`No se pudo decodificar la imagen ${file.name}.`));
+          }
+        };
         reader.onerror = () => reject(new Error(`No se pudo leer la imagen ${file.name}.`));
         reader.readAsDataURL(file);
       });
@@ -4448,6 +4682,8 @@
         FFDG.ui.finish(completion, true);
       }
     });
+    $("bat-no-boot-suggestion-close").addEventListener("click", () => $("bat-no-boot-suggestion-dialog").close());
+    $("bat-no-boot-suggestion-done").addEventListener("click", () => $("bat-no-boot-suggestion-dialog").close());
     $("no-btn").addEventListener("click", () => {
       const step = FFDG.state.steps[FFDG.state.index];
       const note = $("step-note").value.trim();
@@ -4550,14 +4786,10 @@
         try {
           const photos = await Promise.all(files.map(readBatReportImage));
           if (token !== batEvidenceReadTokens[stage]) return;
-          FFDG.state.noBootEvidenceLoading[stage] = false;
-          preview.setAttribute("aria-busy", "false");
-          FFDG.state.noBootReportEvidence[stage] = photos;
           preview.replaceChildren();
           photos.forEach(photo => {
             const figure = document.createElement("figure");
-            const image = document.createElement("img");
-            image.src = photo.dataUrl;
+            const image = photo.decodedImage.cloneNode(true);
             image.alt = photo.name;
             const nameLabel = document.createElement("label");
             nameLabel.textContent = "Nombre para el reporte";
@@ -4571,6 +4803,9 @@
             figure.append(image, nameLabel);
             preview.appendChild(figure);
           });
+          FFDG.state.noBootReportEvidence[stage] = photos;
+          FFDG.state.noBootEvidenceLoading[stage] = false;
+          preview.setAttribute("aria-busy", "false");
         } catch (error) {
           if (token !== batEvidenceReadTokens[stage]) return;
           FFDG.state.noBootEvidenceLoading[stage] = false;
@@ -7233,3 +7468,5 @@ main{padding-top:4px!important}
 <link rel="stylesheet" href="./ffdg-motion.css">
 <link rel="stylesheet" href="./ffdg-detail-presentation.css">
 <link rel="stylesheet" href="./ffdg-bat-catalog.css">
+<link rel="stylesheet" href="./ffdg-flowchart-theme.css">
+<link rel="stylesheet" href="./ffdg-report-print.css">
