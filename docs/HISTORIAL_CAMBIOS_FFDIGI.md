@@ -5776,3 +5776,72 @@ Aplicar el estilo de la nueva referencia a los botones grandes BAT Basic Assuran
 - Validación visual en navegador local a escritorio y móvil.
 - Se comprobó cambio BAT/MTF, ausencia de overflow horizontal y consola sin errores.
 - No se hizo commit ni push.
+
+## 2026-10-24 — Hacer rectangular el botón de reporte BAT
+
+### Solicitud
+
+Cambiar a forma rectangular el botón «Create Failure Report» de la ficha BAT No Boot.
+
+### Estado previo y análisis
+
+- El botón `.bat-no-boot-report-open` usaba radio de borde de `999px`, forma de píldora.
+- El ancho, alto, posición, color, icono y listener del formulario son independientes del radio.
+
+### Solución
+
+- Se cambió el radio de borde a `6px`; se conservaron dimensiones, posición, colores, icono y flujo del diálogo.
+
+### Archivos y áreas modificadas
+
+- `src/css/shared/base.css` — radio de borde del botón de reporte BAT.
+
+### Validación
+
+- Navegador local: radio `6px` y tamaño `396×40` en escritorio `1511×884`; `290×40` en móvil `390×844`.
+- Se abrió y cerró el diálogo del reporte; el foco por teclado conserva su contorno visible.
+- `git diff --check` sin errores.
+- No se hizo commit ni push.
+
+### Resultado, pendientes y riesgos
+
+- El botón ya no tiene forma de píldora; su tamaño y funcionamiento se conservaron.
+- No quedan pendientes conocidos para el alcance solicitado.
+
+## 2026-10-24 — Resaltar etiquetas externas en flowcharts BAT y MTF
+
+### Solicitud
+
+Quitar las cápsulas alrededor de las etiquetas externas del diagrama (Pass, Fail y rutas de fallo por paso) y destacarlas en los SVG generados de BAT y MTF.
+
+### Estado previo y análisis
+
+- BAT renderiza las etiquetas de arista dentro de grupos `.fc-edge-label` con rectángulos redondeados; MTF fallback añade fondos `.mtf-flow-edge-label-bg`.
+- Los SVG vectoriales MTF usan texto de etiqueta en aristas con clases `is-pass` y `is-fail`; el tema compartido es el punto común de presentación.
+- Los diagramas MTF fuente se presentan como imágenes PNG dentro de SVG sin esas clases. Se mantienen intactos, al igual que nodos de inicio/fin, pasos y rombos de decisión.
+- El árbol tenía ya una modificación local en `base.css` para el botón de reporte; se preservó sin tocar.
+
+### Solución
+
+- Se ocultaron solo los fondos de las etiquetas externas BAT/MTF, sin alterar generadores, coordenadas, conexiones ni datos del diagrama.
+- Pass se destaca en verde y Fail/rutas de fallo en rojo, con peso 900 y halo blanco para conservar contraste sobre líneas.
+- Se aplica tanto en las fichas como en el modal ampliado; las imágenes fuente MTF conservan su PNG original.
+
+### Archivos y áreas modificadas
+
+- `src/css/shared/ffdg-flowchart-theme.css` — presentación de etiquetas de aristas BAT, MTF fallback y MTF vectorial.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta solicitud.
+
+### Validación
+
+- Navegador local HTTP: BAT NDBG_104 con 8 etiquetas; fondos ocultos y colores/peso aplicados en ficha y modal.
+- MTF FLA-01 fallback SVG comprobado en ficha y modal a 390×844, 768×1024 y 1511×884; sin overflow horizontal.
+- El renderer MTF vectorial se comprobó con una copia temporal de un grafo existente; las etiquetas reciben estilo y el mapa fuente original permanece sin cambios.
+- MTF FLA-02 comprobado como imagen fuente: PNG visible en ficha y modal, sin clases ni estilos de etiquetas generadas.
+- Consola: 0 errores y 0 advertencias. `git diff --check` sin errores.
+- No se hizo commit ni push.
+
+### Resultado, pendientes y riesgos
+
+- Las etiquetas Pass/Fail y rutas de fallo quedan legibles sin cápsulas; los nodos semánticos y las imágenes fuente no cambian.
+- No quedan pendientes conocidos para el alcance solicitado.

@@ -120,18 +120,22 @@
   fill: var(--ffdg-flow-failure);
 }
 
-:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label rect {
-  fill: #ffffff !important;
-  stroke-width: 1.5;
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label > rect {
+  display: none !important;
 }
-:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label-pass rect {
-  stroke: var(--ffdg-flow-pass);
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label > text {
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  stroke: #ffffff;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
 }
-:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label-fail rect {
-  stroke: var(--ffdg-flow-failure);
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label-pass > text {
+  fill: var(--ffdg-flow-pass) !important;
 }
-:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label text {
-  font-weight: 900;
+:is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-edge-label-fail > text {
+  fill: var(--ffdg-flow-failure) !important;
 }
 
 /* MTF: únicamente diagramas SVG vectoriales; los SVG que envuelven PNG fuente
@@ -160,19 +164,32 @@
   fill: var(--ffdg-flow-failure) !important;
 }
 
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-edge text {
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  stroke: #ffffff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge-label-bg {
-  fill: #ffffff !important;
-  stroke-width: 1.5;
-}
-:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge.is-pass .mtf-flow-edge-label-bg {
-  stroke: var(--ffdg-flow-pass);
-}
-:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge.is-fail .mtf-flow-edge-label-bg {
-  stroke: var(--ffdg-flow-failure);
+  display: none !important;
 }
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge-label {
-  fill: var(--ffdg-flow-action-text);
-  font-weight: 900;
+  fill: var(--ffdg-flow-action-text) !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  stroke: #ffffff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge.is-pass .mtf-flow-edge-label {
+  fill: var(--ffdg-flow-pass) !important;
+}
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-generated-branch-flowchart .mtf-flow-edge.is-fail .mtf-flow-edge-label {
+  fill: var(--ffdg-flow-failure) !important;
 }
 
 :is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-pdf-flowchart-svg .mtf-flow-node:is(.mtf-flow-node-action, .mtf-flow-node-start) rect {
