@@ -204,7 +204,7 @@
       const height = Number(graph.flowchartImageHeight);
       const zoomSource = window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES?.[String(graph.flowchartImage).split("/").pop()];
       container.innerHTML = '<svg class="mtf-pdf-flowchart-source" viewBox="0 0 ' + width + " " + height
-        + '" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Diagrama original del FFDG, página '
+        + '" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Original FFDG diagram, page '
         + Number(graph.sourcePage) + '"' + (zoomSource ? ' data-flowchart-hi-res-src="' + escape(zoomSource) + '" data-flowchart-dpi="400"' : "")
         + ' style="display:block;width:100%;height:auto;max-height:min(68vh,600px)">'
         + '<image href="' + escape(graph.flowchartImage) + '" width="' + width + '" height="' + height
@@ -415,14 +415,14 @@
     }).join("");
 
     const description = rawNodes.map(node => node.text).join(". ");
-    container.innerHTML = '<p class="flowchart-source-note">Transcripción vectorial del FFDG · página '
-      + Number(graph.sourcePage) + '. Se conservan las acciones, el orden y las etiquetas del flujo fuente.</p>'
+    container.innerHTML = '<p class="flowchart-source-note">FFDG vector transcription · page '
+      + Number(graph.sourcePage) + '. Actions, order and source flow labels are preserved.</p>'
       + '<svg class="mtf-pdf-flowchart-svg" viewBox="0 0 ' + canvasWidth + " " + svgHeight
-      + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagrama MTF transcrito del PDF, página '
+      + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="MTF flowchart transcribed from the PDF, page '
       + Number(graph.sourcePage) + '. ' + escape(description)
       + '" style="display:block;width:100%;height:auto;max-width:100%;overflow:visible">'
-      + '<title>Flowchart MTF · página ' + Number(graph.sourcePage) + "</title>"
-      + '<desc>Diagrama vectorial con nodos de acción y decisión, conexiones y etiquetas fieles al manual.</desc>'
+      + '<title>MTF flowchart · page ' + Number(graph.sourcePage) + "</title>"
+      + '<desc>Vector diagram with action and decision nodes, connections and labels faithful to the manual.</desc>'
       + "<defs><marker id=\"" + markerId + "\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M0 1L9 5L0 9Z\" fill=\"var(--md-sys-color-primary)\"/></marker></defs>"
       + edgeMarkup + finalNodes.map(nodeMarkup).join("") + "</svg>";
     return true;

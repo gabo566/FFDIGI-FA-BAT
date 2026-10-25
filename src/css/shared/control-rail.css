@@ -1,0 +1,611 @@
+/* Control rail: navegación y acciones superiores BAT/MTF. */
+
+#bat-failure-board .bat-board-header {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 8px 8px 10px;
+  margin-bottom: 8px;
+  border: 1px solid #c6d1c0;
+  border-radius: 16px;
+  background: var(--md-sys-color-surface-container-lowest);
+}
+
+#bat-failure-board .bat-board-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.control-rail-heading-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.control-rail-nav,
+#bat-failure-board .bat-board-controls .theme-switch-btn,
+#bat-failure-board .bat-notifications-button {
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 1px solid #8ca17f;
+  border-radius: 10px;
+  background: #fff;
+  color: #24321f;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  box-shadow: none;
+}
+
+.control-rail-nav {
+  padding: 7px 12px;
+}
+
+.control-rail-nav.is-active {
+  border-color: #5f8d38;
+}
+
+.control-rail-nav:hover,
+#bat-failure-board .bat-board-controls .theme-switch-btn:hover,
+#bat-failure-board .bat-notifications-button:hover {
+  background: #f1f7ec;
+  border-color: #2d6b00;
+}
+
+.control-rail-nav:focus-visible,
+#bat-failure-board .bat-board-controls .theme-switch-btn:focus-visible,
+#bat-failure-board .bat-notifications-button:focus-visible,
+.m3-seg-btn:focus-visible {
+  outline: 3px solid #a8e34b;
+  outline-offset: 2px;
+}
+
+.control-rail-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #e9f4df;
+  color: #2d6b00;
+}
+
+.control-rail-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.control-rail-icon-dark {
+  background: #192019;
+  color: #fff;
+}
+
+.control-rail-notification-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+#bat-failure-board .bat-board-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) max-content max-content max-content;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+#bat-failure-board .bat-board-search {
+  grid-column: auto;
+  width: 100%;
+  max-width: none;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 1px solid #b9c7b3;
+  border-radius: 22px;
+  background: #fff;
+}
+
+#bat-failure-board .bat-board-search input {
+  min-width: 0;
+  color: #263326;
+}
+
+#bat-failure-board .bat-theme-toggle,
+#bat-failure-board .bat-pdf-import-btn {
+  padding: 7px 12px;
+}
+
+#bat-failure-board .bat-theme-toggle {
+  background: #f8faf5;
+  color: #263326;
+}
+
+#bat-failure-board .bat-pdf-import-btn {
+  background: #fff;
+  color: #2d6b00;
+}
+
+#bat-failure-board .bat-notifications-button {
+  padding: 7px 12px;
+  color: #263326;
+}
+
+#bat-failure-board .mtf-notification-count,
+#mtf-layout .mtf-notification-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #192019;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* MTF reutiliza el mismo lenguaje visual sin mover sus tarjetas ni su detalle. */
+#mtf-layout .mtf-row-1 {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) max-content;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid #c6d1c0;
+  border-radius: 16px;
+  background: var(--md-sys-color-surface-container-lowest);
+}
+
+#mtf-layout .mtf-row-1-search {
+  grid-column: auto;
+  width: 100%;
+  max-width: none;
+  min-height: 44px;
+  border: 1px solid #b9c7b3;
+  border-radius: 22px;
+  background: #fff;
+}
+
+#mtf-layout .mtf-row-1-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#mtf-layout .mtf-row-1-actions .theme-switch-btn,
+#mtf-layout .mtf-row-1-actions .mtf-pdf-select-button,
+#mtf-layout .mtf-row-2-header .mtf-notifications-button {
+  min-height: 44px !important;
+  padding: 7px 12px !important;
+  border: 1px solid #8ca17f !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #263326 !important;
+  box-shadow: none !important;
+  font-weight: 800;
+}
+
+#mtf-layout .mtf-row-1-actions .theme-switch-btn:hover,
+#mtf-layout .mtf-row-1-actions .mtf-pdf-select-button:hover,
+#mtf-layout .mtf-row-2-header .mtf-notifications-button:hover {
+  background: #f1f7ec !important;
+  border-color: #2d6b00 !important;
+}
+
+#mtf-layout .mtf-row-2-header .mtf-notifications-button {
+  display: inline-flex;
+  gap: 8px;
+  color: #263326 !important;
+}
+
+@media (max-width: 1120px) {
+  #bat-failure-board .bat-board-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #bat-failure-board .bat-board-heading {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  #bat-failure-board .bat-board-heading,
+  #bat-failure-board .bat-board-controls,
+  #mtf-layout .mtf-row-1 {
+    grid-template-columns: minmax(0, 1fr);
+    display: grid;
+  }
+
+  #bat-failure-board .bat-board-heading {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #bat-failure-board .bat-board-controls {
+    gap: 7px;
+  }
+
+  #bat-failure-board .bat-board-search,
+  #mtf-layout .mtf-row-1-search {
+    grid-column: 1 / -1;
+  }
+
+  #bat-failure-board .bat-board-controls .theme-switch-btn,
+  #bat-failure-board .bat-notifications-button {
+    width: 100%;
+  }
+
+  #mtf-layout .mtf-row-1-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  #bat-failure-board .bat-board-heading {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .control-rail-nav {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m3-seg-btn,
+  .control-rail-nav,
+  #bat-failure-board .bat-board-controls .theme-switch-btn,
+  #bat-failure-board .bat-notifications-button {
+    transition: none !important;
+  }
+}
+
+/* BAT/MTF: propuesta seleccionada por el usuario, aislada del resto del control rail. */
+.m3-segmented-nav-wrap {
+  display: block !important;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 16px 10px !important;
+}
+
+.m3-segmented-nav {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100% !important;
+  max-width: 1120px !important;
+  margin-inline: auto;
+  gap: 14px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.m3-seg-btn {
+  min-height: 76px !important;
+  height: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box;
+  display: grid !important;
+  grid-template-columns: 54px minmax(0, 1fr);
+  align-items: center;
+  justify-content: stretch !important;
+  column-gap: 16px;
+  padding: 10px 22px !important;
+  border: 2px solid #a6b29d !important;
+  border-radius: 22px !important;
+  background: #fbfcf8 !important;
+  color: #273026 !important;
+  text-align: left !important;
+  box-shadow: none !important;
+}
+
+.m3-seg-btn.active {
+  border-color: #b8ff00 !important;
+  background: #287800 !important;
+  color: #fff !important;
+  box-shadow: 0 6px 16px rgba(48, 118, 0, .28) !important;
+}
+
+.m3-seg-btn.active::after {
+  content: none !important;
+}
+
+.m3-seg-btn .tile-ic {
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  width: 50px !important;
+  height: 50px !important;
+  display: grid !important;
+  place-items: center;
+  border-radius: 16px;
+  background: #baff8d !important;
+  color: #19321a !important;
+}
+
+.m3-seg-btn.active .tile-ic {
+  border: 2px solid #b8ff00;
+  border-radius: 50%;
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.m3-seg-btn .tile-ic svg {
+  width: 27px !important;
+  height: 27px !important;
+}
+
+.m3-seg-btn .tile-tx {
+  min-width: 0;
+  width: auto;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.m3-seg-btn .tile-tx b {
+  display: block;
+  font-size: 21px !important;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.m3-seg-btn .tile-tx small {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px !important;
+  line-height: 1.15;
+  font-weight: 500;
+}
+
+@media (max-width: 760px) {
+  .m3-segmented-nav {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .m3-seg-btn {
+    min-height: 64px !important;
+    grid-template-columns: 44px minmax(0, 1fr);
+    padding: 8px 16px !important;
+  }
+
+  .m3-seg-btn .tile-ic {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .m3-seg-btn .tile-tx b {
+    font-size: 17px !important;
+  }
+
+  .m3-seg-btn .tile-tx small {
+    font-size: 11.5px !important;
+  }
+}
+
+/* MTF en index.html: distribución compacta equivalente a la barra BAT. */
+#mtf-layout .mtf-bat-style-toolbar {
+  display: grid !important;
+  grid-template-columns: max-content minmax(280px, 1fr) max-content max-content max-content max-content;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid #c6d1c0;
+  border-radius: 16px;
+  background: var(--md-sys-color-surface-container-lowest);
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-row-2-header,
+#mtf-layout .mtf-bat-style-toolbar .mtf-row-1-actions {
+  display: contents;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-catalog-heading {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 14px;
+  border-right: 1px solid #c6d1c0;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-catalog-title {
+  color: #263326 !important;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-catalog-heading .card-ic {
+  width: 40px;
+  height: 40px;
+  margin-right: 0;
+  border-radius: 12px;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-row-1-search {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  width: 100%;
+  min-height: 40px;
+  margin: 0;
+  border-radius: 22px;
+  background: #fff;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-row-1-search input {
+  min-width: 0;
+  text-align: left !important;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-design-controls {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  min-width: max-content;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-design-label {
+  display: none;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .view-tg {
+  height: 38px;
+  border-color: #a6b29d;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .view-tg button {
+  padding: 6px 14px;
+  color: #263326 !important;
+  background: transparent !important;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-row-2-header .view-tg button.on {
+  color: #fff !important;
+  background: #343a32 !important;
+}
+
+#mtf-layout .mtf-bat-style-toolbar #theme-toggle {
+  grid-column: 4;
+  grid-row: 1;
+  width: 48px;
+  min-height: 40px;
+  padding: 0 !important;
+  border: 1px solid #a6b29d;
+  border-radius: 12px;
+  background: #fff;
+  color: #263326;
+}
+
+#mtf-layout .mtf-bat-style-toolbar #theme-text {
+  display: none;
+}
+
+#mtf-layout .mtf-bat-style-toolbar #mtf-pdf-select-button {
+  grid-column: 5;
+  grid-row: 1;
+  min-height: 40px;
+  padding: 0 14px !important;
+  border: 1px solid #a6b29d;
+  border-radius: 12px;
+  background: #fff !important;
+  color: #263326 !important;
+  box-shadow: none !important;
+  font-weight: 800;
+}
+
+#mtf-layout .mtf-bat-style-toolbar #mtf-notifications-open {
+  grid-column: 6;
+  grid-row: 1;
+  width: 48px;
+  min-height: 40px;
+  padding: 0 !important;
+  border: 1px solid #a6b29d;
+  border-radius: 12px;
+  background: #fff !important;
+  color: #263326 !important;
+  box-shadow: none !important;
+}
+
+#mtf-layout .mtf-bat-style-toolbar .mtf-notifications-label {
+  display: none;
+}
+
+@media (max-width: 1120px) {
+  #mtf-layout .mtf-bat-style-toolbar {
+    grid-template-columns: max-content minmax(180px, 1fr) max-content max-content max-content max-content;
+  }
+}
+
+@media (max-width: 760px) {
+  #mtf-layout .mtf-bat-style-toolbar {
+    grid-template-columns: minmax(0, 1fr) max-content max-content;
+  }
+
+  #mtf-layout .mtf-bat-style-toolbar .mtf-catalog-heading {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  #mtf-layout .mtf-bat-style-toolbar .mtf-row-1-search {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  #mtf-layout .mtf-bat-style-toolbar .mtf-design-controls {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  #mtf-layout .mtf-bat-style-toolbar #theme-toggle {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  #mtf-layout .mtf-bat-style-toolbar #mtf-pdf-select-button {
+    grid-column: 1 / 3;
+    grid-row: 4;
+  }
+
+  #mtf-layout .mtf-bat-style-toolbar #mtf-notifications-open {
+    grid-column: 3;
+    grid-row: 4;
+  }
+}
+
+/* Detalle MTF: conservar solo el control para regresar al catálogo. */
+#mtf-layout.mtf-selection-collapsed .mtf-row-1.mtf-bat-style-toolbar {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: auto !important;
+  width: 100%;
+  min-height: 0;
+  padding: 8px 10px;
+}
+
+#mtf-layout.mtf-selection-collapsed .mtf-bat-style-toolbar .mtf-row-1-search,
+#mtf-layout.mtf-selection-collapsed .mtf-bat-style-toolbar .mtf-catalog-heading,
+#mtf-layout.mtf-selection-collapsed .mtf-bat-style-toolbar .mtf-design-controls,
+#mtf-layout.mtf-selection-collapsed .mtf-bat-style-toolbar .mtf-row-1-actions,
+#mtf-layout.mtf-selection-collapsed .mtf-bat-style-toolbar #mtf-notifications-open {
+  display: none !important;
+}
+
+#mtf-layout.mtf-selection-collapsed .mtf-bat-style-toolbar .mtf-selection-summary:not(.hidden) {
+  display: flex !important;
+  grid-column: 1;
+  grid-row: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}

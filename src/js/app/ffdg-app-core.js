@@ -3,6 +3,13 @@
     "use strict";
     const FFDG = window.FFDG;
     const $ = (id) => document.getElementById(id);
+    const batFamilyLabel = label => ({
+      "FRU / EEPROM (Bus I2C/SMBus)": "FRU / EEPROM (I2C/SMBus Bus)",
+      "Sensores de Fuga Líquida": "Liquid Leak Sensors",
+      "Ventiladores / Enfriamiento": "Fans / Cooling",
+      "FPGA / CPLD / Lógica": "FPGA / CPLD / Logic",
+      "No Boot / Secuencia Eléctrica": "No Boot / Power Sequence"
+    }[label] || label);
     let currentStationFilter = 'ALL';
     function scrollMtfDetailIntoView() {
       const detail = $("mtf-detail");
@@ -71,7 +78,7 @@
       document.documentElement.setAttribute("data-theme", theme);
       localStorage.setItem("ffdg-theme", theme);
       const isDark = theme === "dark";
-      $("theme-text").textContent = isDark ? "Modo Día" : "Modo Noche";
+      $("theme-text").textContent = isDark ? "Day Mode" : "Night Mode";
       $("theme-icon").innerHTML = isDark
         ? '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>'
         : '<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>';
@@ -167,10 +174,10 @@
         ? failure.steps
         : failure.family === "NOBOOT" ? FFDG.data.flows.NOBOOT : (Array.isArray(failure.steps) ? failure.steps : []);
       const steps = sourceSteps.map((step, index) => {
-        const originalTitle = step.title || step.q || `Paso ${index + 1}`;
+         const originalTitle = step.title || step.q || `Step ${index + 1}`;
         const candidateNumber = Number(step.sourceNumber || originalTitle.match(/^\s*(?:Paso\s*)?(\d+)[.:·)]?/i)?.[1] || index + 1);
         const sourceNumber = Number.isFinite(candidateNumber) ? candidateNumber : index + 1;
-        let title = originalTitle.replace(/^\s*(?:Paso\s*)?\d+\s*[.:·)]\s*/i, "").trim() || `Paso ${index + 1}`;
+         let title = originalTitle.replace(/^\s*(?:Paso\s*)?\d+\s*[.:·)]\s*/i, "").trim() || `Step ${index + 1}`;
         const isEscalation = /(?:move|escal|mover|subir).{0,45}(?:secondary|2nd|second|nivel\s*2|level\s*2)\s*(?:FA)?|(?:secondary|2nd|second|nivel\s*2|level\s*2).{0,45}(?:FA|field application)/i.test(title);
         if (isEscalation) title = "Move to Secondary Level FA";
         return { sourceNumber, title, detail: step.detail || "", fail: step.fail || "", isEscalation };
@@ -226,18 +233,18 @@
       FFDG.state.batDetailCompletedThrough = completedThrough;
 
       $("bat-detail-station").textContent = "BAT";
-      $("bat-detail-family").textContent = failure.familyLabel || failure.family || "BAT";
+       $("bat-detail-family").textContent = batFamilyLabel(failure.familyLabel || failure.family || "BAT");
       $("bat-detail-title").textContent = `${failure.code} · ${failure.label}`;
       if (!keepProgress) $("bat-detail-title").focus({ preventScroll: true });
       $("bat-detail-code").textContent = failure.code;
-      $("bat-detail-component").textContent = failure.familyLabel || failure.family || "BAT";
+       $("bat-detail-component").textContent = batFamilyLabel(failure.familyLabel || failure.family || "BAT");
       $("bat-detail-description").textContent = failure.description || failure.label;
-      $("bat-detail-flowchart").textContent = isNoBoot ? "No Boot · Guía establecida" : `FFDG BAT · ${steps.length} pasos`;
+       $("bat-detail-flowchart").textContent = isNoBoot ? "No Boot · Established guide" : `FFDG BAT · ${steps.length} steps`;
       $("bat-detail-step-count").textContent = steps.length
         ? completedThrough >= steps.length - 1
-          ? `Secuencia completada · Paso ${activeIndex + 1} de ${steps.length}`
-          : `Paso ${activeIndex + 1} de ${steps.length} · ${isNoBoot ? "guía BAT establecida" : "FFDG PDF"}`
-        : "No hay pasos asociados a esta falla en el catálogo BAT.";
+          ? `Sequence completed · Step ${activeIndex + 1} of ${steps.length}`
+          : `STEP ${activeIndex + 1} OF ${steps.length} · ${isNoBoot ? "established BAT guide" : "FFDG PDF"}`
+        : "No steps are associated with this BAT failure.";
       const progressStep = Math.max(activeIndex + 1, completedThrough + 1);
       $("bat-detail-progress-fill").style.width = steps.length ? `${(progressStep / steps.length) * 100}%` : "0%";
 
@@ -259,7 +266,7 @@
         status.className = "bat-detail-step-status";
         status.textContent = "✓";
         status.setAttribute("role", "img");
-        status.setAttribute("aria-label", "Paso completado");
+         status.setAttribute("aria-label", "Step completed");
         const icon = document.createElement("img");
         icon.className = "ffdg-step-icon";
         icon.src = "./assets/icons/file-earmark-text.svg";
@@ -272,8 +279,8 @@
           suggestion.type = "button";
           suggestion.setAttribute("aria-haspopup", "dialog");
           suggestion.setAttribute("aria-controls", "bat-no-boot-suggestion-dialog");
-          suggestion.setAttribute("aria-label", `Abrir sugerencia de diagnóstico para el paso ${step.sourceNumber}`);
-          suggestion.title = "¿Tienes dudas? Ver sugerencia de diagnóstico";
+           suggestion.setAttribute("aria-label", `Open diagnostic guidance for step ${step.sourceNumber}`);
+           suggestion.title = "Need help? View diagnostic guidance";
           const ideaIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
           ideaIcon.setAttribute("viewBox", "0 0 24 24");
           ideaIcon.setAttribute("aria-hidden", "true");
@@ -285,8 +292,8 @@
           suggestion.appendChild(ideaIcon);
           suggestion.addEventListener("click", () => {
             const hasActionableFailureGuidance = step.fail && !step.fail.includes("No se pudo completar este paso");
-            $("bat-no-boot-suggestion-step").textContent = `Paso ${step.sourceNumber} · ${step.title}`;
-            $("bat-no-boot-suggestion-detail").textContent = step.detail || "No hay una sugerencia adicional documentada para este paso.";
+             $("bat-no-boot-suggestion-step").textContent = `Step ${step.sourceNumber} · ${step.title}`;
+             $("bat-no-boot-suggestion-detail").textContent = step.detail || "No additional guidance is documented for this step.";
             $("bat-no-boot-suggestion-detail-section").hidden = false;
             $("bat-no-boot-suggestion-fail").textContent = hasActionableFailureGuidance ? step.fail : "";
             $("bat-no-boot-suggestion-fail-section").hidden = !hasActionableFailureGuidance;
@@ -306,7 +313,7 @@
         if (!isNoBoot && isActive && step.fail && !step.fail.includes("No se pudo completar este paso")) {
           const failureGuidance = document.createElement("span");
           failureGuidance.className = "bat-detail-step-detail";
-          failureGuidance.textContent = `Si no pasa: ${step.fail}`;
+           failureGuidance.textContent = `If it fails: ${step.fail}`;
           item.appendChild(failureGuidance);
         }
         stepList.appendChild(item);
@@ -315,12 +322,12 @@
       const sequenceComplete = steps.length > 0 && completedThrough >= steps.length - 1;
       nextButton.disabled = !steps.length || sequenceComplete;
       nextButton.textContent = !steps.length
-        ? "Sin pasos"
+         ? "No Steps"
         : sequenceComplete
-          ? "Secuencia completada"
+          ? "Sequence Completed"
           : activeIndex >= steps.length - 1
-            ? "Completar secuencia"
-            : "Paso siguiente →";
+            ? "Complete Sequence"
+            : "Next Step →";
       $("bat-detail-prev").disabled = !steps.length || activeIndex === 0;
       renderBatFlowchart(steps, activeIndex, completedThrough);
     }
@@ -456,13 +463,13 @@
         });
         container.appendChild(card);
       });
-      $("mtf-count").textContent = `${matches.length} CASOS`;
+      $("mtf-count").textContent = `${matches.length} CASES`;
       const navSummary = document.querySelector("#nav-mtf .tile-tx small");
       if (navSummary) {
         const withProcedure = FFDG.data.mtfFaults.filter(f => f.variants?.length
           ? f.variants.some(variant => variant.steps?.length)
           : f.steps?.length).length;
-        navSummary.textContent = `${FFDG.data.mtfFaults.length} fallas · ${withProcedure} con procedimiento`;
+        navSummary.textContent = `${FFDG.data.mtfFaults.length} failures · ${withProcedure} with procedure`;
       }
     }
     function renderStepSequenceSvg(container, steps, activeIndex = 0, note = "") {
@@ -531,7 +538,7 @@
         const width = Number(source.flowchartImageWidth);
         const height = Number(source.flowchartImageHeight);
         const zoomSource = window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES?.[String(source.flowchartImage).split("/").pop()];
-        container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagrama original del FFDG para ${escapeHtml(source.station || "MTF")}, páginas ${escapeHtml((source.sourcePdfPages || []).join(", "))}" ${zoomSource ? `data-flowchart-hi-res-src="${escapeHtml(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${escapeHtml(source.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet"></image></svg>`;
+        container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Original FFDG diagram for ${escapeHtml(source.station || "MTF")}, pages ${escapeHtml((source.sourcePdfPages || []).join(", "))}" ${zoomSource ? `data-flowchart-hi-res-src="${escapeHtml(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${escapeHtml(source.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet"></image></svg>`;
         return;
       }
       const flowchartGraph = source.flowchartGraph || window.FFDG_MTF_PDF_FLOWCHART_GRAPHS?.[source.id] || null;
@@ -608,7 +615,7 @@
         ? (FFDG.state.mtfFinished ? steps.length : Math.min(steps.length, Math.max(0, FFDG.state.mtfIndex) + 1))
         : 0;
       const progressPercent = steps.length ? (progressValue / steps.length) * 100 : 0;
-      const progressLabel = FFDG.state.mtfFinished ? "Ruta completada" : `Paso ${progressValue} de ${steps.length}`;
+       const progressLabel = FFDG.state.mtfFinished ? "Route completed" : `Step ${progressValue} of ${steps.length}`;
       // Stepper pills
       const pathContainer = $("mtf-path");
       pathContainer.replaceChildren();
@@ -616,7 +623,7 @@
         const pill = document.createElement("button");
         pill.type = "button";
         pill.className = `m3-step-pill ${idx === FFDG.state.mtfIndex ? "active" : ""}`;
-        pill.textContent = `Paso ${idx + 1}`;
+         pill.textContent = `Step ${idx + 1}`;
         pill.setAttribute("aria-label", `${pill.textContent}${s.title ? `: ${s.title}` : ""}`);
         if (idx === FFDG.state.mtfIndex) pill.setAttribute("aria-current", "step");
         pill.addEventListener("click", () => {
@@ -632,18 +639,18 @@
       if (step) {
         $("mtf-step").innerHTML = `
         ${step.section ? `<span class="m3-step-kicker">${escapeHtml(step.section)}</span>` : ""}
-        <span class="m3-step-kicker">Validación ${FFDG.state.mtfIndex + 1} de ${steps.length}${step.sourceNumber ? ` · Origen ${escapeHtml(step.sourceNumber)}` : ""}</span>
-        <div class="mtf-detail-progress" role="progressbar" aria-label="Avance de pasos MTF" aria-valuemin="0" aria-valuemax="${steps.length}" aria-valuenow="${progressValue}" aria-valuetext="${progressLabel}"><div class="mtf-detail-progress-fill" aria-hidden="true" style="width:${progressPercent}%"></div></div>
+         <span class="m3-step-kicker">Validation ${FFDG.state.mtfIndex + 1} of ${steps.length}${step.sourceNumber ? ` · Source ${escapeHtml(step.sourceNumber)}` : ""}</span>
+         <div class="mtf-detail-progress" role="progressbar" aria-label="MTF step progress" aria-valuemin="0" aria-valuemax="${steps.length}" aria-valuenow="${progressValue}" aria-valuetext="${progressLabel}"><div class="mtf-detail-progress-fill" aria-hidden="true" style="width:${progressPercent}%"></div></div>
         <h3 class="m3-step-title"><img class="ffdg-step-icon" src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true">${escapeHtml(step.title)}</h3>
         ${formatStepDetail(step.detail)}
       `;
-        $("mtf-action-text").innerHTML = `<img src="./assets/icons/gear-fill.svg" alt="" aria-hidden="true"><span class="ffdg-action-copy"><strong>Acción / Procedimiento:</strong>${escapeHtml(step.action || "Seguir el procedimiento de la fuente.")}</span>`;
+         $("mtf-action-text").innerHTML = `<img src="./assets/icons/gear-fill.svg" alt="" aria-hidden="true"><span class="ffdg-action-copy"><strong>Action / Procedure:</strong>${escapeHtml(step.action || "Follow the source procedure.")}</span>`;
       } else {
         const message = f.procedureSheet
-          ? `La pestaña ${f.procedureSheet} existe, pero no contiene pasos reconocibles. Consulta el contenido original de la pestaña.`
-          : "Esta falla no tiene pestaña de procedimiento asociada por Tab No. Consulta los campos originales; no se agregaron recomendaciones inventadas.";
+           ? `The ${f.procedureSheet} sheet exists, but it contains no recognizable steps. Check the original sheet content.`
+           : "This failure has no procedure sheet associated by Tab No. Check the original fields; no recommendations were invented.";
         $("mtf-step").innerHTML = `<div class="mtf-no-procedure">${escapeHtml(message)}</div>`;
-        $("mtf-action-text").innerHTML = `<img src="./assets/icons/gear-fill.svg" alt="" aria-hidden="true"><span class="ffdg-action-copy">Sin procedimiento cargado en el archivo fuente.</span>`;
+         $("mtf-action-text").innerHTML = `<img src="./assets/icons/gear-fill.svg" alt="" aria-hidden="true"><span class="ffdg-action-copy">No procedure loaded from the source file.</span>`;
       }
       const referenceHost = $("mtf-reference-images");
       if (referenceHost) {
@@ -659,9 +666,9 @@
           launch.type = "button";
           launch.className = "pdf-reference-launch";
           launch.setAttribute("aria-haspopup", "dialog");
-          launch.setAttribute("aria-label", `Abrir galería con ${references.length} ${references.length === 1 ? "imagen" : "imágenes"} de referencia`);
+           launch.setAttribute("aria-label", `Open gallery with ${references.length} ${references.length === 1 ? "reference image" : "reference images"}`);
           const heading = document.createElement("span");
-          heading.textContent = "Imágenes de referencia";
+           heading.textContent = "Reference Images";
           const icon = document.createElement("img");
           icon.className = "ffdg-detail-icon";
           icon.src = "./assets/icons/images.svg";
@@ -669,7 +676,7 @@
           icon.setAttribute("aria-hidden", "true");
           const count = document.createElement("span");
           count.className = "topology-reference-badge";
-          count.textContent = `${references.length} ${references.length === 1 ? "imagen" : "imágenes"}`;
+           count.textContent = `${references.length} ${references.length === 1 ? "image" : "images"}`;
           launch.append(icon, heading, count);
           launch.addEventListener("click", () => window.FFDG_OPEN_REFERENCE_GALLERY(`${f.id} · ${f.name}`, references, launch, referenceKey));
           referenceHost.append(launch);
@@ -682,10 +689,10 @@
       renderFlowchart(f);
       $("mtf-prev").disabled = FFDG.state.mtfIndex === 0 || !steps.length;
       $("mtf-next").disabled = !steps.length;
-      $("mtf-next").textContent = FFDG.state.mtfFinished ? "Ruta Completada" : (FFDG.state.mtfIndex === steps.length - 1 ? "Finalizar Ruta" : "Paso Siguiente →");
+       $("mtf-next").textContent = FFDG.state.mtfFinished ? "Route Completed" : (FFDG.state.mtfIndex === steps.length - 1 ? "Complete Route" : "Next Step →");
       $("mtf-outcome").classList.toggle("hidden", !FFDG.state.mtfFinished || !steps.length);
       if (FFDG.state.mtfFinished) {
-        $("mtf-outcome").innerHTML = `<strong>Veredicto de Calidad:</strong><br>${escapeHtml(f.final)}`;
+         $("mtf-outcome").innerHTML = `<strong>Quality Verdict:</strong><br>${escapeHtml(f.final)}`;
       }
     }
     function showNotification(msg) {
@@ -776,7 +783,7 @@
           sourceFields, sourceHeaders: headers, sourceMasterRow: row,
           detailMetadata: detail?.metadata || {}, sourceProcedureRows: detail?.rows || null,
           sourceSearchText: row.map(cleanText).join(" ") + " " + cleanText(detail?.rows ? JSON.stringify(detail.rows) : ""),
-          final: detailSheet ? `Pasos de ${sourceId} recorridos. Verifica y registra el resultado del retest en la estación.` : ""
+          final: detailSheet ? `Steps from ${sourceId} completed. Verify and record the retest result at the station.` : ""
         });
       });
       if (!cases.length) throw new Error("La tabla se encontró, pero no contiene fallas válidas.");
@@ -848,7 +855,7 @@
             title,
             detail: detailText,
             sourceText: text,
-            action: `Fuente: pestaña ${sheetName}`
+            action: `Source: sheet ${sheetName}`
           };
           steps.push(lastStep);
           pendingSection = "";
@@ -2014,6 +2021,14 @@
       focusSelectedBatCard();
       scrollToTarget($("bat-failure-board"));
     });
+    const openBatCatalog = () => {
+      FFDG.ui.setMode("bat");
+      FFDG.ui.renderBatSelection(null);
+      focusSelectedBatCard();
+      scrollToTarget($("bat-failure-board"));
+    };
+    $("bat-catalog-nav")?.addEventListener("click", openBatCatalog);
+    $("bat-board-nav")?.addEventListener("click", openBatCatalog);
     $("mtf-selection-toggle").addEventListener("click", () => {
       FFDG.ui.setMtfCatalogCollapsed(false, FFDG.state.mtfSelected, true);
     });

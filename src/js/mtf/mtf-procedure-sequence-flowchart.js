@@ -3,6 +3,13 @@
 
   const escape = value => String(value ?? "").replace(/[&<>"']/g,
     char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+  const translateFlowText = value => String(value ?? "")
+    .replace(/Inspección\s+de/gi, "Inspection of")
+    .replace(/Escalar\s+a\s+FA\s+Nivel\s+2/gi, "Escalate to Level 2 FA")
+    .replace(/Validar\s+resultado/gi, "Validate result")
+    .replace(/Siguiente\s+estación/gi, "Next station")
+    .replace(/\bhasta\b/gi, "up to")
+    .replace(/\bPaso\b/gi, "Step");
   const style = {
     width: 480, fontSize: 16, lineHeight: 22, gap: 28,
     actionX: 260, checkX: 500, checkWidth: 310, decisionHeight: 120,
@@ -31,8 +38,8 @@
     const active = Math.max(0, Math.min(steps.length - 1, Number(activeIndex) || 0));
     const id = "mtf-route-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
     const nodes = steps.map((step, index) => {
-      const title = String(step?.title || step?.q || "Paso " + (index + 1)).trim();
-      const lines = wrap("Paso " + (index + 1) + " · " + title, Math.floor((s.width - 40) / (s.fontSize * 0.56)));
+      const title = translateFlowText(String(step?.title || step?.q || "Step " + (index + 1)).trim());
+      const lines = wrap("Step " + (index + 1) + " · " + title, Math.floor((s.width - 40) / (s.fontSize * 0.56)));
       return { index, title, lines, height: Math.max(72, lines.length * s.lineHeight + 28), escalation: isEscalation(title) };
     });
     nodes[0].y = 18;
@@ -42,7 +49,7 @@
     const validationY = checkY + 200;
     const station = String(faultLabel).split(" · ")[0].trim();
     const checkLines = steps.some(step => /run_cable_check/i.test((step.title || step.q || "") + " " + (step.detail || "")))
-      ? ["Run_cable_check", "script"] : ["Validar resultado", "Re-Test"];
+      ? ["Run_cable_check", "script"] : ["Validate result", "Re-Test"];
     const validationLines = wrap("Re-run diags up to and including " + (station || "the failing station"), 25);
     const validationHeight = Math.max(s.decisionHeight, validationLines.length * s.lineHeight + 56);
     const successY = validationY + validationHeight / 2 + 56;
@@ -100,11 +107,11 @@
           "V" + (nodes[0].y + nodes[0].height / 2) + "H" + s.actionX, "Fail", s.checkX + 12, checkY + 88);
       }
     }
-    const summary = nodes.map(node => "Paso " + (node.index + 1) + ": " + node.title).join(". ");
-    container.innerHTML = '<p class="mtf-generated-flow-note">Ruta visual según el modelo proporcionado · Pasos de la falla seleccionada.</p>' +
+    const summary = nodes.map(node => "Step " + (node.index + 1) + ": " + node.title).join(". ");
+    container.innerHTML = '<p class="mtf-generated-flow-note">Visual route based on the provided model · Steps for the selected failure.</p>' +
       '<svg class="mtf-procedure-step-flowchart mtf-pdf-flowchart-svg mtf-generated-branch-flowchart" viewBox="0 0 ' + width + " " + height +
-      '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + escape("Ruta de diagnóstico " + faultLabel + ". " + summary) +
-      '" style="display:block;width:100%;height:auto;max-width:100%"><title>Ruta de diagnóstico · ' + escape(faultLabel) + "</title><desc>" + escape(summary) +
+      '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + escape("Diagnostic route " + faultLabel + ". " + summary) +
+      '" style="display:block;width:100%;height:auto;max-width:100%"><title>Diagnostic route · ' + escape(faultLabel) + "</title><desc>" + escape(summary) +
       '</desc><defs><marker id="' + id + '" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 1L9 5L0 9Z"/></marker>' +
       '<marker id="' + id + '-fail" class="mtf-flow-fail-marker" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 1L9 5L0 9Z"/></marker></defs>' +
       paths + shapes + "</svg>";

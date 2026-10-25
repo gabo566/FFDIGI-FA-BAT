@@ -45,13 +45,13 @@
       zoomButton.setAttribute("aria-pressed", String(zoomScale > 1));
       zoomButton.dataset.zoomMax = String(zoomScale >= maxZoomScale);
       zoomButton.textContent = zoomScale >= maxZoomScale
-        ? `Restablecer zoom · ${Math.round(zoomScale * 100)}%`
+        ? `Reset zoom · ${Math.round(zoomScale * 100)}%`
         : zoomScale > 1
-          ? `Zoom ${Math.round(zoomScale * 100)}% · 400 ppp`
-          : `Lupa · ${diagram.dataset.flowchartDpi || 400} ppp`;
+          ? `Zoom ${Math.round(zoomScale * 100)}% · 400 dpi`
+          : `Magnifier · ${diagram.dataset.flowchartDpi || 400} dpi`;
       zoomButton.setAttribute("aria-label", zoomScale >= maxZoomScale
-        ? "Restablecer el zoom del diagrama"
-        : `Aumentar zoom progresivo; nivel actual ${Math.round(zoomScale * 100)} por ciento`);
+        ? "Reset diagram zoom"
+        : `Increase zoom progressively; current level ${Math.round(zoomScale * 100)} percent`);
     }
     function openDiagram(isBat, trigger) {
       const host = document.getElementById(isBat ? "bat-disposition-flow" : "mtf-flowchart-diagram");
@@ -68,7 +68,7 @@
       else if (expandedDiagram.tagName.toLowerCase() === "svg") expandedDiagram.setAttribute("role", "img");
       else expandedDiagram.removeAttribute("role");
       if (originalLabel) expandedDiagram.setAttribute("aria-label", originalLabel);
-      else if (expandedDiagram.tagName.toLowerCase() === "svg") expandedDiagram.setAttribute("aria-label", "Diagrama de flujo ampliado");
+      else if (expandedDiagram.tagName.toLowerCase() === "svg") expandedDiagram.setAttribute("aria-label", "Expanded flowchart");
       else expandedDiagram.removeAttribute("aria-label");
       delete expandedDiagram.dataset.flowchartZoomEnabled;
       delete expandedDiagram.dataset.flowchartOriginalRole;
@@ -95,7 +95,7 @@
       content.scrollTop = 0;
       content.scrollLeft = 0;
       const faultTitle = document.getElementById(isBat ? "bat-detail-title" : "mtf-detail-title")?.textContent.trim();
-      document.getElementById("mtf-flowchart-modal-title").textContent = faultTitle ? `Diagrama · ${faultTitle}` : "Diagrama de flujo";
+      document.getElementById("mtf-flowchart-modal-title").textContent = faultTitle ? `Flowchart · ${faultTitle}` : "Flowchart";
       lastTrigger = trigger;
       dialog.showModal();
       requestAnimationFrame(() => {
@@ -115,7 +115,7 @@
       target.setAttribute("tabindex", "0");
       target.setAttribute("aria-haspopup", "dialog");
       target.setAttribute("aria-controls", dialog.id);
-      target.setAttribute("aria-label", `Ampliar diagrama${failureTitle ? ` de ${failureTitle}` : ""}`);
+      target.setAttribute("aria-label", `Enlarge diagram${failureTitle ? ` of ${failureTitle}` : ""}`);
       target.classList.add("flowchart-zoom-target");
       target.addEventListener("click", () => openDiagram(isBat, target));
       target.addEventListener("keydown", event => {

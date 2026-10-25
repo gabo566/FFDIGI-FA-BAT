@@ -645,3 +645,51 @@
     #bat-board,
     .v-board #mtf-board { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   }
+
+  /* Encabezado diagonal seleccionado por diseño: conserva los logos existentes y la adaptación móvil. */
+  @media screen and (min-width: 681px) {
+    .m3-top-app-bar {
+      height: 90px;
+      min-height: 90px;
+      padding: 0 !important;
+      overflow: hidden;
+      border-bottom: 0 !important;
+      background-color: #050505 !important;
+      background-image: url("../../../assets/brand/ffdg-header-diagonal-compact.png") !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-size: 100% auto !important;
+      box-shadow: none;
+    }
+
+    .m3-top-app-bar .app-brand {
+      opacity: 1;
+    }
+
+    .m3-top-app-bar .nvidia-wordmark,
+    .m3-top-app-bar .brand-racks,
+    .m3-top-app-bar .ingrasys-wordmark {
+      display: none;
+    }
+
+    .m3-top-app-bar .app-brand-copy {
+      padding: 15px 80px;
+      background: #050505;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .m3-top-app-bar .app-brand-title {
+      position: relative;
+      z-index: 1;
+      font-size: 42px !important;
+    }
+
+    .m3-top-app-bar .app-brand-subtitle {
+      position: relative;
+      z-index: 1;
+      font-size: 12.5px !important;
+      color: #ffffff !important;
+      text-shadow: 0 1px 2px #000000;
+    }
+  }

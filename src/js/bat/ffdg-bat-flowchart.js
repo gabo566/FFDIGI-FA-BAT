@@ -3,6 +3,22 @@
 
   const escape = value => String(value ?? "").replace(/[&<>"']/g,
     char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+  const translateFlowText = value => String(value ?? "")
+    .replace(/¿BAT logra resolver y hacer ping a la IP del BMC\?/i, "Can BAT resolve and ping the BMC IP?")
+    .replace(/Enlace entre Biancas \(B2B y Clink\)/i, "Link between Biancas (B2B and Clink)")
+    .replace(/Ruta Standby y comunicación BMC\/HMC/i, "Standby path and BMC/HMC communication")
+    .replace(/Verificación del cableado PDB por P\/N/i, "Verify PDB cabling by P/N")
+    .replace(/Medición PDB e inspección física/i, "PDB measurement and physical inspection")
+    .replace(/Aislamiento B2B y revisión de Biancas/i, "B2B isolation and Bianca inspection")
+    .replace(/Confirmación con unidad Golden y retest/i, "Confirm with Golden unit and retest")
+    .replace(/Validación de ruteo del ventilador\s*(\d+)/gi, "Fan $1 routing validation")
+    .replace(/Validar resultados y hacer reseat del ventilador\s*(\d+)/gi, "Validate results and reseat Fan $1")
+    .replace(/Validar las tarjetas del panel de la IO board central/gi, "Validate the central panel IO board cards")
+    .replace(/Validar el correcto ensamble del cable de la IO board del panel central/gi, "Validate correct assembly of the central panel IO board cable")
+    .replace(/Validar el firmware de los componentes del hardware principal BMC\/HMC/gi, "Validate the firmware of the main BMC/HMC hardware components")
+    .replace(/Update firmware de los componentes/gi, "Update component firmware")
+    .replace(/Validar mediante BAT Script el firmware actualizado/gi, "Validate the updated firmware using the BAT script")
+    .replace(/\bPaso\b/gi, "Step");
   const layout = {
     stepLeft: 190, stepWidth: 480, stepGap: 28, stepTop: 270,
     failBus: 80, validationBus: 760, passBus: 1090,
@@ -26,7 +42,7 @@
   function render(container, steps, activeIndex = 0, completedThrough = -1) {
     if (!container) return;
     if (!steps.length) {
-      container.innerHTML = '<div class="mtf-no-procedure">No se generó diagrama porque el catálogo no contiene pasos para esta falla.</div>';
+      container.innerHTML = '<div class="mtf-no-procedure">No diagram was generated because the catalog contains no steps for this failure.</div>';
       return;
     }
     const l = layout;
@@ -34,7 +50,7 @@
     const actions = terminal ? steps.slice(0, steps.indexOf(terminal)) : steps;
     let cursor = l.stepTop;
     const nodes = steps.map((step, index) => {
-      const lines = wrap(`Paso ${index + 1} de ${steps.length}: ${step.title || "Paso de diagnóstico"}`,
+      const lines = wrap(`Step ${index + 1} of ${steps.length}: ${translateFlowText(step.title || "Diagnostic step")}`,
         Math.floor((l.stepWidth - l.textPadding) / (l.fontSize * 0.56)));
       const height = Math.max(72, lines.length * l.lineHeight + 28);
       const center = cursor + height / 2;
@@ -61,7 +77,7 @@
     const diamond = (x, y, width, lines) => `<g class="fc-g fc-dm"><polygon class="fc-n" points="${x},${y - l.decisionHeight / 2} ${x + width / 2},${y} ${x},${y + l.decisionHeight / 2} ${x - width / 2},${y}"/>${lines.map((line, i) => `<text x="${x}" y="${y - 7 + i * l.lineHeight}" font-size="${l.fontSize}" text-anchor="middle">${escape(line)}</text>`).join("")}</g>`;
     const width = l.successX + l.successWidth + l.padding;
     const height = terminalCenter + l.pillHeight / 2 + l.padding;
-    let svg = `<svg class="bat-diagnostic-flowchart" viewBox="0 0 ${width} ${height}" width="100%" role="img" aria-label="Diagrama BAT con todos los pasos conectados a un BAT station validation compartido; Pass continúa MTF y Fail avanza al siguiente paso o escala al final" style="display:block">
+    let svg = `<svg class="bat-diagnostic-flowchart" viewBox="0 0 ${width} ${height}" width="100%" role="img" aria-label="BAT flowchart with all steps connected to a shared BAT station validation; Pass continues to MTF and Fail advances to the next step or escalates at the end" style="display:block">
       <defs><marker id="bat-fc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-ar" d="M0 1.2L9 5 0 8.8z"/></marker><marker id="bat-fc-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="fc-arr" d="M0 1.2L9 5 0 8.8z"/></marker></defs>`;
     svg += pill(l.startX - l.startWidth / 2, 18, l.startWidth, "Run the BAT station script", "on");
     svg += path(`M${l.startX} ${18 + l.pillHeight}V${l.acY - l.decisionHeight / 2}`, false, true);
@@ -75,7 +91,7 @@
     svg += label(l.startX - l.acWidth / 2 - 48, l.acY - 12, "Fail", true);
     nodes.forEach(node => {
       if (node.step.isEscalation) {
-        svg += pill(l.escalationX, escalationY, l.escalationWidth, node.step.title, "fc-er");
+        svg += pill(l.escalationX, escalationY, l.escalationWidth, translateFlowText(node.step.title), "fc-er");
         return;
       }
       const state = node.index <= completedThrough ? "is-complete" : node.index === activeIndex ? "is-active" : "is-pending";
@@ -97,10 +113,10 @@
         for (let index = 1; index < actions.length; index++) {
           const y = nodes[index].center;
           svg += junction(l.failBus, y, true) + path(`M${l.failBus} ${y}H${l.stepLeft}`, true, true);
-          svg += label(10, y - 14, `Paso ${index} fail → paso ${index + 1}`, true);
+          svg += label(10, y - 14, `Step ${index} fail → step ${index + 1}`, true);
         }
         svg += path(`M${l.failBus} ${failBottom}V${terminalCenter}H${l.escalationX}`, true, true);
-        svg += label(10, terminalCenter - 34, `Paso ${actions.length} fail → escalar`, true);
+        svg += label(10, terminalCenter - 34, `Step ${actions.length} fail → escalate`, true);
       } else {
         svg += path(`M${l.decisionX} ${validationY + l.decisionHeight / 2}V${terminalCenter}H${l.escalationX + l.escalationWidth}`, true, true);
       }

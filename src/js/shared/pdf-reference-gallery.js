@@ -25,7 +25,7 @@
     closeButton = document.createElement("button");
     closeButton.type = "button";
     closeButton.className = "flowchart-modal-close";
-    closeButton.setAttribute("aria-label", "Cerrar imágenes de referencia");
+     closeButton.setAttribute("aria-label", "Close reference images");
     closeButton.textContent = "×";
     headingGroup.append(title, description);
     header.append(headingGroup, closeButton);
@@ -33,7 +33,7 @@
     gallery = document.createElement("div");
     gallery.className = "pdf-reference-gallery-grid";
     gallery.setAttribute("role", "list");
-    gallery.setAttribute("aria-label", "Imágenes de referencia de la falla");
+     gallery.setAttribute("aria-label", "Failure reference images");
     dialog.append(header, gallery);
     document.body.appendChild(dialog);
 
@@ -60,7 +60,7 @@
     const zoomButton = document.createElement("button");
     zoomButton.type = "button";
     zoomButton.className = "reference-image-open pdf-reference-gallery-zoom";
-    zoomButton.setAttribute("aria-label", `Ampliar imagen: ${image.alt}`);
+     zoomButton.setAttribute("aria-label", `Enlarge image: ${image.alt}`);
     zoomButton.setAttribute("aria-haspopup", "dialog");
     zoomButton.appendChild(image);
     zoomButton.addEventListener("click", () => {

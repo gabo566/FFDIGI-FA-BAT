@@ -20,6 +20,7 @@ La aplicación es una herramienta de consulta y captura. No autentica usuarios, 
 - Catálogo de fallas organizado por familias como FRU, Logic, Leak, Fan y No Boot, con un icono local por categoría.
 
 - Búsqueda y selección de fallas; el detalle muestra la secuencia completa, con el paso activo resaltado y los pasos confirmados en verde al pulsar «Paso siguiente». El estado es temporal mientras la falla permanece abierta; no se persiste.
+- La navegación BAT/MTF usa tabs amplios con icono lateral, BAT activo en verde y MTF claro; la barra de acciones usa un control rail compacto para Catálogo BAT, Tablero de fallas, búsqueda, Modo Noche, actualización PDF y Customer notifications. Los estados, foco y comportamiento existente se conservan; logos, categorías y recuadros de fallas permanecen sin cambios.
 - En escritorio, las filas reparten el espacio disponible y Disposition Flow obtiene algo más de ancho; en móvil/tableta las cards se apilan. El flowchart BAT conserva su SVG original y su proporción.
 - En escritorio, **Anterior**, **Paso siguiente** y **Ampliar diagrama** quedan centrados al fondo de **Disposition Flow**; el regreso al catálogo se hace con **Cambiar falla**.
 - Recorrido de diagnóstico con respuestas y notas durante la sesión.

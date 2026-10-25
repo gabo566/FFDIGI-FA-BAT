@@ -153,9 +153,9 @@ window.FFDG = window.FFDG || {};
       steps: c.steps.map(s => ({
         title: s.title,
         detail: s.detail,
-        action: "Validar y ejecutar retest conforme al procedimiento oficial."
+        action: "Validate and run the retest according to the official procedure."
       })),
-      final: `Ruta para ${c.code} finalizada. Si la falla persiste tras las acciones indicadas, escalar a FA Nivel 2 con registro fotográfico y logs.`
+      final: `Route for ${c.code} completed. If the failure persists after the listed actions, escalate to Level 2 FA with photos and logs.`
     }));
     const flows = {
       FRU: [

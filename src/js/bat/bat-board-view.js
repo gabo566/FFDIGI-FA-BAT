@@ -9,6 +9,13 @@
     let selectedCode = select.value;
     const familyOrder = ["FRU", "LEAK", "FAN", "LOGIC", "NOBOOT"];
     const familyLabels = { FRU: "FRU / EEPROM", LOGIC: "LOGIC", LEAK: "LEAKAGE", FAN: "FANS", NOBOOT: "NO BOOT" };
+    const familyMetaLabels = {
+      "FRU / EEPROM (Bus I2C/SMBus)": "FRU / EEPROM (I2C/SMBus Bus)",
+      "Sensores de Fuga Líquida": "Liquid Leak Sensors",
+      "Ventiladores / Enfriamiento": "Fans / Cooling",
+      "FPGA / CPLD / Lógica": "FPGA / CPLD / Logic",
+      "No Boot / Secuencia Eléctrica": "No Boot / Power Sequence"
+    };
     const familyIcons = {
       FRU: "cpu.svg",
       LEAK: "droplet.svg",
@@ -29,14 +36,14 @@
         return result;
       }, {});
       board.replaceChildren();
-      document.getElementById("bat-board-count").textContent = `${matches.length} CASOS`;
+      document.getElementById("bat-board-count").textContent = `${matches.length} CASES`;
       Object.keys(groups).sort((a, b) => familyRank(a) - familyRank(b) || familyCounts[b] - familyCounts[a]).forEach(family => {
         const column = document.createElement("section");
         column.className = "bd-col";
         column.dataset.st = family;
         const heading = document.createElement("div");
         heading.className = "bd-h";
-        heading.title = groups[family][0].familyLabel;
+        heading.title = familyMetaLabels[groups[family][0].familyLabel] || groups[family][0].familyLabel;
         const headingLabel = document.createElement("span");
         headingLabel.className = "bd-heading-label";
         const familyIcon = familyIcons[family];
@@ -62,14 +69,14 @@
           card.type = "button";
           card.dataset.uid = item.uid;
           card.className = `bd-item${item.uid === selectedCode ? " selected" : ""}`;
-          card.setAttribute("aria-label", `Seleccionar ${item.code}: ${item.label}`);
+          card.setAttribute("aria-label", `Select ${item.code}: ${item.label}`);
           card.setAttribute("aria-pressed", String(item.uid === selectedCode));
           const code = document.createElement("b");
           code.textContent = item.code;
           const label = document.createElement("span");
           label.textContent = item.label;
           const meta = document.createElement("small");
-          meta.textContent = item.familyLabel;
+          meta.textContent = familyMetaLabels[item.familyLabel] || item.familyLabel;
           card.append(code, label, meta);
           card.addEventListener("click", () => {
             selectedCode = item.uid;

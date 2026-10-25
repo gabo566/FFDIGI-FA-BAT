@@ -111,7 +111,7 @@ main{padding-top:4px!important}
     }
     new MutationObserver(buildBoard).observe(list, { childList: true });
     if (tg) {
-      const b = document.createElement("button"); b.type = "button"; b.dataset.v = "board"; b.textContent = "Tablero";
+      const b = document.createElement("button"); b.type = "button"; b.dataset.v = "board"; b.textContent = "Board";
       tg.appendChild(b);
       tg.addEventListener("click", e => {
         const v = e.target.closest("button"); if (!v) return;

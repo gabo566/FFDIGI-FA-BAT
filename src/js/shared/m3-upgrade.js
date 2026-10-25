@@ -143,7 +143,7 @@ input[type=file]::file-selector-button{border:none;border-radius:999px;padding:8
 <path d="M44 28l4 4 8-8M44 44l4 4 8-8" fill="none" stroke="var(--md-sys-color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="62" y="28" width="16" height="4" rx="2" class="i-d" opacity=".5"/><rect x="62" y="44" width="16" height="4" rx="2" class="i-d" opacity=".5"/><rect x="44" y="58" width="34" height="4" rx="2" class="i-d" opacity=".25"/></svg>`;
     const me = $("mtf-empty");
-    if (me) me.innerHTML = trayIll + `<p style="margin:10px 0 0;font-weight:700;font-size:14px">Selecciona una falla del catálogo para ver el procedimiento y los comandos de diagnóstico.</p>`;
+    if (me) me.innerHTML = trayIll + `<p style="margin:10px 0 0;font-weight:700;font-size:14px">Select a failure from the catalog above to view the technical procedure and diagnostic commands.</p>`;
     const he = $("history-empty");
     if (he) he.innerHTML = `<div style="text-align:center;padding:6px 0">${clipIll}<div>Inicia el diagnóstico para generar la trazabilidad de mediciones del nodo.</div></div>`;
     /* Secuencia de potencia como línea de tiempo */
@@ -173,8 +173,8 @@ input[type=file]::file-selector-button{border:none;border-radius:999px;padding:8
       const steps = FFDG.ui.getActiveSteps(f);
       if (!steps.length) {
         const message = f.procedureSheet
-          ? `La pestaña ${f.procedureSheet} existe, pero no contiene pasos reconocibles. No se generó una secuencia de acciones.`
-          : "El Excel no incluye una hoja de procedimiento asociada por Tab No. No se generó una secuencia de acciones.";
+          ? `The ${f.procedureSheet} sheet exists, but it contains no recognizable steps. No action sequence was generated.`
+          : "The Excel file has no procedure sheet associated by Tab No. No action sequence was generated.";
         box.innerHTML = `<div class="mtf-no-procedure">${esc(message)}</div>`;
         return;
       }
@@ -184,27 +184,27 @@ input[type=file]::file-selector-button{border:none;border-radius:999px;padding:8
       const n = acts.length, yl = n ? 125 + (n - 1) * 56 : 100, H = Math.max(310, yl + 100);
       const stn = esc((f.station || "FLA").split("/")[0].trim());
       const pill = (x, y, w, t, c) => `<g class="fc-g ${c}"><rect class="fc-n" x="${x}" y="${y}" width="${w}" height="32" rx="16"/><text x="${x + w / 2}" y="${y + 20}" font-size="11" text-anchor="middle">${esc(t)}</text></g>`;
-      let s = `<svg viewBox="0 0 760 ${H}" preserveAspectRatio="xMidYMin meet" width="100%" role="img" aria-label="Diagrama de flujo de diagnóstico" style="display:block">
+      let s = `<svg viewBox="0 0 760 ${H}" preserveAspectRatio="xMidYMin meet" width="100%" role="img" aria-label="Diagnostic flowchart" style="display:block">
 <defs><marker id="m3a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fc-ar" d="M0 1.5L8 5 0 8.5z"/></marker>
 <marker id="m3r" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fc-arr" d="M0 1.5L8 5 0 8.5z"/></marker></defs>
 ${pill(305, 16, 170, `${String(steps[0].sourceNumber || "1").replace(/[.:]$/, "")}. ` + tr(clean(steps[0].title) || "", 20), cl(0))}
 <path class="fc-l" d="M390 48V70" marker-end="url(#m3a)"/>
 <g class="fc-g fc-dm"><polygon class="fc-n" points="390,74 445,100 390,126 335,100"/><text x="390" y="104" font-size="12" text-anchor="middle">Re-Test</text></g>
 <path class="fc-l" d="M445 100H590V141" marker-end="url(#m3a)"/><text class="fc-p" x="505" y="93">Pass</text>
-<g class="fc-g fc-dm"><polygon class="fc-n" points="590,145 650,175 590,205 530,175"/><text x="590" y="172" font-size="9" text-anchor="middle">Re-run diags</text><text x="590" y="184" font-size="8.5" text-anchor="middle">hasta ${stn}</text></g>
+<g class="fc-g fc-dm"><polygon class="fc-n" points="590,145 650,175 590,205 530,175"/><text x="590" y="172" font-size="9" text-anchor="middle">Re-run diags</text><text x="590" y="184" font-size="8.5" text-anchor="middle">up to ${stn}</text></g>
 <path class="fc-l" d="M650 175H695V32H479" marker-end="url(#m3a)"/><text class="fc-f" x="658" y="168">Fail</text>
 <path class="fc-l" d="M590 205V241" marker-end="url(#m3a)"/><text class="fc-p" x="598" y="226">Pass</text>
-<g class="fc-ok">${pill(515, 245, 150, "Siguiente estación", "")}</g>
+<g class="fc-ok">${pill(515, 245, 150, "Next station", "")}</g>
 <path class="fc-l" d="M390 126V144H289" marker-end="url(#m3a)"/><text class="fc-f" x="345" y="137">Fail</text>
 <path class="fc-l" d="M40 ${yl + 19}V100H331" marker-end="url(#m3a)"/>`;
       acts.forEach((a, i) => {
         const y = 125 + i * 56;
         s += `<g class="fc-g ${cl(i + 1)}"><rect class="fc-n" x="75" y="${y}" width="210" height="38" rx="12"/>
 <text x="180" y="${y + 16}" font-size="9.5" text-anchor="middle">${esc(tr(`${a.sourceNumber || i + 2}. ${clean(a.title)}`, 29))}</text>
-<text x="180" y="${y + 29}" font-size="8" font-weight="500" text-anchor="middle" style="opacity:.8">Ejecutar acción y retestear</text></g>
+<text x="180" y="${y + 29}" font-size="8" font-weight="500" text-anchor="middle" style="opacity:.8">Run action and retest</text></g>
 <path class="fc-l" d="M75 ${y + 19}H40"/>`;
         if (i < n - 1) s += `<path class="fc-l" d="M180 ${y + 38}V${y + 52}" stroke-dasharray="3 3" marker-end="url(#m3a)"/><text class="fc-f" x="192" y="${y + 48}" style="font-size:7.5px">Fail</text>`;
-        else s += `<path class="fc-l fc-lr" d="M180 ${y + 38}V${y + 46}" stroke-dasharray="3 3" marker-end="url(#m3r)"/><g class="fc-er">${pill(100, y + 50, 160, "Escalar a FA Nivel 2", "")}</g>`;
+        else s += `<path class="fc-l fc-lr" d="M180 ${y + 38}V${y + 46}" stroke-dasharray="3 3" marker-end="url(#m3r)"/><g class="fc-er">${pill(100, y + 50, 160, "Escalate to Level 2 FA", "")}</g>`;
       });
       box.innerHTML = s + "</svg>";
       const b = $("mtf-badge-station");
@@ -216,7 +216,7 @@ ${pill(305, 16, 170, `${String(steps[0].sourceNumber || "1").replace(/[.:]$/, ""
       if (f.flowchartImage && Number(f.flowchartImageWidth) > 0 && Number(f.flowchartImageHeight) > 0) {
         const width = Number(f.flowchartImageWidth), height = Number(f.flowchartImageHeight);
         const zoomSource = window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES?.[String(f.flowchartImage).split("/").pop()];
-        box.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Diagrama original del FFDG para ${esc(f.station || "MTF")}" ${zoomSource ? `data-flowchart-hi-res-src="${esc(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${esc(f.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMin meet"></image></svg>`;
+        box.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Original FFDG diagram for ${esc(f.station || "MTF")}" ${zoomSource ? `data-flowchart-hi-res-src="${esc(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${esc(f.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMin meet"></image></svg>`;
         return;
       }
       const graph = f.flowchartGraph || (window.FFDG_MTF_PDF_FLOWCHART_GRAPHS || {})[f.id];
@@ -225,15 +225,15 @@ ${pill(305, 16, 170, `${String(steps[0].sourceNumber || "1").replace(/[.:]$/, ""
       const steps = FFDG.ui.getActiveSteps(f);
       if (!steps.length) {
         const message = f.procedureSheet
-          ? `La pestaña ${f.procedureSheet} existe, pero no contiene pasos reconocibles. No se generó una secuencia de acciones.`
-          : "No hay pasos de procedimiento disponibles para esta falla.";
+          ? `The ${f.procedureSheet} sheet exists, but it contains no recognizable steps. No action sequence was generated.`
+          : "No procedure steps are available for this failure.";
         box.innerHTML = `<div class="mtf-no-procedure">${esc(message)}</div>`;
         return;
       }
       const sequenceRenderer = window.FFDG.renderMtfProcedureStepFlowchart;
       if (typeof sequenceRenderer === "function"
         && sequenceRenderer(box, steps, FFDG.state.mtfIndex || 0, `${f.station || "MTF"} · ${f.id || f.code || ""}`)) return;
-      box.innerHTML = '<div class="mtf-no-procedure">No hay un diagrama fuente verificado para esta falla. Se conserva el procedimiento en sus pasos; no se infieren decisiones ni resultados.</div>';
+      box.innerHTML = '<div class="mtf-no-procedure">No verified source diagram is available for this failure. The procedure steps are preserved; no decisions or outcomes are inferred.</div>';
     }
     /* ---------- 6. OBSERVADORES ---------- */
     const watch = (id, fn) => { const el = $(id); if (el) new MutationObserver(fn).observe(el, { childList: true }); };
@@ -413,8 +413,8 @@ html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
       "nav-mtf": "M3 5h18v3H3V5zm0 5.5h18v3H3v-3zM3 16h18v3H3v-3z"
     };
     const tileTx = {
-      "nav-bat": ["BAT Basic Assurance Test", () => `Diagnóstico guiado paso a paso · ${FFDG.data.failureCatalog.length} códigos NDBG`],
-      "nav-mtf": ["MTF L10 Failure", () => `${FFDG.data.mtfFaults.length} fallas con procedimiento y comandos`]
+      "nav-bat": ["BAT Basic Assurance Test", () => `Step-by-step diagnostics · ${FFDG.data.failureCatalog.length} NDBG codes`],
+      "nav-mtf": ["MTF L10 Failure", () => `${FFDG.data.mtfFaults.length} failures with procedures and commands`]
     };
     Object.keys(tileIc).forEach(id => {
       const b = $(id); if (!b) return;
@@ -426,8 +426,8 @@ html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
       const hd = document.querySelector(".mtf-row-2-header");
       if (hd) {
         const tg = document.createElement("div");
-        tg.className = "view-tg"; tg.setAttribute("role", "group"); tg.setAttribute("aria-label", "Vista del catálogo");
-        tg.innerHTML = '<button type="button" class="on" data-v="split">Lista técnica</button><button type="button" data-v="grid">Mosaico</button>';
+        tg.className = "view-tg"; tg.setAttribute("role", "group"); tg.setAttribute("aria-label", "Catalog view");
+        tg.innerHTML = '<button type="button" class="on" data-v="split">Technical List</button><button type="button" data-v="grid">Mosaic</button>';
         tg.addEventListener("click", e => {
           const v = e.target.closest("button"); if (!v) return;
           tg.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === v));

@@ -235,7 +235,7 @@
       referenceClose = document.createElement("button");
       referenceClose.type = "button";
       referenceClose.className = "flowchart-modal-close";
-      referenceClose.setAttribute("aria-label", "Cerrar imagen de referencia");
+       referenceClose.setAttribute("aria-label", "Close reference image");
       referenceClose.textContent = "×";
       text.append(referenceTitle, referenceDescription);
       header.append(text, referenceClose);

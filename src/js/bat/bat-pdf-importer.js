@@ -35,14 +35,6 @@
       status.hidden = false;
       status.textContent = message;
     };
-    try {
-      const savedCatalog = JSON.parse(localStorage.getItem(storageKey) || "null");
-      if (savedCatalog?.version === 1 && Array.isArray(savedCatalog.failures) && savedCatalog.fileName) {
-        setStatus(`Catálogo BAT restaurado desde ${savedCatalog.fileName}; los cambios se guardan en este navegador.`);
-      }
-    } catch (error) {
-      console.warn("No se pudo leer el registro de actualización BAT:", error);
-    }
     function pageLines(items) {
       const rows = [];
       items.filter(item => item.str?.trim()).forEach(item => {
@@ -219,7 +211,7 @@
         rebuildFailureSelect(previousUid);
         window.FFDG.refreshBatBoard?.();
         const navSummary = document.querySelector("#nav-bat .tile-tx small");
-        if (navSummary) navSummary.textContent = `Diagnóstico guiado paso a paso · ${catalog.length} códigos NDBG`;
+        if (navSummary) navSummary.textContent = `Step-by-step diagnostics · ${catalog.length} NDBG codes`;
         const storageMessage = persisted ? "guardado en este navegador" : "activo solo en esta sesión; no se pudo guardar localmente";
         setStatus(`PDF procesado: ${procedures.length} procedimientos BAT · ${updated} actualizados · ${added} nuevos · ${catalog.length - updated - added} conservados · ${storageMessage}.`);
       } catch (error) {
@@ -251,7 +243,7 @@
       rebuildFailureSelect(currentUid);
       window.FFDG.refreshBatBoard?.();
       const navSummary = document.querySelector("#nav-bat .tile-tx small");
-      if (navSummary) navSummary.textContent = `Diagnóstico guiado paso a paso · ${catalog.length} códigos NDBG`;
-      setStatus(`PDF inicial aplicado: ${updated} fallas BAT actualizadas · ${added} nuevas · catálogo guardado en este navegador.`);
+      if (navSummary) navSummary.textContent = `Step-by-step diagnostics · ${catalog.length} NDBG codes`;
+      setStatus(`PDF inicial aplicado: ${updated} fallas BAT actualizadas · ${added} nuevas.`);
     }
   }

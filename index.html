@@ -77,81 +77,90 @@
   <div id="bat-layout" class="m3-layout bat-details-mode">
     <div id="bat-failure-board" class="m3-card no-print">
       <div class="m3-card-header bat-board-header">
-        <div class="bat-board-heading">
-          <h2 class="m3-card-title">Catálogo BAT · Tablero de fallas</h2>
-          <span id="bat-board-count" class="mtf-tag">0 CASOS</span>
+        <div class="bat-board-heading control-rail-context" role="group" aria-label="BAT catalog navigation">
+          <h2 class="m3-card-title control-rail-heading-label">BAT Catalog · Failure Board</h2>
+          <button id="bat-catalog-nav" class="control-rail-nav is-active" type="button" aria-pressed="true">
+            <span class="control-rail-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z" fill="currentColor"/></svg></span>
+            <span>BAT Catalog</span>
+            <span id="bat-board-count" class="mtf-tag">0 CASES</span>
+          </button>
+          <button id="bat-board-nav" class="control-rail-nav" type="button" aria-pressed="true">
+            <span class="control-rail-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h2v2H4V5zm4 0h12v2H8V5zM4 11h2v2H4v-2zm4 0h12v2H8v-2zM4 17h2v2H4v-2zm4 0h12v2H8v-2z" fill="currentColor"/></svg></span>
+            <span>Failure Board</span>
+          </button>
         </div>
         <div id="bat-selection-summary" class="bat-selection-summary hidden" aria-live="polite">
           <span id="bat-selection-text" class="catalog-selection-text"></span>
-          <button id="bat-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Cambiar Falla" aria-controls="bat-board" aria-expanded="false">
+          <button id="bat-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Change Failure" aria-controls="bat-board" aria-expanded="false">
             <svg class="catalog-selection-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="currentColor"/></svg>
-            <span>Cambiar Falla</span>
+            <span>Change Failure</span>
           </button>
         </div>
         <div class="bat-board-controls">
           <div class="mtf-row-1-search bat-board-search">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
-            <input id="bat-board-search" type="search" placeholder="Buscar por código o falla BAT..." aria-label="Buscar fallas BAT">
+            <input id="bat-board-search" type="search" placeholder="Search by code or BAT failure..." aria-label="Search BAT failures">
           </div>
-          <button id="bat-theme-toggle" class="theme-switch-btn bat-theme-toggle" type="button" aria-label="Cambiar Tema">
-            <svg class="bat-theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path></svg>
-            <span class="bat-theme-text">Modo Noche</span>
+          <button id="bat-theme-toggle" class="theme-switch-btn bat-theme-toggle" type="button" aria-label="Toggle Theme">
+            <span class="control-rail-icon control-rail-icon-dark" aria-hidden="true"><svg class="bat-theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path></svg></span>
+            <span class="bat-theme-text">Night Mode</span>
           </button>
-          <button id="bat-pdf-import-btn" class="theme-switch-btn bat-pdf-import-btn" type="button" aria-label="Actualizar catálogo BAT desde PDF">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zM11 16h2V8h4l-5-5-5 5h4v8z"></path></svg>
-            <span>Actualizar PDF BAT</span>
+          <button id="bat-pdf-import-btn" class="theme-switch-btn bat-pdf-import-btn" type="button" aria-label="Update BAT catalog from PDF">
+            <span class="control-rail-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14v-2H5v2zM11 16h2V8h4l-5-5-5 5h4v8z"></path></svg></span>
+            <span>Update BAT PDF</span>
           </button>
           <button type="button" class="bat-notifications-button" id="bat-notifications-open"
-            aria-haspopup="dialog" aria-controls="mtf-customer-notifications" aria-label="Customer notifications, 1 aviso de NVIDIA"
+            aria-haspopup="dialog" aria-controls="mtf-customer-notifications" aria-label="Customer notifications, 1 NVIDIA alert"
             onclick="document.getElementById('mtf-customer-notifications').showModal()">
+            <svg class="control-rail-notification-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9zm-8 12h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Customer notifications <span class="mtf-notification-count" aria-hidden="true">1</span>
           </button>
           <input id="bat-pdf-file-input" type="file" accept="application/pdf,.pdf" hidden>
         </div>
       </div>
       <p id="bat-pdf-status" class="bat-pdf-status" role="status" aria-live="polite" hidden></p>
-      <div id="bat-board" aria-label="Tablero de fallas BAT"></div>
+      <div id="bat-board" aria-label="BAT failure board"></div>
     </div>
     <section id="bat-detail-area" class="hidden">
       <div id="bat-failure-detail" class="mtf-row-3 bat-failure-detail hidden" aria-live="polite">
         <div class="mtf-detail-horizontal-grid bat-detail-grid">
           <div class="bento-block-1">
             <header class="bento-block-heading">
-              <div class="bento-block-heading-copy"><h2 class="bento-block-title">Failure Record</h2><p class="bento-block-subtitle">Identificación de falla y datos técnicos</p></div>
+              <div class="bento-block-heading-copy"><h2 class="bento-block-title">Failure Record</h2><p class="bento-block-subtitle">Failure identification and technical data</p></div>
             </header>
             <div class="ffdg-failure-badges"><span id="bat-detail-station" class="mtf-tag" style="background:var(--md-sys-color-primary);color:#fff">BAT</span><span id="bat-detail-family" class="mtf-tag"></span></div>
             <div class="ffdg-failure-banner">
               <img src="./assets/icons/exclamation-triangle-fill.svg" alt="" aria-hidden="true">
               <h3 id="bat-detail-title" tabindex="-1" style="margin:0;font-size:14px;font-weight:800;line-height:1.35;color:var(--md-sys-color-on-surface)"></h3>
             </div>
-            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/hdd-rack.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Estación</span><span id="bat-detail-station-value" class="bento-meta-val">BAT</span></div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/hdd-rack.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Station</span><span id="bat-detail-station-value" class="bento-meta-val">BAT</span></div>
             <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/code-slash.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Error Code</span><span id="bat-detail-code" class="bento-meta-val"></span></div>
-            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/cpu.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Tipo de falla</span><span id="bat-detail-component" class="bento-meta-val"></span></div>
-            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Descripción</span><span id="bat-detail-description" class="bento-meta-val"></span></div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/cpu.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Failure Type</span><span id="bat-detail-component" class="bento-meta-val"></span></div>
+            <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Description</span><span id="bat-detail-description" class="bento-meta-val"></span></div>
             <div class="bento-meta-item"><img class="ffdg-meta-icon" src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true"><span class="bento-meta-label">Flowchart</span><span id="bat-detail-flowchart" class="bento-meta-val"></span></div>
             <button id="bat-no-boot-report-open" class="bat-no-boot-report-open no-print hidden" type="button" aria-haspopup="dialog" aria-controls="bat-no-boot-report-dialog">
               <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm8 1.5V8h3.5M8 12h8m-8 3h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Realizar reporte de falla
+              Create Failure Report
             </button>
           </div>
           <div class="bento-block-2">
             <header class="bento-block-heading">
-              <div class="bento-block-heading-copy"><h2 class="bento-block-title">Troubleshooting Sequence</h2><p class="bento-block-subtitle">Pasos técnicos definidos para esta falla</p></div>
+              <div class="bento-block-heading-copy"><h2 class="bento-block-title">Troubleshooting Sequence</h2><p class="bento-block-subtitle">Technical steps defined for this failure</p></div>
             </header>
             <div id="bat-detail-step-count" class="m3-step-kicker"></div>
             <div class="bat-detail-progress" aria-hidden="true"><div id="bat-detail-progress-fill" class="bat-detail-progress-fill"></div></div>
-            <ol id="bat-detail-steps" class="bat-detail-sequence" aria-label="Pasos del procedimiento BAT"></ol>
+            <ol id="bat-detail-steps" class="bat-detail-sequence" aria-label="BAT procedure steps"></ol>
           </div>
           <div class="bento-block-3">
             <header class="bento-block-heading">
-              <div class="bento-block-heading-copy"><h2 class="bento-block-title">Disposition Flow</h2><p class="bento-block-subtitle">Criterio de calidad, retest y ruta de decisión</p></div>
+              <div class="bento-block-heading-copy"><h2 class="bento-block-title">Disposition Flow</h2><p class="bento-block-subtitle">Quality criteria, retest and decision path</p></div>
             </header>
-            <div class="mtf-quality-heading"><span style="font-size:11px;font-weight:800;text-transform:uppercase;color:var(--md-sys-color-primary);letter-spacing:.06em">Criterio de Calidad &amp; Retest</span><span class="mtf-tag" style="background:#e1f5fe;color:#0288d1;font-weight:800;font-size:10px">FLOWCHART</span></div>
+             <div class="mtf-quality-heading"><span style="font-size:11px;font-weight:800;text-transform:uppercase;color:var(--md-sys-color-primary);letter-spacing:.06em">Quality Criteria &amp; Retest</span><span class="mtf-tag" style="background:#e1f5fe;color:#0288d1;font-weight:800;font-size:10px">FLOWCHART</span></div>
             <div id="bat-disposition-flow" aria-live="polite"></div>
             <div class="bat-detail-controls no-print">
-              <button id="bat-detail-prev" class="m3-btn m3-btn-tonal" type="button">← Anterior</button>
-              <button id="bat-detail-next" class="m3-btn m3-btn-filled" type="button">Paso siguiente →</button>
-              <button id="bat-flowchart-open" class="flowchart-open-btn" type="button" aria-haspopup="dialog" aria-controls="mtf-flowchart-modal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Ampliar diagrama</button>
+              <button id="bat-detail-prev" class="m3-btn m3-btn-tonal" type="button">← Previous</button>
+              <button id="bat-detail-next" class="m3-btn m3-btn-filled" type="button">Next Step →</button>
+              <button id="bat-flowchart-open" class="flowchart-open-btn" type="button" aria-haspopup="dialog" aria-controls="mtf-flowchart-modal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Enlarge Diagram</button>
             </div>
           </div>
         </div>
@@ -227,27 +236,27 @@
         <div class="btn-row">
           <button id="yes-btn" class="m3-btn m3-btn-success" type="button">✓ SÍ · Pasa Verificación</button>
           <button id="no-btn" class="m3-btn m3-btn-error" type="button">✕ NO · Presenta Anomalía</button>
-          <button id="bat-prev-btn" class="m3-btn m3-btn-tonal" type="button" style="margin-left:auto;">← Paso
-            Anterior</button>
+          <button id="bat-prev-btn" class="m3-btn m3-btn-tonal" type="button" style="margin-left:auto;">← Previous
+            Step</button>
         </div>
       </div>
       <dialog id="bat-no-boot-suggestion-dialog" class="mtf-case-dialog bat-no-boot-suggestion-dialog" aria-labelledby="bat-no-boot-suggestion-title" aria-describedby="bat-no-boot-suggestion-step">
         <div class="mtf-case-form">
           <header class="mtf-case-dialog-head">
-            <div><span class="flowchart-modal-kicker">GUÍA BAT · NO BOOT</span><h2 id="bat-no-boot-suggestion-title">Sugerencia de diagnóstico</h2></div>
-            <button id="bat-no-boot-suggestion-close" class="flowchart-modal-close" type="button" aria-label="Cerrar sugerencia" autofocus>×</button>
+            <div><span class="flowchart-modal-kicker">BAT GUIDE · NO BOOT</span><h2 id="bat-no-boot-suggestion-title">Diagnostic Guidance</h2></div>
+            <button id="bat-no-boot-suggestion-close" class="flowchart-modal-close" type="button" aria-label="Close guidance" autofocus>×</button>
           </header>
           <p id="bat-no-boot-suggestion-step" class="mtf-case-note"></p>
           <section id="bat-no-boot-suggestion-detail-section" class="mtf-case-section" aria-labelledby="bat-no-boot-suggestion-detail-heading">
-            <h3 id="bat-no-boot-suggestion-detail-heading">Orientación de diagnóstico</h3>
+            <h3 id="bat-no-boot-suggestion-detail-heading">Diagnostic Guidance</h3>
             <p id="bat-no-boot-suggestion-detail" class="bat-no-boot-suggestion-copy"></p>
           </section>
           <section id="bat-no-boot-suggestion-fail-section" class="mtf-case-section bat-no-boot-suggestion-fail" aria-labelledby="bat-no-boot-suggestion-fail-heading" hidden>
-            <h3 id="bat-no-boot-suggestion-fail-heading">Si no pasa</h3>
+            <h3 id="bat-no-boot-suggestion-fail-heading">If It Fails</h3>
             <p id="bat-no-boot-suggestion-fail" class="bat-no-boot-suggestion-copy"></p>
           </section>
           <div class="mtf-case-actions">
-            <button class="m3-btn m3-btn-filled" type="button" id="bat-no-boot-suggestion-done">Entendido</button>
+            <button class="m3-btn m3-btn-filled" type="button" id="bat-no-boot-suggestion-done">Understood</button>
           </div>
         </div>
       </dialog>
@@ -377,37 +386,60 @@
   <!-- MODO 2: MTF CATALOG (DISTRIBUCIÓN EN 3 FILAS HORIZONTALES SIMÉTRICAS) -->
   <div id="mtf-layout" class="mtf-horizontal-container hidden">
     <!-- FILA 1: TOOLBAR DE BÚSQUEDA Y FILTRADO HORIZONTAL -->
-    <div class="mtf-row-1">
+    <div class="mtf-row-1 mtf-bat-style-toolbar">
       <div class="mtf-row-1-search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path
             d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
           </path>
         </svg>
-        <input id="mtf-search" type="search"
-          placeholder="Buscar por código (ej. 020023...), estación, componente (Bianca, CX8, PDB, BF3)...">
+        <input id="mtf-search" type="search" aria-label="Search MTF failures"
+          placeholder="Search by code (e.g. 020023...), station, component (Bianca, CX8, PDB, BF3)...">
       </div>
       <div class="mtf-row-1-actions">
-        <button id="theme-toggle" class="theme-switch-btn" type="button" aria-label="Cambiar Tema">
+        <button id="theme-toggle" class="theme-switch-btn" type="button" aria-label="Toggle Theme">
           <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <path
               d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z">
             </path>
           </svg>
-          <span id="theme-text">Modo Noche</span>
+          <span id="theme-text">Night Mode</span>
         </button>
       
       <button id="mtf-pdf-select-button" class="m3-btn m3-btn-filled mtf-pdf-select-button" type="button"
-        aria-label="Actualizar PDF FFDG"
+        aria-label="Update FFDG PDF"
         title="Abre el selector de PDF. El archivo no se importa ni modifica el catálogo todavía."
         style="white-space:nowrap; padding:0 14px; font-size:12px; flex-shrink:0;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"></path>
         </svg>
-        <span>Actualizar PDF FFDG</span>
+        <span>Update FFDG PDF</span>
       </button>
       <input id="mtf-pdf-file-input" type="file" accept="application/pdf,.pdf" hidden
         aria-label="Archivo PDF FFDG para una futura actualización">
+      </div>
+      <div class="mtf-row-2-header">
+        <div class="mtf-catalog-heading">
+          <span class="mtf-catalog-title"
+            style="font-weight:800; font-size:13px; text-transform:uppercase; color:var(--md-sys-color-primary);">GB200 Failure Catalog</span>
+          <span id="mtf-count" class="mtf-tag">113 CASES</span>
+        </div>
+        <div class="mtf-design-controls">
+          <span class="mtf-design-label">View</span>
+        </div>
+        <button type="button" class="mtf-scroll-hint mtf-notifications-button" id="mtf-notifications-open"
+          aria-haspopup="dialog" aria-controls="mtf-customer-notifications" aria-label="Customer notifications, 1 NVIDIA alert"
+          onclick="document.getElementById('mtf-customer-notifications').showModal()">
+          <svg class="control-rail-notification-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9zm-8 12h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="mtf-notifications-label">Customer notifications</span><span class="mtf-notification-count" aria-hidden="true">1</span>
+        </button>
+        <div id="mtf-selection-summary" class="mtf-selection-summary hidden no-print" aria-live="polite">
+          <button id="mtf-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Change Failure" aria-controls="mtf-row-2" aria-expanded="false">
+            <span id="mtf-selection-text" class="catalog-selection-text"></span>
+            <svg class="catalog-selection-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="currentColor"/></svg>
+            <span>Change Failure</span>
+          </button>
+        </div>
       </div>
     </div>
     <!-- Notificación flotante de actualización -->
@@ -416,29 +448,6 @@
       <span id="upload-status-text"></span>
       <button type="button" onclick="this.parentElement.classList.add('hidden')"
         style="background:none; border:none; color:inherit; cursor:pointer; font-weight:bold; font-size:14px;">✕</button>
-    </div>
-    <!-- FILA 2: CARRUSEL HORIZONTAL SIMÉTRICO DE TARJETAS (SIN ESPACIOS MUERTOS) -->
-    <div class="mtf-row-2-header">
-      <div class="mtf-catalog-heading">
-        <span class="mtf-catalog-title"
-          style="font-weight:800; font-size:13px; text-transform:uppercase; color:var(--md-sys-color-primary);">Catálogo de Fallas GB200</span>
-        <span id="mtf-count" class="mtf-tag">113 CASOS</span>
-      </div>
-      <div class="mtf-design-controls">
-        <span class="mtf-design-label">Diseño</span>
-      </div>
-      <button type="button" class="mtf-scroll-hint mtf-notifications-button" id="mtf-notifications-open"
-        aria-haspopup="dialog" aria-controls="mtf-customer-notifications" aria-label="Customer notifications, 1 aviso de NVIDIA"
-        onclick="document.getElementById('mtf-customer-notifications').showModal()">
-        Customer notifications <span class="mtf-notification-count" aria-hidden="true">1</span>
-      </button>
-      <div id="mtf-selection-summary" class="mtf-selection-summary hidden no-print" aria-live="polite">
-        <button id="mtf-selection-toggle" class="catalog-selection-toggle" type="button" aria-label="Cambiar Falla" aria-controls="mtf-row-2" aria-expanded="false">
-          <span id="mtf-selection-text" class="catalog-selection-text"></span>
-          <svg class="catalog-selection-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="currentColor"/></svg>
-          <span>Cambiar Falla</span>
-        </button>
-      </div>
     </div>
     <div class="mtf-row-2" id="mtf-row-2">
       <div id="mtf-fault-list" class="mtf-cards-scroll-grid"></div>
@@ -450,8 +459,8 @@
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
           </path>
         </svg>
-        <p style="margin:0; font-weight:700; font-size:14px;">Selecciona una falla del catálogo superior para ver el
-          procedimiento técnico y comandos de diagnóstico.</p>
+        <p style="margin:0; font-weight:700; font-size:14px;">Select a failure from the catalog above to view the
+          technical procedure and diagnostic commands.</p>
       </div>
       <div id="mtf-detail" class="hidden">
         <div class="mtf-detail-horizontal-grid"><!-- Bloque 3.1: Ficha Técnica & Metadatos del Subensamble -->
@@ -459,7 +468,7 @@
             <header class="bento-block-heading">
               <div class="bento-block-heading-copy">
                 <h2 class="bento-block-title">Failure Record</h2>
-                <p class="bento-block-subtitle">Identificación de falla y datos técnicos</p>
+               <p class="bento-block-subtitle">Failure identification and technical data</p>
               </div>
             </header>
             <div class="ffdg-failure-badges">
@@ -474,7 +483,7 @@
             </div>
             <div class="bento-meta-item">
               <img class="ffdg-meta-icon" src="./assets/icons/hdd-rack.svg" alt="" aria-hidden="true">
-              <span class="bento-meta-label">Estación</span>
+               <span class="bento-meta-label">Station</span>
               <span id="mtf-station" class="bento-meta-val"></span>
             </div>
             <div class="bento-meta-item">
@@ -484,7 +493,7 @@
             </div>
             <div class="bento-meta-item">
               <img class="ffdg-meta-icon" src="./assets/icons/cpu.svg" alt="" aria-hidden="true">
-              <span class="bento-meta-label">Componentes / Cables</span>
+               <span class="bento-meta-label">Components / Cables</span>
               <span id="mtf-components" class="bento-meta-val"></span>
             </div>
             <div class="bento-meta-item">
@@ -493,10 +502,10 @@
               <span id="mtf-flowchart" class="bento-meta-val"></span>
             </div>
             <details id="mtf-source-details" class="mtf-source-details hidden">
-              <summary>Campos originales del Excel</summary>
+               <summary>Original Excel fields</summary>
               <dl id="mtf-source-fields"></dl>
               <details class="mtf-source-details-raw">
-                <summary>Contenido original de la pestaña</summary>
+                 <summary>Original sheet content</summary>
                 <pre id="mtf-source-raw" class="language-markup"></pre>
               </details>
             </details>
@@ -506,18 +515,18 @@
             <header class="bento-block-heading">
               <div class="bento-block-heading-copy">
                 <h2 class="bento-block-title">Troubleshooting Sequence</h2>
-                <p class="bento-block-subtitle">Validaciones y acciones técnicas</p>
+                 <p class="bento-block-subtitle">Technical validations and actions</p>
               </div>
             </header>
             <div id="mtf-variants" class="mtf-variant-picker hidden" role="group"
-              aria-label="Variantes del procedimiento"></div>
+               aria-label="Procedure variants"></div>
             <div id="mtf-path" class="m3-stepper-pills"></div>
             <div id="mtf-step" style="display:flex; flex-direction:column; gap:4px;"></div>
-            <section id="mtf-reference-images" class="mtf-pdf-reference-images hidden" aria-label="Reference Images del FFDG PDF"></section>
+            <section id="mtf-reference-images" class="mtf-pdf-reference-images hidden" aria-label="FFDG PDF reference images"></section>
             <button id="mtf-topology-open" class="topology-reference-launch" type="button" aria-haspopup="dialog" aria-controls="mtf-topology-modal">
               <img class="ffdg-detail-icon" src="./assets/icons/diagram-3.svg" alt="" aria-hidden="true">
               <span class="topology-reference-launch-title">GB300 System Topology <span class="topology-reference-badge">Reference Images</span></span>
-              <span class="topology-reference-launch-action">Abrir esquema ↗</span>
+               <span class="topology-reference-launch-action">Open Diagram ↗</span>
             </button>
           </div>
           <!-- Bloque 3.3: Disposición Final y Diagrama de Flujo de Retest -->
@@ -525,14 +534,14 @@
             <header class="bento-block-heading">
               <div class="bento-block-heading-copy">
                 <h2 class="bento-block-title">Disposition Flow</h2>
-                <p class="bento-block-subtitle">Criterio de calidad, retest y ruta de decisión</p>
+                <p class="bento-block-subtitle">Quality criteria, retest and decision path</p>
               </div>
             </header>
             <div id="mtf-disposition-content">
               <div class="mtf-quality-heading">
                 <span
-                  style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--md-sys-color-primary); letter-spacing:0.06em;">Criterio
-                  de Calidad &amp; Retest</span>
+                  style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--md-sys-color-primary); letter-spacing:0.06em;">Quality
+                  Criteria &amp; Retest</span>
                 <span id="mtf-flowchart-tag" class="mtf-tag"
                   style="background:#e1f5fe; color:#0288d1; font-weight:800; font-size:10px;">FLOWCHART</span>
               </div>
@@ -543,9 +552,9 @@
               </div>
             </div>
             <div class="btn-row no-print mtf-detail-controls mtf-detail-controls-right">
-              <button id="mtf-prev" class="m3-btn m3-btn-tonal" type="button">← Anterior</button>
-              <button id="mtf-next" class="m3-btn m3-btn-filled" type="button">Paso Siguiente →</button>
-              <button id="mtf-flowchart-open" class="flowchart-open-btn" type="button" aria-haspopup="dialog" aria-controls="mtf-flowchart-modal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Ampliar diagrama</button>
+              <button id="mtf-prev" class="m3-btn m3-btn-tonal" type="button">← Previous</button>
+              <button id="mtf-next" class="m3-btn m3-btn-filled" type="button">Next Step →</button>
+              <button id="mtf-flowchart-open" class="flowchart-open-btn" type="button" aria-haspopup="dialog" aria-controls="mtf-flowchart-modal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Enlarge Diagram</button>
             </div>
           </div>
         </div>
@@ -556,7 +565,7 @@
     <div class="mtf-notification-head">
       <span class="mtf-notification-brand" aria-hidden="true">NVIDIA</span>
       <h2 id="mtf-notification-title">Customer notifications</h2>
-      <button type="button" class="mtf-notification-close" aria-label="Cerrar aviso" onclick="this.closest('dialog').close()">×</button>
+      <button type="button" class="mtf-notification-close" aria-label="Close notification" onclick="this.closest('dialog').close()">×</button>
     </div>
     <div class="mtf-notification-content">
       <div class="mtf-notification-kicker">Aviso NVIDIA · 1</div>
@@ -854,12 +863,12 @@
 <dialog id="mtf-flowchart-modal" aria-labelledby="mtf-flowchart-modal-title">
   <div class="flowchart-modal-head">
     <div>
-      <span class="flowchart-modal-kicker">RUTA VISUAL DE DIAGNÓSTICO</span>
-      <h2 id="mtf-flowchart-modal-title">Diagrama de flujo</h2>
+      <span class="flowchart-modal-kicker">VISUAL DIAGNOSTIC PATH</span>
+      <h2 id="mtf-flowchart-modal-title">Flowchart</h2>
     </div>
     <div class="flowchart-modal-tools">
-      <button id="mtf-flowchart-zoom" class="flowchart-modal-zoom" type="button" aria-pressed="false" title="Usa la rueda sobre el diagrama para acercar o alejar progresivamente; también puedes pulsar para avanzar el zoom." hidden>Lupa · 400 ppp</button>
-      <button id="mtf-flowchart-close" class="flowchart-modal-close" type="button" aria-label="Cerrar diagrama">×</button>
+      <button id="mtf-flowchart-zoom" class="flowchart-modal-zoom" type="button" aria-pressed="false" title="Use the mouse wheel over the diagram to zoom in or out; click to step through zoom levels." hidden>Magnifier · 400 dpi</button>
+      <button id="mtf-flowchart-close" class="flowchart-modal-close" type="button" aria-label="Close diagram">×</button>
     </div>
   </div>
   <div id="mtf-flowchart-modal-content" class="flowchart-modal-content"></div>
@@ -871,7 +880,7 @@
       <h2 id="mtf-topology-modal-title">GB300 System Topology</h2>
       <p id="mtf-topology-modal-description" class="topology-modal-description">Esquema de disposición de placas, procesadores, aceleradores, alimentación y módulos de E/S.</p>
     </div>
-    <button id="mtf-topology-close" class="flowchart-modal-close" type="button" aria-label="Cerrar esquema topológico">×</button>
+    <button id="mtf-topology-close" class="flowchart-modal-close" type="button" aria-label="Close topology diagram">×</button>
   </div>
   <figure class="topology-modal-figure">
     <img src="./assets/topology/gb300-board-topology.png" alt="Esquema completo del sistema GB300 con las dos placas, GPU, CPU, UPHY, ventiladores, PDB, NIC, NVMe, OSFP y BlueField-3." width="1466" height="1350" decoding="async">
@@ -902,5 +911,6 @@
 <link rel="stylesheet" href="./src/css/shared/ffdg-detail-presentation.css">
 <link rel="stylesheet" href="./src/css/bat/ffdg-bat-catalog.css">
 <link rel="stylesheet" href="./src/css/shared/ffdg-flowchart-theme.css">
+<link rel="stylesheet" href="./src/css/shared/control-rail.css">
 <script src="./src/js/shared/ffdg-flowchart-fit.js" defer></script>
 <link rel="stylesheet" href="./src/css/bat/ffdg-report-print.css">

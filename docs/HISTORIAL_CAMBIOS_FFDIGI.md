@@ -5694,3 +5694,85 @@ Organizar el proyecto estático en carpetas claras, manteniendo `index.html` com
 - `src/js/app/ffdg-app-core.js` aún es grande; su división adicional queda para una tarea separada con pruebas de regresión.
 - La prueba final fue de escritorio. Quedan pendientes restauración de catálogos MTF antiguos desde `localStorage` y validación móvil/tableta.
 - La reorganización permanece local en `develop`, actualmente 40 commits por delante de `origin/develop`; no se publicó.
+
+## 2026-10-24 — Aplicar control rail moderno a navegación y acciones
+
+### Solicitud
+
+Aplicar la referencia visual seleccionada para los controles BAT/MTF: BAT, MTF, Catálogo BAT, Tablero de fallas, búsqueda, Modo Noche, actualización PDF y Customer notifications. Mantener intactos logos, categorías, recuadros de fallas, pasos y diagramas.
+
+### Solución
+
+- Se creó `src/css/shared/control-rail.css` con una capa visual acotada: tabs BAT/MTF con estado activo, botones secundarios con iconos, buscador de 44 px, acciones outlined y badge de notificaciones.
+- El encabezado BAT ahora expone botones funcionales «Catálogo BAT» y «Tablero de fallas»; ambos reutilizan la restauración/selección existente para volver al catálogo sin duplicar estado.
+- MTF reutiliza el mismo lenguaje visual en buscador, tema, actualización PDF y notificaciones; se corrigió la colocación del buscador para que ocupe el espacio central disponible.
+- No se modificaron logos, filtros de categorías, recuadros de fallas, pasos, flowcharts ni datos de catálogo.
+
+### Archivos modificados
+
+- `index.html` — markup mínimo para los controles BAT, iconos de notificación y carga del nuevo CSS.
+- `src/css/shared/control-rail.css` — estilos desktop, responsive, foco visible y `prefers-reduced-motion`.
+- `src/js/app/ffdg-app-core.js` — listeners de Catálogo BAT/Tablero de fallas reutilizando la navegación existente.
+- `README.md`, `docs/CONTEXTO_FFDIGI.md` — descripción del control rail y alcance preservado.
+
+### Validación
+
+- Servidor HTTP local en `http://127.0.0.1:8766/index.html`; carga de `control-rail.css`, scripts, CSS, logos e iconos con respuestas HTTP 200/304.
+- Playwright comprobó vista BAT a 1440 px y 1280 px: controles en una fila, sin desbordamiento.
+- Playwright comprobó móvil a 390×844: controles apilados, sin overflow horizontal (`scrollWidth = 390`).
+- Se probó cambio BAT/MTF, modo noche con restauración de tema, apertura/cierre de Customer notifications y retorno al catálogo desde ambos botones nuevos.
+- Consola del navegador: 0 errores y 0 warnings.
+- No se hizo commit ni push de este ajuste.
+
+### Resultado, pendientes y riesgos
+
+- La propuesta seleccionada quedó implementada sobre la navegación y acciones solicitadas; la estructura inferior permanece sin cambios.
+- Los logos conservan su diseño actual porque la referencia seleccionada solo cubría la franja de navegación/acciones; una variante específica para logos queda como posible iteración posterior.
+
+## 2026-10-24 — Ocultar aviso de persistencia del catálogo BAT
+
+### Solicitud
+
+Quitar el texto que informaba la restauración de BAT desde `ffdg.pdf` y que los cambios se guardaban en el navegador.
+
+### Solución
+
+- Se eliminó únicamente el aviso automático de restauración del catálogo.
+- El estado posterior al procesamiento inicial conserva solo el conteo de fallas actualizadas y nuevas; ya no muestra información de persistencia local.
+- La restauración, importación PDF, almacenamiento y catálogo BAT no cambiaron.
+
+### Archivos modificados
+
+- `src/js/bat/bat-pdf-importer.js` — eliminación de mensajes informativos de restauración/persistencia.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de la solicitud.
+
+### Validación
+
+- Playwright recargó la entrada local y confirmó que el elemento de estado conserva solo el conteo: `PDF inicial aplicado: 21 fallas BAT actualizadas · 4 nuevas.`
+- No aparecen las frases de restauración ni persistencia en el texto visible; consola sin errores.
+- No se hizo commit ni push.
+
+## 2026-10-24 — Ajustar tabs BAT/MTF a referencia visual
+
+### Solicitud
+
+Aplicar el estilo de la nueva referencia a los botones grandes BAT Basic Assurance Test y MTF L10 Failure.
+
+### Solución
+
+- Los tabs ahora ocupan el ancho disponible con dos botones amplios y equilibrados.
+- BAT conserva fondo verde activo; MTF usa fondo claro con borde verde/gris.
+- Los iconos se alinean lateralmente junto al título y subtítulo, con composición responsive en móvil.
+- No se alteraron la barra de acciones, logos, categorías, recuadros, pasos ni diagramas.
+
+### Archivos modificados
+
+- `src/css/shared/control-rail.css` — proporción, alineación, estados y responsive de BAT/MTF.
+- `README.md`, `docs/CONTEXTO_FFDIGI.md` — descripción del estilo actualizado.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de la iteración.
+
+### Validación
+
+- Validación visual en navegador local a escritorio y móvil.
+- Se comprobó cambio BAT/MTF, ausencia de overflow horizontal y consola sin errores.
+- No se hizo commit ni push.
