@@ -1,0 +1,197 @@
+/* Responsive viewport contract for BAT and MTF detail screens. */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body,
+main,
+#bat-layout,
+#mtf-layout,
+#bat-failure-detail,
+#mtf-detail,
+.mtf-detail-horizontal-grid {
+  min-width: 0;
+}
+
+main {
+  width: 100%;
+}
+
+#bat-layout > *,
+#mtf-layout > *,
+.mtf-detail-horizontal-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Keep the desktop detail cards inside the visible viewport. */
+@media screen and (min-width: 1081px) {
+  main:has(#bat-failure-detail:not(.hidden)),
+  main:has(#mtf-layout.mtf-detail-open #mtf-detail:not(.hidden)) {
+    padding-bottom: 0 !important;
+  }
+
+  #bat-failure-detail .bat-detail-grid {
+    height: max(400px, min(560px, calc(100dvh - 360px))) !important;
+    min-height: 0 !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+  }
+
+  #bat-failure-detail .bat-detail-grid > .bento-block-3 {
+    display: flex !important;
+    flex-direction: column;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #bat-failure-detail .bat-detail-grid > .bento-block-3 > .mtf-quality-heading,
+  #bat-failure-detail .bat-detail-grid > .bento-block-3 > .bat-detail-controls {
+    flex: 0 0 auto;
+  }
+
+  #bat-failure-detail #bat-disposition-flow {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+
+  #bat-failure-detail #bat-disposition-flow > svg,
+  #bat-failure-detail #bat-disposition-flow > img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain;
+  }
+
+  #mtf-layout.mtf-detail-viewport.mtf-detail-open .mtf-row-3 {
+    height: max(430px, min(620px, calc(100dvh - 280px))) !important;
+    max-height: max(430px, min(620px, calc(100dvh - 280px))) !important;
+  }
+}
+
+/* Tablet and phone: cards become a normal vertical document; no fixed-height crop. */
+@media screen and (max-width: 1080px) {
+  #bat-failure-detail,
+  #mtf-layout.mtf-detail-open,
+  #mtf-layout.mtf-detail-open .mtf-row-3,
+  #mtf-layout.mtf-detail-open #mtf-detail,
+  #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  #bat-failure-detail .bat-detail-grid,
+  #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  #bat-failure-detail .bat-detail-grid > *,
+  #mtf-layout.mtf-detail-open .mtf-detail-horizontal-grid > * {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  #mtf-layout.mtf-detail-open #mtf-flowchart-diagram,
+  #bat-failure-detail #bat-disposition-flow {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden !important;
+    box-sizing: border-box;
+  }
+
+  #mtf-layout.mtf-detail-open #mtf-flowchart-diagram {
+    height: clamp(220px, 45dvh, 420px) !important;
+    min-height: 220px !important;
+    max-height: 420px !important;
+  }
+
+  #mtf-layout.mtf-detail-open #mtf-flowchart-diagram > svg,
+  #mtf-layout.mtf-detail-open #mtf-flowchart-diagram > img,
+  #bat-failure-detail #bat-disposition-flow > svg,
+  #bat-failure-detail #bat-disposition-flow > img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain;
+  }
+
+  #mtf-layout.mtf-detail-open .mtf-detail-controls-right,
+  #bat-failure-detail .bat-detail-controls {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  #mtf-layout.mtf-detail-open .mtf-detail-controls-right > button,
+  #bat-failure-detail .bat-detail-controls > button {
+    min-width: min(180px, 100%);
+    max-width: 100%;
+    flex: 1 1 180px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  main {
+    padding-inline: 8px !important;
+  }
+
+  #bat-layout,
+  #mtf-layout {
+    width: 100%;
+  }
+
+  :is(#bat-failure-detail, #mtf-detail) .bento-block-heading {
+    min-height: 64px !important;
+  }
+
+  #mtf-layout.mtf-detail-open .mtf-detail-controls-right > button,
+  #bat-failure-detail .bat-detail-controls > button {
+    min-height: 44px;
+    flex: 1 1 140px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #mtf-layout.mtf-detail-open .mtf-detail-controls-right > button,
+  #bat-failure-detail .bat-detail-controls > button {
+    flex-basis: 100%;
+  }
+
+  #mtf-layout.mtf-detail-open #mtf-flowchart-diagram {
+    height: clamp(220px, 42dvh, 340px) !important;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 1080px) {
+  #mtf-layout.mtf-detail-open #mtf-flowchart-diagram {
+    height: min(52dvh, 360px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}
