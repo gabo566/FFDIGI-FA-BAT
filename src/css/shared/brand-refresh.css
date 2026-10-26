@@ -269,6 +269,21 @@
     transform-origin: center top;
     transition: transform 140ms ease-out;
   }
+  #mtf-flowchart-modal-content:has(> .flowchart-modal-stage > svg.mtf-source-flowchart-image) > .flowchart-modal-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #mtf-flowchart-modal-content:has(> .flowchart-modal-stage > svg.mtf-source-flowchart-image) > .flowchart-modal-stage > svg.mtf-source-flowchart-image {
+    position: relative;
+    inset: auto;
+    top: auto;
+    left: auto;
+    flex: 0 0 auto;
+    margin: 0;
+    transform: scale(var(--flowchart-zoom, 1));
+    transform-origin: center;
+  }
   @media (prefers-reduced-motion: reduce) {
     .flowchart-modal-stage > svg,
     .flowchart-modal-stage > img { transition: none; }

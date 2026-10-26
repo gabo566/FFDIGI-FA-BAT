@@ -5845,3 +5845,103 @@ Quitar las cápsulas alrededor de las etiquetas externas del diagrama (Pass, Fai
 
 - Las etiquetas Pass/Fail y rutas de fallo quedan legibles sin cápsulas; los nodos semánticos y las imágenes fuente no cambian.
 - No quedan pendientes conocidos para el alcance solicitado.
+
+## 2026-10-26 — Centrar y ajustar imágenes de flowcharts MTF
+
+### Solicitud
+
+En MTF, centrar las imágenes pequeñas y hacer que las grandes aprovechen el espacio asignado al flowchart sin salir del recuadro.
+
+### Estado previo y análisis
+
+- Los diagramas fuente se representan como una imagen dentro de un SVG con `preserveAspectRatio="xMidYMin meet"`; la proporción se conservaba, pero la imagen quedaba pegada arriba cuando el panel era más alto.
+- El modal posiciona normalmente los diagramas arriba; ese comportamiento dejaba demasiado espacio vacío debajo de una imagen fuente pequeña.
+- Los SVG generados y los flowcharts BAT tienen rutas y renderizadores separados; no requieren cambios para esta solicitud.
+
+### Solución
+
+- Se identificó el SVG de imagen fuente MTF con `mtf-source-flowchart-image` y se cambió su alineación a `xMidYMid meet`, centrando el dibujo en ambos ejes y conservando su proporción dentro del área.
+- En el modal, solo los diagramas con esa clase usan centrado flexible; los demás diagramas, BAT y sus controles mantienen sus estilos y estructura.
+
+### Archivos y áreas modificadas
+
+- `src/js/shared/m3-upgrade.js` — renderizador `drawFlow`, rama de imágenes fuente MTF.
+- `src/css/shared/brand-refresh.css` — centrado del diagrama fuente MTF en el modal.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta solicitud.
+
+### Validación
+
+- JavaScript: `node --check src/js/shared/m3-upgrade.js` sin errores; `git diff --check` limpio.
+- Navegador local HTTP, RIN-01 imagen panorámica: centrada dentro de la ficha en 1511×884 y 390×844.
+- Navegador local HTTP, FLA-04 imagen vertical (1036×1307): contenida y centrada en la ficha y en el modal a 390×844; sin desbordamiento horizontal.
+- Se comprobó que Anterior, Paso siguiente y Ampliar diagrama siguen visibles; el modal cierra con Escape.
+- Recursos fuente `mtf-flow-021.png` y `mtf-flow-007.png`: respuestas HTTP 200; consola: 0 errores y 0 advertencias.
+- BAT y SVG generados no se modificaron. No se hizo commit ni push.
+
+### Resultado, pendientes y riesgos
+
+- Las imágenes fuente MTF pequeñas quedan centradas; las grandes se ajustan proporcionalmente al espacio disponible sin recortarse.
+- No quedan pendientes conocidos para el alcance solicitado.
+
+## 2026-10-26 — Usar imágenes hi-res en flowcharts fuente MTF
+
+### Solicitud
+
+Mejorar el enfoque y la calidad visual de los esquemas MTF.
+
+### Estado previo y análisis
+
+- Las vistas previas MTF cargaban el PNG de 1036 px; la alternativa existente de 400 dpi solo se activaba al ampliar el modal.
+- El mapa del proyecto contiene 99 imágenes fuente y sus 99 alternativas de 400 dpi, con la misma proporción y contenido del esquema.
+- MTF tiene tres puntos de render para imágenes fuente: el núcleo `renderFlowchart`, `drawFlow` y el renderizador vectorial PDF. BAT usa otro renderizador y queda fuera del alcance.
+
+### Solución
+
+- Los tres renderizadores MTF usan la variante de 400 dpi en la vista previa cuando está disponible; conservan el PNG fuente como fallback.
+- Se conserva la caja `viewBox` original y `preserveAspectRatio="xMidYMid meet"`; no se redibujan ni modifican textos, trazos o decisiones.
+- Las imágenes conservan su clase de diagrama fuente, así el modal mantiene el centrado y el zoom existentes.
+
+### Archivos y áreas modificadas
+
+- `src/js/app/ffdg-app-core.js` — fallback del renderizador `renderFlowchart`.
+- `src/js/shared/m3-upgrade.js` — renderizador activo `drawFlow`.
+- `src/js/mtf/mtf-pdf-flowcharts.js` — imágenes fuente dentro de diagramas vectoriales.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta solicitud.
+
+### Validación
+
+- `node --check` en los tres scripts afectados; `git diff --check` limpio.
+- Se verificó que existen alternativas 400 dpi para los 99 PNG fuente.
+- Navegador local: RIN-01 panorámico y FLA-04 vertical cargan sus PNG 400 dpi en la ficha; FLA-04 cabe en el panel a 390×844 y 1511×884, sin overflow horizontal.
+- RIN-01 conserva el PNG 400 dpi en el modal; centrado y límites comprobados. Los controles de paso permanecen visibles.
+- Rutas hi-res RIN-01 y FLA-04: HTTP 200. Consola: 0 errores y 0 advertencias.
+- No se modificaron diagramas BAT ni los archivos de imagen fuente. No se hizo commit ni push.
+
+### Resultado, pendientes y riesgos
+
+- Las vistas previas raster MTF se muestran desde recursos con 2.77× más resolución; el modal conserva el detalle al ampliar.
+- No quedan pendientes conocidos para el alcance solicitado.
+
+## 2026-10-26 — Aplicar Opción 1 solo a imágenes fuente MTF
+
+### Solicitud
+
+Aplicar la paleta elegida únicamente a las imágenes MTF; conservar intactos los diagramas SVG ya existentes.
+
+### Solución
+
+- Se añadió un filtro CSS de presentación a la imagen raster dentro de `.mtf-source-flowchart-image`.
+- El filtro cambia solo la apariencia en pantalla; no reescribe los PNG ni las alternativas hi-res.
+- Los SVG generados, BAT, sus nodos, conexiones y etiquetas no reciben el filtro ni cambian.
+
+### Archivos
+
+- `src/css/shared/ffdg-flowchart-theme.css` — filtro visual limitado a las imágenes fuente MTF.
+- `docs/CONTEXTO_FFDIGI.md` — alcance y comportamiento actualizados.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta solicitud.
+
+### Validación
+
+- Navegador local HTTP: RIN-01 muestra el PNG hi-res con tinte en la ficha a 390×844 y dentro del modal a 1511×884.
+- En 390×844 no aparece desbordamiento horizontal; en escritorio el modal mantiene centrado y controles visibles.
+- Se confirmó que el filtro aplica al elemento `<image>` raster, no al SVG contenedor ni a diagramas SVG generados.

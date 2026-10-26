@@ -203,12 +203,13 @@
       const width = Number(graph.flowchartImageWidth);
       const height = Number(graph.flowchartImageHeight);
       const zoomSource = window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES?.[String(graph.flowchartImage).split("/").pop()];
-      container.innerHTML = '<svg class="mtf-pdf-flowchart-source" viewBox="0 0 ' + width + " " + height
-        + '" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Original FFDG diagram, page '
+      const previewSource = zoomSource || graph.flowchartImage;
+      container.innerHTML = '<svg class="mtf-source-flowchart-image mtf-pdf-flowchart-source" viewBox="0 0 ' + width + " " + height
+        + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Original FFDG diagram, page '
         + Number(graph.sourcePage) + '"' + (zoomSource ? ' data-flowchart-hi-res-src="' + escape(zoomSource) + '" data-flowchart-dpi="400"' : "")
         + ' style="display:block;width:100%;height:auto;max-height:min(68vh,600px)">'
-        + '<image href="' + escape(graph.flowchartImage) + '" width="' + width + '" height="' + height
-        + '" preserveAspectRatio="xMidYMin meet"></image></svg>';
+        + '<image href="' + escape(previewSource) + '" width="' + width + '" height="' + height
+        + '" preserveAspectRatio="xMidYMid meet"></image></svg>';
       return true;
     }
     if (graph.nodes.length < 2 || graph.edges.length < 1) return false;

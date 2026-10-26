@@ -27,6 +27,12 @@
   background: #ffffff !important;
 }
 
+/* Opción 1: tinte solo de presentación para las imágenes fuente MTF.
+   El SVG del sistema, sus nodos y sus conexiones no se alteran. */
+:is(#mtf-layout #mtf-flowchart-diagram, #mtf-flowchart-modal-content) .mtf-source-flowchart-image > image {
+  filter: hue-rotate(-165deg) saturate(1.35) contrast(1.08);
+}
+
 /* BAT: se conserva íntegro el SVG y solo se colorean sus clases existentes. */
 :is(#bat-failure-detail #bat-disposition-flow, #mtf-flowchart-modal-content) svg .fc-l {
   stroke: var(--ffdg-flow-connector);

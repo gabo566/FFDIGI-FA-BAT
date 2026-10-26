@@ -216,7 +216,8 @@ ${pill(305, 16, 170, `${String(steps[0].sourceNumber || "1").replace(/[.:]$/, ""
       if (f.flowchartImage && Number(f.flowchartImageWidth) > 0 && Number(f.flowchartImageHeight) > 0) {
         const width = Number(f.flowchartImageWidth), height = Number(f.flowchartImageHeight);
         const zoomSource = window.FFDG_MTF_PDF_FLOWCHART_ZOOM_IMAGES?.[String(f.flowchartImage).split("/").pop()];
-        box.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Original FFDG diagram for ${esc(f.station || "MTF")}" ${zoomSource ? `data-flowchart-hi-res-src="${esc(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${esc(f.flowchartImage)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMin meet"></image></svg>`;
+        const previewSource = zoomSource || f.flowchartImage;
+        box.innerHTML = `<svg class="mtf-source-flowchart-image" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Original FFDG diagram for ${esc(f.station || "MTF")}" ${zoomSource ? `data-flowchart-hi-res-src="${esc(zoomSource)}" data-flowchart-dpi="400"` : ""} style="display:block;width:100%;height:auto;max-height:min(68vh,600px)"><image href="${esc(previewSource)}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet"></image></svg>`;
         return;
       }
       const graph = f.flowchartGraph || (window.FFDG_MTF_PDF_FLOWCHART_GRAPHS || {})[f.id];
