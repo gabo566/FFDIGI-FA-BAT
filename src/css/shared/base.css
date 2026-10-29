@@ -1308,7 +1308,8 @@
     .m3-segmented-nav-wrap,
     .no-print,
     #bat-layout,
-    #mtf-layout {
+    #mtf-layout,
+    #l11-layout {
       display: none !important;
     }
 

@@ -1,15 +1,15 @@
 # CONTEXTO_FFDIGI.md — Memoria técnica del proyecto
 
-> Corte de auditoría: 2026-10-22. Describe el contenido observado **dentro de esta raíz Git** y su árbol de trabajo; separa archivos versionados de los cambios locales. Si el código cambia, vuelve a comprobar cada dato antes de usarlo.
+> Corte de auditoría: 2026-10-29. Describe el contenido observado **dentro de esta raíz Git** y su árbol de trabajo; separa archivos versionados de los cambios locales. Si el código cambia, vuelve a comprobar cada dato antes de usarlo.
 
 ## 1. Identidad y alcance
 
 - Nombre visible en la interfaz: **Nvidia Racks FFDG · Guía de análisis de falla GB200 y GB300**. El wordmark oficial NVIDIA puede conservar su tratamiento gráfico en mayúsculas.
-- El proyecto combina un flujo BAT de diagnóstico guiado básico y un catálogo MTF de fallas de línea con procedimientos y disposiciones.
+- El proyecto ofrece tres áreas: BAT para diagnóstico guiado, MTF para fallas L10 y L11 Failure Rack para fallas L11 por estación, tipo y procedimiento de FA.
 - En la interfaz, BAT se despliega como **Basic Assurance Test**; MTF se presenta como **MTF L10 Failure**. FA se usa en el sentido de análisis/escalación de falla.
 - **FFDG** y **FFDIGI** aparecen como nombres/identificadores del sistema. Su expansión formal no está demostrada por los archivos del proyecto y no se debe inventar.
 - Uso objetivo deducible por la interfaz: personal que selecciona fallas y consulta pasos técnicos; el reporte BAT está dirigido a revisión de Calidad. La versión actual incluye un inicio de sesión solo en cliente para una cuenta; no tiene backend, autenticación segura ni roles.
-- BAT y MTF son flujos distintos: BAT guía comprobaciones iniciales y captura de diagnóstico; MTF permite buscar fallas de estación, leer pasos/comandos y consultar la ruta visual asociada.
+- BAT, MTF y L11 son flujos distintos: BAT guía comprobaciones iniciales y captura de diagnóstico; MTF consulta fallas L10 con pasos/comandos; L11 reúne fallas por estación y vincula procedimientos, detalles e imágenes del PDF fuente.
 
 ## 2. Raíz y arquitectura actual
 
@@ -23,7 +23,11 @@ La raíz Git confirmada es este directorio (`pagina ffdg`). `index.html` sigue c
 | --- | --- |
 | `index.html` | Entrada HTML; conserva markup, controles, modales y plantillas. Sus bloques de estilo/scripts inline se extrajeron a `src/` preservando sus posiciones de carga. |
 | `src/js/data/app-catalog.js` | Catálogos base BAT/MTF y `window.FFDG.data`; se carga antes de los módulos que consumen esos datos. |
-| `src/js/app/ffdg-app-core.js` | Núcleo BAT/MTF extraído del HTML: estado, renderizadores, importación, reportes y eventos. Sigue siendo un archivo grande; modularizarlo después, una función a la vez, con pruebas de regresión. |
+| `src/js/data/l11/l11-catalog.js` | Datos extraídos del PDF L11 suministrado: fallas por estación, páginas FA, pasos y referencias a procedimientos/flowcharts. |
+| `src/js/l11/l11-failure-rack.js` | Búsqueda por código, descripción, tipo o estación; controles de catálogo/tema/PDF; selección de fallas, pasos, detalles fuente y modal de flowcharts L11. |
+| `src/js/l11/l11-station-board.js` | Tablero L11 en carriles por estación; muestra tres fallas por bloque. El buscador permite localizar otras fallas del catálogo. |
+| `src/js/l11/l11-reference-view.js` + `src/js/data/l11/l11-reference-images.js` | Render de imágenes de referencia L11 con captions; asociaciones explícitas por procedimiento y página del PDF. |
+| `src/js/app/ffdg-app-core.js` | Núcleo BAT/MTF y navegación entre las tres áreas: estado, renderizadores, importación, reportes y eventos. Sigue siendo un archivo grande; modularizarlo después, una función a la vez, con pruebas de regresión. |
 | `src/js/bat/` | Render BAT, importador PDF, board y vista de componentes BAT. |
 | `src/js/mtf/` | Flowcharts SVG MTF, secuencia de pasos y modal de topología. |
 | `src/js/shared/` | Galería, modal de diagramas, marca, mejora M3 y ajuste visual compartido de flowcharts. |
@@ -32,8 +36,11 @@ La raíz Git confirmada es este directorio (`pagina ffdg`). `index.html` sigue c
 | `src/css/shared/` | Estilos base extraídos, movimiento, presentación, paleta de flowcharts, marca, densidad compartida, `control-rail.css` para la navegación/acciones superiores y `login-gate.css` para el acceso local. |
 | `src/css/bat/` | Catálogo BAT y estilo de impresión No Boot. |
 | `src/css/mtf/` | Ajustes de selección y resultados MTF. |
+| `src/css/l11/l11-failure-rack.css` | Diseño adaptable de catálogo, las tres tarjetas de detalle, pasos y modal L11. |
 | `assets/icons/` | Iconos SVG locales de Bootstrap Icons con licencia MIT. |
 | `assets/flowcharts/mtf/` | 198 imágenes MTF: fuentes PNG y alternativas hi-res 400 ppp; se movieron sin cambiar contenido. |
+| `assets/flowcharts/l11/` | 45 flowcharts raster extraídos de páginas FA del PDF L11; conservan sus diagramas fuente, incluido el conjunto NVLINK de páginas 77–78. |
+| `assets/reference-images/l11/` | Imágenes fuente de ubicación de CBC FRU EEPROM (p. 79) y mapa de índices de slots (p. 80), asociadas solo con procedimientos FLA correspondientes. |
 | `assets/reference-images/mtf/` | 43 imágenes de referencia MTF previamente ubicadas en dos carpetas; las asociaciones ahora usan esta ruta unificada. |
 | `assets/brand/`, `assets/topology/` | Logotipos, fondo generado para la pantalla de acceso y topología GB300. |
 | `vendor/pdfjs/`, `vendor/sheetjs/` | Dependencias locales y licencias; el importador BAT carga PDF.js desde el módulo `src/js/bat/`. |
@@ -46,7 +53,7 @@ La raíz Git confirmada es este directorio (`pagina ffdg`). `index.html` sigue c
 
 - `ffdg_bat.html` permanece en la raíz, pero `.gitignore` lo excluye. Se conservaron sus datos/markup y solo se actualizaron las rutas locales de SheetJS y el logotipo que cambiaron de ubicación; no es fuente versionada ni necesariamente coincide con `index.html`.
 - `package.json` y `package-lock.json` están excluidos por `.gitignore`; el manifiesto local tiene una prueba placeholder y una dependencia `xlsx`. No hay suite FFDIGI configurada.
-- `output/playwright/` y `.playwright-cli/` contienen capturas/sesiones locales y siguen ignorados por Git.
+- `output/playwright/`, `output/l11-*.png` y `.playwright-cli/` contienen capturas/sesiones locales de validación y siguen ignorados por Git.
 - Los manuales/workbooks fuente no aparecen dentro de este árbol auditado. Los datos derivados no permiten revalidar por sí solos el contenido contra una nueva edición.
 
 ### Dependencias y orden de carga de `index.html`
@@ -63,15 +70,16 @@ Los estilos y scripts ya no están incrustados en el HTML; el núcleo de aplicac
 
 ## 3. Flujo general de usuario
 
-1. La página presenta el inicio de sesión local; una sesión válida abre BAT, desde donde se puede cambiar entre BAT y MTF.
+1. La página presenta el inicio de sesión local; una sesión válida abre BAT y permite cambiar entre BAT, MTF y L11 Failure Rack.
 2. En BAT, el usuario busca/elige una falla en el tablero; la selección sincroniza el catálogo de fallas y muestra el detalle, pasos y diagrama. El caso No Boot activa además el formulario de nodo y el recorrido guiado.
 3. En MTF, el usuario busca por identificador, estación, código, nombre, componente o texto de origen; filtra por estación y abre una falla.
 4. En el detalle MTF puede elegir las pestañas compactas `Paso 1…N` para ver la descripción de la validación activa, seleccionar una variante si existe, consultar referencias del PDF y ampliar el flowchart.
-5. En BAT, el recorrido guiado registra respuestas/notas en memoria de la sesión. El formulario captura identificación, análisis/RCA y evidencias; la impresión del navegador permite elegir Guardar como PDF.
+5. En L11, el catálogo presenta bloques compactos por carriles de estación, con tres fallas visibles por bloque mientras no haya búsqueda activa. Al buscar, muestra todas las coincidencias en una lista desplazable para no ocultar resultados; el buscador acepta código, descripción, tipo o estación. La barra permite volver al catálogo completo, alternar tema día/noche y abrir el selector PDF existente. El registro AST se excluyó del catálogo activo a petición del usuario; quedan 122 fallas en 10 estaciones. En escritorio hay cinco carriles, con PT1 primero y RST debajo. Cada falla abre Failure Record, Troubleshooting Sequence y Disposition Flow; si hay más de un procedimiento o grupo de pasos fuente, se puede elegirlo. Los detalles FA y flowcharts conservan su página de origen. Las referencias visuales de CBC FRU EEPROM solo aparecen en procedimientos FLA asociados a las páginas 79–80. Si una falla no trae flowchart, la vista lineal derivada representa solo sus pasos y no inventa decisiones.
+6. En BAT, el recorrido guiado registra respuestas/notas en memoria de la sesión. El formulario captura identificación, análisis/RCA y evidencias; la impresión del navegador permite elegir Guardar como PDF.
    En el reporte No Boot, cada imagen se lee y decodifica antes de liberar el estado de carga; la impresión reutiliza el elemento ya decodificado para evitar que el diálogo PDF lo capture antes de que aparezca.
-6. El catálogo BAT puede actualizarse desde PDF. El parser MTF de Excel y `loadExcelFile` permanecen en el código, pero se retiró el botón que abría el selector: la barra MTF ya no ofrece una vía visible para importar Excel. También conserva el botón `Actualizar PDF FFDG`, que solo abre el selector de archivos PDF; aún no extrae, sube ni guarda el documento ni modifica el catálogo. Los catálogos importados se guardan en `localStorage` del navegador cuando el almacenamiento está disponible.
-7. Las notificaciones y topología son paneles informativos; no son una API ni una fuente de verdad técnica por sí mismos.
-8. La persona puede cerrar la sesión desde la barra superior; el cierre elimina la marca temporal de sesión y cierra los diálogos abiertos.
+7. El catálogo BAT puede actualizarse desde PDF. El parser MTF de Excel y `loadExcelFile` permanecen en el código, pero se retiró el botón que abría el selector: la barra MTF ya no ofrece una vía visible para importar Excel. También conserva el botón `Actualizar PDF FFDG`, que solo abre el selector de archivos PDF; aún no extrae, sube ni guarda el documento ni modifica el catálogo. Los catálogos importados se guardan en `localStorage` del navegador cuando el almacenamiento está disponible.
+8. Las notificaciones y topología son paneles informativos; no son una API ni una fuente de verdad técnica por sí mismos.
+9. La persona puede cerrar la sesión desde la barra superior; el cierre elimina la marca temporal de sesión y cierra los diálogos abiertos.
 
 ## 4. Flujo BAT
 
@@ -151,6 +159,9 @@ Los estilos y scripts ya no están incrustados en el HTML; el núcleo de aplicac
 | Importación/merge BAT | `src/js/bat/bat-pdf-importer.js` + núcleo | PDF.js procesa el archivo elegido por el usuario; no asume conexión a un manual instalado. |
 | Catálogo MTF base y overlays verificados | `src/js/data/app-catalog.js` + `src/js/data/mtf/mtf-pdf-procedure-overrides.js` | 113 registros base; 55 identidades tenían overlay inequívoco al corte del 2026-10-10. |
 | Casos MTF PDF adicionales | `src/js/data/mtf/mtf-pdf-additions.js` | Contiene 175 adiciones en el snapshot auditado. |
+| Catálogo L11 | `src/js/data/l11/l11-catalog.js` | Fuente original: 111 filas del índice más 12 registros FA suplementarios; el catálogo activo excluye el caso AST por solicitud y contiene 122 grupos en 10 estaciones. Las entradas suplementarias siguen identificadas como detalles FA. |
+| Procedimientos/flowcharts L11 | `src/js/data/l11/l11-catalog.js` + `assets/flowcharts/l11/` | 62 referencias de procedimiento y 45 imágenes fuente únicas. Los flowcharts se enlazan por página/código; cuando el documento no proporciona uno, se muestra una secuencia derivada sin ramas de decisión añadidas. |
+| Imágenes de referencia L11 | `src/js/data/l11/l11-reference-images.js` + `src/js/l11/l11-reference-view.js` + `assets/reference-images/l11/` | Dos imágenes extraídas sin recomprimir de las páginas 79–80; se muestran solo en los procedimientos FLA `fa-p13`, `fa-p14` y `fa-p16`, con acceso a la galería compartida. |
 | Procedimientos cargados por Excel | Workbook seleccionado por el usuario + parser de `index.html` | Tab No identifica hoja maestra/detalle; el importado se mantiene local. |
 | Flowcharts MTF fuente | `src/js/data/mtf/` + `assets/flowcharts/mtf/` | La imagen asociada a identidad/página prevalece; el módulo vectorial es fallback, no sustituto documental. |
 | Secuencia visual MTF cuando falta flowchart fuente | Pasos activos del registro + `src/js/mtf/mtf-procedure-sequence-flowchart.js` | Representación secundaria lineal; no certifica estructura o decisiones del PDF y no sustituye una imagen/grafo fuente existente. |
@@ -172,6 +183,7 @@ Los manuales/workbooks fuente no están incluidos en el árbol observado; por es
 - Cambiar `failureCatalog` o su UID → afecta selección inicial, opciones del formulario, asociación del seed, selección de tarjeta y restauración guardada.
 - Cambiar `flows.NOBOOT` → afecta el stepper, texto/validación, diagrama y flujo del formulario No Boot; validar también resultado y reporte.
 - Cambiar forma de un caso MTF → afecta merge base+adiciones, búsqueda/filtros, selección, stepper/variantes, referencias/flowchart, importación/restauración y reporte MTF.
+- Cambiar los registros/procedimientos L11 → afecta el buscador por estación/tipo, asociaciones a varias páginas FA, selector de procedimiento/grupo, pasos fuente, imágenes de referencia y flowcharts; validar IDs, estaciones y páginas contra el PDF suministrado.
 - Cambiar títulos/orden de pasos MTF → afecta pestañas `Paso N`, validación activa y, solo si falta diagrama fuente, los nodos/secuencia del SVG secundario.
 - Cambiar `recordKey`, id o deduplicación MTF → puede colapsar fallas distintas que compartan código/Tab No; comprobar todas las fuentes y usos.
 - Cambiar referencias de imagen → afecta mapa, URL relativa, galerías, captions/página, modal y PNG; comprobar la ruta desde `index.html` y existencia física.

@@ -24,24 +24,43 @@
     width: 100%;
     max-width: none;
   }
+  /* Igualar las tarjetas MTF con L11 sin cambiar la estructura de cada vista. */
+  #mtf-layout:not(.v-board) #mtf-fault-list .mtf-item-card {
+    box-sizing: border-box;
+    height: 88px;
+    min-height: 88px;
+    max-height: 88px;
+  }
+  #mtf-layout:not(.v-board):not(.mtf-split) #mtf-fault-list .mtf-item-card {
+    flex: 1 1 298px;
+    max-width: 348px;
+  }
+  #mtf-layout.mtf-split #mtf-fault-list .mtf-item-card {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+  }
   #mtf-layout.v-board #mtf-board.mtf-board-centered {
     display: flex !important;
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: stretch;
     gap: 10px;
   }
   #mtf-layout.v-board #mtf-board.mtf-board-centered > .bd-col {
-    flex: 0 1 240px;
-    width: min(100%, 240px);
+    flex: 1 1 248px;
+    width: 100%;
     min-width: min(180px, 100%);
-    max-width: 240px;
+    max-width: none;
   }
   @media (max-width: 600px) {
-    #mtf-layout.v-board #mtf-board.mtf-board-centered { gap: 8px; }
-    #mtf-layout.v-board #mtf-board.mtf-board-centered > .bd-col { flex-basis: 160px; }
+    #mtf-layout.v-board #mtf-board.mtf-board-centered {
+      gap: 8px;
+    }
+    #mtf-layout.v-board #mtf-board.mtf-board-centered > .bd-col { flex-basis: 168px; }
   }
   @media screen and (min-width: 1081px) {
     html:has(#mtf-layout.mtf-detail-viewport.mtf-detail-open #mtf-detail:not(.hidden)),

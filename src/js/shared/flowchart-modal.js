@@ -1,10 +1,27 @@
 (() => {
+  let initialized = false;
+  let dependencyObserver = null;
+
+  function initializeFlowchartModal() {
+    if (initialized) return;
     const dialog = document.getElementById("mtf-flowchart-modal");
-    const openButtons = [document.getElementById("mtf-flowchart-open"), document.getElementById("bat-flowchart-open")].filter(Boolean);
+    const surfaces = {
+      bat: { hostId: "bat-disposition-flow", titleId: "bat-detail-title", isBat: true },
+      mtf: { hostId: "mtf-flowchart-diagram", titleId: "mtf-detail-title" },
+      l11: { hostId: "l11-flowchart-preview", titleId: "l11-detail-heading" }
+    };
     const closeButton = document.getElementById("mtf-flowchart-close");
     const zoomButton = document.getElementById("mtf-flowchart-zoom");
     const content = document.getElementById("mtf-flowchart-modal-content");
-    if (!dialog || !openButtons.length || !closeButton || !zoomButton || !content) return;
+    if (!dialog || !closeButton || !zoomButton || !content) {
+      if (!dependencyObserver && document.documentElement) {
+        dependencyObserver = new MutationObserver(() => initializeFlowchartModal());
+        dependencyObserver.observe(document.documentElement, { childList: true, subtree: true });
+      }
+      return;
+    }
+    initialized = true;
+    dependencyObserver?.disconnect();
     let lastTrigger = null;
     let zoomScale = 1;
     let fittedDiagramSize = null;
@@ -53,8 +70,10 @@
         ? "Reset diagram zoom"
         : `Increase zoom progressively; current level ${Math.round(zoomScale * 100)} percent`);
     }
-    function openDiagram(isBat, trigger) {
-      const host = document.getElementById(isBat ? "bat-disposition-flow" : "mtf-flowchart-diagram");
+    function openDiagram(surfaceName, trigger) {
+      const surface = surfaces[surfaceName];
+      if (!surface) return;
+      const host = document.getElementById(surface.hostId);
       const sourceDiagram = host?.querySelector("svg, img");
       if (!sourceDiagram) return;
       const expandedDiagram = sourceDiagram.cloneNode(true);
@@ -73,9 +92,18 @@
       delete expandedDiagram.dataset.flowchartZoomEnabled;
       delete expandedDiagram.dataset.flowchartOriginalRole;
       delete expandedDiagram.dataset.flowchartOriginalLabel;
-      const highResolutionSource = !isBat ? sourceDiagram.dataset.flowchartHiResSrc : "";
-      const sourceImage = expandedDiagram.querySelector("image");
-      if (highResolutionSource && sourceImage) sourceImage.setAttribute("href", highResolutionSource);
+      const highResolutionSource = !surface.isBat ? sourceDiagram.dataset.flowchartHiResSrc : "";
+      const sourceImage = expandedDiagram.matches("img") ? expandedDiagram : expandedDiagram.querySelector("image");
+      if (highResolutionSource && sourceImage?.tagName.toLowerCase() === "img") {
+        expandedDiagram.addEventListener("load", () => {
+          if (!dialog.open || !content.contains(expandedDiagram)) return;
+          fitDiagramToModal();
+          setZoomScale(zoomScale);
+        }, { once: true });
+        expandedDiagram.src = highResolutionSource;
+      } else if (highResolutionSource && sourceImage) {
+        sourceImage.setAttribute("href", highResolutionSource);
+      }
       if (expandedDiagram.tagName.toLowerCase() === "svg") {
         const viewBox = expandedDiagram.getAttribute("viewBox")?.trim().split(/[ ,]+/).map(Number);
         if (viewBox?.length === 4 && viewBox[2] > 0 && viewBox[3] > 0) {
@@ -94,48 +122,59 @@
       fittedDiagramSize = null;
       content.scrollTop = 0;
       content.scrollLeft = 0;
-      const faultTitle = document.getElementById(isBat ? "bat-detail-title" : "mtf-detail-title")?.textContent.trim();
+      const faultTitle = sourceDiagram.dataset.flowchartTitle || document.getElementById(surface.titleId)?.textContent.trim();
       document.getElementById("mtf-flowchart-modal-title").textContent = faultTitle ? `Flowchart · ${faultTitle}` : "Flowchart";
       lastTrigger = trigger;
       dialog.showModal();
       requestAnimationFrame(() => {
         fitDiagramToModal();
         setZoomScale(1);
+        if (expandedDiagram.matches("img") && expandedDiagram.complete && expandedDiagram.naturalWidth) {
+          fitDiagramToModal();
+          setZoomScale(1);
+        }
       });
       closeButton.focus({ preventScroll: true });
     }
-    function prepareDiagramTarget(host, isBat) {
+    function prepareDiagramTarget(host, surfaceName) {
       const target = host.querySelector("svg, img");
       if (!target || target.dataset.flowchartZoomEnabled === "true") return;
       target.dataset.flowchartZoomEnabled = "true";
       target.dataset.flowchartOriginalRole = target.getAttribute("role") || "";
       target.dataset.flowchartOriginalLabel = target.getAttribute("aria-label") || "";
-      const failureTitle = document.getElementById(isBat ? "bat-detail-title" : "mtf-detail-title")?.textContent.trim();
+      const surface = surfaces[surfaceName];
+      const failureTitle = target.dataset.flowchartTitle || document.getElementById(surface.titleId)?.textContent.trim();
       target.setAttribute("role", "button");
       target.setAttribute("tabindex", "0");
       target.setAttribute("aria-haspopup", "dialog");
       target.setAttribute("aria-controls", dialog.id);
       target.setAttribute("aria-label", `Enlarge diagram${failureTitle ? ` of ${failureTitle}` : ""}`);
       target.classList.add("flowchart-zoom-target");
-      target.addEventListener("click", () => openDiagram(isBat, target));
+      target.addEventListener("click", () => openDiagram(surfaceName, target));
       target.addEventListener("keydown", event => {
         if (event.key !== "Enter" && event.key !== " ") return;
         event.preventDefault();
-        openDiagram(isBat, target);
+        openDiagram(surfaceName, target);
       });
     }
     const diagramSurfaces = [
-      { host: document.getElementById("bat-disposition-flow"), isBat: true },
-      { host: document.getElementById("mtf-flowchart-diagram"), isBat: false }
+      { host: document.getElementById(surfaces.bat.hostId), surface: "bat" },
+      { host: document.getElementById(surfaces.mtf.hostId), surface: "mtf" },
+      { host: document.getElementById(surfaces.l11.hostId), surface: "l11" }
     ];
-    diagramSurfaces.forEach(({ host, isBat }) => {
+    diagramSurfaces.forEach(({ host, surface }) => {
       if (!host) return;
-      new MutationObserver(() => prepareDiagramTarget(host, isBat)).observe(host, { childList: true, subtree: true });
-      prepareDiagramTarget(host, isBat);
+      new MutationObserver(() => prepareDiagramTarget(host, surface)).observe(host, { childList: true, subtree: true });
+      prepareDiagramTarget(host, surface);
     });
-    openButtons.forEach(openButton => openButton.addEventListener("click", () => {
-      openDiagram(openButton.id === "bat-flowchart-open", openButton);
-    }));
+    document.addEventListener("click", event => {
+      const button = event.target instanceof Element
+        ? event.target.closest("#mtf-flowchart-open, #bat-flowchart-open, #l11-flowchart-open")
+        : null;
+      if (!button) return;
+      const surface = button.id === "bat-flowchart-open" ? "bat" : button.id === "l11-flowchart-open" ? "l11" : "mtf";
+      openDiagram(surface, button);
+    });
     zoomButton.addEventListener("click", () => {
       setZoomScale(zoomScale >= maxZoomScale ? 1 : zoomScale + 0.25);
     });
@@ -163,4 +202,8 @@
       if (lastTrigger?.isConnected) lastTrigger.focus({ preventScroll: true });
       lastTrigger = null;
     });
-  })();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initializeFlowchartModal, { once: true });
+  window.addEventListener("load", initializeFlowchartModal, { once: true });
+  if (document.readyState !== "loading") initializeFlowchartModal();
+})();

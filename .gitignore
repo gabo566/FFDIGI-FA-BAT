@@ -6,3 +6,4 @@ desktop.ini
 # Sesiones y capturas locales de validación Playwright
 /.playwright-cli/
 /output/playwright/
+/output/l11-*.png

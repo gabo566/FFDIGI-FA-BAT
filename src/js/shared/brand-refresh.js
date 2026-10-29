@@ -31,7 +31,7 @@
     if (logout) titleRow.append(logout);
     const subtitle = document.createElement("p");
     subtitle.className = "app-brand-subtitle";
-    subtitle.textContent = "Guía BAT / MTF · GB200 / GB300";
+    subtitle.textContent = "Guía BAT / MTF / L11 · GB200 / GB300";
     copy.append(eyebrow, titleRow, subtitle);
     brand.replaceChildren(logo, racks, ingrasys, divider, copy);
     brand.dataset.refreshed = "true";

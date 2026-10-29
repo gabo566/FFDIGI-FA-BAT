@@ -108,12 +108,16 @@
     }
     function setMode(mode) {
       const isBat = mode === "bat";
+      const isMtf = mode === "mtf";
+      const isL11 = mode === "l11";
       FFDG.state.mode = mode;
       $("nav-bat").classList.toggle("active", isBat);
-      $("nav-mtf").classList.toggle("active", !isBat);
+      $("nav-mtf").classList.toggle("active", isMtf);
+      $("nav-l11").classList.toggle("active", isL11);
       $("bat-layout").classList.toggle("hidden", !isBat);
-      $("mtf-layout").classList.toggle("hidden", isBat);
-      if (!isBat) {
+      $("mtf-layout").classList.toggle("hidden", !isMtf);
+      $("l11-layout").classList.toggle("hidden", !isL11);
+      if (isMtf) {
         renderMtfList();
         renderMtfDetail();
       }

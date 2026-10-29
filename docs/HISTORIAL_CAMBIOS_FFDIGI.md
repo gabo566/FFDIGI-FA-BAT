@@ -5996,6 +5996,56 @@ El ingreso local aparece antes de BAT/MTF. Los catálogos y claves existentes de
 - La sesión termina al cerrar la pestaña y no se comparte entre dispositivos.
 
 
+## 2026-10-29 — Incorporar catálogo L11 Failure Rack
+
+### Solicitud
+
+Analizar `gbx00_l11_ffdg_0007.pdf`, extraer fallas por estación y presentar registro, pasos técnicos, criterio/flowchart y detalles de FA en bloques como BAT/MTF. Añadir el botón `L11 Failure Rack`.
+
+### Análisis de fuente
+
+- El índice de estaciones está en las páginas 4–10: 111 filas, 11 estaciones y 43 tipos de falla en ese índice.
+- Las páginas FA aportan 12 registros suplementarios que no aparecen como filas del índice. Se conservan identificados como suplementarios y se vinculan con sus páginas de origen.
+- Resultado del catálogo: 123 grupos (111 del índice + 12 suplementarios), 52 tipos entre ambas fuentes, 62 procedimientos asociados y 45 flowcharts fuente únicos.
+- El código RIN repetido en páginas 34 y 41 conserva ambas alternativas de procedimiento; ambas pueden abrir el flowchart NVLINK global de páginas 77–78.
+- Un flowchart solo se agrega cuando se localiza en la fuente. Si hay pasos sin diagrama fuente, la interfaz muestra una secuencia derivada de esos pasos, sin inventar decisiones o ramales.
+
+### Solución e impacto
+
+- Se añadió `L11 Failure Rack` como tercera área de navegación, independiente de los modos BAT y MTF.
+- El tablero permite buscar por código, descripción, tipo o estación y filtrar por las 11 estaciones. Los tipos de falla agrupan los registros con conteos.
+- Cada selección presenta tres bloques: `Failure Record`, `Troubleshooting Sequence` y `Disposition Flow`; ofrece navegación por pasos, selector para procedimientos/grupos alternativos, detalles completos de la fuente y modal para ampliar el diagrama.
+- Se extrajeron 45 imágenes de flowchart en `assets/flowcharts/l11/`. Se ajustó el recorte de la página 14 para conservar el diagrama completo.
+- El catálogo conserva la procedencia por página y no guarda rutas locales del equipo.
+- La nueva navegación no altera los catálogos ni diagramas BAT/MTF.
+
+### Archivos modificados
+
+- `index.html` — navegación, tablero y detalle L11, modal y carga de recursos.
+- `src/js/app/ffdg-app-core.js` — selección explícita de BAT, MTF o L11 en la navegación.
+- `src/js/shared/brand-refresh.js` — rótulo superior incluye L11.
+- `src/css/shared/base.css` — exclusión de L11 al imprimir los reportes BAT/MTF.
+- `.gitignore` — exclusión de imágenes temporales de revisión L11 dentro de `output/`.
+- `src/css/l11/l11-failure-rack.css` — estilos de catálogo, detalle, modal, modo oscuro y breakpoints responsive.
+- `src/js/l11/l11-failure-rack.js` — búsqueda, filtros, tres bloques de detalle, pasos, referencias y modal.
+- `src/js/data/l11/l11-catalog.js` — catálogo extraído y asociaciones a páginas/procedimientos/flowcharts.
+- `assets/flowcharts/l11/` — 45 flowcharts PNG de la fuente PDF.
+- `docs/CONTEXTO_FFDIGI.md` y esta bitácora — arquitectura y estado L11.
+
+### Validaciones
+
+- `node --check` pasó para `l11-failure-rack.js`, `l11-catalog.js` y `ffdg-app-core.js`.
+- Chromium/Playwright confirmó que BAT, MTF y L11 se muestran de forma excluyente; responsive a 390×844, 768×1024, 1280×800 y 1511×884 sin desbordamiento horizontal.
+- Se verificó búsqueda y selección de RIN, las alternativas de páginas 34/41, los dos grupos del flowchart NVLINK global, navegación/modal y cierre con Escape.
+- Las 45 rutas de imagen existen; no hay asociaciones a procedimientos rotas ni casos del catálogo sin referencia de procedimiento; consola sin errores.
+- `git diff --check` pasó. No se ejecutó build, no se creó `dist`, no hubo commit ni push.
+
+### Pendientes y límites
+
+- Las 12 entradas suplementarias son grupos FA independientes del índice, marcados como tales para no presentarlos como filas de estación.
+- Los datos reflejan el PDF suministrado en esta tarea. Otra edición debe volver a cruzarse contra el índice, códigos, páginas FA y diagramas.
+
+
 ## 2026-10-29 — Ajustar portada de acceso y salida de sesión
 
 ### Solicitud
@@ -6014,3 +6064,132 @@ Reordenar el título para mostrar «FFDG L10/L11 GB200/GB300» arriba y «NVIDIA
 
 - Pendiente de verificación en navegador.
 - No se creó `dist` ni se hizo deploy.
+
+
+## 2026-10-29 — Ordenar catálogo y referencias visuales L11
+
+### Solicitud
+
+Simplificar la vista L11 con controles similares a MTF, agrupar fallas por estación con tres tarjetas iniciales, alinear las estaciones en cinco columnas y mostrar imágenes del PDF solo donde correspondan.
+
+### Cambios
+
+- Se retiraron el encabezado introductorio del rack y la fila de filtros por estación; el buscador sigue encontrando por código, descripción, tipo o estación.
+- La barra L11 ahora incluye `L11 Failure Catalog`, búsqueda, contador, modo día/noche y `Update FFDG PDF` conectado al selector PDF existente.
+- Cada estación muestra tres fallas sin botones para expandir; al buscar, aparecen todas las coincidencias.
+- A petición del usuario se retiró del catálogo activo el caso AST `index-p4-r1` (`023001006_023001750`); quedan 122 registros en 10 estaciones. El procedimiento fuente se conserva sin una falla vinculada.
+- El tablero usa cinco carriles; PT1 ocupa el espacio superior del cuarto carril y RST queda debajo. Los demás recuadros conservan altura compacta uniforme.
+- Se extrajeron sin recomprimir las imágenes de ubicación CBC FRU EEPROM (página 79) y mapa de índices de slots (página 80). Solo se asocian a procedimientos FLA `fa-p13`, `fa-p14` y `fa-p16`; se abren con la galería de referencias existente.
+- No se editaron diagramas BAT/MTF ni flowcharts fuente L11.
+
+### Archivos modificados
+
+- `index.html` — controles del catálogo L11, contenedor de referencias y carga ordenada de módulos.
+- `src/css/l11/l11-failure-rack.css` — barra compacta, estados de tema, bloques por estación y breakpoints responsive.
+- `src/js/l11/l11-failure-rack.js` — búsqueda global, reset del catálogo, tema, selector PDF y render de referencias.
+- `src/js/l11/l11-station-board.js` — tres elementos visibles por estación y expansión accesible.
+- `src/js/data/l11/l11-catalog.js` — exclusión del único caso AST del catálogo activo y conteos derivados.
+- `src/js/l11/l11-reference-view.js`, `src/js/data/l11/l11-reference-images.js` — render y mapa explícito de asociaciones por procedimiento.
+- `assets/reference-images/l11/l11-cbc-fru-eeprom-locations-p79.png`, `assets/reference-images/l11/l11-slot-index-map-p80.png` — imágenes de referencia originales extraídas del PDF.
+- `docs/CONTEXTO_FFDIGI.md` y esta bitácora — arquitectura, asociaciones y estado actualizados.
+
+### Validación
+
+- `node --check` pasó para los cuatro módulos JavaScript L11; `git diff --check` pasó.
+- Playwright comprobó tres tarjetas por estación, ausencia de botones para expandir, resultados completos al buscar, reset, alternancia día/noche, galería y cierre con Escape.
+- Responsive comprobado en 320×720, 390×844, 768×1024, 1024×768, 1280×800, 1471×824 y 1511×884; el caso AST no aparece, PT1/RST siguen en el mismo carril, tres fallas iniciales caben y no hay desbordamiento horizontal.
+- Las dos imágenes y módulos L11 responden HTTP 200; consola del navegador sin errores ni advertencias.
+- El selector de PDF abrió correctamente; se canceló sin elegir ni importar archivo.
+- No se modificaron los diagramas existentes de BAT/MTF; no hubo commit ni push.
+
+
+## 2026-10-29 — Aplicar paleta suave verde/gris al catálogo L11
+
+### Solicitud
+
+Aplicar la opción 2 elegida para L11 y suavizar sus colores, alternando encabezados verdes y grises desde FLA y PRET.
+
+### Estado previo y análisis
+
+- Las estaciones heredaban acentos de colores distintos desde el tablero compartido; algunos tonos se redefinían localmente en el CSS L11.
+- El tablero L11 ya conserva cinco carriles y su orden de estaciones. El cambio debía limitarse a la paleta, sin mover bloques, alterar tamaños ni tocar diagramas.
+
+### Solución
+
+- Se definió una alternancia basada en la disposición actual: FLA verde, PRET gris, FLB verde, PT1 gris, FCT verde; segunda fila RIN gris, FLC verde, DCC gris, RST verde y HPT gris.
+- La opción aplicada usa el verde activo `#287800` de los botones de navegación y gris acero `#66736c`; los fondos de columnas/tarjetas, bordes y hover se mantienen suaves.
+- El verde de los encabezados de estación queda sólido para coincidir visualmente con `Rack L11 Failure`; los acentos de tarjeta usan el mismo tono en modo claro.
+- Se añadieron superficies oscuras coordinadas para modo noche y acentos legibles en el código de falla.
+- Se conservan estructura, orden, dimensiones, textos, diagramas y controles del tablero.
+
+### Archivos modificados
+
+- `src/css/l11/l11-failure-rack.css` — variables de color por estación y estado, limitadas al catálogo L11.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta iteración.
+
+### Validación
+
+- Chromium/Playwright cargó `index.html` servido localmente y confirmó la hoja L11.
+- Playwright confirmó que el encabezado verde L11 y la navegación activa comparten `rgb(40, 120, 0)` en modo claro y oscuro.
+- Se verificaron estilos calculados claros y oscuros para las diez estaciones; los encabezados mantienen texto blanco.
+- Contraste calculado: 5.56:1 para texto blanco sobre verde `#287800`, 4.96:1 sobre gris, 5.31:1 para acento verde sobre tarjeta y 4.70:1 para acento gris sobre tarjeta.
+- El flujo completo no se condujo: la vista quedó detrás del acceso local. No se alteraron credenciales ni estado de acceso.
+- `git diff --check` pasó para los archivos rastreados inspeccionados; no hubo commit ni push.
+
+
+## 2026-10-29 — Uniformar tamaño de tarjetas de fallas L11
+
+### Solicitud
+
+Hacer del mismo tamaño los recuadros de códigos de falla; las descripciones largas estaban haciendo crecer algunas tarjetas.
+
+### Estado previo y análisis
+
+- Las tarjetas tenían `min-height` de 82 px y altura automática, con descripciones de hasta cuatro líneas; el contenido producía alturas distintas.
+- El catálogo muestra tres tarjetas por estación y sus columnas tienen altura compacta. El ajuste debe igualar las tarjetas sin alterar el orden ni el tamaño de las columnas.
+
+### Solución
+
+- Se fijó la altura de todas las tarjetas en 88 px y se reservó el mismo espacio para código, descripción y metadatos.
+- Código, descripción y metadatos se limitan a dos líneas; el nombre completo y los detalles de la falla permanecen en el atributo `title` y la ficha abierta.
+- Se mantuvieron los colores, controles, navegación y estructura de L11.
+
+### Archivos modificados
+
+- `src/css/l11/l11-failure-rack.css` — tamaño fijo y distribución interna de las tarjetas.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta iteración.
+
+### Validación
+
+- Playwright midió tarjetas con textos cortos y largos: todas conservaron 88 px en escritorio (1511×884), tableta (768×1024) y móvil (390×844).
+- El tablero de prueba no presentó desbordamiento horizontal en los tres tamaños.
+- La consola no reportó errores ni advertencias; `git diff --check` pasó y CSS no tiene espacios finales.
+- La vista completa permaneció detrás del acceso local; no se probaron interacciones de catálogo en esta iteración.
+- Sin commit ni push; el servidor local se detuvo.
+
+
+## 2026-10-29 — Igualar tamaño de tarjetas de fallas BAT y MTF con L11
+
+### Solicitud
+
+Uniformar las tarjetas de fallas de BAT y MTF con el tamaño de L11, ensancharlas ligeramente y conservar la organización actual de cada vista.
+
+### Solución
+
+- Se fijó en 88 px la altura de las tarjetas del tablero BAT y MTF, con filas para código, descripción y metadatos, y texto limitado para evitar que la longitud de una falla cambie el tamaño.
+- Se amplió 4 px el ancho visible de las tarjetas dentro del espacio de sus columnas.
+- El tablero MTF conserva su reflujo y orden de estaciones, pero sus columnas ya no tienen un ancho máximo y crecen para ocupar el ancho libre del fondo gris. La vista de lista MTF aumentó 8 px su base y ancho máximo.
+- Se conservaron los modos, columnas, comportamiento de selección, navegación y contenido de las fallas.
+
+### Archivos modificados
+
+- `src/css/shared/brand-refresh.css` — altura de 88 px, distribución interna y ancho visible de las tarjetas de tablero BAT/MTF.
+- `src/css/mtf/selection-results-layout.css` — altura y ancho de tarjetas MTF de lista; columnas del tablero MTF se estiran en su fila sin tope artificial de ancho.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — registro de esta iteración.
+
+### Validación
+
+- En fixtures temporales con textos cortos y largos, Playwright midió 88 px en tarjetas BAT y MTF en escritorio (1511×884), tableta (768×1024), móvil (390×844) y móvil compacto (320×720).
+- El tablero BAT conservó su reflujo responsive; MTF mantuvo el mismo modo flex de ajuste de columnas y orden, con bloques que llenan el espacio de cada fila, sin overflow horizontal.
+- Las tarjetas MTF de lista mantuvieron el ancho ampliado de 348 px como máximo y la lista dividió sus elementos en filas sin desbordamiento; la vista MTF dividida conservó el ancho completo y el alto uniforme.
+- La app completa quedó detrás del acceso local, por lo que no se condujeron selecciones reales de fallas; la medición se limitó a fixtures de CSS. `git diff --check` pasó. No hubo commit ni push.
