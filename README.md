@@ -11,7 +11,12 @@ La aplicación ayuda al personal técnico a seleccionar una falla, revisar la in
 - **BAT — Basic Assurance Test:** guía un diagnóstico paso a paso para fallas NDBG y permite preparar un reporte para revisión de Calidad.
 - **MTF L10 Failure:** permite buscar fallas de estación, consultar sus metadatos y procedimientos, revisar flowcharts y referencias.
 
-La aplicación es una herramienta de consulta y captura. No autentica usuarios, asigna roles ni sustituye los manuales, el workbook fuente o los procesos de autorización y liberación del nodo.
+La aplicación es una herramienta de consulta y captura. Incluye una pantalla de inicio de sesión local para una cuenta inicial y cierre de sesión; como la app es estática y no tiene backend, este control no protege frente a la inspección o modificación del código del navegador. No asigna roles ni sustituye los manuales, el workbook fuente o los procesos de autorización y liberación del nodo.
+
+## Acceso
+
+- La portada muestra **FFDG L10/L11 GB200/GB300 NVIDIA RACKS** con una imagen local de racks, el logotipo de Ingrasys y los campos de usuario/contraseña. La sesión permanece durante la pestaña actual y se puede cerrar desde la barra superior.
+- La primera cuenta se configura en el cliente. El proyecto no tiene servicio de identidad ni backend: la pantalla es una barrera de interfaz, no un mecanismo de seguridad para datos sensibles. Para acceso seguro entre usuarios se necesita autenticación en un servidor.
 
 ## Funciones
 

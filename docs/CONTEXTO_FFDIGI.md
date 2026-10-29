@@ -8,7 +8,7 @@
 - El proyecto combina un flujo BAT de diagnóstico guiado básico y un catálogo MTF de fallas de línea con procedimientos y disposiciones.
 - En la interfaz, BAT se despliega como **Basic Assurance Test**; MTF se presenta como **MTF L10 Failure**. FA se usa en el sentido de análisis/escalación de falla.
 - **FFDG** y **FFDIGI** aparecen como nombres/identificadores del sistema. Su expansión formal no está demostrada por los archivos del proyecto y no se debe inventar.
-- Uso objetivo deducible por la interfaz: personal que selecciona fallas y consulta pasos técnicos; el reporte BAT está dirigido a revisión de Calidad. El código no implementa autenticación ni roles.
+- Uso objetivo deducible por la interfaz: personal que selecciona fallas y consulta pasos técnicos; el reporte BAT está dirigido a revisión de Calidad. La versión actual incluye un inicio de sesión solo en cliente para una cuenta; no tiene backend, autenticación segura ni roles.
 - BAT y MTF son flujos distintos: BAT guía comprobaciones iniciales y captura de diagnóstico; MTF permite buscar fallas de estación, leer pasos/comandos y consultar la ruta visual asociada.
 
 ## 2. Raíz y arquitectura actual
@@ -29,13 +29,13 @@ La raíz Git confirmada es este directorio (`pagina ffdg`). `index.html` sigue c
 | `src/js/shared/` | Galería, modal de diagramas, marca, mejora M3 y ajuste visual compartido de flowcharts. |
 | `src/js/data/bat/` | Semilla de 25 procedimientos/casos BAT. |
 | `src/js/data/mtf/` | Adiciones, mapa de referencias, overrides y asociaciones MTF. El mapa resuelve `document.currentScript.src` hasta la raíz del sitio para evitar rutas rotas tras el movimiento. |
-| `src/css/shared/` | Estilos base extraídos, movimiento, presentación, paleta de flowcharts, marca, densidad compartida y `control-rail.css` para la navegación/acciones superiores. |
+| `src/css/shared/` | Estilos base extraídos, movimiento, presentación, paleta de flowcharts, marca, densidad compartida, `control-rail.css` para la navegación/acciones superiores y `login-gate.css` para el acceso local. |
 | `src/css/bat/` | Catálogo BAT y estilo de impresión No Boot. |
 | `src/css/mtf/` | Ajustes de selección y resultados MTF. |
 | `assets/icons/` | Iconos SVG locales de Bootstrap Icons con licencia MIT. |
 | `assets/flowcharts/mtf/` | 198 imágenes MTF: fuentes PNG y alternativas hi-res 400 ppp; se movieron sin cambiar contenido. |
 | `assets/reference-images/mtf/` | 43 imágenes de referencia MTF previamente ubicadas en dos carpetas; las asociaciones ahora usan esta ruta unificada. |
-| `assets/brand/`, `assets/topology/` | Logotipos y topología GB300. |
+| `assets/brand/`, `assets/topology/` | Logotipos, fondo generado para la pantalla de acceso y topología GB300. |
 | `vendor/pdfjs/`, `vendor/sheetjs/` | Dependencias locales y licencias; el importador BAT carga PDF.js desde el módulo `src/js/bat/`. |
 | `docs/CONTEXTO_FFDIGI.md` | Memoria técnica actual. |
 | `docs/HISTORIAL_CAMBIOS_FFDIGI.md` | Bitácora cronológica del proyecto. |
@@ -63,7 +63,7 @@ Los estilos y scripts ya no están incrustados en el HTML; el núcleo de aplicac
 
 ## 3. Flujo general de usuario
 
-1. La página inicia en BAT y permite cambiar entre BAT y MTF.
+1. La página presenta el inicio de sesión local; una sesión válida abre BAT, desde donde se puede cambiar entre BAT y MTF.
 2. En BAT, el usuario busca/elige una falla en el tablero; la selección sincroniza el catálogo de fallas y muestra el detalle, pasos y diagrama. El caso No Boot activa además el formulario de nodo y el recorrido guiado.
 3. En MTF, el usuario busca por identificador, estación, código, nombre, componente o texto de origen; filtra por estación y abre una falla.
 4. En el detalle MTF puede elegir las pestañas compactas `Paso 1…N` para ver la descripción de la validación activa, seleccionar una variante si existe, consultar referencias del PDF y ampliar el flowchart.
@@ -71,6 +71,7 @@ Los estilos y scripts ya no están incrustados en el HTML; el núcleo de aplicac
    En el reporte No Boot, cada imagen se lee y decodifica antes de liberar el estado de carga; la impresión reutiliza el elemento ya decodificado para evitar que el diálogo PDF lo capture antes de que aparezca.
 6. El catálogo BAT puede actualizarse desde PDF. El parser MTF de Excel y `loadExcelFile` permanecen en el código, pero se retiró el botón que abría el selector: la barra MTF ya no ofrece una vía visible para importar Excel. También conserva el botón `Actualizar PDF FFDG`, que solo abre el selector de archivos PDF; aún no extrae, sube ni guarda el documento ni modifica el catálogo. Los catálogos importados se guardan en `localStorage` del navegador cuando el almacenamiento está disponible.
 7. Las notificaciones y topología son paneles informativos; no son una API ni una fuente de verdad técnica por sí mismos.
+8. La persona puede cerrar la sesión desde la barra superior; el cierre elimina la marca temporal de sesión y cierra los diálogos abiertos.
 
 ## 4. Flujo BAT
 
@@ -156,6 +157,7 @@ Los estilos y scripts ya no están incrustados en el HTML; el núcleo de aplicac
 | Imágenes de referencia MTF | `src/js/data/mtf/mtf-pdf-reference-map.js` + `assets/reference-images/mtf/` | El helper normaliza rutas heredadas de catálogos locales a la nueva carpeta. |
 | Topología GB300 | `assets/topology/gb300-board-topology.png` + markup de `index.html` | Recurso visual; no reemplaza el procedimiento de una falla. |
 | Reporte BAT/MTF | `index.html` | Plantillas HTML y CSS de impresión; el motor final es `window.print()`. |
+| Acceso local | `src/js/shared/login-gate.js` + `sessionStorage` (`ffdg-session-auth-v1`) | Lista de cuenta y comparación corren en cliente; solo persiste una marca temporal, no la contraseña. No es autenticación segura ni asigna roles. |
 | Tema | `localStorage` (`ffdg-theme`) | Preferencia por navegador, no sincronizada entre usuarios. |
 | Catálogos importados | `localStorage` (claves versionadas BAT/MTF) | Estado local por navegador; puede estar ausente, antiguo, bloqueado o lleno. |
 | Registro diagnóstico BAT/evidencia y avance visual de pasos BAT | `FFDG.state` en memoria | No es almacenamiento persistente. El avance visual se reinicia al cambiar/cerrar la falla y no confirma Pass/Fail por sí mismo. |
@@ -165,6 +167,7 @@ Los manuales/workbooks fuente no están incluidos en el árbol observado; por es
 
 ## 7. Mapa de dependencias e impacto
 
+- Cambiar la pantalla/login → afecta el gate inicial, `inert`, lista local de cuentas, marca `sessionStorage`, cierre de sesión, título del documento y rutas de assets. Mantener claro que no hay autenticación de servidor.
 - Cambiar forma/campos de BAT → afecta `mergeProcedures`, tablero/selector, `renderBatSelection`, diagrama SVG, contador, importación/restauración, `localStorage` y reporte BAT.
 - Cambiar `failureCatalog` o su UID → afecta selección inicial, opciones del formulario, asociación del seed, selección de tarjeta y restauración guardada.
 - Cambiar `flows.NOBOOT` → afecta el stepper, texto/validación, diagrama y flujo del formulario No Boot; validar también resultado y reporte.

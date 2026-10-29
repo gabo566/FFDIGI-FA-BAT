@@ -5945,3 +5945,52 @@ Aplicar la paleta elegida únicamente a las imágenes MTF; conservar intactos lo
 - Navegador local HTTP: RIN-01 muestra el PNG hi-res con tinte en la ficha a 390×844 y dentro del modal a 1511×884.
 - En 390×844 no aparece desbordamiento horizontal; en escritorio el modal mantiene centrado y controles visibles.
 - Se confirmó que el filtro aplica al elemento `<image>` raster, no al SVG contenedor ni a diagramas SVG generados.
+
+
+## 2026-10-29 — Añadir pantalla de acceso FFDG
+
+### Solicitud
+
+Agregar un inicio de sesión como el de la referencia, con el título «FFDG L10/L11 GB200/GB300 NVIDIA RACKS» y la primera cuenta solicitada por la persona usuaria.
+
+### Objetivo
+
+Mostrar una portada de acceso antes de BAT/MTF y permitir abrir la aplicación con la cuenta inicial, conservando los flujos técnicos existentes.
+
+### Estado previo y análisis
+
+- Se trabajó sobre `origin/main` actualizado (`e0e90fa`), donde HTML, CSS, JS y assets ya están organizados por carpetas.
+- El proyecto es estático y no tiene backend de identidad ni roles. El navegador puede inspeccionar el JavaScript y alterar el estado; el gate local no protege datos sensibles.
+- La UI y sus scripts se pueden conservar bajo un wrapper inerte, sin modificar catálogos, reportes o navegación BAT/MTF.
+
+### Solución
+
+- Se añadió una portada adaptable con fondo local de racks, logo Ingrasys, título FFDG L10/L11 GB200/GB300 NVIDIA RACKS, formulario y mensajes de error.
+- La primera cuenta se valida desde una lista local en `login-gate.js`; Cerrar sesión elimina la marca temporal y vuelve a bloquear el contenido.
+- La sesión se conserva en `sessionStorage` por pestaña. No se guarda la contraseña en almacenamiento web y se limpia el campo tras el ingreso/cierre.
+- El contenido de la aplicación usa `inert` y `aria-hidden` hasta desbloquearse. El acceso incluye foco inicial, ciclo de Tab, indicador de error y soporte de movimiento reducido.
+- README y contexto explican que la comprobación local no es autenticación segura y requiere backend para proteger datos sensibles.
+
+### Archivos modificados
+
+- `index.html` — portada, wrapper de app, cierre de sesión y orden de carga del gate.
+- `src/css/shared/login-gate.css` — diseño adaptable de la pantalla.
+- `src/js/shared/login-gate.js` — validación local, estado de sesión y cierre.
+- `assets/brand/ffdg-login-datacenter.png` — fondo local generado.
+- `README.md`, `docs/CONTEXTO_FFDIGI.md` y esta bitácora.
+
+### Impacto
+
+El ingreso local aparece antes de BAT/MTF. Los catálogos y claves existentes de `localStorage` no cambian. No hay autenticación de servidor, sincronización entre equipos ni roles.
+
+### Validaciones
+
+- Chromium/Playwright comprobó vista inicial bloqueada, teclado/foco, credenciales incorrectas y correctas, navegación BAT→MTF, permanencia de sesión al recargar la pestaña y cierre de sesión.
+- Escritorio 1856×900, tableta 768×1024 y móvil 390×844 sin desbordamiento horizontal.
+- `node --check src/js/shared/login-gate.js` y `git diff --check` pasaron; consola del navegador sin errores ni solicitudes fallidas.
+- No se creó `dist` ni se hizo deploy.
+
+### Riesgos y pendientes
+
+- La cuenta y su comparación están en JavaScript que el navegador puede inspeccionar. Para acceso real se requiere autenticación de servidor.
+- La sesión termina al cerrar la pestaña y no se comparte entre dispositivos.
