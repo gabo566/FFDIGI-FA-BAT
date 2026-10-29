@@ -15,7 +15,7 @@ La aplicación es una herramienta de consulta y captura. Incluye una pantalla de
 
 ## Acceso
 
-- La portada muestra **FFDG L10/L11 GB200/GB300 NVIDIA RACKS** con una imagen local de racks, el logotipo de Ingrasys y los campos de usuario/contraseña. La sesión permanece durante la pestaña actual y se puede cerrar desde la barra superior.
+- La portada muestra **FFDG L10/L11 GB200/GB300** sobre **NVIDIA RACKS**, con letras destacadas, imagen local de racks y logotipo Ingrasys integrado visualmente al fondo. La sesión permanece durante la pestaña actual; el botón **Cerrar sesión** aparece junto a FFDG en el encabezado de la aplicación.
 - La primera cuenta se configura en el cliente. El proyecto no tiene servicio de identidad ni backend: la pantalla es una barrera de interfaz, no un mecanismo de seguridad para datos sensibles. Para acceso seguro entre usuarios se necesita autenticación en un servidor.
 
 ## Funciones

@@ -88,6 +88,27 @@
     line-height: 1;
   }
 
+  .app-brand-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    pointer-events: auto;
+  }
+
+  .app-brand-title-row #ffdg-logout {
+    min-height: 34px;
+    padding: 6px 12px;
+    border-color: rgba(255,255,255,.48);
+    color: #f5f9ff;
+    background: rgba(5,15,25,.78);
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: auto;
+  }
+
+  .app-brand-title-row #ffdg-logout:hover { background: rgba(28,55,76,.94); }
+
   .app-brand-subtitle {
     margin: 6px 0 0 !important;
     color: #c2c9bd !important;
@@ -411,6 +432,14 @@
       top: 60px;
       left: 50%;
       transform: translateX(-50%);
+    }
+
+    .app-brand-title-row { gap: 9px; }
+
+    .app-brand-title-row #ffdg-logout {
+      min-height: 30px;
+      padding: 5px 9px;
+      font-size: 11px;
     }
 
     .app-brand-title {

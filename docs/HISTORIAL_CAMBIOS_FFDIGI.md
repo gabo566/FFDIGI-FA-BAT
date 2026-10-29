@@ -5994,3 +5994,23 @@ El ingreso local aparece antes de BAT/MTF. Los catálogos y claves existentes de
 
 - La cuenta y su comparación están en JavaScript que el navegador puede inspeccionar. Para acceso real se requiere autenticación de servidor.
 - La sesión termina al cerrar la pestaña y no se comparte entre dispositivos.
+
+
+## 2026-10-29 — Ajustar portada de acceso y salida de sesión
+
+### Solicitud
+
+Reordenar el título para mostrar «FFDG L10/L11 GB200/GB300» arriba y «NVIDIA RACKS» abajo, dar más presencia a las letras, integrar el logo Ingrasys al fondo, mover Cerrar sesión junto a FFDG y quitar «GB200 · Acceso al sistema».
+
+### Solución e impacto
+
+- Se reorganizaron las dos líneas del título y se reforzó su jerarquía tipográfica con acentos celeste y verde.
+- Se retiró la etiqueta «GB200 · Acceso al sistema» y la referencia accesible asociada.
+- El logo Ingrasys usa mezcla de pantalla para fundir el negro del archivo con el fondo de racks y conservar el logotipo blanco/rojo.
+- «Cerrar sesión» ahora se integra en la fila del nombre FFDG en el encabezado de la aplicación.
+- README y contexto reflejan la presentación actualizada.
+
+### Validaciones
+
+- Pendiente de verificación en navegador.
+- No se creó `dist` ni se hizo deploy.

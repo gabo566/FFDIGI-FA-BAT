@@ -11,11 +11,11 @@
   #ffdg-login-gate[hidden] { display: none !important; }
   body:not(.ffdg-authenticated) { overflow: hidden; }
   .ffdg-login-panel { width: min(100%, 740px); margin: auto; text-align: center; }
-  .ffdg-login-logo { display: block; width: min(74vw, 470px); height: auto; margin: 0 auto 30px; filter: drop-shadow(0 8px 22px rgba(0,0,0,.36)); }
-  .ffdg-login-kicker { margin: 0 0 20px; color: #c9d9e9; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-  .ffdg-login-title { display: grid; gap: 0; margin: 0 auto; color: #fff; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 850; line-height: 1.08; letter-spacing: -.035em; text-shadow: 0 0 26px rgba(43,181,255,.38); }
-  .ffdg-login-title span:last-child { font-size: .76em; letter-spacing: -.018em; }
-  .ffdg-login-rule { width: min(100%, 560px); height: 2px; margin: 18px auto 54px; border: 0; background: linear-gradient(90deg, transparent, #dc3b46 18%, #e2444c 82%, transparent); box-shadow: 0 0 14px rgba(234,45,68,.55); }
+  .ffdg-login-logo { display: block; width: min(74vw, 470px); height: auto; margin: 0 auto 30px; mix-blend-mode: screen; filter: drop-shadow(0 8px 22px rgba(0,0,0,.36)); }
+  .ffdg-login-title { display: grid; gap: 4px; margin: 0 auto; color: #fff; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.08; letter-spacing: -.035em; text-shadow: 0 0 26px rgba(43,181,255,.38); }
+  .ffdg-login-title span:first-child { color: #eaf7ff; font-size: .62em; letter-spacing: .09em; text-shadow: 0 2px 12px rgba(56,177,255,.6); }
+  .ffdg-login-title span:last-child { color: #fff; font-size: 1.18em; letter-spacing: .025em; background: linear-gradient(100deg, #fff 8%, #c9f3ff 48%, #b7f266 92%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 14px rgba(43,181,255,.35)); }
+  .ffdg-login-rule { width: min(100%, 560px); height: 2px; margin: 22px auto 50px; border: 0; background: linear-gradient(90deg, transparent, #dc3b46 18%, #e2444c 82%, transparent); box-shadow: 0 0 14px rgba(234,45,68,.55); }
   .ffdg-login-form { display: grid; gap: 16px; width: min(100%, 725px); margin: 0 auto; text-align: left; }
   .ffdg-login-form h2 { margin: 0 0 2px; color: #f1f6fc; font-size: clamp(1.25rem, 2.5vw, 1.65rem); font-weight: 750; text-align: center; }
   .ffdg-login-field { display: grid; gap: 8px; }
@@ -35,8 +35,10 @@
     #ffdg-login-gate { padding: 22px 18px max(26px, env(safe-area-inset-bottom)); background-position: center; }
     .ffdg-login-panel { width: min(100%, 480px); }
     .ffdg-login-logo { width: min(72vw, 340px); margin-bottom: 25px; }
-    .ffdg-login-kicker { margin-bottom: 15px; font-size: 10px; }
-    .ffdg-login-rule { margin: 16px auto 30px; }
+    .ffdg-login-title { font-size: clamp(1.8rem, 7.5vw, 2.5rem); }
+    .ffdg-login-title span:first-child { font-size: .55em; letter-spacing: .035em; }
+    .ffdg-login-title span:last-child { font-size: 1.05em; letter-spacing: .005em; }
+    .ffdg-login-rule { margin: 18px auto 30px; }
     .ffdg-login-form { gap: 13px; }
     .ffdg-login-field input { min-height: 58px; padding-inline: 22px; font-size: 16px; }
     .ffdg-login-submit { min-height: 58px; margin-top: 18px; }

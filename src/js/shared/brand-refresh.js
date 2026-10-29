@@ -24,10 +24,15 @@
     const title = document.createElement("h1");
     title.className = "app-brand-title";
     title.textContent = "FFDG";
+    const titleRow = document.createElement("div");
+    titleRow.className = "app-brand-title-row";
+    titleRow.append(title);
+    const logout = document.getElementById("ffdg-logout");
+    if (logout) titleRow.append(logout);
     const subtitle = document.createElement("p");
     subtitle.className = "app-brand-subtitle";
     subtitle.textContent = "Guía BAT / MTF · GB200 / GB300";
-    copy.append(eyebrow, title, subtitle);
+    copy.append(eyebrow, titleRow, subtitle);
     brand.replaceChildren(logo, racks, ingrasys, divider, copy);
     brand.dataset.refreshed = "true";
     document.title = "Nvidia Racks · FFDG · GB200 / GB300";

@@ -157,7 +157,7 @@ Los estilos y scripts ya no están incrustados en el HTML; el núcleo de aplicac
 | Imágenes de referencia MTF | `src/js/data/mtf/mtf-pdf-reference-map.js` + `assets/reference-images/mtf/` | El helper normaliza rutas heredadas de catálogos locales a la nueva carpeta. |
 | Topología GB300 | `assets/topology/gb300-board-topology.png` + markup de `index.html` | Recurso visual; no reemplaza el procedimiento de una falla. |
 | Reporte BAT/MTF | `index.html` | Plantillas HTML y CSS de impresión; el motor final es `window.print()`. |
-| Acceso local | `src/js/shared/login-gate.js` + `sessionStorage` (`ffdg-session-auth-v1`) | Lista de cuenta y comparación corren en cliente; solo persiste una marca temporal, no la contraseña. No es autenticación segura ni asigna roles. |
+| Acceso local | `src/js/shared/login-gate.js` + `sessionStorage` (`ffdg-session-auth-v1`) | Lista de cuenta y comparación corren en cliente; solo persiste una marca temporal, no la contraseña. No es autenticación segura ni asigna roles. La portada coloca FFDG L10/L11 GB200/GB300 sobre NVIDIA RACKS; el botón de salida queda junto al nombre FFDG del encabezado. |
 | Tema | `localStorage` (`ffdg-theme`) | Preferencia por navegador, no sincronizada entre usuarios. |
 | Catálogos importados | `localStorage` (claves versionadas BAT/MTF) | Estado local por navegador; puede estar ausente, antiguo, bloqueado o lleno. |
 | Registro diagnóstico BAT/evidencia y avance visual de pasos BAT | `FFDG.state` en memoria | No es almacenamiento persistente. El avance visual se reinicia al cambiar/cerrar la falla y no confirma Pass/Fail por sí mismo. |
