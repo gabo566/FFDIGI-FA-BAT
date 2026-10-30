@@ -987,6 +987,7 @@
       const failure = caseReport ? FFDG.state.batDetailFailure : FFDG.state.activeFailure;
       // The existing executive layout also serves reports from any BAT detail.
       const isNoBoot = Boolean(caseReport) || failure?.family === "NOBOOT";
+      const isSupplierReport = Boolean(caseReport?.supplierReport);
       const classification = caseReport?.classification ?? $("classification").value;
       const rootCause = caseReport?.rootCause ?? $("root-cause").value;
       const nextAction = caseReport?.nextAction ?? $("next-action").value;
@@ -1024,16 +1025,34 @@
       const rootEvidence = caseReport ? "" : $("root-cause-evidence").value.trim();
       const actions = caseReport?.actions ?? $("action").value.trim();
       $("bat-print-report").classList.toggle("bat-executive-report", isNoBoot);
-      $("bat-print-title").textContent = isNoBoot ? "Reporte de Análisis de Falla Nvidia Racks" : "Reporte de Calidad";
+      $("bat-print-report").classList.toggle("bat-supplier-print-report", isSupplierReport);
+      $("bat-print-title").textContent = isSupplierReport ? "Supplier Failure Analysis Report" : isNoBoot ? "Reporte de Análisis de Falla Nvidia Racks" : "Reporte de Calidad";
       $("bat-print-subtitle").textContent = isNoBoot
-        ? `BAT · ${failure.familyLabel || failure.family} · Diagnóstico de hardware GB200 / GB300`
+        ? isSupplierReport
+          ? `BAT · ${failure.familyLabel || failure.family} · Supplier corrective-action request`
+          : `BAT · ${failure.familyLabel || failure.family} · Diagnóstico de hardware GB200 / GB300`
         : "Diagnóstico de hardware · GB200 / GB300";
-      $("bat-print-summary-title").textContent = isNoBoot ? "Status de diagnóstico" : "Resumen para Calidad";
-      $("bat-print-stamp").textContent = isNoBoot ? "Hora de generación" : "Control de Calidad";
-      $("bat-print-type").textContent = isNoBoot ? "Fecha y hora local" : "Reporte de diagnóstico BAT";
-      $("bat-print-family-title").textContent = `Reporte de análisis de falla · BAT · ${failure.familyLabel || failure.family}`;
-      $("bat-print-actions-title").lastElementChild.textContent = isNoBoot ? "Análisis y diagnóstico" : "Causa raíz y acciones reportadas";
-      $("bat-print-evidence-section").lastElementChild.textContent = isNoBoot ? "Evidencia fotográfica" : "Evidencia de soporte";
+      $("bat-print-summary-title").textContent = isSupplierReport ? "Supplier request / Solicitud al proveedor" : isNoBoot ? "Status de diagnóstico" : "Resumen para Calidad";
+      $("bat-print-stamp").textContent = isSupplierReport ? "Request date / Fecha de emisión" : isNoBoot ? "Hora de generación" : "Control de Calidad";
+      $("bat-print-type").textContent = isSupplierReport ? "Supplier response · Generated locally" : isNoBoot ? "Fecha y hora local" : "Reporte de diagnóstico BAT";
+      $("bat-print-family-title").textContent = isSupplierReport
+        ? `Supplier Failure Analysis · BAT · ${failure.familyLabel || failure.family}`
+        : `Reporte de análisis de falla · BAT · ${failure.familyLabel || failure.family}`;
+      $("bat-print-actions-title").lastElementChild.textContent = isSupplierReport ? "FFDG assessment / Evaluación técnica" : isNoBoot ? "Análisis y diagnóstico" : "Causa raíz y acciones reportadas";
+      $("bat-print-evidence-section").lastElementChild.textContent = isSupplierReport ? "Technical evidence / Evidencia técnica" : isNoBoot ? "Evidencia fotográfica" : "Evidencia de soporte";
+      $("bat-print-identity-section").lastElementChild.textContent = isSupplierReport ? "Case facts / Identificación del caso" : "Identificación del caso";
+      $("bat-print-status-section").lastElementChild.textContent = isSupplierReport ? "Diagnostic status / Estado del diagnóstico" : "Estado y resultado del análisis";
+      $("bat-print-procedure-section").lastElementChild.textContent = isSupplierReport ? "BAT procedure reached / Procedimiento BAT aplicado" : "Procedimiento aplicado";
+      $("bat-print-executive-subtitle").textContent = isSupplierReport
+        ? "BAT technical facts and supplier corrective-action response"
+        : "Información consolidada del diagnóstico y resultado final";
+      $("bat-print-supplier-steps-number").textContent = isSupplierReport ? "4" : "";
+      $("bat-print-supplier-response-number").textContent = isSupplierReport ? "5" : "";
+      $("bat-print-actions-number").textContent = isSupplierReport ? "6" : "4";
+      $("bat-print-evidence-number").textContent = isSupplierReport ? "7" : "5";
+      $("bat-print-signatures-number").textContent = isSupplierReport ? "8" : "6";
+      $("bat-print-stamp-label").textContent = isSupplierReport ? "SUPPLIER RESPONSE" : "REPORTE BAT";
+      $("bat-print-stamp-context").textContent = isSupplierReport ? "REQUESTED" : "DATOS CAPTURADOS";
       $("print-date").textContent = generatedAt.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" });
       $("bat-print-executive-date").textContent = generatedAt.toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" });
       $("bat-print-executive-time").textContent = generatedAt.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit", hour12: false });
@@ -1089,7 +1108,9 @@
         $("bat-print-executive-status").textContent = reportedOutcome;
         $("bat-print-executive-retest").textContent = retest || "No registrado";
         $("bat-print-executive-copy").textContent =
-          `Falla ${failure.code} · ${failure.label} · Nodo ${serial}. Causa raíz registrada: ${rootCause}.`;
+          isSupplierReport
+            ? `Failure ${failure.code} · ${failure.label} · Node ${serial}. Blank supplier fields indicate information requested and still pending.`
+            : `Falla ${failure.code} · ${failure.label} · Nodo ${serial}. Causa raíz registrada: ${rootCause}.`;
         $("bat-print-executive-action").textContent = nextAction;
         $("bat-print-executive-classification").textContent = classification || "No registrada";
       }
@@ -1152,7 +1173,25 @@
       card.appendChild(grid);
       const signatures = document.createElement("div");
       signatures.className = "print-signatures print-signature-list";
-      signatures.innerHTML = `
+      signatures.innerHTML = isSupplierReport ? `
+        <div class="print-signature">
+          <strong>FFDG analyst / Analista FFDGI</strong>
+          <span class="print-signature-name">${safe(diagnostician || "Pending confirmation")}</span>
+          <span class="print-signature-meta">Employee ${safe(employeeId || "Pending confirmation")}</span>
+          <div class="print-signature-fields">
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Name and signature</span></div>
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Date</span></div>
+          </div>
+        </div>
+        <div class="print-signature">
+          <strong>Supplier response owner / Responsable del proveedor</strong>
+          <span class="print-signature-name">${safe(caseReport.supplierContact || caseReport.supplierName || "Pending supplier response")}</span>
+          <span class="print-signature-meta">${safe(caseReport.supplierName || "Supplier to complete")}</span>
+          <div class="print-signature-fields">
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Name and signature</span></div>
+            <div><div class="print-signature-rule" aria-hidden="true"></div><span>Date</span></div>
+          </div>
+        </div>` : `
         <div class="print-signature">
           <strong>Diagnóstico realizado por</strong>
           <span class="print-signature-name">${safe(diagnostician || "No registrado")}</span>
@@ -1173,6 +1212,7 @@
         </div>`;
       $("bat-print-signatures").replaceChildren(signatures);
       final.appendChild(card);
+      FFDG.batSupplierReport?.renderPrint(caseReport);
       const evidence = $("print-evidence-list");
       const evidenceItems = FFDG.state.evidence.map(item => ({ name: item.name, src: item.url, label: item.name }));
       const noBootStages = {
@@ -1253,11 +1293,15 @@
         evidence.classList.remove("hidden");
         $("bat-print-evidence-section").classList.remove("hidden");
       }
-      $("print-quality-note").textContent = isNoBoot
-        ? "Resultado declarado por el analista; sujeto a validación del proceso aplicable."
+      $("print-quality-note").textContent = isSupplierReport
+        ? "Supplier-response template generated in this browser session. Blank fields remain pending; this PDF is not sent automatically."
+        : isNoBoot
+          ? "Resultado declarado por el analista; sujeto a validación del proceso aplicable."
         : `Documento para revisión de Calidad · ${evidenceItems.length} evidencia(s) adjunta(s). La liberación del nodo se rige por la disposición aprobada.`;
       reportStatus("El reporte está preparado. En la ventana de impresión selecciona “Guardar como PDF”. Si no aparece, el formulario permanecerá abierto para volver a intentarlo.");
-      const printTitle = isNoBoot ? `Reporte_de_Analisis_de_Falla_Nvidia_Racks_${serial}` : `Reporte_BAT_${serial}_${failure.code}`;
+      const printTitle = isSupplierReport
+        ? `Supplier_Failure_Report_BAT_${serial}_${failure.code}`
+        : isNoBoot ? `Reporte_de_Analisis_de_Falla_Nvidia_Racks_${serial}` : `Reporte_BAT_${serial}_${failure.code}`;
       openPrintDialog("bat", printTitle, isNoBoot, () => {
         if (caseReport) {
           const dialog = $("bat-no-boot-report-dialog");
@@ -1678,6 +1722,7 @@
         const label = `Paso ${number} · ${step.title || "Validación"}`;
         stopped.add(new Option(label, String(index)));
       });
+      return steps;
     }
     function syncNoBootHardwareFields() {
       const changed = $("bat-no-boot-hardware-changed").value === "Sí";
@@ -1693,21 +1738,34 @@
       const failure = FFDG.state.batDetailFailure;
       if (!failure) return;
       const form = $("bat-no-boot-report-form");
-      form.reset();
-      syncNoBootHardwareFields();
-      resetNoBootReportEvidence();
+      const reportKey = FFDG.batSupplierReport.caseKey(failure);
+      const previousKey = form.dataset.reportKey || "";
+      const caseChanged = previousKey !== reportKey;
+      if (previousKey) FFDG.batSupplierReport.saveDraft(previousKey, form, false);
+      if (caseChanged) {
+        form.reset();
+        resetNoBootReportEvidence();
+        form.dataset.reportKey = reportKey;
+      }
       cloneSelectOptions("part", "bat-no-boot-report-part");
       cloneSelectOptions("classification", "bat-no-boot-report-classification");
       cloneSelectOptions("next-action", "bat-no-boot-report-next-action");
       cloneSelectOptions("root-cause", "bat-no-boot-report-root-cause");
       cloneSelectOptions("retest", "bat-no-boot-report-retest");
-      populateNoBootStepOptions(failure);
+      const steps = populateNoBootStepOptions(failure);
+      FFDG.batSupplierReport.renderSteps(steps);
+      const restoredDraft = FFDG.batSupplierReport.restoreDraft(reportKey, form);
+      syncNoBootHardwareFields();
       $("bat-no-boot-report-summary").textContent = `BAT · ${failure.code} · ${failure.label}`;
       $("bat-report-family").textContent = failure.familyLabel || failure.family;
       $("bat-report-station").textContent = `BAT · ${failure.familyLabel || failure.family}`;
+      $("bat-supplier-report-failure-code").textContent = `${failure.code} · ${failure.familyLabel || failure.family}`;
+      $("bat-supplier-failure-description").textContent = failure.description || failure.label;
       $("bat-no-boot-report-status").textContent = "";
+      if (restoredDraft && caseChanged) $("bat-no-boot-report-status").textContent = "Borrador de texto recuperado en esta sesión. Vuelve a adjuntar imágenes si cambiaste de falla.";
       $("bat-no-boot-report-form").querySelectorAll("[aria-invalid='true']").forEach(field => field.removeAttribute("aria-invalid"));
       FFDG.state.activeFailure = failure;
+      FFDG.batSupplierReport.updateProgress(form);
       $("bat-no-boot-report-dialog").showModal();
       $("bat-no-boot-report-serial").focus();
     }
@@ -1747,6 +1805,7 @@
         damagedPart: String(values.get("damagedPart") || "").trim(),
         damagedSerial: String(values.get("damagedSerial") || "").trim(),
         procedureAppliedLabel,
+        ...FFDG.batSupplierReport.collect(form),
       };
       FFDG.reports.printBatReport(caseReport);
     }

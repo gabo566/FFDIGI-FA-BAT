@@ -2,6 +2,52 @@
 
 Bitácora acumulativa del proyecto. Consultarla antes de modificar BAT/MTF y actualizarla después de cada cambio solicitado, separando lo implementado, la validación real y lo pendiente. No asumir que un cambio local fue publicado.
 
+## 2026-10-30 — Reporte BAT para proveedor, opción guiada 2
+
+### Solicitud
+
+Aplicar la opción visual 2 al reporte de BAT, exclusivamente en esa función, y subir el cambio a Gabo con autor Gabo.
+
+### Estado previo y análisis
+
+- El modal existente capturaba la evaluación BAT y permitía imprimir desde el navegador, pero no guiaba una respuesta RCA/CAPA enfocada al proveedor ni mostraba una fila de resultado por cada paso de la falla activa.
+- `getBatDetailSteps(failure)` ya entrega los pasos de la falla seleccionada; se reutilizó como fuente para evitar copiar procedimientos o inferir resultados.
+- FFDGI es estático y no tiene backend de reportes. El flujo no debe aparentar envío ni persistencia compartida.
+- El alcance se limita al reporte BAT: no se cambiaron catálogos, navegación, diagramas, MTF ni L11.
+
+### Solución
+
+- Se reorganizó el modal BAT en cinco secciones guiadas con navegación lateral/progreso, caso precargado, investigación técnica, contención, RCA/CAPA, evidencia y verificación.
+- Cada paso real de BAT presenta resultado `Pass`, `Fail`, `Not applicable` o `Not recorded`, más una nota opcional. El valor inicial permanece sin registrar.
+- Se añadieron campos de proveedor/contacto, componente P/N, date code/lote, fecha límite de respuesta, alcance de contención, causa raíz, acciones correctivas/preventivas, fecha planeada de cierre, efectividad/retest y evidencias antes/después.
+- Se conservan estado BAT, clasificación, retest, paso aplicado, acción siguiente, analista, intervención y trazabilidad de tarjeta/hardware.
+- La impresión incluye una tabla técnica de pasos y una sección de respuesta del proveedor en la plantilla BAT. Los datos faltantes se indican como pendientes; el PDF se genera localmente con `window.print()` y no se envía.
+- El borrador de texto se conserva solo en memoria de la sesión y por falla; las imágenes no se recuperan al cambiar de falla y deben adjuntarse otra vez.
+
+### Archivos modificados
+
+- `index.html` — secciones del formulario proveedor, fecha límite, pasos impresos, títulos/numeración y carga de CSS/JS BAT dedicados.
+- `src/js/app/ffdg-app-core.js` — precarga pasos/datos de la falla, restaura borrador temporal, conserva validaciones y activa las secciones supplier al imprimir.
+- `src/js/bat/bat-supplier-report.js` — render de pasos, progreso, borrador de sesión, recolección de respuesta y tabla supplier para PDF.
+- `src/css/bat/bat-supplier-report.css` — diseño scoped, temas, responsive, foco de teclado, movimiento reducido y salida impresa del reporte BAT.
+- `docs/CONTEXTO_FFDIGI.md` — arquitectura y comportamiento del nuevo reporte BAT.
+- `docs/HISTORIAL_CAMBIOS_FFDIGI.md` — este registro.
+
+### Validación
+
+- `node --check` pasó para `src/js/bat/bat-supplier-report.js` y `src/js/app/ffdg-app-core.js`; `git diff --check` pasó.
+- Verificación estática encontró IDs BAT de reporte sin duplicados ni referencias ausentes.
+- Navegador local HTTP: se abrió NDBG_080, el formulario mostró sus cinco pasos y el nuevo campo de fecha. Borrador de prueba: el progreso cambió a 1/5, apareció el aviso de alcance de sesión, y el valor persistió al cerrar y reabrir el modal.
+- Captura visual manual en escritorio a 1280×720: diálogo, carril y footer visibles; el área de contenido conserva scroll interno.
+- Se revisaron los breakpoints CSS para tablet/móvil; no se hizo una captura visual con viewport móvil ni se generó/inspeccionó un PDF en el diálogo de impresión.
+- Los documentos y capturas de `output/` se mantuvieron fuera del cambio.
+
+### Resultado, pendientes y riesgos
+
+- La opción 2 funciona dentro del reporte BAT existente. Los pasos reflejan el catálogo activo; no se agregan ramas ni conclusiones técnicas.
+- El borrador no sobrevive a recargar/cerrar el navegador; no hay backend, envío a proveedores ni sincronización.
+- La muestra de impresión fue revisada en markup/CSS, no como PDF renderizado; paginación final depende del motor de impresión.
+
 ## 1. Propósito y alcance
 
 - La guía BAT se enfocó en el primer diagnóstico de ensamble y encendido: conectividad, alimentación, comunicación y daños físicos observables. BAT no dispone de logs detallados por tarjeta; pruebas más profundas corresponden a MTF/FLA/FLB.

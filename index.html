@@ -728,9 +728,9 @@
       <div class="bat-executive-print-title-band">
         <div>
           <h1 id="bat-print-family-title">Reporte de análisis de falla · BAT</h1>
-          <p>Información consolidada del diagnóstico y resultado final</p>
+          <p id="bat-print-executive-subtitle">Información consolidada del diagnóstico y resultado final</p>
         </div>
-        <span class="bat-executive-print-stamp"><strong>REPORTE BAT</strong><small>DATOS CAPTURADOS</small></span>
+        <span class="bat-executive-print-stamp"><strong id="bat-print-stamp-label">REPORTE BAT</strong><small id="bat-print-stamp-context">DATOS CAPTURADOS</small></span>
       </div>
     </header>
     <div class="print-head">
@@ -832,10 +832,16 @@
       <span id="bat-print-procedure-number" class="bat-print-procedure-number"></span>
       <div><strong id="bat-print-procedure-prefix" class="bat-print-procedure-prefix"></strong><span id="bat-print-procedure-text" class="bat-print-procedure-text"></span></div>
     </div>
+    <section id="bat-print-supplier-section" class="bat-print-supplier-section hidden" aria-label="Supplier response and technical investigation">
+      <div class="print-section bat-print-section"><span id="bat-print-supplier-steps-number" class="bat-print-section-number" aria-hidden="true">4</span><span>Technical investigation / Investigación técnica BAT</span></div>
+      <div id="bat-print-supplier-steps" class="bat-print-supplier-steps"></div>
+      <div class="print-section bat-print-section"><span id="bat-print-supplier-response-number" class="bat-print-section-number" aria-hidden="true">5</span><span>Supplier response / Respuesta del proveedor</span></div>
+      <div id="bat-print-supplier-response" class="bat-print-supplier-response"></div>
+    </section>
     <div id="bat-print-summary-title" class="print-section bat-print-section">Resumen para Calidad</div>
     <div id="bat-print-verdict"></div>
     <div id="bat-print-continuation" class="bat-report-continuation"></div>
-    <div id="bat-print-actions-title" class="print-section bat-print-section"><span class="bat-print-section-number" aria-hidden="true">4</span><span>Análisis y diagnóstico</span></div>
+    <div id="bat-print-actions-title" class="print-section bat-print-section"><span id="bat-print-actions-number" class="bat-print-section-number" aria-hidden="true">4</span><span>Análisis y diagnóstico</span></div>
     <div id="bat-print-final" style="margin-top:8px;"></div>
     <section id="bat-print-hardware" class="bat-print-hardware hidden" aria-label="Cambio de hardware">
       <h2><img src="./assets/icons/cpu.svg" alt="" aria-hidden="true"><span id="bat-print-hardware-title" class="bat-print-hardware-title">Tarjeta o hardware registrado</span></h2>
@@ -845,10 +851,10 @@
         <div><strong>Número de serie (S/N)</strong><span id="bat-print-damaged-serial"></span></div>
       </div>
     </section>
-    <div id="bat-print-evidence-section" class="print-section bat-print-section"><span class="bat-print-section-number" aria-hidden="true">5</span><span>Evidencia fotográfica</span></div>
+    <div id="bat-print-evidence-section" class="print-section bat-print-section"><span id="bat-print-evidence-number" class="bat-print-section-number" aria-hidden="true">5</span><span>Evidencia fotográfica</span></div>
     <div id="print-evidence-list" class="gallery-grid" style="margin-top:10px;"></div>
     <p id="bat-print-evidence-empty" class="bat-print-evidence-empty hidden">No se adjuntó evidencia fotográfica a este reporte.</p>
-    <div id="bat-print-signatures-section" class="print-section bat-print-section"><span class="bat-print-section-number" aria-hidden="true">6</span><span>Firmas</span></div>
+    <div id="bat-print-signatures-section" class="print-section bat-print-section"><span id="bat-print-signatures-number" class="bat-print-section-number" aria-hidden="true">6</span><span>Firmas</span></div>
     <div id="bat-print-signatures" class="print-signatures"></div>
     <div id="print-quality-note" class="print-footer"></div>
   </div>
@@ -871,87 +877,108 @@
   <form id="bat-no-boot-report-form" class="mtf-case-form bat-no-boot-report-form">
     <header class="bat-no-boot-report-topbar">
       <div class="bat-no-boot-report-brand"><img class="bat-no-boot-report-logo" src="./assets/brand/LOGO NVIDIA NEGRO.png" alt="NVIDIA"><strong>FFDIGI-FA-BAT</strong><span aria-hidden="true">│</span><span id="bat-report-family"></span></div>
-      <div class="bat-no-boot-report-topbar-action"><h2 id="bat-no-boot-report-title">Realizar reporte de falla</h2><button id="bat-no-boot-report-close" class="flowchart-modal-close" type="button" aria-label="Cerrar reporte">×</button></div>
+      <div class="bat-no-boot-report-topbar-action"><h2 id="bat-no-boot-report-title">Supplier Failure Report</h2><button id="bat-no-boot-report-close" class="flowchart-modal-close" type="button" aria-label="Cerrar reporte">×</button></div>
     </header>
-    <p id="bat-no-boot-report-help" class="bat-no-boot-report-help">Captura identificación, diagnóstico, intervención y evidencia. Los datos permanecen en esta sesión; al generar, elige “Guardar como PDF”.</p>
-    <section class="bat-no-boot-report-panel bat-no-boot-report-identity" aria-labelledby="bat-no-boot-identity-heading">
-      <div class="bat-no-boot-report-panel-heading">
-        <img src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true">
-        <div><h2 id="bat-no-boot-identity-heading">Identificación del caso</h2><p>Información del nodo y del reporte de falla.</p></div>
-      </div>
-      <div class="bat-no-boot-report-identity-grid">
-        <div class="bat-no-boot-report-readonly"><span>ID del reporte</span><div id="bat-no-boot-report-summary" class="bat-no-boot-report-summary-value"></div></div>
-        <label for="bat-no-boot-report-part">Modelo / SKU *<select id="bat-no-boot-report-part" class="m3-select" name="part" required></select></label>
-        <label for="bat-no-boot-report-serial">Número de serie *<input id="bat-no-boot-report-serial" class="m3-input" name="serial" autocomplete="off" required></label>
-        <div class="bat-no-boot-report-readonly"><span>Estación / línea</span><div id="bat-report-station"></div></div>
-      </div>
-    </section>
-    <div class="bat-no-boot-report-columns">
-      <div class="bat-no-boot-report-column">
-        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-summary-heading">
-          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/exclamation-triangle-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-summary-heading">Resumen de la falla</h2><p>Estado actual informado para el caso.</p></div></div>
-          <label for="bat-no-boot-report-outcome">Estado reportado *<select id="bat-no-boot-report-outcome" class="m3-select" name="outcome" aria-describedby="bat-no-boot-report-status" required><option value="">Selecciona</option><option value="Resuelta">Resuelta</option><option value="En validación">En validación</option><option value="NVIDIA">NVIDIA</option><option value="Reparación">Reparación</option><option value="Pruebas">Pruebas</option></select></label>
-        </section>
-        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-procedure-heading">
-          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/diagram-3.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-procedure-heading">Procedimiento aplicado / paso donde se detuvo</h2><p>Selecciona el procedimiento aplicado según el FFDG.</p></div></div>
-          <label for="bat-no-boot-stopped-step">Procedimiento aplicado según el FFDG de NVIDIA *<select id="bat-no-boot-stopped-step" class="m3-select" name="stoppedStep" aria-describedby="bat-no-boot-report-status" required></select></label>
-        </section>
-        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-action-heading">
-          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/gear-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-action-heading">Causa raíz / intervención realizada</h2><p>Resume la causa identificada y las acciones realizadas.</p></div></div>
-          <div class="bat-no-boot-report-fields">
-            <label for="bat-no-boot-report-root-cause">Causa raíz (RCA) *<select id="bat-no-boot-report-root-cause" class="m3-select" name="rootCause" required></select></label>
-            <label for="bat-no-boot-report-actions">Intervención / acciones realizadas *<textarea id="bat-no-boot-report-actions" class="m3-textarea" name="actions" rows="3" required></textarea></label>
-          </div>
-        </section>
-      </div>
-      <div class="bat-no-boot-report-column">
-        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-node-heading">
-        <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/hdd-rack.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-node-heading">Identidad del nodo y analista</h2><p>Responsables y trazabilidad de hardware.</p></div></div>
-        <div class="bat-no-boot-report-fields">
-          <label for="bat-no-boot-report-employee">Número de empleado *<input id="bat-no-boot-report-employee" class="m3-input" name="employeeId" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required></label>
-          <label for="bat-no-boot-report-analyst">Analista responsable *<input id="bat-no-boot-report-analyst" class="m3-input" name="analyst" autocomplete="name" required></label>
+    <p id="bat-no-boot-report-help" class="bat-no-boot-report-help">Datos técnicos BAT se completan desde la falla seleccionada. Los campos del proveedor quedan editables; el PDF se genera localmente y no se envía automáticamente.</p>
+    <div class="bat-supplier-report-shell">
+      <nav class="bat-supplier-report-rail" aria-label="Secciones del reporte para proveedor">
+        <div class="bat-supplier-report-progress"><span>RESPUESTA DEL PROVEEDOR</span><strong id="bat-supplier-progress-label">0 de 5 secciones</strong><progress id="bat-supplier-progress" max="5" value="0">0%</progress></div>
+        <a href="#bat-supplier-section-case" data-supplier-nav aria-current="step"><span>1</span><span>Datos del caso<small>Precargados desde BAT</small></span></a>
+        <a href="#bat-supplier-section-technical" data-supplier-nav><span>2</span><span>Investigación técnica<small>Pasos y resultados BAT</small></span></a>
+        <a href="#bat-supplier-section-containment" data-supplier-nav><span>3</span><span>Contención<small>Respuesta del proveedor</small></span></a>
+        <a href="#bat-supplier-section-actions" data-supplier-nav><span>4</span><span>Causa y acciones<small>RCA / CAPA</small></span></a>
+        <a href="#bat-supplier-section-evidence" data-supplier-nav><span>5</span><span>Evidencia y verificación<small>Re-test y cierre</small></span></a>
+        <p>La fecha límite de respuesta la asigna FFDGI antes de compartir el PDF.</p>
+      </nav>
+      <div class="bat-supplier-report-scroll" id="bat-supplier-report-scroll">
+        <div class="bat-supplier-report-heading">
+          <div><span>SUPPLIER CORRECTIVE-ACTION REQUEST</span><h2>Supplier Failure Report</h2><p>Reporte técnico BAT · Solicitud de respuesta al proveedor</p></div>
+          <div class="bat-supplier-report-heading-meta"><strong id="bat-supplier-report-failure-code">BAT</strong><span>Supplier response due · Define before issue</span></div>
         </div>
-        <section class="bat-no-boot-report-hardware bat-no-boot-hardware-section" aria-labelledby="bat-no-boot-hardware-heading">
-          <h3 id="bat-no-boot-hardware-heading">Cambio de hardware</h3>
-          <label for="bat-no-boot-hardware-changed">¿Hubo cambio de tarjeta o hardware? *<select id="bat-no-boot-hardware-changed" class="m3-select" name="hardwareChanged" required><option value="">Selecciona</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
-          <div id="bat-no-boot-hardware-details" class="bat-no-boot-report-fields bat-no-boot-hardware-details hidden" aria-live="polite">
-            <label for="bat-no-boot-damaged-part">Número de parte de la tarjeta dañada *<input id="bat-no-boot-damaged-part" class="m3-input" name="damagedPart" autocomplete="off"></label>
-            <label for="bat-no-boot-damaged-serial">Número de serie de la tarjeta dañada *<input id="bat-no-boot-damaged-serial" class="m3-input" name="damagedSerial" autocomplete="off"></label>
+
+        <section id="bat-supplier-section-case" class="bat-no-boot-report-panel bat-supplier-report-section bat-no-boot-report-identity" aria-labelledby="bat-no-boot-identity-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-identity-heading">Case facts / Identificación del caso</h2><p>Datos precargados de la falla BAT seleccionada; confirma el nodo y modelo.</p></div></div>
+          <div class="bat-no-boot-report-identity-grid">
+            <div class="bat-no-boot-report-readonly"><span>Failure / ID de falla</span><div id="bat-no-boot-report-summary" class="bat-no-boot-report-summary-value"></div></div>
+            <label for="bat-no-boot-report-part">Model / SKU *<select id="bat-no-boot-report-part" class="m3-select" name="part" required></select></label>
+            <label for="bat-no-boot-report-serial">Product serial number *<input id="bat-no-boot-report-serial" class="m3-input" name="serial" autocomplete="off" required></label>
+            <div class="bat-no-boot-report-readonly"><span>Station / family</span><div id="bat-report-station"></div></div>
           </div>
+          <div class="bat-supplier-problem"><strong>Failure description / Descripción de falla</strong><p id="bat-supplier-failure-description"></p></div>
         </section>
-        </section>
-        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-result-heading">
-          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/gear-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-result-heading">Resultado del retest / clasificación final</h2><p>Registra la salida de las pruebas y su clasificación.</p></div></div>
+
+        <section id="bat-supplier-section-technical" class="bat-no-boot-report-panel bat-supplier-report-section" aria-labelledby="bat-supplier-technical-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/diagram-3.svg" alt="" aria-hidden="true"><div><h2 id="bat-supplier-technical-heading">Technical investigation / Investigación técnica</h2><p>El procedimiento se toma de la guía BAT activa. Marca solo los resultados realmente observados.</p></div></div>
+          <ol id="bat-supplier-step-list" class="bat-supplier-step-list" aria-label="Pasos y resultados del procedimiento BAT"></ol>
+          <div class="bat-supplier-subsection-heading"><h3>FFDG assessment / Evaluación técnica</h3><p>Estado, paso alcanzado, clasificación y retest.</p></div>
           <div class="bat-no-boot-report-fields">
-            <label for="bat-no-boot-report-retest">Resultado del retest *<select id="bat-no-boot-report-retest" class="m3-select" name="retest" aria-describedby="bat-no-boot-report-status" required></select></label>
-            <label for="bat-no-boot-report-classification">Clasificación final *<select id="bat-no-boot-report-classification" class="m3-select" name="classification" required></select></label>
+            <label for="bat-no-boot-report-outcome">Reported status / Estado reportado *<select id="bat-no-boot-report-outcome" class="m3-select" name="outcome" aria-describedby="bat-no-boot-report-status" required><option value="">Select / Selecciona</option><option value="Resuelta">Resolved / Resuelta</option><option value="En validación">Under validation / En validación</option><option value="NVIDIA">NVIDIA</option><option value="Reparación">Repair / Reparación</option><option value="Pruebas">Testing / Pruebas</option></select></label>
+            <label for="bat-no-boot-stopped-step">Procedure applied / Step reached *<select id="bat-no-boot-stopped-step" class="m3-select" name="stoppedStep" aria-describedby="bat-no-boot-report-status" required></select></label>
+            <label for="bat-no-boot-report-retest">Retest result *<select id="bat-no-boot-report-retest" class="m3-select" name="retest" aria-describedby="bat-no-boot-report-status" required></select></label>
+            <label for="bat-no-boot-report-classification">Final classification *<select id="bat-no-boot-report-classification" class="m3-select" name="classification" required></select></label>
+            <label for="bat-no-boot-report-next-action">Next action *<select id="bat-no-boot-report-next-action" class="m3-select" name="nextAction" required></select></label>
+            <label for="bat-no-boot-report-root-cause">FFDG root cause category *<select id="bat-no-boot-report-root-cause" class="m3-select" name="rootCause" required></select></label>
+            <label for="bat-no-boot-report-actions" class="bat-supplier-field-wide">Intervention performed by FFDGI *<textarea id="bat-no-boot-report-actions" class="m3-textarea" name="actions" rows="3" required placeholder="Describe actions performed and observed results"></textarea></label>
+          </div>
+          <section class="bat-no-boot-report-hardware bat-no-boot-hardware-section" aria-labelledby="bat-no-boot-hardware-heading">
+            <h3 id="bat-no-boot-hardware-heading">Hardware traceability</h3>
+            <label for="bat-no-boot-hardware-changed">Was a board or hardware replaced? *<select id="bat-no-boot-hardware-changed" class="m3-select" name="hardwareChanged" required><option value="">Select / Selecciona</option><option value="Sí">Yes / Sí</option><option value="No">No</option></select></label>
+            <div id="bat-no-boot-hardware-details" class="bat-no-boot-report-fields bat-no-boot-hardware-details hidden" aria-live="polite">
+              <label for="bat-no-boot-damaged-part">Removed component P/N *<input id="bat-no-boot-damaged-part" class="m3-input" name="damagedPart" autocomplete="off"></label>
+              <label for="bat-no-boot-damaged-serial">Removed component S/N *<input id="bat-no-boot-damaged-serial" class="m3-input" name="damagedSerial" autocomplete="off"></label>
+            </div>
+          </section>
+          <div class="bat-supplier-analyst-grid">
+            <label for="bat-no-boot-report-employee">Employee ID *<input id="bat-no-boot-report-employee" class="m3-input" name="employeeId" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required></label>
+            <label for="bat-no-boot-report-analyst">FFDG analyst *<input id="bat-no-boot-report-analyst" class="m3-input" name="analyst" autocomplete="name" required></label>
           </div>
         </section>
-        <section class="bat-no-boot-report-panel" aria-labelledby="bat-no-boot-next-action-heading">
-        <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/power.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-next-action-heading">Siguiente acción</h2><p>Define la continuidad del caso.</p></div></div>
-        <label for="bat-no-boot-report-next-action">Siguiente acción *<select id="bat-no-boot-report-next-action" class="m3-select" name="nextAction" required></select></label>
+
+        <section id="bat-supplier-section-containment" class="bat-no-boot-report-panel bat-supplier-report-section" aria-labelledby="bat-supplier-containment-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/exclamation-triangle-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-supplier-containment-heading">Supplier containment / Contención</h2><p>Solicita identificar el alcance y proteger el inventario potencialmente afectado.</p></div></div>
+          <div class="bat-no-boot-report-fields">
+            <label for="bat-supplier-name">Supplier / Proveedor<input id="bat-supplier-name" class="m3-input" name="supplierName" autocomplete="organization" placeholder="Supplier company name"></label>
+            <label for="bat-supplier-contact">Response owner / Contacto<input id="bat-supplier-contact" class="m3-input" name="supplierContact" autocomplete="name" placeholder="Name, email, or phone"></label>
+            <label for="bat-supplier-component-part">Suspected component P/N<input id="bat-supplier-component-part" class="m3-input" name="supplierPartNumber" autocomplete="off" placeholder="Pending confirmation"></label>
+            <label for="bat-supplier-date-code">Date code / Lot<input id="bat-supplier-date-code" class="m3-input" name="supplierDateCode" autocomplete="off" placeholder="Pending confirmation"></label>
+            <label for="bat-supplier-response-deadline">Supplier response due date<input id="bat-supplier-response-deadline" class="m3-input" name="supplierResponseDeadline" type="date"></label>
+            <label for="bat-supplier-containment" class="bat-supplier-field-wide">Containment and affected scope<textarea id="bat-supplier-containment" class="m3-textarea" name="supplierContainment" rows="3" placeholder="Describe containment actions and affected units or lots"></textarea></label>
+          </div>
+        </section>
+
+        <section id="bat-supplier-section-actions" class="bat-no-boot-report-panel bat-supplier-report-section" aria-labelledby="bat-supplier-actions-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/gear-fill.svg" alt="" aria-hidden="true"><div><h2 id="bat-supplier-actions-heading">Root cause and corrective action / Causa raíz y acciones</h2><p>Guía de respuesta para el análisis del proveedor (RCA / CAPA).</p></div></div>
+          <div class="bat-no-boot-report-fields">
+            <label for="bat-supplier-root-cause" class="bat-supplier-field-wide">Supplier root cause and contributing factors<textarea id="bat-supplier-root-cause" class="m3-textarea" name="supplierRootCause" rows="3" placeholder="Explain the confirmed root cause and contributing factors"></textarea></label>
+            <label for="bat-supplier-corrective">Corrective action<textarea id="bat-supplier-corrective" class="m3-textarea" name="supplierCorrective" rows="3" placeholder="Describe immediate corrective action, owner, and target date"></textarea></label>
+            <label for="bat-supplier-preventive">Preventive action<textarea id="bat-supplier-preventive" class="m3-textarea" name="supplierPreventive" rows="3" placeholder="Describe systemic actions to prevent recurrence"></textarea></label>
+            <label for="bat-supplier-planned-date">Planned completion date<input id="bat-supplier-planned-date" class="m3-input" name="supplierPlannedDate" type="date"></label>
+          </div>
+        </section>
+
+        <section id="bat-supplier-section-evidence" class="bat-no-boot-report-panel bat-no-boot-report-evidence bat-supplier-report-section" aria-labelledby="bat-no-boot-evidence-heading">
+          <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/images.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-evidence-heading">Evidence and effectiveness / Evidencia y verificación</h2><p>Adjunta la condición inicial y el resultado real del retest. No se agregan imágenes si no se cargan.</p></div></div>
+          <label for="bat-supplier-effectiveness" class="bat-supplier-field-wide">Effectiveness verification / Result of supplier retest<textarea id="bat-supplier-effectiveness" class="m3-textarea" name="supplierEffectiveness" rows="3" placeholder="Provide objective retest results, comparison data, and evidence references"></textarea></label>
+          <div class="bat-no-boot-evidence-grid">
+            <article class="bat-no-boot-evidence-card">
+              <h3>Before action / Condición inicial</h3><p>Observed node or component condition.</p>
+              <input id="bat-no-boot-evidence-before" type="file" accept="image/*" multiple aria-label="Attach evidence before intervention">
+              <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-before">＋ Attach initial evidence</button>
+              <div id="bat-no-boot-evidence-before-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
+            </article>
+            <article class="bat-no-boot-evidence-card">
+              <h3>After action / Resultado</h3><p>Supplier action and retest outcome.</p>
+              <input id="bat-no-boot-evidence-after" type="file" accept="image/*" multiple aria-label="Attach evidence after intervention">
+              <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-after">＋ Attach final evidence</button>
+              <div id="bat-no-boot-evidence-after-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
+            </article>
+          </div>
+          <p class="bat-supplier-session-note">Image attachments stay in this browser session and are embedded in the generated PDF.</p>
         </section>
       </div>
     </div>
-    <section id="bat-no-boot-evidence" class="bat-no-boot-report-panel bat-no-boot-evidence" aria-labelledby="bat-no-boot-evidence-heading">
-      <div class="bat-no-boot-report-panel-heading"><img src="./assets/icons/images.svg" alt="" aria-hidden="true"><div><h2 id="bat-no-boot-evidence-heading">Evidencia fotográfica</h2><p>Compara la condición inicial y el resultado de la intervención.</p></div></div>
-      <div class="bat-no-boot-evidence-grid">
-        <article class="bat-no-boot-evidence-card">
-          <h3>Antes de aplicar acciones</h3><p>Condición inicial observada en el nodo.</p>
-          <input id="bat-no-boot-evidence-before" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia antes de aplicar acciones">
-          <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-before">＋ Evidencia antes</button>
-          <div id="bat-no-boot-evidence-before-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
-        </article>
-        <article class="bat-no-boot-evidence-card">
-          <h3>Después de aplicar acciones</h3><p>Intervención realizada y resultado del retest.</p>
-          <input id="bat-no-boot-evidence-after" type="file" accept="image/*" multiple aria-label="Adjuntar evidencia después de aplicar acciones">
-          <button class="bat-no-boot-evidence-button" type="button" data-bat-evidence-target="bat-no-boot-evidence-after">＋ Evidencia después</button>
-          <div id="bat-no-boot-evidence-after-preview" class="bat-no-boot-evidence-preview" aria-live="polite"></div>
-        </article>
-      </div>
-    </section>
     <p id="bat-no-boot-report-status" class="bat-no-boot-report-status" role="status" aria-live="polite"></p>
-    <footer class="bat-no-boot-report-actions"><button id="bat-no-boot-report-cancel" class="m3-btn m3-btn-tonal" type="button">Cancelar</button><button class="m3-btn m3-btn-filled" type="submit"><img src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true">Generar reporte · PDF</button></footer>
+    <footer class="bat-no-boot-report-actions"><button id="bat-no-boot-report-cancel" class="m3-btn m3-btn-tonal" type="button">Close / Cerrar</button><button id="bat-no-boot-report-save-draft" class="m3-btn m3-btn-tonal" type="button">Save session draft / Guardar borrador de sesión</button><button class="m3-btn m3-btn-filled" type="submit"><img src="./assets/icons/file-earmark-text.svg" alt="" aria-hidden="true">Generate Supplier PDF</button></footer>
   </form>
 </dialog>
 <dialog id="mtf-case-report-dialog" class="mtf-case-dialog" aria-labelledby="mtf-case-dialog-title" aria-describedby="mtf-case-dialog-help">
@@ -1023,6 +1050,7 @@
 <script src="./src/js/bat/ffdg-bat-flowchart.js"></script>
 <script src="./src/js/data/app-catalog.js"></script>
 <script src="./src/js/app/ffdg-app-core.js"></script>
+<script src="./src/js/bat/bat-supplier-report.js"></script>
 <script src="./src/js/data/l11/l11-catalog.js"></script>
 <script src="./src/js/data/l11/l11-reference-images.js"></script>
 <script src="./src/js/l11/l11-station-board.js"></script>
@@ -1042,6 +1070,7 @@
 <link rel="stylesheet" href="./src/css/shared/ffdg-motion.css">
 <link rel="stylesheet" href="./src/css/shared/ffdg-detail-presentation.css">
 <link rel="stylesheet" href="./src/css/bat/ffdg-bat-catalog.css">
+<link rel="stylesheet" href="./src/css/bat/bat-supplier-report.css">
 <link rel="stylesheet" href="./src/css/shared/ffdg-flowchart-theme.css">
 <link rel="stylesheet" href="./src/css/shared/control-rail.css">
 <link rel="stylesheet" href="./src/css/shared/viewport-adapt.css">

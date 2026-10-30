@@ -1,0 +1,684 @@
+/* Formulario de respuesta a proveedor: solo afecta el diálogo de reportes BAT. */
+.bat-no-boot-report-dialog {
+  width: min(1480px, calc(100vw - 28px));
+  max-width: 1480px;
+  height: min(94dvh, 980px);
+  padding: 0;
+}
+
+.bat-no-boot-report-form {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  gap: 0;
+  max-height: min(94dvh, 980px);
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.bat-no-boot-report-topbar {
+  top: 0;
+  margin: 0;
+  padding: 10px 18px;
+}
+
+.bat-no-boot-report-help {
+  padding: 8px 18px;
+  border-bottom: 1px solid #25323a;
+  background: #101820;
+}
+
+.bat-supplier-report-shell {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: minmax(190px, 230px) minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.bat-supplier-report-rail {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 7px;
+  overflow: auto;
+  padding: 14px 12px;
+  border-right: 1px solid #2b3942;
+  background: #101820;
+}
+
+.bat-supplier-report-progress {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #2b3942;
+  border-radius: 9px;
+  background: #11191e;
+}
+
+.bat-supplier-report-progress > span,
+.bat-supplier-report-heading > div:first-child > span {
+  color: #a9c990;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+.bat-supplier-report-progress > strong {
+  color: #f2f6fa;
+  font-size: 12px;
+}
+
+.bat-supplier-report-progress progress {
+  width: 100%;
+  height: 8px;
+  accent-color: #76b900;
+}
+
+.bat-supplier-report-rail > a {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+  padding: 9px 8px;
+  border-radius: 8px;
+  color: #d5dee6;
+  text-decoration: none;
+}
+
+.bat-supplier-report-rail > a:hover,
+.bat-supplier-report-rail > a:focus-visible,
+.bat-supplier-report-rail > a[aria-current="step"] {
+  outline: none;
+  color: #f7fbf4;
+  background: #1d3320;
+}
+
+.bat-supplier-report-rail > a:focus-visible {
+  box-shadow: 0 0 0 2px #8bc34a;
+}
+
+.bat-supplier-report-rail > a > span:first-child {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid #52606a;
+  border-radius: 50%;
+  color: #e6edf2;
+  background: #29323a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.bat-supplier-report-rail > a[aria-current="step"] > span:first-child {
+  border-color: #76b900;
+  color: #15200f;
+  background: #9bd335;
+}
+
+.bat-supplier-report-rail > a > span:last-child {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.bat-supplier-report-rail small {
+  display: block;
+  margin-top: 3px;
+  color: #a5b1bb;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.bat-supplier-report-rail > p {
+  margin: auto 2px 0;
+  padding-top: 10px;
+  border-top: 1px solid #2b3942;
+  color: #aab5be;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.bat-supplier-report-scroll {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  align-content: start;
+  gap: 10px;
+  overflow: auto;
+  padding: 14px 16px;
+  scroll-behavior: smooth;
+  scrollbar-color: #405368 #11191e;
+}
+
+.bat-supplier-report-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 2px 2px;
+}
+
+.bat-supplier-report-heading h2 {
+  margin: 3px 0 2px;
+  color: #f2f6fa;
+  font-size: clamp(21px, 2.5vw, 29px);
+  line-height: 1.08;
+}
+
+.bat-supplier-report-heading p {
+  margin: 0;
+  color: #aebbc6;
+  font-size: 12px;
+}
+
+.bat-supplier-report-heading-meta {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 5px;
+  padding: 10px 12px;
+  border: 1px solid #344a36;
+  border-radius: 8px;
+  color: #dce9d8;
+  background: #142318;
+  font-size: 10px;
+}
+
+.bat-supplier-report-heading-meta strong {
+  color: #fff;
+  font-size: 13px;
+}
+
+.bat-supplier-report-section {
+  min-width: 0;
+  padding: 12px 14px;
+  border-color: #34433a;
+  border-radius: 9px;
+  scroll-margin-top: 8px;
+}
+
+.bat-supplier-report-section .bat-no-boot-report-panel-heading {
+  margin-bottom: 10px;
+}
+
+.bat-supplier-report-section .bat-no-boot-report-panel-heading h2 {
+  font-size: 15px;
+}
+
+.bat-supplier-report-section .bat-no-boot-report-panel-heading p {
+  font-size: 11px;
+}
+
+.bat-no-boot-report-identity {
+  grid-template-columns: minmax(0, 1fr);
+  border-color: #36583b;
+  background: #142218;
+}
+
+.bat-no-boot-report-identity .bat-no-boot-report-identity-grid {
+  grid-template-columns: 1.3fr 1fr 1fr .8fr;
+}
+
+.bat-supplier-problem {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-left: 3px solid #9bd335;
+  border-radius: 6px;
+  color: #dce8d8;
+  background: #19291d;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.bat-supplier-problem strong {
+  color: #bde28b;
+  font-size: 10px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.bat-supplier-problem p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.bat-supplier-step-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bat-supplier-step-row {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 30px minmax(160px, 1fr) minmax(175px, .55fr) minmax(150px, .5fr);
+  align-items: center;
+  gap: 9px;
+  padding: 8px 9px;
+  border: 1px solid #2c3b32;
+  border-radius: 7px;
+  background: #101820;
+}
+
+.bat-supplier-step-number {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #2f6b00;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.bat-supplier-step-copy {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  color: #f0f4f6;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.bat-supplier-step-copy small {
+  color: #abb8c2;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.bat-supplier-step-result,
+.bat-supplier-step-note {
+  gap: 4px !important;
+  font-size: 9px !important;
+}
+
+.bat-supplier-step-result .m3-select,
+.bat-supplier-step-note .m3-input {
+  min-height: 34px;
+  font-size: 10px;
+}
+
+.bat-supplier-step-empty {
+  padding: 12px;
+  border: 1px dashed #52606a;
+  border-radius: 7px;
+  color: #c1ccd4;
+  font-size: 12px;
+}
+
+.bat-supplier-subsection-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 14px 0 8px;
+  padding-top: 11px;
+  border-top: 1px solid #2b3942;
+}
+
+.bat-supplier-subsection-heading h3 {
+  margin: 0;
+  color: #e8f0e4;
+  font-size: 12px;
+}
+
+.bat-supplier-subsection-heading p {
+  margin: 0;
+  color: #aeb9c1;
+  font-size: 10px;
+}
+
+.bat-no-boot-report-fields > .bat-supplier-field-wide {
+  grid-column: 1 / -1;
+}
+
+.bat-supplier-report-section .bat-no-boot-report-hardware {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #2b3942;
+  border-radius: 7px;
+  background: #101820;
+}
+
+.bat-supplier-analyst-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.bat-supplier-session-note {
+  margin: 8px 0 0;
+  color: #aeb9c1;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.bat-no-boot-report-status {
+  padding: 0 18px;
+}
+
+.bat-no-boot-report-actions {
+  margin: 0;
+  padding-inline: 18px;
+}
+
+.bat-no-boot-report-actions > button {
+  min-height: 42px;
+}
+
+.bat-no-boot-report-actions > button[type="submit"] {
+  padding-inline: 20px;
+}
+
+[data-theme="light"] .bat-no-boot-report-help {
+  border-color: #e0e5df;
+  color: #556257;
+  background: #f7f9f5;
+}
+
+[data-theme="light"] .bat-supplier-report-rail {
+  border-color: #d7ded4;
+  background: #f4f7f1;
+}
+
+[data-theme="light"] .bat-supplier-report-progress {
+  border-color: #d6dfd1;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-supplier-report-progress > strong,
+[data-theme="light"] .bat-supplier-report-heading h2 {
+  color: #1d271f;
+}
+
+[data-theme="light"] .bat-supplier-report-progress > span,
+[data-theme="light"] .bat-supplier-report-heading > div:first-child > span {
+  color: #397100;
+}
+
+[data-theme="light"] .bat-supplier-report-rail > a {
+  color: #334237;
+}
+
+[data-theme="light"] .bat-supplier-report-rail > a:hover,
+[data-theme="light"] .bat-supplier-report-rail > a[aria-current="step"] {
+  color: #1e3217;
+  background: #e5f0da;
+}
+
+[data-theme="light"] .bat-supplier-report-rail > a > span:first-child {
+  border-color: #cbd5c8;
+  color: #314133;
+  background: #fff;
+}
+
+[data-theme="light"] .bat-supplier-report-rail > a[aria-current="step"] > span:first-child {
+  border-color: #287800;
+  color: #fff;
+  background: #287800;
+}
+
+[data-theme="light"] .bat-supplier-report-rail small,
+[data-theme="light"] .bat-supplier-report-rail > p,
+[data-theme="light"] .bat-supplier-report-heading p,
+[data-theme="light"] .bat-supplier-subsection-heading p,
+[data-theme="light"] .bat-supplier-session-note {
+  color: #58665a;
+}
+
+[data-theme="light"] .bat-supplier-report-heading-meta {
+  border-color: #d1dfc7;
+  color: #465743;
+  background: #f1f6ec;
+}
+
+[data-theme="light"] .bat-supplier-report-heading-meta strong {
+  color: #8d260d;
+}
+
+[data-theme="light"] .bat-supplier-problem {
+  color: #29382a;
+  background: #edf5e8;
+}
+
+[data-theme="light"] .bat-supplier-problem strong {
+  color: #2f6b00;
+}
+
+[data-theme="light"] .bat-supplier-step-row,
+[data-theme="light"] .bat-supplier-report-section .bat-no-boot-report-hardware {
+  border-color: #d8e0d4;
+  background: #fbfcfa;
+}
+
+[data-theme="light"] .bat-supplier-step-copy,
+[data-theme="light"] .bat-supplier-subsection-heading h3 {
+  color: #1e2a20;
+}
+
+[data-theme="light"] .bat-supplier-step-copy small {
+  color: #5d695f;
+}
+
+[data-theme="light"] .bat-supplier-step-number {
+  background: #287800;
+}
+
+[data-theme="light"] .bat-supplier-subsection-heading {
+  border-color: #dce3d9;
+}
+
+[data-theme="light"] .bat-supplier-report-progress,
+[data-theme="light"] .bat-supplier-report-heading-meta,
+[data-theme="light"] .bat-supplier-report-rail > p {
+  border-color: #d7ded4;
+}
+
+@media (max-width: 1050px) {
+  .bat-supplier-step-row {
+    grid-template-columns: 30px minmax(0, 1fr) minmax(160px, .55fr);
+  }
+
+  .bat-supplier-step-note {
+    grid-column: 2 / -1;
+  }
+
+  .bat-no-boot-report-identity .bat-no-boot-report-identity-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .bat-no-boot-report-dialog {
+    width: calc(100% - 12px);
+    height: calc(100dvh - 12px);
+    max-height: calc(100dvh - 12px);
+  }
+
+  .bat-no-boot-report-form {
+    max-height: calc(100dvh - 12px);
+  }
+
+  .bat-no-boot-report-help {
+    padding-inline: 10px;
+  }
+
+  .bat-supplier-report-shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .bat-supplier-report-rail {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(130px, 1fr));
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px;
+    border-right: 0;
+    border-bottom: 1px solid #2b3942;
+  }
+
+  .bat-supplier-report-progress {
+    display: none;
+  }
+
+  .bat-supplier-report-rail > a {
+    grid-template-columns: 25px minmax(0, 1fr);
+    gap: 6px;
+    padding: 7px 6px;
+  }
+
+  .bat-supplier-report-rail > a > span:first-child {
+    width: 23px;
+    height: 23px;
+  }
+
+  .bat-supplier-report-rail > a > span:last-child {
+    font-size: 10px;
+  }
+
+  .bat-supplier-report-rail small,
+  .bat-supplier-report-rail > p {
+    display: none;
+  }
+
+  .bat-supplier-report-scroll {
+    padding: 10px;
+  }
+
+  .bat-supplier-report-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bat-supplier-report-heading-meta {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .bat-no-boot-report-identity .bat-no-boot-report-identity-grid,
+  .bat-no-boot-report-fields,
+  .bat-supplier-analyst-grid,
+  .bat-no-boot-evidence-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bat-no-boot-report-fields > .bat-supplier-field-wide,
+  .bat-supplier-step-note {
+    grid-column: 1;
+  }
+
+  .bat-supplier-step-row {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .bat-supplier-step-result,
+  .bat-supplier-step-note {
+    grid-column: 2;
+  }
+
+  .bat-supplier-subsection-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .bat-no-boot-report-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  .bat-no-boot-report-actions > button[type="submit"] {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bat-supplier-report-scroll {
+    scroll-behavior: auto;
+  }
+}
+
+@media print {
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-section:not(.hidden) {
+    display: block !important;
+    margin-top: 2.5mm;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-step-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 6.3pt;
+    line-height: 1.2;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-step-table th {
+    padding: 1.7mm;
+    color: #fff !important;
+    background: #287800 !important;
+    text-align: left;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-step-table td {
+    padding: 1.5mm 1.7mm;
+    border: .25mm solid #ced8ca;
+    color: #1d271f;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-step-table tbody tr:nth-child(even) {
+    background: #f1f5ee !important;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-response {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5mm;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-response-item {
+    display: grid;
+    min-width: 0;
+    gap: 1mm;
+    padding: 2mm;
+    border: .25mm solid #cbd6c8;
+    border-left: 1mm solid #76b900;
+    border-radius: 1mm;
+    color: #1d271f;
+    font-size: 7pt;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-response-item strong {
+    color: #3c5b35;
+    font-size: 6pt;
+    text-transform: uppercase;
+  }
+
+  #bat-print-report.bat-supplier-print-report .bat-print-supplier-response-item span {
+    white-space: pre-wrap;
+  }
+}
+
+@media (max-width: 700px) and (prefers-reduced-motion: reduce) {
+  .bat-supplier-report-rail { scroll-behavior: auto; }
+}
